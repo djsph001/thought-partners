@@ -6,23 +6,135 @@ import Footer from '../components/Footer.astro';
 
 <Base
   title="The Antichrist and the Prophet — Dale Joseph"
-  description="Coming 2026 from Dale Joseph."
+  description="A political and spiritual thriller about power, prophecy, and the battle for the soul of the world. Coming 2026 from Dale Joseph."
 >
   <Header slot="header" />
 
+  <!-- HERO -->
   <section class="section book-hero">
     <div class="container">
+      <p class="label gold">A Novel</p>
       <h1>The Antichrist<br />and the Prophet</h1>
       <p class="byline">by Dale Joseph</p>
       <span class="status-badge">Coming 2026</span>
-      <p class="tagline">Something is coming. Stay close.</p>
+      <div class="divider"></div>
+      <p class="logline">
+        The line between prophet and Antichrist<br />has never been thinner.
+      </p>
     </div>
   </section>
 
-  <section class="section email-capture" id="notify">
+  <!-- PREMISE -->
+  <section class="section premise">
+    <div class="container">
+      <div class="premise-body">
+        <p>
+          The world is fracturing. Democracies are falling. A President who
+          has long since stopped distinguishing between his ambitions and his
+          convictions is consolidating power at home and abroad — and growing
+          into something the old language barely has words for.
+        </p>
+        <p>
+          From a cramped apartment, during the silence of a global pandemic,
+          a different voice begins to rise. He is a failed actor and an
+          abandoned student of law and politics. He writes at two in the
+          morning because he has nowhere else to put what he carries. Millions
+          of people read him. Then millions more.
+        </p>
+        <p>
+          He calls himself One. A man called the Baptist tells him he is
+          chosen — the one who will unite humanity, prepare the way. One does
+          not feel chosen. He feels like a man who has failed at almost
+          everything and stumbled onto the one thing he cannot abandon.
+        </p>
+        <blockquote>
+          "I never asked for this. I am not a saint. I am not even a believer
+          in the way you are. Why me?"
+        </blockquote>
+        <p>
+          What follows is the story of two men in a country that could still
+          go either way — and the ancient question neither of them can answer:
+          the man who comes to prepare the way, is he the prophet? Or the most
+          dangerous kind of true believer?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TWO FIGURES -->
+  <section class="section section--dark figures-section">
+    <div class="container">
+      <div class="divider"></div>
+      <div class="figures">
+        <div class="figure">
+          <p class="figure-label gold">One</p>
+          <p>
+            He began as a footnote. A failed actor. A man writing philosophy
+            into the void at two in the morning because there was nowhere else
+            to put his grief. Then the world started reading him. Then the
+            world started following him. He believes he was sent. He fears he
+            is becoming what he was sent to stop.
+          </p>
+        </div>
+        <div class="figure">
+          <p class="figure-label gold">The President</p>
+          <p>
+            He does not think of himself as a destroyer. He thinks of himself
+            as a necessary man. He speaks of order, borders, and reclaimed
+            greatness. His followers hear courage. His opponents see cruelty.
+            Both are missing something. What he is, precisely, is a man who
+            stopped distinguishing between his ambitions and his convictions —
+            and has not noticed the difference since.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT THE BOOK IS -->
+  <section class="section about-book">
+    <div class="container">
+      <div class="divider"></div>
+      <h2>What This Book Is</h2>
+      <p>
+        A political thriller and a spiritual reckoning. A story about power
+        and prophecy — about what happens when a movement built on hope begins
+        to resemble the thing it is fighting. About a mentor stolen and
+        returned. About a woman who loved the right man and the wrong father,
+        and understood the difference before either of them did.
+      </p>
+      <p>
+        And about the question at the center of it all: in the last days, how
+        do you tell the prophet from the Antichrist — when one of them is
+        asking the same question about himself?
+      </p>
+      <div class="themes">
+        <div class="theme">
+          <h3 class="gold">Power</h3>
+          <p>What it does to the men who seek it — and the men who never wanted it.</p>
+        </div>
+        <div class="theme">
+          <h3 class="gold">Prophecy</h3>
+          <p>Whether a calling and a wound are the same thing, in the right century.</p>
+        </div>
+        <div class="theme">
+          <h3 class="gold">Rebirth</h3>
+          <p>Some endings look like ruin before they reveal themselves as beginnings.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMAIL SIGNUP -->
+  <section class="section section--dark email-capture" id="notify">
     <div class="container">
       <div class="divider"></div>
       <h2>Be First to Know</h2>
+      <p>
+        When <em>The Antichrist and the Prophet</em> is ready, you will hear
+        it here first — along with excerpts and the story of how it was written.
+        No noise. Just the work.
+      </p>
       <form
         action="https://formspree.io/f/maqpvlgz"
         method="POST"
@@ -50,6 +162,13 @@ import Footer from '../components/Footer.astro';
 </Base>
 
 <style>
+  .label {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
   .book-hero {
     padding-bottom: 3rem;
     border-bottom: 1px solid var(--border);
@@ -79,15 +198,103 @@ import Footer from '../components/Footer.astro';
     margin-bottom: 1.75rem;
   }
 
-  .tagline {
-    font-size: 1.15rem;
+  .logline {
+    font-size: 1.25rem;
     color: var(--gold-light);
     font-style: italic;
+    line-height: 1.55;
     margin-bottom: 0;
   }
 
+  /* PREMISE */
+  .premise-body p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+  .premise-body p:first-child {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 1.75rem;
+  }
+
+  .premise-body blockquote {
+    border-left: 3px solid var(--gold);
+    padding: 0.75rem 1.5rem;
+    color: var(--gold-light);
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.65;
+    margin: 2rem 0;
+  }
+
+  /* FIGURES */
+  .section--dark {
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .figures {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 3rem;
+  }
+
+  .figure-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.85rem;
+  }
+
+  .figure p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  /* ABOUT */
+  .about-book h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .about-book > .container > p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    max-width: 680px;
+  }
+
+  .themes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .theme h3 {
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.6rem;
+  }
+
+  .theme p {
+    font-size: 0.97rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  /* EMAIL */
   .email-capture h2 {
     margin-bottom: 1rem;
+  }
+
+  .email-capture > .container > p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    max-width: 560px;
   }
 
   .email-form {
@@ -112,6 +319,11 @@ import Footer from '../components/Footer.astro';
   @media (max-width: 520px) {
     .form-row {
       flex-direction: column;
+    }
+
+    .figures,
+    .themes {
+      grid-template-columns: 1fr;
     }
   }
 </style>
