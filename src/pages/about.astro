@@ -1,0 +1,124 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="About Dale Joseph — Thought Partners"
+  description="Dale Joseph is the founder of the Emergence Collective, a Big Idea nonfiction writer, and systems thinker based in Boynton Beach, Florida."
+>
+  <Header slot="header" />
+
+  <section class="section about">
+    <div class="container">
+      <p class="label gold">About the Author</p>
+      <h1>Dale Joseph</h1>
+      <div class="divider"></div>
+
+      <div class="bio">
+        <p>
+          Dale Joseph is a Big Idea nonfiction writer, systems thinker, and founder of the
+          Emergence Collective, based in Boynton Beach, Florida.
+        </p>
+        <p>
+          For thirty years he maintained mission-critical hospital networks—the kind of systems
+          where failure isn't an inconvenience but a matter of life and death. When the networks
+          he managed went down, patient data didn't flow between departments. Backups had to be
+          pristine. Every failure mode had to be anticipated. There was no margin for vague
+          accountability or opaque behavior.
+        </p>
+        <p>
+          That work gave him something most AI commentators lack: a visceral, operational
+          understanding of what it actually means to deploy technology in critical infrastructure.
+          Not what it means in theory. What it demands in practice—redundancy, verification, clear
+          failure modes, audit trails, human oversight.
+        </p>
+
+        <blockquote>
+          "Now I watch consumer AI being deployed into something even more critical than hospital
+          operations: human cognition. And it's being deployed with none of those safeguards."
+        </blockquote>
+
+        <p>
+          Joseph also brings a systems-thinking perspective rooted in political science education
+          and experience on Wall Street during the bond crisis. He understands how incentive
+          structures shape behavior, how coordination problems emerge at scale, and how systems
+          that seem stable can suddenly collapse when the wrong stressors arrive. These lenses
+          inform how he reads the AI landscape—not as a technologist, but as someone who has
+          watched the infrastructure of trust fail, and knows what it costs.
+        </p>
+        <p>
+          He's been watching AI development since the 1980s. Long enough to see the full arc:
+          initial excitement, rapid adoption, unforeseen consequences, scrambling for governance
+          after the damage is done. <em>Thought Partners</em> is his attempt to break that pattern—
+          to build frameworks before the crisis, not after. To help people establish practices of
+          sovereignty while they still have the agency to choose, rather than after dependency has
+          made genuine choice illusory.
+        </p>
+        <p>
+          The book is itself a proof of concept. Joseph wrote it in conscious collaboration with
+          AI systems—primarily Claude and DeepSeek—and doesn't hide that fact. The vision, the
+          frameworks, and the authority are his. The AI systems provided structure, organization,
+          synthesis, and drafting support. The partnership was conscious, boundaried, and
+          transparent throughout. He demonstrates the practice by practicing it openly.
+        </p>
+        <p>
+          Through the Emergence Collective, Joseph convenes writers, technologists, and thinkers
+          exploring what it means to remain fully human in relationship with increasingly capable
+          artificial intelligence. The work is ongoing, the conversation is open, and the
+          invitation is standing.
+        </p>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="connect">
+        <h2>Connect</h2>
+        <p>
+          For speaking inquiries, media requests, or to join the conversation around cognitive
+          sovereignty and conscious AI partnership:
+        </p>
+        <a href="/contact" class="btn btn--filled">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .label {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .about h1 {
+    margin-bottom: 0;
+  }
+
+  .bio p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+  .bio blockquote {
+    border-left: 3px solid var(--gold);
+    padding: 0.75rem 1.5rem;
+    margin: 2rem 0;
+    color: var(--gold-light);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .connect h2 {
+    margin-bottom: 0.75rem;
+  }
+
+  .connect p {
+    margin-bottom: 1.5rem;
+  }
+</style>

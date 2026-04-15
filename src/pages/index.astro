@@ -1,0 +1,275 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="Thought Partners: Preserving Cognitive Sovereignty in the Age of AI"
+  description="A new book by Dale Joseph. It was 2:37 AM when I realized I wasn't alone anymore — and that something essential was slipping away."
+>
+  <Header slot="header" />
+
+  <!-- HERO / PROLOGUE HOOK -->
+  <section class="hero">
+    <div class="container">
+      <p class="hero-timestamp">2:37 AM</p>
+      <h1 class="hero-headline">
+        It was 2:37 AM when I realized<br />
+        I wasn't alone anymore.
+      </h1>
+      <div class="hero-body">
+        <p>
+          I was sitting in the blue glow of my laptop, working on a problem that had been gnawing at
+          me for weeks. The house was silent. My family was asleep. Just me and the quiet hum of the
+          computer—or so I thought.
+        </p>
+        <p>
+          But I wasn't alone. I was in conversation with an AI.
+        </p>
+        <p>
+          Not just using it—conversing with it. Explaining my thinking, asking for feedback, working
+          through ideas together. The exchange felt collaborative, almost intimate. And that's when
+          the recognition hit: <strong>I had crossed a threshold I hadn't meant to cross.</strong>
+        </p>
+        <p>
+          I felt simultaneously empowered and uneasy. More capable than I'd ever been, and
+          also&hellip; less myself. Like I'd gained something valuable and lost something I couldn't
+          quite name.
+        </p>
+        <p class="hero-closer">
+          That moment is why this book exists.
+        </p>
+      </div>
+      <div class="hero-cta">
+        <a href="/book" class="btn btn--filled">About the Book</a>
+        <a href="#notify" class="btn">Get Notified</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREMISE -->
+  <section class="section premise">
+    <div class="container">
+      <div class="divider"></div>
+      <h2>The Question No One Is Asking</h2>
+      <p>
+        We've integrated AI into our work, our creativity, our decision-making—before we understood
+        what integration would do to us. We asked: <em>Is AI useful?</em> We never asked:
+        <strong>What happens to my thinking when AI becomes my default thought partner?</strong>
+      </p>
+      <p>
+        What skills atrophy when I stop exercising them? What does it mean for my identity when my
+        creative output is increasingly AI-mediated? What am I giving away in exchange for this
+        capability?
+      </p>
+      <p>
+        We didn't pause to ask these questions. We just started using it—because it was helpful,
+        because everyone else was, because not using it felt like falling behind. And now we're
+        experiencing the consequences without having the language to name them.
+      </p>
+      <p>
+        <em>Thought Partners</em> provides that language. And more importantly, frameworks for
+        navigating the relationship consciously rather than drifting into dependency by default.
+      </p>
+
+      <div class="premise-concept">
+        <h3 class="gold">What Is Cognitive Sovereignty?</h3>
+        <p>
+          "Sovereignty" is a political term—the right of a state to govern itself without external
+          interference. <strong>Cognitive sovereignty</strong> applies that concept to your own mind:
+          the right to govern your own thinking, decision-making, and intellectual development
+          without external interference or control you haven't consciously consented to.
+        </p>
+        <p>
+          The question isn't whether to use AI. For most of us, that ship has sailed. The question
+          is: How do we use it consciously? How do we maintain sovereignty over our own thinking
+          while leveraging AI's capabilities?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTHOR CREDIBILITY -->
+  <section class="section section--dark credibility">
+    <div class="container">
+      <div class="divider"></div>
+      <h2>Why This Author, Why Now</h2>
+      <p>
+        Dale Joseph spent three decades maintaining mission-critical hospital networks—systems where
+        failure meant lives lost. Not metaphorically. Literally. That work taught him what
+        accountability, transparency, and reliability actually require when technology is critical
+        infrastructure: redundancy, verification, clear failure modes, audit trails, human oversight.
+      </p>
+      <p>
+        Now he watches consumer AI being deployed into something even more critical than hospital
+        operations: <strong>human cognition</strong>. And it's being deployed with none of those
+        safeguards.
+      </p>
+      <blockquote>
+        "I see the gap between infrastructure-grade accountability and consumer-grade AI.
+        And the gap is terrifying."
+      </blockquote>
+      <p>
+        He also brings a systems-thinking perspective from political science education and Wall Street
+        experience during the bond crisis—understanding how incentive structures shape behavior, how
+        coordination problems emerge at scale, how systems that seem stable can suddenly collapse.
+        He's been watching AI development since the 1980s. Long enough to see the pattern.
+        <em>This time, he wants us to get ahead of the curve.</em>
+      </p>
+      <a href="/about" class="btn">About Dale Joseph</a>
+    </div>
+  </section>
+
+  <!-- EMAIL CAPTURE -->
+  <section class="section email-capture" id="notify">
+    <div class="container">
+      <div class="divider"></div>
+      <h2>Be the First to Know</h2>
+      <p>
+        Enter your email to receive publication updates, early excerpts, and essays on cognitive
+        sovereignty in the age of AI. No noise. No selling. Just the work.
+      </p>
+      <form
+        action="https://formspree.io/f/maqpvlgz"
+        method="POST"
+        class="email-form"
+      >
+        <div class="form-row">
+          <input
+            type="email"
+            name="email"
+            placeholder="your@email.com"
+            required
+            aria-label="Email address"
+          />
+          <button type="submit" class="btn btn--filled">Stay Informed</button>
+        </div>
+        <p class="form-note muted">
+          Your information is never shared. Unsubscribe at any time.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .hero {
+    padding: 5rem 0 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-timestamp {
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-headline {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.15;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-body {
+    max-width: 660px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-body p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .hero-closer {
+    color: var(--gold-light);
+    font-style: italic;
+    font-size: 1.15rem !important;
+    margin-top: 2rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .premise h2 {
+    margin-bottom: 1.5rem;
+  }
+
+  .premise-concept {
+    margin-top: 2.5rem;
+    padding: 1.75rem 2rem;
+    background: var(--bg-card);
+    border-left: 3px solid var(--gold);
+  }
+
+  .premise-concept h3 {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+  }
+
+  .premise-concept p {
+    font-size: 1rem;
+    color: var(--text-muted);
+  }
+
+  .section--dark {
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .credibility h2 {
+    margin-bottom: 1.5rem;
+  }
+
+  .credibility blockquote {
+    border-left: 3px solid var(--gold);
+    padding: 0.75rem 1.5rem;
+    margin: 2rem 0;
+    color: var(--gold-light);
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .credibility .btn {
+    margin-top: 1rem;
+  }
+
+  .email-capture h2 {
+    margin-bottom: 1rem;
+  }
+
+  .email-form {
+    margin-top: 1.75rem;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 0.75rem;
+    max-width: 500px;
+  }
+
+  .form-row input {
+    flex: 1;
+  }
+
+  .form-note {
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+  }
+
+  @media (max-width: 520px) {
+    .form-row {
+      flex-direction: column;
+    }
+  }
+</style>

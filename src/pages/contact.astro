@@ -1,0 +1,133 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="Contact — Thought Partners by Dale Joseph"
+  description="Get in touch with Dale Joseph for speaking inquiries, media requests, or to join the conversation around cognitive sovereignty."
+>
+  <Header slot="header" />
+
+  <section class="section contact">
+    <div class="container">
+      <p class="label gold">Contact</p>
+      <h1>Get in Touch</h1>
+      <div class="divider"></div>
+
+      <div class="contact-grid">
+        <div class="contact-copy">
+          <p>
+            For speaking inquiries, media requests, rights and permissions, or to join
+            the conversation around cognitive sovereignty and conscious AI partnership,
+            use the form or reach out directly by email.
+          </p>
+          <p>
+            The Emergence Collective is also open to writers, technologists, and thinkers
+            who want to engage seriously with what it means to remain fully human in
+            relationship with increasingly capable artificial intelligence.
+          </p>
+          <p class="contact-email">
+            <span class="muted">Email:</span>
+            <a href="mailto:dalejsph@gmail.com">dalejsph@gmail.com</a>
+          </p>
+        </div>
+
+        <div class="contact-form-wrap">
+          <form
+            action="https://formspree.io/f/maqpvlgz"
+            method="POST"
+            class="contact-form"
+          >
+            <div class="field">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            </div>
+            <div class="field">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="Speaking / Media / Other" />
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="6" placeholder="Your message..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn--filled">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .label {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .contact h1 {
+    margin-bottom: 0;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-copy p {
+    font-size: 1.02rem;
+    line-height: 1.8;
+  }
+
+  .contact-email {
+    margin-top: 2rem;
+    font-size: 0.95rem;
+  }
+
+  .contact-email .muted {
+    margin-right: 0.4rem;
+    letter-spacing: 0.04em;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+  }
+
+  .contact-form .field {
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-form label {
+    display: block;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .contact-form textarea {
+    resize: vertical;
+    min-height: 140px;
+  }
+
+  .contact-form .btn {
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 680px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+</style>

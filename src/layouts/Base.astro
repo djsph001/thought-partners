@@ -1,0 +1,193 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const { title, description = "Preserving Cognitive Sovereignty in the Age of AI — a new book by Dale Joseph", ogImage } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <style is:global>
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --gold: #C9A84C;
+        --gold-light: #E2C47A;
+        --bg: #0e0e0e;
+        --bg-elevated: #161616;
+        --bg-card: #1a1a1a;
+        --border: #2a2a2a;
+        --text: #e8e4dc;
+        --text-muted: #9a9488;
+        --max-width: 760px;
+        --max-width-wide: 1100px;
+      }
+
+      html {
+        background-color: var(--bg);
+        color: var(--text);
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 18px;
+        line-height: 1.75;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      main {
+        flex: 1;
+      }
+
+      a {
+        color: var(--gold);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      h1, h2, h3, h4 {
+        font-family: Georgia, 'Times New Roman', serif;
+        font-weight: normal;
+        line-height: 1.25;
+        color: var(--text);
+      }
+
+      h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+      h2 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
+      h3 { font-size: 1.2rem; }
+
+      p { margin-bottom: 1.25rem; }
+      p:last-child { margin-bottom: 0; }
+
+      strong { color: var(--text); font-weight: bold; }
+      em { font-style: italic; }
+
+      hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 3rem 0;
+      }
+
+      .container {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      .container--wide {
+        max-width: var(--max-width-wide);
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      .gold { color: var(--gold); }
+      .muted { color: var(--text-muted); }
+
+      .section {
+        padding: 4rem 0;
+      }
+
+      .section--tight {
+        padding: 2.5rem 0;
+      }
+
+      .divider {
+        width: 3rem;
+        height: 2px;
+        background: var(--gold);
+        margin: 2rem 0;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.75rem 2rem;
+        border: 1px solid var(--gold);
+        color: var(--gold);
+        font-family: Georgia, serif;
+        font-size: 0.95rem;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+        background: transparent;
+        text-decoration: none;
+      }
+
+      .btn:hover {
+        background: var(--gold);
+        color: var(--bg);
+        text-decoration: none;
+      }
+
+      .btn--filled {
+        background: var(--gold);
+        color: var(--bg);
+      }
+
+      .btn--filled:hover {
+        background: var(--gold-light);
+        border-color: var(--gold-light);
+      }
+
+      input[type="email"], input[type="text"], textarea {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        color: var(--text);
+        font-family: Georgia, serif;
+        font-size: 1rem;
+        outline: none;
+        -webkit-appearance: none;
+      }
+
+      input[type="email"]:focus,
+      input[type="text"]:focus,
+      textarea:focus {
+        border-color: var(--gold);
+      }
+
+      input[type="email"]::placeholder,
+      input[type="text"]::placeholder,
+      textarea::placeholder {
+        color: var(--text-muted);
+      }
+
+      @media (max-width: 640px) {
+        html { font-size: 17px; }
+        .section { padding: 3rem 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <slot name="header" />
+    <main>
+      <slot />
+    </main>
+    <slot name="footer" />
+  </body>
+</html>

@@ -1,0 +1,105 @@
+---
+const pathname = Astro.url.pathname;
+const isActive = (path: string) =>
+  pathname === path || (path !== '/' && pathname.startsWith(path));
+---
+
+<header class="site-header">
+  <div class="container--wide header-inner">
+    <a href="/" class="wordmark">
+      <span class="wordmark-title">Thought Partners</span>
+      <span class="wordmark-sub">by Dale Joseph</span>
+    </a>
+    <nav class="nav">
+      <a href="/book" class:list={['nav-link', { active: isActive('/book') }]}>The Book</a>
+      <a href="/about" class:list={['nav-link', { active: isActive('/about') }]}>About</a>
+      <a href="/blog" class:list={['nav-link', { active: isActive('/blog') }]}>Essays</a>
+      <a href="/contact" class:list={['nav-link', { active: isActive('/contact') }]}>Contact</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 0;
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .wordmark {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    text-decoration: none;
+  }
+
+  .wordmark:hover {
+    text-decoration: none;
+  }
+
+  .wordmark-title {
+    font-family: Georgia, serif;
+    font-size: 1.05rem;
+    color: var(--text);
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+
+  .wordmark-sub {
+    font-family: Georgia, serif;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+
+  .nav {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .nav-link {
+    font-family: Georgia, serif;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  @media (max-width: 600px) {
+    .nav {
+      gap: 1.25rem;
+    }
+
+    .nav-link {
+      font-size: 0.85rem;
+    }
+
+    .wordmark-title {
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .wordmark-sub {
+      display: none;
+    }
+  }
+</style>
