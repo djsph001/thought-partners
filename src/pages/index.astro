@@ -48,6 +48,34 @@ import Footer from '../components/Footer.astro';
     </div>
   </section>
 
+  <!-- BOOKS -->
+  <section class="section books">
+    <div class="container container--wide">
+      <div class="divider"></div>
+      <p class="books-label gold">Books by Dale Joseph</p>
+      <div class="books-grid">
+        <a href="/book" class="book-card">
+          <p class="book-card__label gold">Nonfiction</p>
+          <h2 class="book-card__title">Thought Partners</h2>
+          <p class="book-card__subtitle">Preserving Cognitive Sovereignty in the Age of AI</p>
+          <p class="book-card__desc">
+            A map for navigating AI partnership consciously—before dependency makes the question moot.
+          </p>
+          <span class="book-card__status">Coming Soon</span>
+        </a>
+        <a href="/antichrist-prophet" class="book-card">
+          <p class="book-card__label gold">Novel</p>
+          <h2 class="book-card__title">The Antichrist and the Prophet</h2>
+          <p class="book-card__subtitle">by Dale Joseph</p>
+          <p class="book-card__desc">
+            A political and spiritual novel about power, prophecy, and the battle for the soul of a nation.
+          </p>
+          <span class="book-card__status book-card__status--gold">Coming 2026</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- PREMISE -->
   <section class="section premise">
     <div class="container">
@@ -196,6 +224,83 @@ import Footer from '../components/Footer.astro';
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+  }
+
+  .books {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .books-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 1.75rem;
+  }
+
+  .books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .book-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.2s ease;
+  }
+
+  .book-card:hover {
+    border-color: var(--gold);
+  }
+
+  .book-card__label {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .book-card__title {
+    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+    font-weight: normal;
+  }
+
+  .book-card__subtitle {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .book-card__desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    flex: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .book-card__status {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.3rem 0.75rem;
+  }
+
+  .book-card__status--gold {
+    border-color: var(--gold);
+    color: var(--gold);
   }
 
   .premise h2 {

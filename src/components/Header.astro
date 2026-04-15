@@ -11,7 +11,8 @@ const isActive = (path: string) =>
       <span class="wordmark-sub">by Dale Joseph</span>
     </a>
     <nav class="nav">
-      <a href="/book" class:list={['nav-link', { active: isActive('/book') }]}>The Book</a>
+      <a href="/book" class:list={['nav-link', { active: isActive('/book') }]}>Thought Partners</a>
+      <a href="/antichrist-prophet" class:list={['nav-link nav-link--novel', { active: isActive('/antichrist-prophet') }]}>The Antichrist &amp; the Prophet</a>
       <a href="/about" class:list={['nav-link', { active: isActive('/about') }]}>About</a>
       <a href="/blog" class:list={['nav-link', { active: isActive('/blog') }]}>Essays</a>
       <a href="/contact" class:list={['nav-link', { active: isActive('/contact') }]}>Contact</a>
@@ -99,6 +100,12 @@ const isActive = (path: string) =>
 
   @media (max-width: 420px) {
     .wordmark-sub {
+      display: none;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .nav-link--novel {
       display: none;
     }
   }
