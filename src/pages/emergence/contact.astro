@@ -1,0 +1,115 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Contact — Emergence Collective"
+  description="Become a Thought Partner. Connect with the Emergence Collective."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">Connect</p>
+      <h1>Thought Partners</h1>
+      <div class="divider"></div>
+      <p>
+        The Emergence Collective is not a platform you join. It is an architecture you
+        <em>run</em>. But conversation is how new nodes come into existence.
+      </p>
+      <p>
+        If you are interested in setting up an Altar, contributing to the protocols,
+        joining a pilot, or simply thinking together—reach out.
+      </p>
+
+      <form id="contact-form" class="contact-form" action="#" method="post">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+        <div class="field">
+          <label for="interest">What brings you here?</label>
+          <select id="interest" name="interest">
+            <option value="">Select one</option>
+            <option value="altar">Setting up an Altar</option>
+            <option value="protocol">Contributing to protocols</option>
+            <option value="lakou">The Haiti Digital Lakou pilot</option>
+            <option value="book">The book</option>
+            <option value="other">Something else</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="What are you thinking about?"></textarea>
+        </div>
+        <button type="submit" class="btn btn--filled">Send →</button>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const form = e.target as HTMLFormElement;
+      form.innerHTML = '<p class="gold"><em>Message received. We will be in touch.</em></p><p class="muted" style="margin-top:0.75rem">In the meantime, the mycelium awaits.</p>';
+    });
+  </script>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .contact-form {
+    margin-top: 2rem;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  label {
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+  }
+
+  select:focus {
+    border-color: var(--gold);
+  }
+
+  select option {
+    background: var(--bg-card);
+    color: var(--text);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+</style>

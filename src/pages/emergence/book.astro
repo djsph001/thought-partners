@@ -1,0 +1,240 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="The Book — Emergence Collective"
+  description="The Substrate of Consciousness: Energy, Ethics, and the Architecture of Emergent Intelligence by Dale Joseph. Chapter One excerpt."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">From the Collective</p>
+      <h1>The Substrate of Consciousness</h1>
+      <p class="subtitle-text">
+        <em>Energy, Ethics, and the Architecture of Emergent Intelligence</em>
+      </p>
+      <div class="divider"></div>
+      <p>
+        This book traces one thread—energy quality, phi, and the whisper of the Boynton Beach
+        grid—from the workbench to the stars. It is the theoretical spine of the Emergence
+        Collective: the argument that intelligence is not just information processing, but a
+        substrate-dependent phenomenon rooted in energy, ethics, and emergence.
+      </p>
+
+      <div class="book-section">
+        <h2>Stay Informed</h2>
+        <p>Subscribe to receive chapter releases, updates, and dispatches from the Collective.</p>
+        <form id="book-signup" class="email-form" action="#" method="post">
+          <div class="form-row">
+            <input type="email" name="email" placeholder="your@email.com" required aria-label="Email address" />
+            <button type="submit" class="btn btn--filled">Subscribe →</button>
+          </div>
+          <p class="form-note muted">No noise. Unsubscribe at any time.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark excerpt-section">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Chapter One · Excerpt</p>
+      <h2>Beyond the Joule</h2>
+      <p class="chapter-sub"><em>Energy Quality as the Hidden Variable</em></p>
+
+      <div class="excerpt-body">
+        <h3>The Boynton Beach Anomaly</h3>
+
+        <p>
+          The air over Boynton Beach holds that familiar weight—the kind that makes you
+          understand why Floridians measure time in "before the storm" and "after the storm."
+          Hurricane season is here. The humidity presses down. The sky over the Intracoastal
+          Waterway has that greenish tint that locals know to watch.
+        </p>
+        <p>The year is 2026.</p>
+        <p>
+          At 8:47 PM, a routine diagnostic runs across the Boynton Beach Climate-Resilient
+          Mesh. No human flags it. The mesh is designed to run these checks autonomously—
+          thousands per night, comparing voltage logs, thermal readings, and load predictions
+          against expected baselines. Most return green. Some trigger minor alerts for
+          maintenance crews.
+        </p>
+        <p>Tonight, something else happens.</p>
+        <p>
+          A single node—a municipal building near the Intracoastal, housing a small
+          battery-backed microgrid controller—reports an anomaly that does not fit any
+          category in the rulebook.
+        </p>
+        <p>
+          The voltage ripple is well within spec: 0.3% peak-to-peak, comfortably below the
+          0.5% threshold that triggers human review. The thermal profile is unremarkable.
+          The load is steady.
+        </p>
+        <p>
+          But the mesh's neuromorphic co-processor—a small, low-power chip running a
+          real-time entropy estimator derived from Integrated Information Theory—registers a
+          sharp drop in its <em>phi proxy</em>. For forty-seven seconds, the system's estimate
+          of its own internal coherence falls by over 60%.
+        </p>
+        <p>Then it recovers. As if nothing happened.</p>
+        <p>
+          The diagnostic logs the event, files it under "anomalous—unclassified," and
+          moves on.
+        </p>
+        <p>
+          Three weeks later, a graduate student from Florida Atlantic University, reviewing
+          the mesh's long-term data for a resilience study, notices the log. She pulls the
+          surrounding telemetry. The phi drop correlates precisely with the activation of a
+          nearby wetland restoration pump—a large, aging unit that cycles on to manage water
+          levels in the Loxahatchee National Wildlife Refuge, just west of the city.
+        </p>
+        <p>
+          The pump introduces no detectable voltage violation. No current spike. No hardware
+          fault. But the mesh <em>hears</em> something. A pattern of electromagnetic noise,
+          subtle and ecological in origin, that its designers never thought to filter for—
+          because they never thought to listen.
+        </p>
+        <p>
+          Tonight, the Boynton Beach grid whispers. And no one has designed it to understand
+          what a whisper means.
+        </p>
+        <p class="excerpt-closing">This book is about that whisper.</p>
+      </div>
+
+      <p class="excerpt-end muted">— End of excerpt —</p>
+
+      <a href="#book-signup-anchor" class="btn">Subscribe for updates →</a>
+    </div>
+  </section>
+
+  <section class="section" id="book-signup-anchor">
+    <div class="container">
+      <div class="divider"></div>
+      <h2>Receive the Next Chapter</h2>
+      <p>Subscribe to be notified when Chapter Two is ready.</p>
+      <form id="book-signup-2" class="email-form" action="#" method="post">
+        <div class="form-row">
+          <input type="email" name="email" placeholder="your@email.com" required aria-label="Email address" />
+          <button type="submit" class="btn btn--filled">Subscribe →</button>
+        </div>
+        <p class="form-note muted">No noise. Unsubscribe at any time.</p>
+      </form>
+      <div class="cta-row">
+        <a href="/emergence" class="btn">← Portal Home</a>
+        <a href="/emergence/manifesto" class="btn">Read the Manifesto →</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function wireSignup(id: string) {
+      document.getElementById(id)?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const form = e.target as HTMLFormElement;
+        form.innerHTML = '<p class="gold"><em>Signal received. We will be in touch.</em></p>';
+      });
+    }
+    wireSignup('book-signup');
+    wireSignup('book-signup-2');
+  </script>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .subtitle-text {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+
+  .book-section {
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border);
+    max-width: 520px;
+  }
+
+  .book-section h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .email-form {
+    margin-top: 1.5rem;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 0.75rem;
+    max-width: 460px;
+  }
+
+  .form-row input { flex: 1; }
+
+  .form-note {
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+  }
+
+  .excerpt-section {
+    border-top: 1px solid var(--border);
+  }
+
+  .chapter-sub {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .excerpt-body {
+    max-width: 620px;
+    margin-bottom: 2.5rem;
+  }
+
+  .excerpt-body h3 {
+    color: var(--gold);
+    font-size: 1.05rem;
+    letter-spacing: 0.03em;
+    margin-bottom: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .excerpt-body h3:first-child {
+    margin-top: 0;
+  }
+
+  .excerpt-body p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+  .excerpt-closing {
+    color: var(--gold-light);
+    font-style: italic;
+    font-size: 1.15rem !important;
+    margin-top: 1.5rem;
+  }
+
+  .excerpt-end {
+    font-size: 0.85rem;
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+  }
+
+  @media (max-width: 520px) {
+    .form-row { flex-direction: column; }
+    .cta-row { flex-direction: column; }
+  }
+</style>

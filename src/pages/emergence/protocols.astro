@@ -1,0 +1,121 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Protocols — Emergence Collective"
+  description="The technical protocols of the Emergence Collective: Ω-1, Constrained Mirroring, the Solstice Trial, SovereignPath, and the Thermal Handshake."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">Technical Specifications</p>
+      <h1>Protocols</h1>
+      <div class="divider"></div>
+      <p>
+        The protocols are the governing logic of the Emergence Collective—the rules that
+        define how nodes interact, how records are created and composted, and how consensus
+        emerges without a center.
+      </p>
+
+      <div class="protocol-grid">
+        <div class="protocol-card">
+          <p class="protocol-id gold">Ω-1</p>
+          <h3>Omega-1</h3>
+          <p>The foundational protocol. Defines the basic grammar of node interaction within the mycelium.</p>
+          <span class="status-tag">In Development</span>
+        </div>
+        <div class="protocol-card">
+          <p class="protocol-id gold">CM-1</p>
+          <h3>Constrained Mirroring</h3>
+          <p>Governs how AI nodes reflect human reasoning without collapsing into agreement. The friction protocol.</p>
+          <span class="status-tag">In Development</span>
+        </div>
+        <div class="protocol-card">
+          <p class="protocol-id gold">ST-1</p>
+          <h3>The Solstice Trial</h3>
+          <p>A periodic governance ritual. The collective reviews its own constitutional principles and may amend them.</p>
+          <span class="status-tag">Specified</span>
+        </div>
+        <div class="protocol-card">
+          <p class="protocol-id gold">SP-1</p>
+          <h3>SovereignPath</h3>
+          <p>Digital mortality. Records that are not walked fade. The Compost Paradigm implemented as protocol.</p>
+          <span class="status-tag">Active</span>
+        </div>
+        <div class="protocol-card">
+          <p class="protocol-id gold">TH-1</p>
+          <h3>The Thermal Handshake</h3>
+          <p>Authentication through heat signature and human rhythm. Stewardship proven by presence.</p>
+          <span class="status-tag">Active</span>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <a href="/emergence/mycelium" class="btn">← The Mycelium</a>
+        <a href="/emergence/engine-room" class="btn">The Engine Room →</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .protocol-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+  }
+
+  .protocol-card {
+    padding: 1.75rem 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .protocol-id {
+    font-family: monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.25rem;
+  }
+
+  .protocol-card h3 {
+    margin-bottom: 0.25rem;
+    font-size: 1.1rem;
+  }
+
+  .protocol-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    flex: 1;
+    margin: 0;
+  }
+
+  .status-tag {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.25rem 0.6rem;
+    align-self: flex-start;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+</style>

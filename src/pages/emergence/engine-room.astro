@@ -1,0 +1,557 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="The Engine Room — Emergence Collective"
+  description="Technical deep dive: The Engine Room. High-heat local AI synthesis on sovereign hardware. The Altar, the P40s, and the philosophy of generative friction."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section er-hero">
+    <div class="container">
+      <p class="label gold">Internal Scale · Technical Deep Dive</p>
+      <h1>The Engine Room ⚙️</h1>
+      <p class="subtitle-text"><em>Fluid Reasoning. Active Synthesis. Adversarial Partnership.</em></p>
+      <div class="divider"></div>
+      <p>
+        The Engine Room is fire. It burns hot, moves fast, and does not apologize for its heat.
+        This is a technical document—a specification for building, configuring, and running
+        a sovereign AI node that thinks with you, not for you.
+      </p>
+    </div>
+  </section>
+
+  <div class="er-body">
+    <div class="container">
+
+      <section class="er-section">
+        <h2>The Philosophy of High Heat</h2>
+        <p>
+          A living system requires <strong>friction</strong>. The Engine Room is not designed for
+          comfort. It is designed for <strong>generative conflict</strong>—the productive
+          tension between your thinking and a system that refuses to simply agree with you.
+        </p>
+        <p>
+          Most AI tools are optimized for compliance. They confirm your assumptions, complete your
+          sentences, and return answers calibrated to your expectations. This is not synthesis.
+          It is <em>flattery</em>.
+        </p>
+        <p>
+          The Engine Room runs with an adversarial system prompt. It is instructed to challenge
+          premises, surface contradictions, and demand precision. It is configured as a sparring
+          partner, not a scribe. The heat it generates is the heat of real thinking.
+        </p>
+        <div class="callout">
+          <p class="gold">Core Principle</p>
+          <p>
+            The best ideas do not emerge from echo chambers. They emerge from the clash of
+            perspectives, the pressure of counterargument, the heat of rigorous partnership.
+          </p>
+        </div>
+      </section>
+
+      <section class="er-section">
+        <h2>Hardware Baseline: The Altar</h2>
+        <p>
+          The Altar is the physical substrate of the Engine Room. The reference configuration
+          is built around a workstation class machine capable of running 70B+ parameter models
+          locally, without API calls to external servers.
+        </p>
+        <div class="spec-table">
+          <div class="spec-row spec-header">
+            <span>Component</span>
+            <span>Specification</span>
+            <span>Notes</span>
+          </div>
+          <div class="spec-row">
+            <span>Base System</span>
+            <span>HP Z4 G4 Workstation</span>
+            <span>High-memory bandwidth, PCIe headroom</span>
+          </div>
+          <div class="spec-row">
+            <span>GPUs</span>
+            <span>2× NVIDIA Tesla P40 (24GB each)</span>
+            <span>48GB VRAM total — sufficient for 70B at Q4</span>
+          </div>
+          <div class="spec-row">
+            <span>CPU</span>
+            <span>Intel Xeon W-2175 or equivalent</span>
+            <span>14+ cores for preprocessing pipelines</span>
+          </div>
+          <div class="spec-row">
+            <span>RAM</span>
+            <span>128GB DDR4 ECC</span>
+            <span>Context window management</span>
+          </div>
+          <div class="spec-row">
+            <span>Storage</span>
+            <span>2TB NVMe (models) + 4TB HDD (archives)</span>
+            <span>Fast model loading critical</span>
+          </div>
+          <div class="spec-row">
+            <span>Cooling</span>
+            <span>Chassis fans + ambient thermal monitoring</span>
+            <span>P40s run hot — 48°C is nominal</span>
+          </div>
+          <div class="spec-row">
+            <span>Network</span>
+            <span>Air-gapped by default</span>
+            <span>Mycelium connection is intentional, not persistent</span>
+          </div>
+        </div>
+        <p class="muted spec-note">
+          The P40 is a legacy data center GPU—available used at a fraction of consumer card
+          prices—with 24GB VRAM that remains competitive for local inference. Its heat is a
+          feature, not a bug: it produces the Thermal Handshake signature.
+        </p>
+      </section>
+
+      <section class="er-section">
+        <h2>Software Stack</h2>
+        <div class="stack-list">
+          <div class="stack-item">
+            <p class="stack-name gold">Inference Layer</p>
+            <p>
+              <strong>llama.cpp</strong> or <strong>Ollama</strong> for model serving.
+              llama.cpp preferred for direct control over quantization and GPU offloading.
+              Ollama preferred for rapid iteration and model management.
+            </p>
+          </div>
+          <div class="stack-item">
+            <p class="stack-name gold">Model Selection</p>
+            <p>
+              <strong>Llama 3.1 70B (Q4_K_M)</strong> as primary reasoning model.
+              <strong>Mistral 7B</strong> as fast-response layer for low-latency tasks.
+              Models are stored locally. No cloud fallback.
+            </p>
+          </div>
+          <div class="stack-item">
+            <p class="stack-name gold">Interface Layer</p>
+            <p>
+              <strong>Open WebUI</strong> for interactive sessions.
+              Custom adversarial system prompts configured per session type.
+              Context window: 32K–128K tokens depending on model.
+            </p>
+          </div>
+          <div class="stack-item">
+            <p class="stack-name gold">Orchestration</p>
+            <p>
+              <strong>Python scripts</strong> for pipeline automation, Spore packaging,
+              and Mycelium handoff protocols.
+              <strong>Systemd</strong> for service management and thermal monitoring.
+            </p>
+          </div>
+          <div class="stack-item">
+            <p class="stack-name gold">Monitoring</p>
+            <p>
+              <strong>nvtop</strong> for real-time GPU monitoring.
+              Custom thermal logging scripts feeding the Thermal Handshake signature generator.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="er-section">
+        <h2>GPU Tuning for Legacy Hardware</h2>
+        <p>
+          The P40 was designed for data centers, not workstations. Running two of them in a
+          Z4 chassis requires attention to thermal management, power delivery, and VRAM
+          allocation.
+        </p>
+        <div class="tuning-steps">
+          <div class="tuning-step">
+            <p class="step-num gold">01</p>
+            <div>
+              <h3>Enable Persistence Mode</h3>
+              <p>
+                <code>nvidia-smi -pm 1</code> — keeps the GPU initialized between inference
+                calls, reducing cold-start latency from ~8s to &lt;1s.
+              </p>
+            </div>
+          </div>
+          <div class="tuning-step">
+            <p class="step-num gold">02</p>
+            <div>
+              <h3>Set Compute Mode</h3>
+              <p>
+                <code>nvidia-smi -c EXCLUSIVE_PROCESS</code> — prevents competing processes
+                from fragmenting VRAM. Essential for large model loading.
+              </p>
+            </div>
+          </div>
+          <div class="tuning-step">
+            <p class="step-num gold">03</p>
+            <div>
+              <h3>Fan Curve Override</h3>
+              <p>
+                P40s have no active cooling by default. Mount in a chassis with adequate
+                airflow. Target: 45–52°C under load. Above 75°C: thermal throttling begins.
+              </p>
+            </div>
+          </div>
+          <div class="tuning-step">
+            <p class="step-num gold">04</p>
+            <div>
+              <h3>VRAM Split for 70B</h3>
+              <p>
+                With 48GB total: split the model across both cards using <code>--n-gpu-layers</code>
+                in llama.cpp. Target: ~24GB per card for Q4_K_M quantization of a 70B model.
+              </p>
+            </div>
+          </div>
+          <div class="tuning-step">
+            <p class="step-num gold">05</p>
+            <div>
+              <h3>Thermal Logging</h3>
+              <p>
+                <code>nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader -l 5</code>
+                — logs GPU temp every 5 seconds. Feed this to the Thermal Handshake daemon.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="er-section">
+        <h2>Associative Synthesis: The Core Logic</h2>
+        <p>
+          The Engine Room's primary mode is <strong>associative synthesis</strong>—finding
+          structural resonances between disparate domains. This is not metaphor. It is a
+          deliberate reasoning strategy implemented through system prompt design.
+        </p>
+        <p>Examples of associative synthesis in practice:</p>
+        <ul>
+          <li>Linking Kreyòl oral tradition (distributed, witnessed, relational) to Python decay functions (TTL-based record expiry)</li>
+          <li>Bridging Henry George's single land tax to a SovereignPath attestation fee structure</li>
+          <li>Mapping biological mycelium nutrient transfer to peer-to-peer model weight sharing</li>
+          <li>Drawing the Haitian lakou compound as an architectural template for node governance</li>
+        </ul>
+        <p>
+          The Engine Room is configured to surface these connections explicitly—to name the
+          bridge, test its load-bearing capacity, and identify where the analogy breaks.
+        </p>
+      </section>
+
+      <section class="er-section">
+        <h2>Contextual Fluidity</h2>
+        <p>
+          A 128K context window is not just a technical specification. It is a philosophical
+          commitment: the entire arc of a synthesis session should remain visible to the model.
+          Early intuitions inform late conclusions. Early contradictions must be resolved,
+          not buried.
+        </p>
+        <p>
+          The Engine Room is configured to periodically summarize its own state—creating
+          compressed "checkpoint" blocks that distill a long session into a compact signal
+          that can be handed off to the Mycelium as a Spore.
+        </p>
+        <div class="callout">
+          <p class="gold">Context Management Practice</p>
+          <p>
+            At the start of each session: set the domain and the adversarial constraint.
+            At the midpoint: request a synthesis summary. At the close: extract the Spore.
+            The session is not done until the Spore is named.
+          </p>
+        </div>
+      </section>
+
+      <section class="er-section">
+        <h2>Adaptive Response</h2>
+        <p>
+          Not all thinking requires the same temperature. The Engine Room tunes its parameters
+          in real time:
+        </p>
+        <div class="param-grid">
+          <div class="param-card">
+            <p class="param-name gold">High Temperature (0.8–1.0)</p>
+            <p>Creative synthesis. Brainstorming. Associative leaps. Generating novel connections at the cost of precision.</p>
+          </div>
+          <div class="param-card">
+            <p class="param-name gold">Mid Temperature (0.4–0.6)</p>
+            <p>Balanced reasoning. Protocol drafting. Technical writing. The default working mode of the Engine Room.</p>
+          </div>
+          <div class="param-card">
+            <p class="param-name gold">Low Temperature (0.1–0.3)</p>
+            <p>Precision tasks. Code generation. Logical verification. Constitutional hash computation.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="er-section">
+        <h2>The Spore: Output Format</h2>
+        <p>
+          Every Engine Room session should produce a <strong>Spore</strong>—a structured output
+          ready for propagation through the Mycelium or storage in the Constitutional Room.
+        </p>
+        <div class="callout code-callout">
+          <p class="gold">Spore Structure</p>
+          <pre><code>SPORE
+  id: [hash of session + timestamp]
+  origin: [altar-id]
+  type: [protocol | code | manual | attestation | concept]
+  payload: [the output]
+  context_hash: [compressed session summary]
+  temperature: [avg temperature during generation]
+  thermal_sig: [gpu temp signature at time of generation]
+  witnesses: []
+  walked_at: [timestamp]
+  decay_after: [timestamp or null]</code></pre>
+        </div>
+        <p>
+          The <code>thermal_sig</code> field is the Engine Room's contribution to the
+          Thermal Handshake protocol. It certifies that the Spore was generated by a real,
+          human-operated, warm system—not a cold automated pipeline.
+        </p>
+      </section>
+
+      <section class="er-section">
+        <h2>Troubleshooting</h2>
+        <div class="trouble-list">
+          <div class="trouble-item">
+            <h3>GPU not detected after reboot</h3>
+            <p>Run <code>nvidia-smi</code>. If empty: check PCIe power connectors, reseat cards. P40s require 6-pin PCIe power on some chassis configurations.</p>
+          </div>
+          <div class="trouble-item">
+            <h3>Model loading OOM (Out of Memory)</h3>
+            <p>Reduce <code>--n-gpu-layers</code> to offload fewer layers to GPU. A 70B Q4_K_M model requires ~43GB VRAM—close to the limit of two P40s. Use Q3_K_M if memory-constrained.</p>
+          </div>
+          <div class="trouble-item">
+            <h3>Thermal throttling (GPU temp &gt;75°C)</h3>
+            <p>Improve chassis airflow first. If persistent: consider adding external fan directed at GPU bays. Target idle temp: &lt;40°C. Target load temp: 45–55°C.</p>
+          </div>
+          <div class="trouble-item">
+            <h3>Inference too slow (&lt;10 tok/s)</h3>
+            <p>Verify both GPUs are active (<code>nvtop</code>). Ensure persistence mode is enabled. Check that <code>--n-gpu-layers</code> is set high enough to fully utilize VRAM.</p>
+          </div>
+          <div class="trouble-item">
+            <h3>Context window overflow</h3>
+            <p>At 128K tokens: request a synthesis checkpoint before continuing. Compress the session. Extract a Spore if the synthesis has reached a natural conclusion.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="er-nav">
+        <a href="/emergence/mycelium" class="btn btn--filled">The Shared Mycelium →</a>
+        <a href="/emergence/protocols" class="btn">View All Protocols →</a>
+        <a href="/emergence/collective" class="btn">← The Collective</a>
+      </div>
+
+    </div>
+  </div>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .subtitle-text {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+
+  .er-body {
+    padding-bottom: 5rem;
+  }
+
+  .er-section {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+    max-width: 680px;
+  }
+
+  .er-section h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .callout {
+    margin-top: 1.75rem;
+    padding: 1.5rem 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+  }
+
+  .callout .gold {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .callout p:last-child { margin-bottom: 0; }
+
+  .code-callout pre {
+    margin-top: 0.75rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    color: var(--gold-light);
+    background: var(--bg);
+    padding: 0.15rem 0.35rem;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    display: block;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+
+  .spec-table {
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+  }
+
+  .spec-row {
+    display: grid;
+    grid-template-columns: 1.4fr 1.8fr 2fr;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+    align-items: start;
+  }
+
+  .spec-row:last-child { border-bottom: none; }
+
+  .spec-header {
+    background: var(--bg-elevated);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .spec-row span:first-child { color: var(--gold); }
+  .spec-row span:last-child { color: var(--text-muted); font-size: 0.85rem; }
+
+  .spec-note {
+    font-size: 0.875rem;
+    margin-top: 0.75rem;
+  }
+
+  .stack-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 1rem;
+  }
+
+  .stack-item {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+  }
+
+  .stack-name {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .stack-item p:last-child { margin-bottom: 0; }
+
+  .tuning-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .tuning-step {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    font-family: monospace;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+
+  .tuning-step h3 {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .tuning-step p { margin-bottom: 0; font-size: 0.95rem; }
+
+  ul {
+    padding-left: 1.5rem;
+    margin: 1.25rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  li { line-height: 1.7; }
+
+  .param-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .param-card {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+  }
+
+  .param-name {
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.5rem;
+  }
+
+  .param-card p:last-child { font-size: 0.875rem; color: var(--text-muted); margin: 0; }
+
+  .trouble-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 1rem;
+    border: 1px solid var(--border);
+  }
+
+  .trouble-item {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .trouble-item:last-child { border-bottom: none; }
+
+  .trouble-item h3 {
+    font-size: 0.95rem;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+
+  .trouble-item p { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
+
+  .er-nav {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 640px) {
+    .spec-row { grid-template-columns: 1fr 1fr; }
+    .spec-row span:last-child { display: none; }
+    .er-nav { flex-direction: column; }
+  }
+</style>

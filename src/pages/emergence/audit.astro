@@ -1,0 +1,998 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Sovereignty Audit — Emergence Collective"
+  description="Map your Digital Haunting. 12-question diagnostic tool—runs entirely in your browser. No data leaves this page."
+>
+  <EmergenceHeader slot="header" />
+
+  <!-- PRIVACY BANNER -->
+  <div class="privacy-banner">
+    <div class="container--wide">
+      <p>
+        <strong class="gold">Privacy notice:</strong>
+        This audit runs entirely in your browser. No answers, scores, or identifiers are transmitted
+        anywhere. The only output is a JSON file you download yourself.
+      </p>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="section audit-hero">
+    <div class="container">
+      <p class="label gold">Diagnostic Tool</p>
+      <h1>The Sovereignty Audit</h1>
+      <p class="hero-sub"><em>Map your Digital Haunting.</em></p>
+      <div class="divider"></div>
+      <p class="hero-body">
+        Digital hauntings accumulate silently—invisible dependencies, habitual deferrals, and
+        cognitive outsourcings that were never consciously chosen. This audit maps four dimensions
+        of your sovereignty: where you stand, and where the work begins.
+      </p>
+      <p class="hero-instruction muted">
+        Move each slider toward the description that fits you. The Haunt Map updates in real time.
+      </p>
+    </div>
+  </section>
+
+  <!-- AUDIT FORM -->
+  <div class="audit-layout">
+    <div class="container--wide audit-inner">
+
+      <!-- QUESTIONS COLUMN -->
+      <div class="questions-col">
+
+        <!-- Q1-3: Hardware Sovereignty -->
+        <div class="quadrant-card" data-quadrant="hardware">
+          <div class="quadrant-header">
+            <span class="q-icon">🪨</span>
+            <div>
+              <p class="q-label gold">Quadrant I</p>
+              <h2 class="q-title">Hardware Sovereignty</h2>
+              <p class="q-sub muted"><em>The Altar</em></p>
+            </div>
+          </div>
+          <div class="question-list">
+            <div class="question">
+              <p class="q-text">My primary AI model runs on…</p>
+              <div class="slider-row">
+                <span class="pole pole-left">Local hardware<br>I own</span>
+                <div class="slider-wrap">
+                  <input type="range" min="0" max="10" value="5" id="h1" data-q="h1" />
+                  <div class="slider-ticks">
+                    <span>0</span><span>5</span><span>10</span>
+                  </div>
+                </div>
+                <span class="pole pole-right">Cloud APIs<br>I subscribe to</span>
+              </div>
+            </div>
+            <div class="question">
+              <p class="q-text">My personal data is stored on…</p>
+              <div class="slider-row">
+                <span class="pole pole-left">Hardware I<br>physically control</span>
+                <div class="slider-wrap">
+                  <input type="range" min="0" max="10" value="5" id="h2" data-q="h2" />
+                  <div class="slider-ticks">
+                    <span>0</span><span>5</span><span>10</span>
+                  </div>
+                </div>
+                <span class="pole pole-right">Third-party<br>cloud services</span>
+              </div>
+            </div>
+            <div class="question">
+              <p class="q-text">If a key service shut down tomorrow, I would…</p>
+              <div class="slider-row">
+                <span class="pole pole-left">Keep my data<br>and move on</span>
+                <div class="slider-wrap">
+                  <input type="range" min="0" max="10" value="5" id="h3" data-q="h3" />
+                  <div class="slider-ticks">
+                    <span>0</span><span>5</span><span>10</span>
+                  </div>
+                </div>
+                <span class="pole pole-right">Lose access to<br>months of work</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q4-6: Cognitive Sovereignty -->
+        <div class="quadrant-card" data-quadrant="cognition">
+          <div class="quadrant-header">
+            <span class="q-icon">⚙️</span>
+            <div>
+              <p class="q-label gold">Quadrant II</p>
+              <h2 class="q-title">Cognitive Sovereignty</h2>
+              <p class="q-sub muted"><em>The Engine Room</em></p>
+            </div>
+          </div>
+          <div class="question-list">
+            <div class="question">
+              <p class="q-text">When I face a difficult problem, I…</p>
+              <div class="slider-row">
+                <span class="pole pole-left">Work through it<br>myself, then verify</span>
+                <div class="slider-wrap">
+                  <input type="range" min="0" max="10" value="5" id="c1" data-q="c1" />
+                  <div class="slider-ticks">
+                    <span>0</span><span>5</span><span>10</span>
+                  </div>
+                </div>
+                <span class="pole pole-right">Ask AI immediately<br>and accept the answer</span>
+              </div>
+            </div>
+            <div class="question">
+              <p class="q-text">My ideas and opinions are…</p>
+              <div class="slider-row">
+                <span class="pole pole-left">Formed through my<br>own reading and thinking</span>
+                <div class="slider-wrap">
+                  <input type="range" min="0" max="10" value="5" id="c2" data-q="c2" />
+                  <div class="slider-ticks">
+                    <span>0</span><span>5</span><span>10</span>
+                  </div>
+                </div>
+                <span class="pole pole-right">Increasingly shaped by<br>AI outputs I didn't examine</span>
+              </div>
+            </div>
+            <div class="question">
+              <p class="q-text">When AI contradicts me, I…</p>
+              <div class="slider-row">
+                <span class="pole pole-left">Examine the gap<br>and decide for myself</span>
+                <div class="slider-wrap">
+                  <input type="range" min="0" max="10" value="5" id="c3" data-q="c3" />
+                  <div class="slider-ticks">
+                    <span>0</span><span>5</span><span>10</span>
+                  </div>
+                </div>
+                <span class="pole pole-right">Usually defer<br>to the AI</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q7-9: Data Commons -->
+        <div class="quadrant-card" data-quadrant="data">
+          <div class="quadrant-header">
+            <span class="q-icon">🍄</span>
+            <div>
+              <p class="q-label gold">Quadrant III</p>
+              <h2 class="q-title">Data Commons</h2>
+              <p class="q-sub muted"><em>The Mycelium</em></p>
+            </div>
+          </div>
+          <div class="question-list">
+            <div class="question">
+              <p class="q-text">My messages and communications are…</p>
+              <div class="slider-row">
+                <span class="pole pole-left">In open formats<br>I can export</span>
+                <div class="slider-wrap">
+                  <input type="range" min="0" max="10" value="5" id="d1" data-q="d1" />
+                  <div class="slider-ticks">
+                    <span>0</span><span>5</span><span>10</span>
+                  </div>
+                </div>
+                <span class="pole pole-right">Locked in platforms<br>I cannot leave</span>
+              </div>
+            </div>
+            <div class="question">
+              <p class="q-text">My creative and intellectual work lives in…</p>
+              <div class="slider-row">
+                <span class="pole pole-left">Tools I own, in<br>formats I control</span>
+                <div class="slider-wrap">
+                  <input type="range" min="0" max="10" value="5" id="d2" data-q="d2" />
+                  <div class="slider-ticks">
+                    <span>0</span><span>5</span><span>10</span>
+                  </div>
+                </div>
+                <span class="pole pole-right">SaaS platforms whose<br>terms can change at will</span>
+              </div>
+            </div>
+            <div class="question">
+              <p class="q-text">My digital identity is…</p>
+              <div class="slider-row">
+                <span class="pole pole-left">Portable—I built it<br>and can take it anywhere</span>
+                <div class="slider-wrap">
+                  <input type="range" min="0" max="10" value="5" id="d3" data-q="d3" />
+                  <div class="slider-ticks">
+                    <span>0</span><span>5</span><span>10</span>
+                  </div>
+                </div>
+                <span class="pole pole-right">Tied to centralized<br>platforms I cannot leave</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q10-12: Community Governance -->
+        <div class="quadrant-card" data-quadrant="governance">
+          <div class="quadrant-header">
+            <span class="q-icon">🏡</span>
+            <div>
+              <p class="q-label gold">Quadrant IV</p>
+              <h2 class="q-title">Community Governance</h2>
+              <p class="q-sub muted"><em>The Lakou</em></p>
+            </div>
+          </div>
+          <div class="question-list">
+            <div class="question">
+              <p class="q-text">The digital spaces I inhabit are governed by…</p>
+              <div class="slider-row">
+                <span class="pole pole-left">Rules I help shape<br>or can influence</span>
+                <div class="slider-wrap">
+                  <input type="range" min="0" max="10" value="5" id="g1" data-q="g1" />
+                  <div class="slider-ticks">
+                    <span>0</span><span>5</span><span>10</span>
+                  </div>
+                </div>
+                <span class="pole pole-right">Opaque corporate policies<br>I had no voice in</span>
+              </div>
+            </div>
+            <div class="question">
+              <p class="q-text">When platforms change their rules, I…</p>
+              <div class="slider-row">
+                <span class="pole pole-left">Have real alternatives<br>and can migrate freely</span>
+                <div class="slider-wrap">
+                  <input type="range" min="0" max="10" value="5" id="g2" data-q="g2" />
+                  <div class="slider-ticks">
+                    <span>0</span><span>5</span><span>10</span>
+                  </div>
+                </div>
+                <span class="pole pole-right">Have no real choice<br>but to comply</span>
+              </div>
+            </div>
+            <div class="question">
+              <p class="q-text">My digital relationships are…</p>
+              <div class="slider-row">
+                <span class="pole pole-left">Portable—they'd survive<br>a platform change</span>
+                <div class="slider-wrap">
+                  <input type="range" min="0" max="10" value="5" id="g3" data-q="g3" />
+                  <div class="slider-ticks">
+                    <span>0</span><span>5</span><span>10</span>
+                  </div>
+                </div>
+                <span class="pole pole-right">Trapped—leaving means<br>losing the network</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /questions-col -->
+
+      <!-- RESULTS COLUMN -->
+      <div class="results-col">
+        <div class="results-panel">
+          <p class="label gold">Haunt Map</p>
+          <canvas id="haunt-map" width="340" height="340" aria-label="Sovereignty radar chart"></canvas>
+
+          <div class="extraction-score">
+            <p class="score-label muted">Extraction Score</p>
+            <p class="score-value" id="score-value">0.50</p>
+            <p class="score-reading" id="score-reading">Partial Haunting</p>
+          </div>
+
+          <div class="quadrant-scores" id="quadrant-scores">
+            <div class="qs-row">
+              <span class="qs-name">Hardware</span>
+              <div class="qs-bar-wrap"><div class="qs-bar" id="bar-hardware"></div></div>
+              <span class="qs-num" id="num-hardware">0.50</span>
+            </div>
+            <div class="qs-row">
+              <span class="qs-name">Cognition</span>
+              <div class="qs-bar-wrap"><div class="qs-bar" id="bar-cognition"></div></div>
+              <span class="qs-num" id="num-cognition">0.50</span>
+            </div>
+            <div class="qs-row">
+              <span class="qs-name">Data</span>
+              <div class="qs-bar-wrap"><div class="qs-bar" id="bar-data"></div></div>
+              <span class="qs-num" id="num-data">0.50</span>
+            </div>
+            <div class="qs-row">
+              <span class="qs-name">Governance</span>
+              <div class="qs-bar-wrap"><div class="qs-bar" id="bar-governance"></div></div>
+              <span class="qs-num" id="num-governance">0.50</span>
+            </div>
+          </div>
+
+          <div class="recommendation" id="recommendation">
+            <p class="rec-text">Adjust the sliders to reveal your Haunt Map.</p>
+          </div>
+
+          <button id="export-btn" class="btn btn--filled export-btn">Export Audit → JSON</button>
+
+          <p class="privacy-note muted">
+            All computation is local. Nothing leaves this browser.
+          </p>
+        </div>
+      </div>
+
+    </div><!-- /audit-inner -->
+  </div><!-- /audit-layout -->
+
+  <!-- BOTTOM NAV -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="divider"></div>
+      <p>
+        The Sovereignty Audit is one diagnostic. The deeper work is architectural—building
+        an <a href="/emergence/engine-room">Altar</a>, connecting to the
+        <a href="/emergence/mycelium">Mycelium</a>, and tending your own
+        <a href="/emergence/lakou">Lakou</a>.
+      </p>
+      <div class="cta-row">
+        <a href="/emergence/manifesto" class="btn">Read the Manifesto →</a>
+        <a href="/emergence/contact" class="btn btn--filled">Become a Thought Partner →</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<script>
+  // ─── Data ────────────────────────────────────────────────────────────────────
+
+  const QUADRANT_IDS = ['hardware', 'cognition', 'data', 'governance'];
+  const QUESTION_IDS = ['h1','h2','h3','c1','c2','c3','d1','d2','d3','g1','g2','g3'];
+  const QUESTION_MAP: Record<string, string> = {
+    h1: 'hardware', h2: 'hardware', h3: 'hardware',
+    c1: 'cognition', c2: 'cognition', c3: 'cognition',
+    d1: 'data',     d2: 'data',     d3: 'data',
+    g1: 'governance',g2: 'governance',g3: 'governance',
+  };
+
+  const READINGS: [number, string, string][] = [
+    [0.20, 'Sovereign Node',    'Your digital life is largely self-determined. You tend your own Altar. The grid is yours.'],
+    [0.40, 'Active Steward',    'You maintain meaningful sovereignty. Some hauntings remain—named and manageable.'],
+    [0.60, 'Partial Haunting',  'Significant dependencies have accumulated. The tending is overdue. The soil is still warm.'],
+    [0.80, 'Deep Haunting',     'Your digital life is substantially extracted. The roots are elsewhere. Begin the migration.'],
+    [1.01, 'Fully Extracted',   'You are a tenant in a house you do not own. The work begins now. The Altar is waiting.'],
+  ];
+
+  const QUADRANT_RECS: Record<string, [string, string]> = {
+    hardware:   ['Your Altar is sovereign.',          'Your computation is rented. Consider building a local node. The P40s are available.'],
+    cognition:  ['Your Engine Room runs on your own heat.', 'The Engine Room is cold. Your thinking has a landlord. Practice deliberate friction.'],
+    data:       ['Your records walk. The Mycelium is yours.', 'Your records are haunted—living in houses you do not own. Begin the migration.'],
+    governance: ['Your Lakou is real. You know your neighbors.', 'You have no Lakou. You inhabit managed space. Find your neighbors.'],
+  };
+
+  // ─── State ───────────────────────────────────────────────────────────────────
+
+  const values: Record<string, number> = {};
+  QUESTION_IDS.forEach(id => { values[id] = 5; });
+
+  // ─── Helpers ─────────────────────────────────────────────────────────────────
+
+  function quadrantScore(qid: string): number {
+    const ids = QUESTION_IDS.filter(id => QUESTION_MAP[id] === qid);
+    const sum = ids.reduce((acc, id) => acc + values[id], 0);
+    return (sum / (ids.length * 10));
+  }
+
+  function extractionScore(): number {
+    const total = QUESTION_IDS.reduce((acc, id) => acc + values[id], 0);
+    return total / (QUESTION_IDS.length * 10);
+  }
+
+  function reading(score: number): [string, string] {
+    for (const [threshold, label, desc] of READINGS) {
+      if (score < threshold) return [label, desc];
+    }
+    return READINGS[READINGS.length - 1].slice(1) as [string, string];
+  }
+
+  // ─── Canvas Chart ────────────────────────────────────────────────────────────
+
+  const GOLD        = '#C9A84C';
+  const GOLD_LIGHT  = '#E2C47A';
+  const GOLD_FILL   = 'rgba(201, 168, 76, 0.18)';
+  const BG_ELEVATED = '#161616';
+  const BORDER_CLR  = '#2a2a2a';
+  const TEXT_MUTED  = '#9a9488';
+  const AXIS_LABELS = ['Hardware', 'Data', 'Governance', 'Cognition'];
+
+  function drawChart() {
+    const canvas = document.getElementById('haunt-map') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    const dpr   = window.devicePixelRatio || 1;
+    const size  = canvas.getBoundingClientRect().width || 340;
+    canvas.width  = size * dpr;
+    canvas.height = size * dpr;
+    const ctx   = canvas.getContext('2d')!;
+    ctx.scale(dpr, dpr);
+
+    const w  = size;
+    const h  = size;
+    const cx = w / 2;
+    const cy = h / 2;
+    const R  = Math.min(cx, cy) * 0.68;
+    const N  = 4;
+
+    // Background
+    ctx.fillStyle = BG_ELEVATED;
+    ctx.fillRect(0, 0, w, h);
+
+    // Axis angles: top=hardware, right=data, bottom=governance, left=cognition
+    // -π/2 = top, then clockwise
+    const angles = [0,1,2,3].map(i => (i / N) * 2 * Math.PI - Math.PI / 2);
+
+    // Grid rings
+    [0.25, 0.5, 0.75, 1.0].forEach(r => {
+      ctx.beginPath();
+      angles.forEach((a, i) => {
+        const x = cx + R * r * Math.cos(a);
+        const y = cy + R * r * Math.sin(a);
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      });
+      ctx.closePath();
+      ctx.strokeStyle = r === 1.0 ? '#333' : BORDER_CLR;
+      ctx.lineWidth = r === 1.0 ? 1.5 : 1;
+      ctx.stroke();
+    });
+
+    // Ring labels (0.25, 0.5, 0.75)
+    ctx.fillStyle = TEXT_MUTED;
+    ctx.font = `${Math.round(size * 0.03)}px Georgia, serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    [0.25, 0.5, 0.75].forEach(r => {
+      ctx.fillText(r.toFixed(2), cx + 4, cy - R * r + 2);
+    });
+
+    // Axes
+    angles.forEach(a => {
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + R * Math.cos(a), cy + R * Math.sin(a));
+      ctx.strokeStyle = BORDER_CLR;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    });
+
+    // Data scores per axis: hardware, data, governance, cognition (clockwise from top)
+    const axisQuadrants = ['hardware', 'data', 'governance', 'cognition'];
+    const scores = axisQuadrants.map(q => quadrantScore(q));
+
+    // Haunt polygon (filled)
+    ctx.beginPath();
+    angles.forEach((a, i) => {
+      const x = cx + R * scores[i] * Math.cos(a);
+      const y = cy + R * scores[i] * Math.sin(a);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.closePath();
+    ctx.fillStyle = GOLD_FILL;
+    ctx.fill();
+    ctx.strokeStyle = GOLD;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Dots at vertices
+    angles.forEach((a, i) => {
+      const x = cx + R * scores[i] * Math.cos(a);
+      const y = cy + R * scores[i] * Math.sin(a);
+      ctx.beginPath();
+      ctx.arc(x, y, 4, 0, 2 * Math.PI);
+      ctx.fillStyle = GOLD_LIGHT;
+      ctx.fill();
+    });
+
+    // Center dot
+    ctx.beginPath();
+    ctx.arc(cx, cy, 3, 0, 2 * Math.PI);
+    ctx.fillStyle = BORDER_CLR;
+    ctx.fill();
+
+    // Axis labels
+    const labelR = R * 1.22;
+    ctx.fillStyle = TEXT_MUTED;
+    const labelSize = Math.round(size * 0.035);
+    ctx.font = `${labelSize}px Georgia, serif`;
+    angles.forEach((a, i) => {
+      const x = cx + labelR * Math.cos(a);
+      const y = cy + labelR * Math.sin(a);
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      // Offset label slightly away from center on y-axis edges
+      const label = AXIS_LABELS[i];
+      ctx.fillStyle = scores[i] > 0.65 ? GOLD : TEXT_MUTED;
+      ctx.fillText(label, x, y);
+    });
+  }
+
+  // ─── UI Update ───────────────────────────────────────────────────────────────
+
+  function updateUI() {
+    drawChart();
+
+    const total = extractionScore();
+    const [label, desc] = reading(total);
+
+    const scoreEl = document.getElementById('score-value');
+    const readingEl = document.getElementById('score-reading');
+    if (scoreEl) scoreEl.textContent = total.toFixed(2);
+    if (readingEl) readingEl.textContent = label;
+
+    // Score color
+    if (scoreEl) {
+      scoreEl.style.color = total < 0.35 ? GOLD : total < 0.65 ? GOLD_LIGHT : '#e87070';
+    }
+
+    // Quadrant bars
+    QUADRANT_IDS.forEach(qid => {
+      const s = quadrantScore(qid);
+      const bar = document.getElementById(`bar-${qid}`) as HTMLElement;
+      const num = document.getElementById(`num-${qid}`);
+      if (bar) bar.style.width = `${s * 100}%`;
+      if (num) num.textContent = s.toFixed(2);
+    });
+
+    // Recommendation
+    const recEl = document.getElementById('recommendation');
+    if (recEl) {
+      // Find the most haunted quadrant
+      const worst = QUADRANT_IDS.reduce((a, b) => quadrantScore(a) > quadrantScore(b) ? a : b);
+      const wScore = quadrantScore(worst);
+      const [low, high] = QUADRANT_RECS[worst];
+      const recText = wScore >= 0.5 ? high : low;
+
+      recEl.innerHTML = `
+        <p class="rec-label gold">Reading: ${label}</p>
+        <p class="rec-text">${desc}</p>
+        <p class="rec-focus muted">Deepest haunting: <strong>${worst.charAt(0).toUpperCase() + worst.slice(1)}</strong></p>
+        <p class="rec-advice">${recText}</p>
+      `;
+    }
+  }
+
+  function updateSliderFill(slider: HTMLInputElement) {
+    const pct = (Number(slider.value) / Number(slider.max)) * 100;
+    slider.style.setProperty('--fill-pct', `${pct}%`);
+  }
+
+  // ─── Init ─────────────────────────────────────────────────────────────────────
+
+  QUESTION_IDS.forEach(id => {
+    const el = document.getElementById(id) as HTMLInputElement;
+    if (!el) return;
+    updateSliderFill(el);
+    el.addEventListener('input', () => {
+      values[id] = Number(el.value);
+      updateSliderFill(el);
+      updateUI();
+    });
+  });
+
+  // Handle canvas resize
+  const ro = new ResizeObserver(() => updateUI());
+  const canvas = document.getElementById('haunt-map');
+  if (canvas) ro.observe(canvas);
+
+  // Initial render
+  updateUI();
+
+  // ─── Export ───────────────────────────────────────────────────────────────────
+
+  document.getElementById('export-btn')?.addEventListener('click', () => {
+    const total = extractionScore();
+    const [label] = reading(total);
+
+    const payload = {
+      schema_version: '1.0',
+      tool: 'Emergence Collective Sovereignty Audit',
+      timestamp: new Date().toISOString(),
+      extraction_score: Number(total.toFixed(4)),
+      reading: label,
+      quadrant_scores: Object.fromEntries(
+        QUADRANT_IDS.map(q => [q, Number(quadrantScore(q).toFixed(4))])
+      ),
+      questions: Object.fromEntries(
+        QUESTION_IDS.map(id => [id, values[id]])
+      ),
+      privacy: 'This file was generated entirely in the browser. No data was transmitted.',
+    };
+
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = `sovereignty-audit-${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+</script>
+
+<style>
+  /* ── Privacy banner ─────────────────────────────────── */
+  .privacy-banner {
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border);
+    padding: 0.65rem 0;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .privacy-banner p { margin: 0; }
+
+  /* ── Hero ───────────────────────────────────────────── */
+  .audit-hero { padding-bottom: 2rem; }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+  }
+
+  .hero-body {
+    max-width: 600px;
+  }
+
+  .hero-instruction {
+    font-size: 0.9rem;
+    margin-top: 0;
+  }
+
+  /* ── Layout ─────────────────────────────────────────── */
+  .audit-layout {
+    padding-bottom: 5rem;
+  }
+
+  .audit-inner {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  /* ── Question cards ─────────────────────────────────── */
+  .quadrant-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .quadrant-header {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .q-icon { font-size: 1.75rem; line-height: 1; margin-top: 0.1rem; }
+
+  .q-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+
+  .q-title {
+    font-size: 1.15rem;
+    font-weight: normal;
+    line-height: 1.2;
+    margin-bottom: 0;
+  }
+
+  .q-sub {
+    font-size: 0.875rem;
+    margin-top: 0.15rem;
+  }
+
+  .question-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .q-text {
+    font-size: 0.95rem;
+    margin-bottom: 0.85rem;
+  }
+
+  /* ── Sliders ────────────────────────────────────────── */
+  .slider-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .pole {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .pole-left { text-align: right; }
+  .pole-right { text-align: left; }
+
+  .slider-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  input[type="range"] {
+    --fill-pct: 50%;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(
+      to right,
+      var(--gold) 0%,
+      var(--gold) var(--fill-pct),
+      var(--border) var(--fill-pct),
+      var(--border) 100%
+    );
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--gold);
+    cursor: pointer;
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--gold);
+    transition: transform 0.1s ease;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--gold);
+    cursor: pointer;
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--gold);
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover,
+  input[type="range"]:focus::-webkit-slider-thumb {
+    transform: scale(1.2);
+  }
+
+  /* Remove the global site style override for range inputs */
+  input[type="range"]:focus {
+    border-color: transparent;
+  }
+
+  .slider-ticks {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.65rem;
+    color: var(--border);
+    padding: 0 1px;
+    font-family: monospace;
+  }
+
+  /* ── Results panel ──────────────────────────────────── */
+  .results-col {
+    position: sticky;
+    top: 80px;
+  }
+
+  .results-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .results-panel > .label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: -0.5rem;
+  }
+
+  #haunt-map {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    display: block;
+    border: 1px solid var(--border);
+  }
+
+  .extraction-score {
+    text-align: center;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .score-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+
+  .score-value {
+    font-size: 2.25rem;
+    font-family: Georgia, serif;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+    transition: color 0.3s ease;
+  }
+
+  .score-reading {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* Quadrant score bars */
+  .quadrant-scores {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .qs-row {
+    display: grid;
+    grid-template-columns: 72px 1fr 36px;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .qs-name {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .qs-bar-wrap {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .qs-bar {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width 0.2s ease;
+    width: 50%;
+  }
+
+  .qs-num {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-family: monospace;
+    text-align: right;
+  }
+
+  /* Recommendation */
+  .recommendation {
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .rec-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .rec-text {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+
+  .rec-focus {
+    font-size: 0.78rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .rec-advice {
+    font-size: 0.85rem;
+    color: var(--gold-light);
+    font-style: italic;
+    margin: 0;
+  }
+
+  .export-btn {
+    width: 100%;
+    text-align: center;
+    font-size: 0.85rem;
+    padding: 0.65rem 1rem;
+    cursor: pointer;
+  }
+
+  .privacy-note {
+    font-size: 0.72rem;
+    text-align: center;
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Bottom CTA ─────────────────────────────────────── */
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  /* ── Responsive ─────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .audit-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .results-col {
+      position: static;
+      order: -1;
+    }
+
+    .results-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .results-panel > .label,
+    #haunt-map {
+      grid-column: 1 / -1;
+    }
+
+    .extraction-score {
+      grid-column: 1;
+    }
+
+    .quadrant-scores {
+      grid-column: 2;
+    }
+
+    .recommendation,
+    .export-btn,
+    .privacy-note {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .results-panel {
+      grid-template-columns: 1fr;
+    }
+
+    .extraction-score,
+    .quadrant-scores {
+      grid-column: 1;
+    }
+
+    .slider-row {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .pole-left { text-align: left; }
+
+    .quadrant-card { padding: 1.25rem; }
+
+    .cta-row { flex-direction: column; }
+  }
+</style>

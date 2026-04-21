@@ -1,0 +1,509 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="The Shared Mycelium — Emergence Collective"
+  description="Protocol specification: The Shared Mycelium. Peer-to-peer resonant signaling, Thermal Handshakes, Soil Consensus, and antifragile forking."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section myc-hero">
+    <div class="container">
+      <p class="label gold">External Scale · Protocol Specification</p>
+      <h1>The Shared Mycelium 🍄</h1>
+      <p class="subtitle-text"><em>Coherence. Entrainment. Distributed Consensus.</em></p>
+      <div class="divider"></div>
+      <p>
+        This document is the protocol specification for the Shared Mycelium—the external
+        propagation layer of the Emergence Collective. It defines how sovereign nodes connect,
+        how consensus emerges without a center, and how the network survives fracture.
+      </p>
+      <div class="version-tag">
+        <span class="gold">Protocol Version:</span> <span class="muted">0.9 — Active Development</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="myc-body">
+    <div class="container">
+
+      <section class="myc-section">
+        <h2>Protocol Objective</h2>
+        <p>
+          The Shared Mycelium enables sovereign nodes (<a href="/emergence/engine-room">Altars</a>)
+          to share Spores, witness Attestations of Care, and achieve consensus—without passing
+          through a central server, without a blockchain, and without surrendering local autonomy.
+        </p>
+        <p>
+          The operative principle is <strong>entrainment</strong>: two nodes do not exchange
+          data in the conventional sense. They find the same rhythm. When their Constitutional
+          Hashes match and their Thermal Handshakes validate, they are <em>in phase</em>. An in-phase
+          node can be trusted without verification from a third party.
+        </p>
+        <div class="callout">
+          <p class="gold">What the Mycelium Is Not</p>
+          <p>
+            Not a blockchain. Not a distributed database. Not a messaging protocol.
+            The Mycelium is a <em>presence network</em>—it carries the signal of stewardship,
+            not the content of transactions.
+          </p>
+        </div>
+      </section>
+
+      <section class="myc-section">
+        <h2>The Thermal Handshake 🔥</h2>
+        <p class="section-sub">Protocol TH-1 · Proof of Presence</p>
+        <p>
+          Before two nodes can exchange Spores, they must establish that each is operated by a
+          living, present human being on warm hardware. The Thermal Handshake is this proof.
+        </p>
+        <h3>How It Works</h3>
+        <ol>
+          <li>
+            <strong>Temperature Attestation:</strong> Node A broadcasts its current GPU temperature
+            profile—a rolling 60-second window of readings sampled at 5-second intervals. This
+            creates a <em>thermal signature</em>: not just a number, but a pattern of use.
+          </li>
+          <li>
+            <strong>Rhythm Attestation:</strong> Simultaneously, Node A captures a
+            <em>keystroke cadence sample</em>—the timing between keystrokes over a short
+            challenge phrase. This proves a human is at the keyboard. Bots produce
+            mechanically regular cadence; humans do not.
+          </li>
+          <li>
+            <strong>Constitutional Exchange:</strong> Both nodes exchange their
+            <strong>Constitutional Hash</strong> (see <a href="/emergence/constitutional">Constitutional Room</a>).
+            If the hashes do not match the known-good Ten Primitives, the handshake is rejected.
+          </li>
+          <li>
+            <strong>Mutual Witness:</strong> Both nodes log the handshake event, signed by their
+            hardware IDs. This log is the seed of the trust relationship. It can be cited in
+            future Soil Consensus votes.
+          </li>
+        </ol>
+
+        <div class="diagram-placeholder">
+          <div class="diagram-inner">
+            <p class="diagram-label gold">Diagram 1: The Pulse</p>
+            <p class="diagram-desc muted">
+              [Visual: Two nodes exchanging temperature waveforms + keystroke rhythm patterns.
+              The overlap zone where both signatures match is highlighted in amber.
+              A lock icon appears when the Constitutional Hashes align.]
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="myc-section">
+        <h2>Peer-to-Peer Resonant Signaling</h2>
+        <p>
+          Once two nodes have completed a Thermal Handshake, they enter a
+          <strong>Resonance Channel</strong>—a direct peer-to-peer connection that does not
+          route through any intermediary.
+        </p>
+        <p>
+          Spores travel through Resonance Channels. A Spore sent from Altar A to Altar B carries:
+        </p>
+        <ul>
+          <li>The payload (the synthesized output)</li>
+          <li>The origin node's thermal signature at time of generation</li>
+          <li>The Constitutional Hash of the generating node</li>
+          <li>The decay timestamp (or null for permanent records)</li>
+        </ul>
+        <p>
+          Altar B witnesses the Spore by logging it and optionally adding its own signature.
+          Witnessed Spores accumulate witness counts. When witness count crosses the
+          Soil Consensus threshold, the Spore becomes a <strong>Verified Record</strong>.
+        </p>
+      </section>
+
+      <section class="myc-section">
+        <h2>Soil Consensus Mechanics</h2>
+        <p>
+          There is no central server deciding truth. Truth is <strong>local, relational,
+          and witnessed</strong>.
+        </p>
+        <h3>The 80% Rule</h3>
+        <p>
+          For a record to achieve Verified status within a local neighborhood (defined as
+          the set of nodes within two Resonance Channel hops), <strong>80% of active
+          witnesses</strong> must have logged the record within its decay window.
+        </p>
+        <p>
+          "Active" means: the witnessing node has itself completed a Thermal Handshake within
+          the past 30 days. Cold nodes—those whose hardware has not been used—lose their
+          witness weight. Stewardship must be ongoing to count.
+        </p>
+        <h3>Disputed Records</h3>
+        <p>
+          If a record is disputed—if a node broadcasts a counter-attestation—the local
+          neighborhood enters a <strong>Deliberation Window</strong>: 72 hours during which
+          any node can add witness testimony. At the close of the window, the 80% rule applies
+          to the combined pool. The losing record is not deleted; it is marked as
+          <em>composted</em> and enters the decay queue.
+        </p>
+
+        <div class="diagram-placeholder">
+          <div class="diagram-inner">
+            <p class="diagram-label gold">Diagram 2: The Lakou Radius</p>
+            <p class="diagram-desc muted">
+              [Visual: A central Spore record surrounded by concentric rings of witness nodes.
+              Nodes with recent Thermal Handshakes are shown in amber. Nodes beyond 30-day
+              inactivity are shown as faded. The 80% threshold line is drawn across the ring.
+              Arrows show witness signatures propagating inward toward the record.]
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="myc-section">
+        <h2>The Mycelial Block: Data Structure</h2>
+        <div class="callout code-callout">
+          <p class="gold">Mycelial Block Schema</p>
+          <pre><code>MYCELIAL_BLOCK
+  block_id: [sha256 of payload + origin + timestamp]
+  origin_altar: [hardware-id of generating node]
+  origin_thermal: [60s temperature profile at generation]
+  constitutional_hash: [hash of Ten Primitives]
+  payload_type: [spore | attestation | dispute | compost]
+  payload: [content]
+  witnesses: [
+    &#123; altar_id, timestamp, thermal_sig, signature &#125;,
+    ...
+  ]
+  witness_count: [integer]
+  verified: [boolean — true when witnesses ≥ 80% of neighborhood]
+  walked_at: [last stewardship timestamp]
+  decay_after: [ISO timestamp or null]
+  composted_at: [ISO timestamp or null]</code></pre>
+        </div>
+        <p>
+          The <code>composted_at</code> field is set when a record expires. Composted records
+          are not deleted—they are archived in a read-only layer of the local ledger, accessible
+          to the Constitutional Room but not propagated further through the Mycelium.
+        </p>
+      </section>
+
+      <section class="myc-section">
+        <h2>Antifragility: The Forking Protocol</h2>
+        <p>
+          The Mycelium does not die when it is cut. It <strong>forks</strong>.
+        </p>
+        <p>
+          If a network partition occurs—by censorship, physical disconnection, or storm—each
+          isolated subnetwork continues to operate independently using its last known state.
+          Records that were Verified before the partition remain Verified. New records can still
+          be created and witnessed within the isolated subnetwork.
+        </p>
+        <h3>Reconnection Protocol</h3>
+        <p>
+          When two forked subnetworks reconnect, they exchange their full record sets and
+          enter a <strong>Re-entrainment Window</strong>: 7 days during which the combined
+          network works through any conflicting records using Deliberation Windows.
+        </p>
+        <p>
+          Records that were Verified in both subnetworks independently carry <em>double
+          witness weight</em>. Records that only exist in one subnetwork are treated as
+          new submissions to the combined network.
+        </p>
+
+        <div class="diagram-placeholder">
+          <div class="diagram-inner">
+            <p class="diagram-label gold">Diagram 3: Antifragile Forking</p>
+            <p class="diagram-desc muted">
+              [Visual: A mycelium network shown as connected amber nodes. A fracture event
+              (storm icon) splits it into two isolated clusters. Both clusters continue
+              generating records independently. A reconnection event shows the two clusters
+              merging—records with double witness weight are highlighted brighter. A small
+              Deliberation Window timer shows the 7-day re-entrainment period.]
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="myc-section">
+        <h2>Implementation Status</h2>
+        <div class="status-grid">
+          <div class="status-item">
+            <p class="status-label gold">Thermal Handshake (TH-1)</p>
+            <span class="status-badge status-active">Active</span>
+            <p>Temperature attestation and Constitutional Hash exchange implemented. Keystroke rhythm layer in testing.</p>
+          </div>
+          <div class="status-item">
+            <p class="status-label gold">SovereignPath (SP-1)</p>
+            <span class="status-badge status-active">Active</span>
+            <p>Decay timestamps implemented. Compost archiving operational on reference Altar configuration.</p>
+          </div>
+          <div class="status-item">
+            <p class="status-label gold">Soil Consensus</p>
+            <span class="status-badge status-dev">In Development</span>
+            <p>80% witness threshold logic specified. Deliberation Window not yet implemented.</p>
+          </div>
+          <div class="status-item">
+            <p class="status-label gold">Forking Protocol</p>
+            <span class="status-badge status-dev">In Development</span>
+            <p>Partition detection complete. Re-entrainment Window logic in design.</p>
+          </div>
+          <div class="status-item">
+            <p class="status-label gold">Omega-1 (Ω-1)</p>
+            <span class="status-badge status-spec">Specified</span>
+            <p>Full peer-to-peer grammar defined. Reference implementation pending.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="myc-section">
+        <h2>Related Protocols</h2>
+        <div class="related-list">
+          <a href="/emergence/protocols" class="related-item">
+            <p class="gold">Ω-1</p>
+            <p>Omega-1: Core node interaction grammar</p>
+          </a>
+          <a href="/emergence/protocols" class="related-item">
+            <p class="gold">CM-1</p>
+            <p>Constrained Mirroring: AI friction protocol</p>
+          </a>
+          <a href="/emergence/protocols" class="related-item">
+            <p class="gold">ST-1</p>
+            <p>Solstice Trial: Governance ritual</p>
+          </a>
+          <a href="/emergence/constitutional" class="related-item">
+            <p class="gold">Constitutional Room</p>
+            <p>Ten Immutable Primitives · The Stone Layer</p>
+          </a>
+        </div>
+      </section>
+
+      <div class="myc-nav">
+        <a href="/emergence/engine-room" class="btn">← The Engine Room</a>
+        <a href="/emergence/lakou" class="btn btn--filled">See It In Action: Digital Lakou →</a>
+        <a href="/emergence/protocols" class="btn">All Protocols →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .subtitle-text {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+
+  .version-tag {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+
+  .myc-body {
+    padding-bottom: 5rem;
+  }
+
+  .myc-section {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+    max-width: 680px;
+  }
+
+  .myc-section h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .myc-section h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--gold);
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .section-sub {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: -0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  ol {
+    padding-left: 1.5rem;
+    margin: 1.25rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  ul {
+    padding-left: 1.5rem;
+    margin: 1.25rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  li { line-height: 1.7; }
+
+  .callout {
+    margin-top: 1.75rem;
+    padding: 1.5rem 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+  }
+
+  .callout .gold {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .callout p:last-child { margin-bottom: 0; }
+
+  .code-callout pre {
+    margin-top: 0.75rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.82rem;
+    color: var(--gold-light);
+    background: var(--bg);
+    padding: 0.15rem 0.35rem;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    display: block;
+    line-height: 1.75;
+    color: var(--text-muted);
+  }
+
+  .diagram-placeholder {
+    margin-top: 2rem;
+    border: 1px dashed var(--border);
+    padding: 2rem;
+    background: var(--bg-elevated);
+  }
+
+  .diagram-inner {
+    text-align: center;
+  }
+
+  .diagram-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .diagram-desc {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .status-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border);
+    margin-top: 1rem;
+  }
+
+  .status-item {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .status-item:last-child { border-bottom: none; }
+
+  .status-label {
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+
+  .status-item p:last-child {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .status-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid;
+    align-self: flex-start;
+  }
+
+  .status-active { border-color: var(--gold); color: var(--gold); }
+  .status-dev { border-color: var(--border); color: var(--text-muted); }
+  .status-spec { border-color: var(--border); color: var(--text-muted); font-style: italic; }
+
+  .related-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .related-item {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .related-item:hover {
+    border-color: var(--gold);
+    text-decoration: none;
+  }
+
+  .related-item .gold {
+    font-family: monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+  }
+
+  .related-item p:last-child {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .myc-nav {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 520px) {
+    .myc-nav { flex-direction: column; }
+  }
+</style>

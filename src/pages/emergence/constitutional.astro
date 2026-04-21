@@ -1,0 +1,81 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="The Constitutional Room — Emergence Collective"
+  description="The Constitutional Room: stable memory, core principles, and immutable records. The anchor of the Emergence Collective."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">Architecture</p>
+      <h1>The Constitutional Room 🏛️</h1>
+      <p class="subtitle-text"><em>Stable Memory. Core Principles. Immutable Records.</em></p>
+      <div class="divider"></div>
+      <p>
+        If the <a href="/emergence/engine-room">Engine Room</a> is fast, associative, and hot,
+        the Constitutional Room is the opposite: slow, deliberate, anchoring, cool.
+      </p>
+      <p>
+        It is where the principles that govern the Collective are held—not as rules to be
+        broken, but as <strong>anchors</strong> that prevent drift. The constitutional layer
+        is the long memory of the architecture. It does not reason. It witnesses.
+      </p>
+      <p>
+        <em>The Constitutional Room is the stone anchor of the Emergence Collective—the
+        immutable primitives that no fork, no storm, no algorithm can alter. Specification
+        complete. Full text coming soon.</em>
+      </p>
+      <div class="placeholder-block">
+        <p class="label gold">Specification Complete · Full Text Coming Soon</p>
+        <p class="muted">
+          The Constitutional Room deep dive will include the complete Ten Immutable Primitives,
+          the Genesis Block format, the Seal of Legitimacy protocol, the Constitutional Hash
+          specification, and the Solstice Trial governance ritual for amendment.
+        </p>
+        <a href="/emergence/protocols" class="btn" style="margin-top: 1rem; display: inline-block;">View Protocols →</a>
+      </div>
+      <div class="cta-row">
+        <a href="/emergence/engine-room" class="btn">← The Engine Room</a>
+        <a href="/emergence/collective" class="btn">The Collective →</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .subtitle-text {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+
+  .placeholder-block {
+    margin-top: 2.5rem;
+    padding: 1.75rem 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+  }
+
+  .placeholder-block .label {
+    margin-bottom: 0.5rem;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 520px) {
+    .cta-row { flex-direction: column; }
+  }
+</style>

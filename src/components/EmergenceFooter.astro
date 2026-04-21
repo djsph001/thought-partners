@@ -1,0 +1,60 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container--wide footer-inner">
+    <p class="footer-copy">&copy; {year} Emergence Collective &mdash; Cognitive Sovereignty Through Decentralized Partnership</p>
+    <nav class="footer-nav">
+      <a href="/emergence/collective">The Collective</a>
+      <a href="/emergence/engine-room">Engine Room</a>
+      <a href="/emergence/mycelium">Mycelium</a>
+      <a href="/emergence/protocols">Protocols</a>
+      <a href="/emergence/lakou">Digital Lakou</a>
+      <a href="/emergence/book">The Book</a>
+      <a href="/emergence/manifesto">Manifesto</a>
+      <a href="/emergence/contact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 0;
+    margin-top: auto;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-copy {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+    font-style: italic;
+  }
+
+  .footer-nav {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-nav a {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+  }
+
+  .footer-nav a:hover {
+    color: var(--gold);
+    text-decoration: none;
+  }
+</style>
