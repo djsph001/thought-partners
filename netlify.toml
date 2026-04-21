@@ -6,6 +6,11 @@
   NODE_VERSION = "22"
 
 [[redirects]]
+  from = "/"
+  to = "/emergence"
+  status = 302
+
+[[redirects]]
   from = "/*"
   to = "/404"
   status = 404
