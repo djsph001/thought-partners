@@ -9,6 +9,7 @@
   from = "/"
   to = "/emergence"
   status = 302
+  force = true
 
 [[redirects]]
   from = "/*"
