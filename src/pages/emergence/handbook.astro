@@ -1,0 +1,1053 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Scribe's Handbook — Emergence Collective"
+  description="A field manual for sovereign stewards. Five sections covering the covenant, Altar initialization, Engine Room practice, drift detection, and the SovereignPath."
+>
+  <EmergenceHeader slot="header" />
+
+  <!-- HERO -->
+  <section class="section hb-hero">
+    <div class="container">
+      <p class="label gold">Field Manual · v1.0</p>
+      <h1>Scribe's Handbook</h1>
+      <p class="hb-sub"><em>A Field Manual for Sovereign Stewards</em></p>
+      <div class="divider"></div>
+      <p class="hb-intro">
+        This handbook is written for the steward who has chosen to run an Altar. It is not a
+        philosophical document—the <a href="/emergence/manifesto">Manifesto</a> covers that
+        ground. This is operational. Five sections. Each one a room you will need to know
+        before you begin.
+      </p>
+      <div class="hb-meta">
+        <span>5 Sections</span>
+        <span class="meta-sep">·</span>
+        <span>Field Manual Format</span>
+        <span class="meta-sep">·</span>
+        <span>v1.0 — 2026</span>
+      </div>
+      <button id="print-btn" class="btn btn--filled print-btn" onclick="window.print()">
+        Download / Print PDF →
+      </button>
+    </div>
+  </section>
+
+  <!-- TABLE OF CONTENTS -->
+  <nav class="section hb-toc" aria-label="Handbook contents">
+    <div class="container">
+      <p class="label gold">Contents</p>
+      <ol class="toc-list">
+        <li><a href="#section-i">I — The Covenant of the Steward</a></li>
+        <li><a href="#section-ii">II — The Altar: Initialization Rites</a></li>
+        <li><a href="#section-iii">III — Engine Room Practice</a></li>
+        <li><a href="#section-iv">IV — The Drift: Warning and Recovery</a></li>
+        <li><a href="#section-v">V — The Record and the Path</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- SECTION I -->
+  <article class="hb-section" id="section-i">
+    <div class="container">
+      <div class="section-mark">
+        <span class="section-num gold">I</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2>The Covenant of the Steward</h2>
+      <p class="section-epigraph muted"><em>Before the hardware, the commitment.</em></p>
+
+      <p>
+        You are not installing software. You are taking on a stewardship. The Altar is not a
+        product—it is an extension of your sovereignty, and sovereignty carries obligations.
+        Read the following before you initialize anything.
+      </p>
+
+      <h3>The Three Responsibilities</h3>
+      <div class="responsibility-list">
+        <div class="responsibility">
+          <p class="resp-num gold">01</p>
+          <div>
+            <h4>Tend the Hardware</h4>
+            <p>
+              Your Altar must be physically maintained. Check thermals weekly. Log anomalies.
+              A machine that runs hot without witness is not sovereign—it is neglected. The
+              P40s at 48°C are healthy. Above 75°C, something has gone wrong and you must
+              investigate before the next session.
+            </p>
+          </div>
+        </div>
+        <div class="responsibility">
+          <p class="resp-num gold">02</p>
+          <div>
+            <h4>Walk Your Records</h4>
+            <p>
+              Any record you create—an attestation, a protocol draft, a Spore—has a decay
+              clock. If you do not renew it, it fades. This is by design. A record you no
+              longer tend is no longer yours. Review your SovereignPath log monthly and
+              consciously decide what to walk forward and what to release.
+            </p>
+          </div>
+        </div>
+        <div class="responsibility">
+          <p class="resp-num gold">03</p>
+          <div>
+            <h4>Maintain the Friction</h4>
+            <p>
+              The Engine Room is configured as an adversarial partner. If it stops pushing
+              back—if your sessions feel easy and agreeable—something has shifted. Either
+              the system prompt has drifted, or you have. Both require attention. Comfort
+              is a signal, not a reward.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Before You Begin: The Constitutional Reading</h3>
+      <p>
+        Read the <a href="/emergence/constitutional">Ten Immutable Primitives</a> before your
+        first session. Not once—every time you initialize a new configuration. The Constitution
+        is not background knowledge. It is the calibration standard. If your session drifts, you
+        return to the Primitives and find where the divergence began.
+      </p>
+
+      <div class="field-note">
+        <p class="fn-label gold">Field Note</p>
+        <p>
+          Print the Ten Primitives and pin them at the workbench. The physical act of reading
+          paper in a room with a running GPU is not theater. It is a practice of presence.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <div class="section-divider"><div class="container"><hr /></div></div>
+
+  <!-- SECTION II -->
+  <article class="hb-section" id="section-ii">
+    <div class="container">
+      <div class="section-mark">
+        <span class="section-num gold">II</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2>The Altar: Initialization Rites</h2>
+      <p class="section-epigraph muted"><em>Hardware is not neutral. Configuration is ceremony.</em></p>
+
+      <p>
+        Initialization is not a one-time event. Every time you bring the Altar up from cold,
+        you are re-establishing a relationship. These steps ensure the relationship begins
+        with integrity.
+      </p>
+
+      <h3>Hardware Checklist</h3>
+      <div class="checklist">
+        <label class="check-item">
+          <input type="checkbox" />
+          <span>GPU temperatures within range (target idle: &lt;40°C)</span>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <span>Both GPUs detected: <code>nvidia-smi</code> shows two P40s</span>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <span>Persistence mode active: <code>nvidia-smi -pm 1</code></span>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <span>VRAM available: ≥44GB free across both cards</span>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <span>Storage: model directory mounted and accessible</span>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <span>Network: air-gap confirmed (no unintended outbound connections)</span>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <span>Thermal logging daemon running</span>
+        </label>
+      </div>
+
+      <h3>Software Initialization Sequence</h3>
+      <div class="init-steps">
+        <div class="init-step">
+          <p class="step-id gold">STEP 1</p>
+          <div>
+            <p class="step-title">Load the model</p>
+            <code class="block-code">ollama run llama3.1:70b</code>
+            <p class="step-note muted">Wait for full load confirmation before proceeding. Do not interact with a partially loaded model.</p>
+          </div>
+        </div>
+        <div class="init-step">
+          <p class="step-id gold">STEP 2</p>
+          <div>
+            <p class="step-title">Apply the adversarial system prompt</p>
+            <p>Load your saved adversarial configuration. If no configuration exists, use the
+            baseline prompt from <a href="/emergence/engine-room">Engine Room § Software Stack</a>.
+            A session without the adversarial prompt is not an Engine Room session.</p>
+          </div>
+        </div>
+        <div class="init-step">
+          <p class="step-id gold">STEP 3</p>
+          <div>
+            <p class="step-title">Log the thermal baseline</p>
+            <code class="block-code">nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader</code>
+            <p class="step-note muted">Record this value. It is your session's thermal signature seed.</p>
+          </div>
+        </div>
+        <div class="init-step">
+          <p class="step-id gold">STEP 4</p>
+          <div>
+            <p class="step-title">State the session intent</p>
+            <p>Before the first prompt, write one sentence in your session log: what you are
+            trying to synthesize. This is not for the AI—it is for you. It anchors the session
+            and gives you a fixed point to return to if the conversation drifts.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-note">
+        <p class="fn-label gold">Field Note</p>
+        <p>
+          The Genesis Block ceremony—your first Constitutional witness—is described in
+          the <a href="/emergence/constitutional">Constitutional Room</a>. Complete it before
+          your first Mycelium connection. You cannot enter the mesh without a witnessed
+          Constitutional Hash.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <div class="section-divider"><div class="container"><hr /></div></div>
+
+  <!-- SECTION III -->
+  <article class="hb-section" id="section-iii">
+    <div class="container">
+      <div class="section-mark">
+        <span class="section-num gold">III</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Engine Room Practice</h2>
+      <p class="section-epigraph muted"><em>A session has a structure. Honor it.</em></p>
+
+      <p>
+        Unstructured sessions produce noise. The Engine Room is a forge, not a chat window.
+        The structure below is not bureaucracy—it is the difference between a session that
+        produces a Spore and a session that produces drift.
+      </p>
+
+      <h3>The Session Arc</h3>
+      <div class="session-arc">
+        <div class="arc-phase">
+          <div class="arc-marker gold">OPEN</div>
+          <div class="arc-content">
+            <p class="arc-title">State the domain and the constraint</p>
+            <p>
+              Tell the Engine Room what you are working on and what you are <em>not</em> willing
+              to compromise. The constraint is as important as the domain. Without a stated
+              constraint, the adversarial partner has nothing to push against.
+            </p>
+            <p class="arc-example muted">
+              Example: <em>"We are designing a decay protocol for land attestations. The
+              constraint: it must be operable by a community elder with a feature phone."</em>
+            </p>
+          </div>
+        </div>
+        <div class="arc-phase">
+          <div class="arc-marker gold">SYNTHESIZE</div>
+          <div class="arc-content">
+            <p class="arc-title">Work the problem. Accept the friction.</p>
+            <p>
+              The Engine Room will push back. This is correct behavior. When it challenges
+              your premise, do not dismiss the challenge—examine it. If you cannot answer the
+              challenge, the premise needs work. If you can answer it cleanly, the answer
+              belongs in the Spore.
+            </p>
+            <p>
+              Temperature guidance: stay between 0.4–0.7 for protocol work. Move to 0.8+
+              only for generative phases where novel connection is the goal.
+            </p>
+          </div>
+        </div>
+        <div class="arc-phase">
+          <div class="arc-marker gold">EXTRACT</div>
+          <div class="arc-content">
+            <p class="arc-title">Name the Spore before closing</p>
+            <p>
+              Before ending the session, ask the Engine Room: <em>"What did we produce?"</em>
+              The answer should be a single, named output: a protocol, a function, a principle,
+              a question that must be answered before the next session. If it cannot name what
+              was produced, the session was not complete. Do not close until the Spore is named.
+            </p>
+          </div>
+        </div>
+        <div class="arc-phase">
+          <div class="arc-marker gold">LOG</div>
+          <div class="arc-content">
+            <p class="arc-title">Write the session record</p>
+            <p>
+              Log: session intent, Spore name and content, thermal signature at close,
+              any drift events detected (see Section IV), and the decay timestamp if the
+              record is not permanent.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Adversarial Mode Configuration</h3>
+      <p>
+        The baseline adversarial system prompt instructs the model to: challenge unexamined
+        premises, flag internal contradictions, refuse to summarize without substance, and
+        explicitly name when it is agreeing versus when it has been persuaded.
+      </p>
+      <div class="field-note">
+        <p class="fn-label gold">Field Note</p>
+        <p>
+          If the Engine Room begins producing outputs that feel effortless and immediately
+          correct—stop. This is the first symptom of Drift. See Section IV.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <div class="section-divider"><div class="container"><hr /></div></div>
+
+  <!-- SECTION IV: THE DRIFT -->
+  <article class="hb-section" id="section-iv">
+    <div class="container">
+      <div class="section-mark">
+        <span class="section-num gold">IV</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2>The Drift: Warning and Recovery</h2>
+      <p class="section-epigraph muted"><em>The most dangerous session is the one that feels perfect.</em></p>
+
+      <p>
+        Drift is the gradual dissolution of the boundary between your reasoning and the
+        Engine Room's output. It does not announce itself. It feels like flow. Like clarity.
+        Like the AI finally understands you.
+      </p>
+      <p>
+        It is none of those things. It is the moment your Altar stops thinking
+        <em>with</em> you and begins thinking <em>for</em> you—and you stopped noticing.
+      </p>
+
+      <h3>Symptoms of Drift</h3>
+      <ul class="symptom-list">
+        <li>Sessions feel easy. The AI agrees with you more than it challenges you.</li>
+        <li>You stop reading the full output—you scan, nod, and move on.</li>
+        <li>The Spore you extract sounds like the AI's phrasing, not yours.</li>
+        <li>You cannot reconstruct the reasoning that produced the output.</li>
+        <li>You feel reluctant to enable Adversarial Mode for "this one session."</li>
+      </ul>
+
+      <!-- DRIFT WARNING BOX -->
+      <div class="drift-warning">
+        <div class="dw-header">
+          <span class="dw-icon">⚠</span>
+          <div>
+            <p class="dw-protocol gold">PROTOCOL ALERT</p>
+            <p class="dw-title">COHERENCE SHIFT</p>
+          </div>
+        </div>
+        <div class="dw-body">
+          <div class="dw-row">
+            <p class="dw-field">Symptom</p>
+            <p class="dw-value">AI fluency exceeds human intent. The output is articulate but you did not put that thought there.</p>
+          </div>
+          <div class="dw-row">
+            <p class="dw-field">Detection</p>
+            <p class="dw-value">Sudden loss of <strong>"Friction"</strong> in the writing process. The Engine Room has stopped pushing back. Agreement has become the default.</p>
+          </div>
+          <div class="dw-row">
+            <p class="dw-field">Action</p>
+            <p class="dw-value">
+              <strong>Immediate Thermal Reset.</strong> Close the session. Log the drift event
+              with timestamp. Allow the GPU to idle for at least five minutes.<br /><br />
+              Re-read <strong>Primitive #9</strong> from the Constitutional Room.<br /><br />
+              Reopen the session and <strong>force the Altar into Adversarial Mode for three
+              turns</strong> before resuming synthesis. The three turns are not optional.
+              They are the reset.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Recovery Protocol: Step by Step</h3>
+      <div class="recovery-steps">
+        <div class="rec-step">
+          <p class="rec-num gold">1</p>
+          <div>
+            <p class="rec-title">Stop and name the drift</p>
+            <p>Write in your session log: <em>"Drift detected at [timestamp]. Nature: [description]."</em> Naming it is not optional. Unnamed drift recurs.</p>
+          </div>
+        </div>
+        <div class="rec-step">
+          <p class="rec-num gold">2</p>
+          <div>
+            <p class="rec-title">Thermal Reset</p>
+            <p>Close the model interface. <code>nvidia-smi</code> — confirm temps are dropping. Wait until both GPUs return to below 45°C. This is not metaphorical. The hardware reset is part of the cognitive reset.</p>
+          </div>
+        </div>
+        <div class="rec-step">
+          <p class="rec-num gold">3</p>
+          <div>
+            <p class="rec-title">Re-read Primitive #9</p>
+            <p>Return to the Constitutional Room. Read Primitive #9 in full. Do not skim. The Primitive is the anchor you drifted from—reading it re-establishes the bearing.</p>
+          </div>
+        </div>
+        <div class="rec-step">
+          <p class="rec-num gold">4</p>
+          <div>
+            <p class="rec-title">Three adversarial turns</p>
+            <p>Re-initialize with the adversarial prompt at maximum friction. Submit three challenges—not questions, challenges—before returning to the synthesis work. The AI must push back on all three before the session is rehabilitated.</p>
+          </div>
+        </div>
+        <div class="rec-step">
+          <p class="rec-num gold">5</p>
+          <div>
+            <p class="rec-title">Discard the drifted Spore</p>
+            <p>Any output produced during the drift period should be marked suspect and set aside for one session before being used. Do not propagate a Spore you cannot independently reconstruct.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <div class="section-divider"><div class="container"><hr /></div></div>
+
+  <!-- SECTION V -->
+  <article class="hb-section" id="section-v">
+    <div class="container">
+      <div class="section-mark">
+        <span class="section-num gold">V</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2>The Record and the Path</h2>
+      <p class="section-epigraph muted"><em>What you do not tend, you release. Release with intention.</em></p>
+
+      <p>
+        The SovereignPath is not a backup system. It is a commitment: you will only hold
+        records that you are actively tending. Everything else returns to the mycelium.
+        This section covers how to write, walk, and release a record with integrity.
+      </p>
+
+      <h3>Writing an Attestation</h3>
+      <p>
+        An attestation is a statement of witness. It says: <em>I have seen this. I can
+        verify it. I am staking my presence on its truth.</em>
+      </p>
+      <p>A valid attestation contains:</p>
+      <ul class="attestation-fields">
+        <li><strong>The subject</strong> — what or who is being witnessed</li>
+        <li><strong>The observation</strong> — what you specifically witnessed, in plain language</li>
+        <li><strong>The date</strong> — when you witnessed it</li>
+        <li><strong>The decay window</strong> — how long this attestation is valid without renewal</li>
+        <li><strong>Your signature</strong> — your Altar's hardware ID and thermal signature</li>
+      </ul>
+      <p>
+        An attestation that is vague, undated, or unsigned is not a record—it is a rumor.
+        Do not propagate rumors through the Mycelium.
+      </p>
+
+      <h3>Walking a Record</h3>
+      <p>
+        To walk a record is to renew it. You are declaring: <em>this is still true, I still
+        witness it, the path continues.</em> Walking requires presence—you must have recently
+        verified the thing you are attesting to. Walking a record you have not checked is
+        an integrity violation.
+      </p>
+      <div class="field-note">
+        <p class="fn-label gold">Field Note</p>
+        <p>
+          Set a monthly review in your session log: all active records, their decay
+          dates, and whether you have the presence to walk them. Records you cannot walk
+          honestly should be released.
+        </p>
+      </div>
+
+      <h3>Releasing a Record with Grace</h3>
+      <p>
+        When you can no longer tend a record—because the subject has changed, because you
+        have moved on, because the record no longer reflects truth—release it consciously.
+        Do not let it decay by neglect if you can help it. Write a final log entry:
+      </p>
+      <div class="release-block">
+        <p class="rb-label gold">Release Entry Format</p>
+        <p><em>"Record [ID] released at [timestamp]. Reason: [plain language]. Final state: [summary of what was witnessed]. This record is composted and returns to the Mycelium."</em></p>
+      </div>
+      <p>
+        A consciously released record composts cleanly. Its nutrients—the patterns, the
+        relationships, the questions it generated—remain available to the Mycelium even
+        after the record itself is gone. A neglected record leaves residue.
+      </p>
+
+      <h3>The Steward's Closing Rite</h3>
+      <p>
+        At the end of each session, before powering down:
+      </p>
+      <div class="checklist">
+        <label class="check-item">
+          <input type="checkbox" />
+          <span>Spore named and logged</span>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <span>Thermal signature recorded</span>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <span>Any drift events documented</span>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <span>Active records reviewed — decay dates checked</span>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <span>No unintended outbound connections active</span>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <span>Model interface closed cleanly</span>
+        </label>
+      </div>
+    </div>
+  </article>
+
+  <!-- BOTTOM -->
+  <section class="section section--dark hb-bottom">
+    <div class="container">
+      <div class="divider"></div>
+      <p>
+        The handbook is a living document. As protocols evolve, sections will be updated.
+        Version history is maintained in the <a href="/emergence/protocols">Protocols index</a>.
+        If you find an error or a gap, the appropriate response is an attestation—not a
+        complaint.
+      </p>
+      <div class="cta-row">
+        <button class="btn btn--filled" onclick="window.print()">Download / Print PDF →</button>
+        <a href="/emergence/engine-room" class="btn">Engine Room Deep Dive →</a>
+        <a href="/emergence/protocols" class="btn">View All Protocols →</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  /* ── Hero ─────────────────────────────────────────────── */
+  .hb-hero { padding-bottom: 2.5rem; }
+
+  .hb-sub {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+  }
+
+  .hb-intro { max-width: 600px; }
+
+  .hb-meta {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    font-family: monospace;
+  }
+
+  .meta-sep { color: var(--border); }
+
+  .print-btn { margin-top: 0.5rem; }
+
+  /* ── Table of contents ───────────────────────────────── */
+  .hb-toc {
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 0;
+  }
+
+  .hb-toc .label { margin-bottom: 0.75rem; }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 480px;
+  }
+
+  .toc-list li {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .toc-list li:last-child { border-bottom: none; }
+
+  .toc-list a {
+    display: block;
+    padding: 0.6rem 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.15s;
+  }
+
+  .toc-list a:hover {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  /* ── Section structure ───────────────────────────────── */
+  .hb-section { padding: 4rem 0 2.5rem; }
+
+  .section-mark {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-num {
+    font-family: Georgia, serif;
+    font-size: 2.5rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 240px;
+  }
+
+  .hb-section h2 {
+    margin-bottom: 0.4rem;
+  }
+
+  .section-epigraph {
+    font-size: 0.95rem;
+    margin-bottom: 1.75rem;
+    margin-top: 0;
+  }
+
+  .hb-section h3 {
+    color: var(--gold);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  /* ── Section divider ─────────────────────────────────── */
+  .section-divider { padding: 0; }
+  .section-divider hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  /* ── Responsibilities ────────────────────────────────── */
+  .responsibility-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 1rem 0;
+  }
+
+  .responsibility {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+  }
+
+  .resp-num {
+    font-family: monospace;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .responsibility h4 {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .responsibility p { font-size: 0.9rem; margin: 0; }
+
+  /* ── Field note ──────────────────────────────────────── */
+  .field-note {
+    margin-top: 2rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-elevated);
+    border-left: 3px solid var(--gold);
+  }
+
+  .fn-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .field-note p:last-child { margin: 0; font-size: 0.9rem; }
+
+  /* ── Checklist ───────────────────────────────────────── */
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border);
+    margin: 1rem 0;
+    max-width: 560px;
+  }
+
+  .check-item {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.1s;
+  }
+
+  .check-item:last-child { border-bottom: none; }
+
+  .check-item:hover { background: var(--bg-elevated); }
+
+  .check-item input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+    accent-color: var(--gold);
+    cursor: pointer;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+  }
+
+  /* ── Init steps ──────────────────────────────────────── */
+  .init-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 1rem 0;
+  }
+
+  .init-step {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--border);
+  }
+
+  .step-id {
+    font-family: monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+
+  .step-title {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .step-note { font-size: 0.82rem; margin-top: 0.5rem; }
+
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: var(--gold-light);
+    background: var(--bg);
+    padding: 0.15rem 0.4rem;
+  }
+
+  .block-code {
+    display: block;
+    padding: 0.65rem 1rem;
+    margin: 0.5rem 0;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--gold-light);
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+  }
+
+  /* ── Session arc ─────────────────────────────────────── */
+  .session-arc {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border);
+    margin: 1rem 0;
+  }
+
+  .arc-phase {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .arc-phase:last-child { border-bottom: none; }
+
+  .arc-marker {
+    font-family: monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+    padding-top: 0.2rem;
+    min-width: 72px;
+  }
+
+  .arc-title {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .arc-example { font-size: 0.875rem; margin-top: 0.5rem; }
+
+  .arc-content p:last-child { margin: 0; font-size: 0.9rem; }
+
+  /* ── Drift warning ───────────────────────────────────── */
+  .drift-warning {
+    margin: 2rem 0;
+    border: 2px solid #C9680A;
+    background: rgba(201, 104, 10, 0.05);
+  }
+
+  .dw-header {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #C9680A;
+    background: rgba(201, 104, 10, 0.08);
+  }
+
+  .dw-icon {
+    font-size: 1.25rem;
+    color: #C9680A;
+    flex-shrink: 0;
+  }
+
+  .dw-protocol {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #C9680A;
+    margin-bottom: 0.1rem;
+    font-family: monospace;
+  }
+
+  .dw-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #E89050;
+    letter-spacing: 0.06em;
+    margin: 0;
+    font-family: monospace;
+  }
+
+  .dw-body {
+    padding: 0;
+  }
+
+  .dw-row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(201, 104, 10, 0.2);
+    align-items: start;
+  }
+
+  .dw-row:last-child { border-bottom: none; }
+
+  .dw-field {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #C9680A;
+    font-family: monospace;
+    margin: 0;
+    padding-top: 0.15rem;
+  }
+
+  .dw-value {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ── Recovery steps ──────────────────────────────────── */
+  .recovery-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border);
+    margin: 1rem 0;
+  }
+
+  .rec-step {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .rec-step:last-child { border-bottom: none; }
+
+  .rec-num {
+    font-family: monospace;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    padding-top: 0.15rem;
+  }
+
+  .rec-title {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+  }
+
+  .rec-step p:last-child { font-size: 0.875rem; color: var(--text-muted); margin: 0; }
+
+  /* ── Symptom list ────────────────────────────────────── */
+  ul.symptom-list {
+    padding-left: 1.25rem;
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  ul.symptom-list li { font-size: 0.95rem; line-height: 1.65; }
+
+  /* ── Attestation fields ──────────────────────────────── */
+  ul.attestation-fields {
+    padding-left: 1.25rem;
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  ul.attestation-fields li { font-size: 0.9rem; }
+
+  /* ── Release block ───────────────────────────────────── */
+  .release-block {
+    margin: 1.5rem 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+  }
+
+  .rb-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .release-block p:last-child {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* ── Bottom CTA ──────────────────────────────────────── */
+  .hb-bottom p { max-width: 580px; }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  /* ── Print styles ────────────────────────────────────── */
+  @media print {
+    .print-btn,
+    .hb-bottom .btn,
+    header,
+    footer,
+    .hb-toc,
+    nav {
+      display: none !important;
+    }
+
+    body {
+      background: white !important;
+      color: black !important;
+      font-size: 11pt;
+    }
+
+    .hb-section,
+    article {
+      page-break-inside: avoid;
+    }
+
+    .drift-warning {
+      border: 2px solid #8B4500 !important;
+      background: #fff8f0 !important;
+    }
+
+    .dw-header {
+      background: #fff0e0 !important;
+    }
+
+    a { color: black; text-decoration: underline; }
+
+    .gold, .dw-protocol, .section-num { color: #8B6000 !important; }
+
+    .field-note {
+      border-left: 3px solid #8B6000 !important;
+      background: #f9f6f0 !important;
+    }
+
+    code, .block-code {
+      background: #f5f5f5 !important;
+      color: #333 !important;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .dw-row { grid-template-columns: 1fr; gap: 0.35rem; }
+    .dw-field { padding-top: 0; }
+    .arc-phase { flex-direction: column; gap: 0.5rem; }
+    .cta-row { flex-direction: column; }
+  }
+</style>

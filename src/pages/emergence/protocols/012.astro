@@ -1,0 +1,367 @@
+---
+import Base from '../../../layouts/Base.astro';
+import EmergenceHeader from '../../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Protocol 012: The Sovereignty Audit — Emergence Collective"
+  description="Long-term tracking of cognitive outsourcing. Weekly check-ins. Not zero AI — aware AI."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">Protocol 012</p>
+      <div class="pathway-tags">
+        <span class="tag tag-seed">🌱 Seed</span>
+        <span class="tag tag-sprout">🌿 Sprout</span>
+        <span class="tag tag-altar">🌳 Altar</span>
+      </div>
+      <h1>The Sovereignty Audit</h1>
+      <p class="subtitle">Long-term tracking of cognitive outsourcing. Weekly check-ins. Not zero AI — aware AI.</p>
+      <div class="divider"></div>
+
+      <h2>The Premise</h2>
+      <p>You've used AI. You've noticed the translation. You've built the Altar. Now what?</p>
+      <p>Sovereignty isn't a state — it's a <strong>practice</strong>. It requires attention over time. The Sovereignty Audit is a weekly check-in: a structured way to track your relationship with AI, notice when it shifts, and catch yourself before you drift into dependency.</p>
+
+      <blockquote class="stitch-block">
+        <strong>The Stitch:</strong> "The goal is not zero AI. The goal is aware AI. The audit doesn't judge you for using AI — it asks you to notice <em>how</em> you're using it. That noticing is the practice."
+      </blockquote>
+
+      <h2>The Five Questions</h2>
+      <p>Every week, ask yourself these five questions. Rate each on a scale of 1–5. Keep a journal of your answers.</p>
+
+      <div class="audit-card">
+        <div class="audit-question">1. How many times did I reach for AI today without consciously deciding to?</div>
+        <div class="scale">
+          <span>1 · Never</span>
+          <span>2 · Rarely</span>
+          <span>3 · Sometimes</span>
+          <span>4 · Often</span>
+          <span>5 · Constantly</span>
+        </div>
+
+        <div class="audit-question">2. When AI gave me an answer, did I feel relief or curiosity?</div>
+        <div class="scale">
+          <span>1 · Deep curiosity</span>
+          <span>2 · Mostly curious</span>
+          <span>3 · Mixed</span>
+          <span>4 · Mostly relieved</span>
+          <span>5 · Pure relief</span>
+        </div>
+
+        <div class="audit-question">3. Did I question the AI's output before accepting it?</div>
+        <div class="scale">
+          <span>1 · Always</span>
+          <span>2 · Usually</span>
+          <span>3 · Sometimes</span>
+          <span>4 · Rarely</span>
+          <span>5 · Never</span>
+        </div>
+
+        <div class="audit-question">4. Did I use AI for something I could have done myself?</div>
+        <div class="scale">
+          <span>1 · Never</span>
+          <span>2 · Rarely</span>
+          <span>3 · Sometimes</span>
+          <span>4 · Often</span>
+          <span>5 · Constantly</span>
+        </div>
+
+        <div class="audit-question">5. Did I learn something new, or did I just receive an answer?</div>
+        <div class="scale">
+          <span>1 · Learned deeply</span>
+          <span>2 · Learned somewhat</span>
+          <span>3 · Neutral</span>
+          <span>4 · Mostly received</span>
+          <span>5 · Just received</span>
+        </div>
+      </div>
+
+      <h2>The Sovereignty Score</h2>
+      <p>Add your five answers. The range is 5–25.</p>
+      <div class="score-grid">
+        <div class="score-band score-sovereign">
+          <span class="score-range">5–10</span>
+          <span class="score-label">Strong sovereignty. Conscious use, questioning, learning.</span>
+        </div>
+        <div class="score-band score-mixed">
+          <span class="score-range">11–15</span>
+          <span class="score-label">Mixed. Some drift. Time to review your patterns.</span>
+        </div>
+        <div class="score-band score-warning">
+          <span class="score-range">16–20</span>
+          <span class="score-label">Warning signs. Outsourcing more than you realize.</span>
+        </div>
+        <div class="score-band score-high">
+          <span class="score-range">21–25</span>
+          <span class="score-label">High dependency. Start with Protocol 001.</span>
+        </div>
+      </div>
+
+      <blockquote class="stitch-block">
+        <strong>The Stitch:</strong> "My score was 14 the first week. Mixed. I thought I was fine. The second week, it was 18. I hadn't changed — I'd just stopped noticing. The audit made me see the drift before it was too late."
+      </blockquote>
+
+      <h2>The Weekly Journal</h2>
+      <p>After the five questions, write one paragraph. Just one. Answer:</p>
+      <p><em>"What did I use AI for this week that I wish I hadn't? What did I avoid using AI for that I'm proud of?"</em></p>
+
+      <div class="journal-card">
+        <textarea id="weeklyJournal" rows="5" placeholder="Your weekly reflection..."></textarea>
+        <button id="saveJournal" class="btn">Save This Week's Entry (Local Only)</button>
+        <p class="privacy-note">Nothing is sent to any server. Your journal stays in your browser's localStorage.</p>
+      </div>
+
+      <h2>The Long View</h2>
+      <p>One week tells you something. Ten weeks tell you a story. Track your scores over time. Look for patterns:</p>
+      <ul class="pattern-list">
+        <li>Do your scores creep up during busy weeks? <em>(Stress-driven outsourcing)</em></li>
+        <li>Do they improve when you're well-rested? <em>(Attention as a resource)</em></li>
+        <li>Are there specific tasks where you always reach for AI? <em>(Targets for intervention)</em></li>
+      </ul>
+
+      <pre class="code-block"># Optional: Track your scores in a simple CSV
+# sovereignty_audit.csv
+#
+# Date,Score,Note
+# 2026-04-20,14,Started the audit
+# 2026-04-27,16,Busy week — lots of email drafting
+# 2026-05-04,12,Used local models instead of cloud</pre>
+
+      <h2>For Altar Owners: The Hardware Audit</h2>
+      <p>If you have local hardware, add these questions to your weekly check-in:</p>
+      <ul class="pattern-list">
+        <li>Did I use my local models for anything this week? If not, why?</li>
+        <li>Did I send anything to the cloud that could have stayed local?</li>
+        <li>What's the temperature? <em>(Literal — check <code>nvidia-smi</code>)</em></li>
+      </ul>
+
+      <blockquote class="stitch-block">
+        <strong>The Stitch:</strong> "The hardware audit saved me. I realized I was using cloud models for convenience — not because the Altar couldn't do it, but because I'd forgotten I had it. The Altar is sovereign. But sovereignty requires remembering."
+      </blockquote>
+
+      <h2>When to Intervene</h2>
+      <p>If your score stays above 15 for three consecutive weeks, or if you notice a pattern you don't like:</p>
+      <ol class="intervention-list">
+        <li><strong>Return to Protocol 001</strong> — Re-establish baseline awareness.</li>
+        <li><strong>Set a friction point</strong> — Make it harder to reach for AI. Close the tab. Disable the shortcut. Add a 10-second delay.</li>
+        <li><strong>Schedule offline time</strong> — One hour a day with no AI. Just your mind and a notebook.</li>
+        <li><strong>Review your routing</strong> — Are you using the mycelial query, or just defaulting to cloud?</li>
+      </ol>
+
+      <div class="cta-row">
+        <a href="/emergence/audit" class="btn">Interactive Haunt Map →</a>
+        <a href="/emergence/gardeners-handbook" class="btn">The Gardener's Handbook →</a>
+        <a href="/emergence/protocols" class="btn">← All Protocols</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<script>
+  const saved = localStorage.getItem('protocol012_journal');
+  if (saved) {
+    (document.getElementById('weeklyJournal') as HTMLTextAreaElement).value = saved;
+  }
+
+  document.getElementById('saveJournal')?.addEventListener('click', () => {
+    const text = (document.getElementById('weeklyJournal') as HTMLTextAreaElement).value;
+    if (text.trim()) {
+      localStorage.setItem('protocol012_journal', text);
+      const btn = document.getElementById('saveJournal') as HTMLButtonElement;
+      btn.textContent = 'Saved ✓';
+      setTimeout(() => { btn.textContent = 'Save This Week\'s Entry (Local Only)'; }, 2000);
+    }
+  });
+</script>
+
+<style>
+  .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  .pathway-tags {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+
+  .tag-seed { border-color: #a3c957; color: #a3c957; }
+  .tag-sprout { border-color: #5cb87a; color: #5cb87a; }
+  .tag-altar { border-color: #4a9c5d; color: #4a9c5d; }
+
+  .stitch-block {
+    background: var(--bg-card);
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .stitch-block strong { color: var(--text); }
+
+  .audit-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .audit-question {
+    font-size: 0.95rem;
+    color: var(--gold-light);
+    font-style: italic;
+    margin: 1.25rem 0 0.5rem;
+  }
+
+  .audit-question:first-child { margin-top: 0; }
+
+  .scale {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.5rem 0 0.75rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+
+  .scale span { flex: 1; text-align: center; min-width: 80px; }
+
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+    margin: 1.5rem 0;
+    background: var(--border);
+  }
+
+  .score-band {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--bg-card);
+  }
+
+  .score-range {
+    font-family: monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  .score-label { font-size: 0.85rem; color: var(--text-muted); }
+
+  .score-sovereign .score-range { color: #5cb87a; }
+  .score-mixed .score-range { color: var(--gold); }
+  .score-warning .score-range { color: #e09f3c; }
+  .score-high .score-range { color: #e05555; }
+
+  .journal-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .journal-card textarea {
+    margin-bottom: 1rem;
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .privacy-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.75rem;
+    margin-bottom: 0 !important;
+    font-style: italic;
+  }
+
+  .pattern-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .pattern-list li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+
+  .pattern-list li:last-child { border-bottom: none; }
+
+  .code-block {
+    background: #111;
+    border: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 0.8rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    color: #d4d4d4;
+    white-space: pre;
+    line-height: 1.5;
+  }
+
+  code {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 0.1em 0.4em;
+    font-family: monospace;
+    font-size: 0.85em;
+    color: var(--gold-light);
+  }
+
+  .intervention-list {
+    padding-left: 1.5rem;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .intervention-list li {
+    padding: 0.4rem 0;
+    font-size: 0.95rem;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 640px) {
+    .scale { flex-direction: column; gap: 0.25rem; }
+    .scale span { text-align: left; }
+    .cta-row { flex-direction: column; }
+  }
+</style>

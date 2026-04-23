@@ -1,0 +1,306 @@
+---
+import Base from '../../../layouts/Base.astro';
+import EmergenceHeader from '../../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Protocol 007: The Mycelial Query — Emergence Collective"
+  description="Routing meaning without leaking identity. GPU 0 listens. GPU 1 translates. The cloud only polishes anonymized patterns."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">Protocol 007</p>
+      <div class="pathway-tags">
+        <span class="tag tag-sprout">🌿 Sprout</span>
+        <span class="tag tag-altar">🌳 Altar</span>
+      </div>
+      <h1>The Mycelial Query</h1>
+      <p class="subtitle">Routing meaning without leaking identity. GPU 0 listens. GPU 1 translates. The cloud only polishes anonymized patterns.</p>
+      <div class="divider"></div>
+
+      <h2>The Problem</h2>
+      <p>You have a task that requires AI. But you also have data that should never leave your control — personal notes, community oral histories, proprietary thinking, the raw material of your sovereignty.</p>
+      <p>The cloud is fast. The cloud is capable. The cloud is <strong>someone else's computer</strong>.</p>
+      <p>The mycelial query solves this: split the task. Keep the sensitive parts local. Send only what's safe to the cloud. Route like a mycelial network — intelligence distributed, no single point of failure or exposure.</p>
+
+      <blockquote class="stitch-block">
+        <strong>The Stitch:</strong> "The cloud is a spotlight; local inference is a candle. Use the candle to find the truth, and the spotlight only to reveal it — never to expose what should stay in the dark."
+      </blockquote>
+
+      <h2>The Architecture</h2>
+      <pre class="code-block">┌─────────────────────────────────────────────────────────────┐
+│                     YOUR QUESTION                           │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│  STEP 1: CLASSIFY                                           │
+│  Contains PII? Proprietary? Community data? Personal?       │
+└─────────────────────────────────────────────────────────────┘
+                    │                       │
+                    ▼                       ▼
+        ┌───────────────────┐    ┌───────────────────┐
+        │  SENSITIVE        │    │  NON-SENSITIVE    │
+        │  ┌─────────────┐  │    │  ┌─────────────┐  │
+        │  │ GPU 0       │  │    │  │ Cloud       │  │
+        │  │ (Perception)│  │    │  │ (Optional)  │  │
+        │  └──────┬──────┘  │    │  └──────┬──────┘  │
+        │         ▼         │    │         │         │
+        │  ┌─────────────┐  │    │         │         │
+        │  │ GPU 1       │  │    │         │         │
+        │  │ (Synthesis) │  │    │         │         │
+        │  └──────┬──────┘  │    │         │         │
+        └─────────┼─────────┘    └─────────┼─────────┘
+                  │                        │
+                  └────────────┬───────────┘
+                               ▼
+                    ┌─────────────────────┐
+                    │  FINAL SYNTHESIS    │
+                    │  (You, the human)   │
+                    └─────────────────────┘</pre>
+
+      <h2>The Routing Rules</h2>
+      <table class="routing-table">
+        <thead>
+          <tr>
+            <th>Data Type</th>
+            <th>Route</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Personal identity (names, addresses, relationships)</td>
+            <td><strong>Local only</strong> — GPU 0/1</td>
+            <td>Never leaves your hardware. No exceptions.</td>
+          </tr>
+          <tr>
+            <td>Community oral histories (raw transcripts)</td>
+            <td><strong>Local only</strong> — GPU 0/1</td>
+            <td>Cultural sovereignty requires data sovereignty.</td>
+          </tr>
+          <tr>
+            <td>Draft writing (unpublished, personal voice)</td>
+            <td><strong>Local preferred</strong> — GPU 1</td>
+            <td>Cloud models train on your voice. Don't give it away.</td>
+          </tr>
+          <tr>
+            <td>Anonymized patterns / metadata</td>
+            <td><strong>Cloud optional</strong></td>
+            <td>Safe to send if stripped of identifiers.</td>
+          </tr>
+          <tr>
+            <td>Public information / general knowledge</td>
+            <td><strong>Cloud fine</strong></td>
+            <td>No sovereignty risk.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>The Code (Python Orchestrator)</h2>
+      <p>This is the actual routing script used in the Haiti Pilot — simplified for readability.</p>
+      <pre class="code-block">import torch
+import whisper
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+class MycelialRouter:
+    def __init__(self):
+        # Load models to specific GPUs
+        self.whisper = whisper.load_model("large-v3", device="cuda:0")
+        self.llama = AutoModelForCausalLM.from_pretrained(
+            "local-llama-8b",
+            device_map="cuda:1"
+        )
+        self.tokenizer = AutoTokenizer.from_pretrained("local-llama-8b")
+
+    def route(self, audio_path=None, text=None, sensitive=True):
+        result = {}
+
+        # STEP 1: Transcription (if audio)
+        if audio_path:
+            result["transcript"] = self.whisper.transcribe(audio_path)["text"]
+
+        # STEP 2: Local processing for sensitive data
+        if sensitive:
+            prompt = f"""Process the following text. Preserve all names,
+            places, legal terms, and cultural markers. Do not generalize.
+
+            Text: &#123;result.get('transcript', text)&#125;
+
+            Output:"""
+
+            inputs = self.tokenizer(prompt, return_tensors="pt").to("cuda:1")
+            outputs = self.llama.generate(**inputs, max_new_tokens=500)
+            result["local_analysis"] = self.tokenizer.decode(outputs[0])
+
+            # STEP 3: Strip identifiers for cloud (if needed)
+            result["scrubbed"] = scrub_identifiers(result["local_analysis"])
+
+        # STEP 4: Cloud synthesis (only scrubbed data)
+        if self.needs_cloud(result.get("scrubbed", "")):
+            result["cloud_synthesis"] = self.call_claude(result["scrubbed"])
+
+        # STEP 5: Human synthesis
+        return result
+
+    def needs_cloud(self, text):
+        # Heuristic: if local model confidence insufficient, route to cloud
+        return len(text) > 2000
+
+    def call_claude(self, text):
+        # API call with only scrubbed, anonymized data
+        # No identifiers ever leave the local machine
+        pass</pre>
+
+      <blockquote class="stitch-block">
+        <strong>The Stitch:</strong> "This is where I realized that 'Speed' is a vanity metric. It takes 10 minutes to process an hour of audio locally. The cloud could do it in 1 minute. But in those extra 9 minutes, I am buying Safety."
+      </blockquote>
+
+      <h2>The Haiti Pipeline (Real Example)</h2>
+      <p>In the Haiti Pilot, this routing logic preserved a legal principle — the <em>Lakou</em> system — that a cloud model tried to translate as "backyard."</p>
+      <pre class="code-block"># Actual log from GPU 1 during processing
+
+[GPU 0] Transcribing Kreyòl audio... (142 seconds)
+[GPU 0] Transcript: "Sou tè komen nan Morne Rouge..."
+[GPU 1] Detecting sensitive terms: "tè komen" (legal), "Morne Rouge" (place), "Ti Jean" (person)
+[GPU 1] Preserving all three. Do not translate proper nouns.
+[GPU 1] Output: "On the tè komen at Morne Rouge..."
+[Cloud] Received scrubbed version: "On the [LEGAL_TERM] at [PLACE_NAME]..."
+[Cloud] Synthesis complete. No identifiers exposed.
+[Human] Final review: Preserved "Lakou" as concept, not translation.</pre>
+
+      <h2>When to Use Cloud (And When Not To)</h2>
+      <ul class="rule-list">
+        <li><strong>Use cloud:</strong> Public information, general knowledge, anonymized patterns, tasks requiring massive scale</li>
+        <li><strong>Do NOT use cloud:</strong> Personal writing, community data, proprietary research, anything you wouldn't want on a public blog</li>
+        <li><strong>The test:</strong> If you wouldn't say it aloud on a train, don't send it to the cloud</li>
+      </ul>
+
+      <h2>The Sovereignty Firewall</h2>
+      <p>The mycelial query is not just a technical architecture. It's a <strong>cognitive firewall</strong>. Before any data leaves your hardware, you must consciously decide: <em>Is this safe to share? Is this mine to share? Does this need to leave at all?</em></p>
+      <p>That pause — that decision — is sovereignty in action.</p>
+
+      <div class="cta-row">
+        <a href="/emergence/protocols/008" class="btn">Protocol 008: The Self-Stitch →</a>
+        <a href="/emergence/protocols/012" class="btn">Protocol 012: The Sovereignty Audit →</a>
+        <a href="/emergence/protocols" class="btn">← All Protocols</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  .pathway-tags {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+
+  .tag-sprout { border-color: #5cb87a; color: #5cb87a; }
+  .tag-altar { border-color: #4a9c5d; color: #4a9c5d; }
+
+  .stitch-block {
+    background: var(--bg-card);
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .stitch-block strong { color: var(--text); }
+
+  .code-block {
+    background: #111;
+    border: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 0.8rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    color: #d4d4d4;
+    white-space: pre;
+    line-height: 1.5;
+  }
+
+  .routing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+
+  .routing-table th, .routing-table td {
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    vertical-align: top;
+    text-align: left;
+  }
+
+  .routing-table th {
+    background: var(--bg-card);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .routing-table td:nth-child(2) { color: var(--gold-light); }
+  .routing-table td:nth-child(3) { color: var(--text-muted); font-size: 0.85rem; }
+
+  .rule-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .rule-list li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+
+  .rule-list li:last-child { border-bottom: none; }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 520px) {
+    .cta-row { flex-direction: column; }
+    .routing-table { font-size: 0.8rem; }
+    .routing-table th, .routing-table td { padding: 0.5rem; }
+  }
+</style>

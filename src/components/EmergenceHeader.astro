@@ -14,12 +14,14 @@ const isActive = (path: string) =>
       <span></span><span></span><span></span>
     </button>
     <nav class="nav" id="main-nav">
-      <a href="/emergence/collective" class:list={['nav-link', { active: isActive('/emergence/collective') }]}>The Collective</a>
-      <a href="/emergence/engine-room" class:list={['nav-link', { active: isActive('/emergence/engine-room') }]}>Engine Room</a>
-      <a href="/emergence/mycelium" class:list={['nav-link', { active: isActive('/emergence/mycelium') }]}>Mycelium</a>
-      <a href="/emergence/lakou" class:list={['nav-link nav-link--hide-sm', { active: isActive('/emergence/lakou') }]}>Digital Lakou</a>
-      <a href="/emergence/manifesto" class:list={['nav-link nav-link--hide-sm', { active: isActive('/emergence/manifesto') }]}>Manifesto</a>
+      <a href="/emergence/collective" class:list={['nav-link nav-link--hide-sm', { active: isActive('/emergence/collective') }]}>The Collective</a>
+      <a href="/emergence/gardeners-handbook" class:list={['nav-link', { active: isActive('/emergence/gardeners-handbook') }]}>Handbook</a>
+      <a href="/emergence/haiti-pilot" class:list={['nav-link', { active: isActive('/emergence/haiti-pilot') }]}>Haiti Pilot</a>
+      <a href="/emergence/protocols" class:list={['nav-link', { active: isActive('/emergence/protocols') }]}>Protocols</a>
       <a href="/emergence/book" class:list={['nav-link', { active: isActive('/emergence/book') }]}>The Book</a>
+      <a href="/emergence/engine-room" class:list={['nav-link nav-link--hide-sm', { active: isActive('/emergence/engine-room') }]}>Engine Room</a>
+      <a href="/emergence/mycelium" class:list={['nav-link nav-link--hide-sm', { active: isActive('/emergence/mycelium') }]}>Mycelium</a>
+      <a href="/emergence/manifesto" class:list={['nav-link nav-link--hide-sm', { active: isActive('/emergence/manifesto') }]}>Manifesto</a>
     </nav>
   </div>
 </header>

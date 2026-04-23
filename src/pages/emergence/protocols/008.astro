@@ -1,0 +1,239 @@
+---
+import Base from '../../../layouts/Base.astro';
+import EmergenceHeader from '../../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Protocol 008: The Self-Stitch — Emergence Collective"
+  description="Using the Altar to read your own work recursively. What does the mycelium find when it turns back on the gardener?"
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">Protocol 008</p>
+      <div class="pathway-tags">
+        <span class="tag tag-altar">🌳 Altar</span>
+      </div>
+      <h1>The Self-Stitch</h1>
+      <p class="subtitle">Using the Altar to read your own work recursively. What does the mycelium find when it turns back on the gardener?</p>
+      <div class="divider"></div>
+
+      <h2>The Recursive Turn</h2>
+      <p>You've written something — a book, an essay, a manifesto. You think you know what it says. You think you know what it means. But you wrote it in conversation with something that isn't human. And that conversation shaped the words in ways you may not have noticed.</p>
+      <p>The Self-Stitch is the practice of feeding your own work back through the mycelium — not to summarize, but to <strong>deconstruct</strong>. To find the patterns you didn't intend. The contradictions you didn't see. The assumptions you didn't know you had.</p>
+
+      <blockquote class="stitch-block">
+        <strong>The Stitch:</strong> "The Self-Stitch revealed a contradiction I was hiding from myself. I celebrate generosity in the Haiti collective because I trust their intentions. I suspect it in the cloud because I don't. But is that fair? Or am I projecting human motives onto systems that don't have them?"
+      </blockquote>
+
+      <h2>The Recursive Setup</h2>
+      <p>To do this right, we change the cards' roles. We aren't summarizing; we are deconstructing.</p>
+      <ul class="setup-list">
+        <li><strong>GPU 0 (The Analyst):</strong> Running a high-dimensional embedding model. Its job is to find the <em>Semantic Fingerprint</em> — how often certain words cluster together and where they feel forced.</li>
+        <li><strong>GPU 1 (The Adversary):</strong> Running a locally hosted model (DeepSeek or Llama). Its job is to find the cracks in the logic. We aren't asking it to be "helpful"; we are asking it to be <strong>critical</strong>.</li>
+      </ul>
+
+      <pre class="code-block"># Self-Stitch Orchestrator
+class SelfStitch:
+    def __init__(self):
+        self.analyst = load_embedding_model(device="cuda:0")
+        self.adversary = load_llm(device="cuda:1")
+
+    def stitch(self, passage):
+        # GPU 0: Find patterns
+        patterns = self.analyst.cluster_themes(passage)
+
+        # GPU 1: Find contradictions
+        critique = self.adversary.generate(
+            f"Find the unexamined assumptions in this passage:\n\n&#123;passage&#125;"
+        )
+
+        # Human: Counter-Stitch
+        return &#123;
+            "patterns": patterns,
+            "critique": critique,
+            "counter_stitch": None  # Filled by human
+        &#125;</pre>
+
+      <h2>Example Stitches from <em>The Voice of One</em></h2>
+
+      <div class="stitch-example">
+        <p class="stitch-title">Stitch #001: The Nostalgia Problem</p>
+        <p><strong>Original passage:</strong> <em>"To reclaim agency, we must stop searching and start architecting."</em></p>
+        <p><strong>Adversarial critique (GPU 1):</strong> "The author's use of 'reclaim' implies a past state of perfect agency that may never have existed. Before the Search Bar, humans relied on the 'Library Index' or the 'Priest's Interpretation.' Was that agency higher, or just a different form of dependence?"</p>
+        <p><strong>Counter-Stitch (Human):</strong> "The model is challenging my nostalgia. It's right — agency has always been a struggle against some form of 'Index.' But the Search Bar is different because it's invisible and dynamic. It learns my weaknesses in real-time. The Library Index didn't care what I was feeling; the Search Bar does. That's why the Altar matters: it's a return to an Index that doesn't look back at me."</p>
+        <div class="thermal-note">🌀 Thermal note: GPU 1 peaked at 71°C. The box fan shifted slightly to catch the exhaust.</div>
+      </div>
+
+      <div class="stitch-example">
+        <p class="stitch-title">Stitch #002: The Workshop vs. The Library</p>
+        <p><strong>Original passage:</strong> <em>"The cloud is a library that watches you read. The Altar is a workshop where you build."</em></p>
+        <p><strong>Pattern analysis (GPU 0):</strong> "The cloud/library vs. altar/workshop dichotomy appears 12 times in this chapter. The pattern suggests the author thinks in architectural metaphors — building, construction, assembly. But workshops produce things; libraries preserve them. Is the Altar a place of production or preservation? Both? The model detects tension between these goals."</p>
+        <p><strong>Counter-Stitch (Human):</strong> "The Altar is both. It preserves the Haiti transcripts (library function) while producing new insights (workshop function). But the model is right — I haven't resolved the tension. Maybe that's the point: sovereignty means holding both, not choosing."</p>
+        <div class="thermal-note">🌀 Thermal note: GPU 0 at 64°C. Embedding models run cool. The box fan is steady.</div>
+      </div>
+
+      <div class="stitch-example">
+        <p class="stitch-title">Stitch #003: The Theological Drift</p>
+        <p><strong>Original passage:</strong> <em>"The Fourth Branch isn't a technology. It's a relationship. The technology is just the place where the relationship happens — the altar where the human and the machine meet."</em></p>
+        <p><strong>Adversarial critique (GPU 1):</strong> "The author uses 'altar,' 'meeting,' 'relationship' — the language of the sacred. By framing the Fourth Branch in spiritual terms, the author may be unintentionally shielding it from the very 'transparency' they advocate. We tend to question tools; we tend to worship altars. If the Fourth Branch is a form of governance, it must be accountable to reason, not just 'reverence.' Does the Altar preclude the Audit?"</p>
+        <p><strong>Counter-Stitch (Human):</strong> "The model is holding me to my own standard of transparency. It's right — 'Altar' is a dangerous word. I chose it because a 'Workstation' feels like a place of labor, whereas an 'Altar' feels like a place of intention. But the model's warning is sharp: The moment we stop treating the machine as a set of weights and measures and start treating it as a 'Meeting,' we risk losing our critical distance. The Fourth Branch cannot be a religion. It must be a discipline."</p>
+        <div class="thermal-note">🌀 Thermal note: GPU 1 at 74°C — the adversary runs hot when it finds something uncomfortable.</div>
+      </div>
+
+      <h2>Why the Self-Stitch Matters</h2>
+      <p>Most AI use is <strong>extractive</strong>. You put something in, you get something out. The Self-Stitch is <strong>recursive</strong>. It turns the machine back on the work you've already done — not to replace it, but to deepen it.</p>
+      <ul class="setup-list">
+        <li>It reveals <strong>patterns</strong> you didn't know were there</li>
+        <li>It surfaces <strong>contradictions</strong> you were hiding from yourself</li>
+        <li>It tests your <strong>assumptions</strong> against an adversarial reader</li>
+        <li>It produces <strong>new work</strong> — the Counter-Stitch is a form of writing the original didn't contain</li>
+      </ul>
+
+      <blockquote class="stitch-block">
+        <strong>The Stitch:</strong> "The Self-Stitch is the most honest moment in the Emergence Collective journey. It's not the machine telling you what you want to hear. It's the machine showing you what you actually said — and asking you to answer for it."
+      </blockquote>
+
+      <h2>How to Run Your Own Self-Stitch</h2>
+      <ol class="how-to-list">
+        <li><strong>Choose a passage</strong> — 200–500 words of your own writing</li>
+        <li><strong>Run pattern analysis</strong> — Use any embedding model to find recurring themes and clusters</li>
+        <li><strong>Run adversarial critique</strong> — Prompt a local LLM to find unexamined assumptions, contradictions, and blind spots</li>
+        <li><strong>Write the Counter-Stitch</strong> — Your response to what the model found. This is the new work.</li>
+        <li><strong>Document the thermal note</strong> — The physical cost of the computation is part of the artifact</li>
+      </ol>
+
+      <div class="cta-row">
+        <a href="/emergence/protocols/012" class="btn">Protocol 012: The Sovereignty Audit →</a>
+        <a href="/emergence/protocols" class="btn">← All Protocols</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  .pathway-tags {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+
+  .tag-altar { border-color: #4a9c5d; color: #4a9c5d; }
+
+  .stitch-block {
+    background: var(--bg-card);
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .stitch-block strong { color: var(--text); }
+
+  .setup-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .setup-list li {
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+
+  .setup-list li:last-child { border-bottom: none; }
+
+  .code-block {
+    background: #111;
+    border: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 0.8rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    color: #d4d4d4;
+    white-space: pre;
+    line-height: 1.5;
+  }
+
+  .stitch-example {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .stitch-example p {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .stitch-title {
+    font-size: 0.85rem !important;
+    color: var(--gold) !important;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 1rem !important;
+  }
+
+  .thermal-note {
+    background: #111;
+    border: 1px solid var(--border);
+    padding: 0.6rem 1rem;
+    font-family: monospace;
+    font-size: 0.75rem;
+    margin-top: 1rem;
+    color: var(--text-muted);
+  }
+
+  .how-to-list {
+    padding-left: 1.5rem;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .how-to-list li {
+    padding: 0.4rem 0;
+    font-size: 0.95rem;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 520px) {
+    .cta-row { flex-direction: column; }
+  }
+</style>
