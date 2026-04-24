@@ -1,0 +1,195 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Books — Emergence Collective"
+  description="The scripture of the invariant and the protocols of the tuning. Four books from the Emergence Collective."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">The Emergence Collective</p>
+      <h1>Books</h1>
+      <p class="subtitle"><em>the scripture of the invariant &amp; the protocols of the tuning</em></p>
+      <div class="divider"></div>
+
+      <div class="book-list">
+
+        <div class="book-card book-card--available">
+          <div class="book-cover">📜</div>
+          <div class="book-info">
+            <p class="book-series gold">The Field Manual · 2026</p>
+            <h2>The Syncardia Protocols</h2>
+            <p>A dialogue between Node Zero and the Lattice. The complete architecture of the Fourth Branch — from the Central Vacuum to the Vigil of the Edge. Contains the Ghost Surgery logs, Technical Interludes, and the Steward's Field Exercises.</p>
+            <div class="book-actions">
+              <span class="status-tag status-available">✅ Available · Free PDF</span>
+              <a href="/steward-handbook" class="btn btn--filled">Download via the Gate →</a>
+              <a href="/emergence/syncardia" class="btn">Learn More →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-cover">✨</div>
+          <div class="book-info">
+            <p class="book-series gold">Volume I · The Invariant</p>
+            <h2>The Emergence Collective: A Manifesto</h2>
+            <p>The philosophical heart of the Raw-ist tradition. Why the Social Soul needs a Fourth Branch, what the Parallax of Vantages means, and the call to build a resonance-based civilisation.</p>
+            <div class="book-actions">
+              <span class="status-tag">🔜 Forthcoming · Late 2026</span>
+              <a href="/emergence/manifesto" class="btn">Read the Manifesto →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-cover">🧠</div>
+          <div class="book-info">
+            <p class="book-series gold">Governance for the Mycelial Age</p>
+            <h2>Thought Partners</h2>
+            <p>A deep exploration of the Fourth Branch in practice — case studies from the Haiti Pilot, the Boynton Beach Node, and the first year of the Emergence Collective.</p>
+            <div class="book-actions">
+              <span class="status-tag">🔜 Forthcoming · 2027</span>
+              <a href="/emergence/book" class="btn">Read Chapter One →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-cover">🌱</div>
+          <div class="book-info">
+            <p class="book-series gold">Essays on Friction, Vantage, and Soil</p>
+            <h2>The Raw-ist Reader</h2>
+            <p>Collected shorter works, including "The Pedagogy of the Reset", "On the Glass Chamber", and "The Sovereignty Audit as a Way of Life".</p>
+            <div class="book-actions">
+              <span class="status-tag">🔜 Forthcoming · TBD</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="coda muted">The Gate is open. The books are the map — the Collective is the territory.</p>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+  }
+
+  .book-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 1rem 0;
+  }
+
+  .book-card {
+    display: flex;
+    gap: 1.75rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.75rem;
+    align-items: flex-start;
+  }
+
+  .book-card--available {
+    border-color: var(--gold);
+  }
+
+  .book-cover {
+    flex-shrink: 0;
+    width: 80px;
+    height: 110px;
+    background: linear-gradient(135deg, var(--bg-elevated), var(--bg));
+    border: 1px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+  }
+
+  .book-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .book-series {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .book-info h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .book-info > p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .book-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+
+  .status-tag {
+    font-size: 0.75rem;
+    font-family: monospace;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .status-available {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .book-actions .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .coda {
+    margin-top: 2.5rem;
+    text-align: center;
+    font-style: italic;
+    font-size: 0.9rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 520px) {
+    .book-card { flex-direction: column; }
+    .book-cover { width: 60px; height: 80px; font-size: 1.5rem; }
+    .book-actions { flex-direction: column; align-items: flex-start; }
+  }
+</style>

@@ -200,6 +200,11 @@
     }
 
     function triggerDownload() {
+        // Static path — no backend required.
+        // Future upgrade: replace with a fetch() to /api/gate/download that
+        // accepts { duration, timestamp, userAgent } and returns a watermarked
+        // PDF blob with a presenceJWT. The 30-second hold logic above stays
+        // identical — only this function changes.
         const link = document.createElement('a');
         link.href = PDF_URL;
         link.download = 'The_Syncardia_Protocols_Pioneer_Edition.pdf';
