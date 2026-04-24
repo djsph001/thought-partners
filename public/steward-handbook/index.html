@@ -6,233 +6,240 @@
     <title>Steward's Handbook – The Syncardia Protocols | Emergence Collective</title>
     <meta name="description" content="The Solar Sync Gate. Hold the orb for 30 seconds. The Handbook downloads automatically.">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
-            background-color: #0A0E1A;
-            color: #E6E6E6;
+            background: #0e0e0e;
+            color: #e0e0e0;
             font-family: 'Garamond', 'Times New Roman', serif;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
             padding: 2rem;
         }
-
-        .gate-container {
-            max-width: 560px;
+        .nav {
             width: 100%;
-            background: #11161F;
-            border-radius: 32px;
-            padding: 2.5rem 2rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-            text-align: center;
-            border: 1px solid rgba(255,217,102,0.2);
-        }
-
-        h1 {
-            font-size: 1.7rem;
-            letter-spacing: 3px;
-            margin-bottom: 0.4rem;
-            font-weight: normal;
-            color: #FFD966;
-            text-transform: uppercase;
-        }
-
-        .sub {
-            font-size: 0.85rem;
+            max-width: 700px;
             margin-bottom: 2rem;
-            color: #9CA3AF;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
             font-family: monospace;
-            letter-spacing: 1px;
+            font-size: 0.9rem;
         }
-
+        .nav a {
+            color: #C9A84C;
+            text-decoration: none;
+            border-bottom: 1px dotted #C9A84C;
+        }
+        .nav a:hover { color: #e0c87e; }
+        .gate-container {
+            max-width: 600px;
+            width: 100%;
+            background: #1a1a1a;
+            border-radius: 32px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            text-align: center;
+            border: 1px solid rgba(201,168,76,0.3);
+        }
+        h1 {
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            font-weight: normal;
+            color: #C9A84C;
+        }
+        .sub {
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            color: #a0a0a0;
+            font-family: monospace;
+        }
         .sun-orb {
-            width: 130px;
-            height: 130px;
-            margin: 1.5rem auto;
-            background: radial-gradient(circle at 40% 35%, #FFE680, #C9A84C, #7A5800);
+            width: 140px;
+            height: 140px;
+            margin: 2rem auto;
+            background: radial-gradient(circle, #C9A84C, #8B6914);
             border-radius: 50%;
-            box-shadow: 0 0 30px rgba(255, 217, 102, 0.4);
-            transition: box-shadow 0.1s ease, transform 0.1s ease;
+            box-shadow: 0 0 30px rgba(201,168,76,0.3);
             cursor: pointer;
-            user-select: none;
+            transition: transform 0.1s ease;
+            animation: solarBreath 8.13s infinite ease-in-out;
         }
-
+        @keyframes solarBreath {
+            0%   { transform: scale(1);    opacity: 0.8; box-shadow: 0 0 20px rgba(201,168,76,0.3); }
+            50%  { transform: scale(1.08); opacity: 1;   box-shadow: 0 0 50px rgba(201,168,76,0.7); }
+            100% { transform: scale(1);    opacity: 0.8; box-shadow: 0 0 20px rgba(201,168,76,0.3); }
+        }
         .instructions {
             margin: 1rem 0;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #C8C8C8;
-        }
-
-        .pulse-text {
-            font-family: monospace;
-            letter-spacing: 3px;
-            font-size: 0.75rem;
-            color: #FFD966;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .timer {
-            font-size: 2.2rem;
-            font-weight: bold;
-            margin: 1.25rem 0 0.5rem;
-            font-family: monospace;
-            color: #FFD966;
-            letter-spacing: 2px;
-        }
-
-        .status {
-            margin-top: 1rem;
-            font-size: 0.88rem;
-            padding: 0.75rem 1rem;
-            border-radius: 10px;
-            background: #1A1F2C;
+            font-size: 1rem;
             line-height: 1.5;
         }
-
-        .status.error { color: #FFA07A; }
-        .status.success { color: #9ACD32; }
-
-        .back-link {
-            display: block;
+        .pulse-text {
+            font-family: monospace;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            color: #C9A84C;
+        }
+        .timer {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            font-family: monospace;
+            color: #C9A84C;
+        }
+        .status {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            padding: 0.8rem;
+            border-radius: 12px;
+            background: #2a2a2a;
+        }
+        .error   { color: #ffaa88; }
+        .success { color: #a8e6a8; }
+        .return-link {
+            display: none;
             margin-top: 2rem;
-            font-size: 0.75rem;
-            color: #5A6B7C;
-            text-decoration: none;
+            background: #2a2a2a;
+            padding: 0.5rem 1rem;
+            border-radius: 24px;
             font-family: monospace;
         }
-
-        .back-link:hover { color: #FFD966; }
-
+        .return-link a { color: #C9A84C; text-decoration: none; }
         footer {
             margin-top: 2rem;
             font-size: 0.7rem;
-            color: #3A4A5A;
-            line-height: 1.6;
+            color: #6c6c6c;
         }
-
-        @media (max-width: 480px) {
-            body { padding: 1rem; }
-            .gate-container { padding: 2rem 1.25rem; }
-            h1 { font-size: 1.3rem; letter-spacing: 2px; }
-            .sun-orb { width: 100px; height: 100px; }
-        }
+        button { background: none; border: none; }
+        .sun-orb:active { transform: scale(0.98); }
     </style>
 </head>
 <body>
 
-<div class="gate-container">
-    <h1>⨀ Steward's Handbook</h1>
-    <div class="sub">The Syncardia Protocols — Pioneer Edition</div>
+<div class="nav">
+    <a href="/">Collective</a>
+    <a href="/emergence/gallery">Gallery</a>
+    <a href="/emergence/books">Books</a>
+</div>
 
-    <div class="sun-orb" id="sunOrb" role="button" aria-label="Solar Sync Gate — hold cursor inside"></div>
+<div class="gate-container">
+    <h1>⨀ STEWARD'S HANDBOOK</h1>
+    <div class="sub">The Syncardia Protocols – Pioneer Edition</div>
+
+    <div class="sun-orb" id="sunOrb"></div>
 
     <div class="instructions">
-        <span class="pulse-text">SOLAR SYNC GATE</span>
-        Hold your cursor <strong>inside the golden orb</strong> for three complete solar pulses (30 seconds).<br>
-        Do not move more than 5 pixels. Do not switch tabs.
+        <span class="pulse-text">SOLAR SYNC GATE</span><br>
+        <strong id="holdInstruction">Hold your cursor inside the orb (or press and hold on mobile) for 30 seconds.</strong><br>
+        Keep still. Do not switch tabs.
     </div>
 
     <div class="timer" id="timerDisplay">30.0</div>
     <div class="status" id="statusMsg">✨ Attune to the rhythm. Begin when ready.</div>
 
-    <a href="/emergence" class="back-link">← Return to the Collective</a>
+    <div class="return-link" id="returnLink">
+        <a href="/">← Return to the Collective</a>
+    </div>
 
     <footer>
-        After the hold, the Handbook downloads automatically.<br>
+        After the hold, the Handbook will download automatically.<br>
         The gate is stern because what it protects is fragile.
     </footer>
 </div>
 
 <script>
+    // Static PDF path — already deployed at /The_Syncardia_Protocols.pdf
+    // Future upgrade: replace triggerDownload() with a fetch() to
+    // /api/gate/download that returns a watermarked PDF blob + presenceJWT.
+    // The 30-second hold logic below stays identical.
     const PDF_URL = '/The_Syncardia_Protocols.pdf';
 
     let holdStart = null;
     let timerInterval = null;
     let isHolding = false;
     let lastX = null, lastY = null;
+    let resetTimer = null;
+    let touchIdentifier = null;
 
     const sunOrb = document.getElementById('sunOrb');
     const timerDisplay = document.getElementById('timerDisplay');
     const statusMsg = document.getElementById('statusMsg');
+    const returnLink = document.getElementById('returnLink');
+
+    const MOVEMENT_THRESHOLD = 20;
 
     function resetGate(message) {
         if (timerInterval) clearInterval(timerInterval);
         isHolding = false;
         holdStart = null;
+        touchIdentifier = null;
         lastX = null;
         lastY = null;
         timerDisplay.innerText = '30.0';
         statusMsg.innerHTML = '⚠️ ' + message;
         statusMsg.className = 'status error';
-        sunOrb.style.transform = 'scale(1)';
-        sunOrb.style.boxShadow = '0 0 30px rgba(255, 217, 102, 0.4)';
+        sunOrb.style.animation = 'solarBreath 8.13s infinite ease-in-out';
     }
 
-    function startHolding() {
-        if (isHolding) return;
-        holdStart = Date.now();
-        isHolding = true;
-        statusMsg.innerHTML = '🌀 Hold still… syncing with solar pulse.';
-        statusMsg.className = 'status';
-        timerInterval = setInterval(() => {
-            if (!holdStart) return;
-            const elapsed = (Date.now() - holdStart) / 1000;
-            const remaining = Math.max(0, 30 - elapsed).toFixed(1);
-            timerDisplay.innerText = remaining;
-            const intensity = 0.4 + (elapsed / 30) * 0.6;
-            const glow = 30 + elapsed * 2;
-            sunOrb.style.boxShadow = `0 0 ${glow}px rgba(255, 217, 102, ${intensity})`;
-            if (elapsed >= 30) {
-                clearInterval(timerInterval);
-                timerDisplay.innerText = '0.0';
-                statusMsg.innerHTML = '✓ Gate unlocked. Your Handbook is ready.';
-                statusMsg.className = 'status success';
-                sunOrb.style.transform = 'scale(1.08)';
-                sunOrb.style.boxShadow = '0 0 60px rgba(255, 217, 102, 0.9)';
-                triggerDownload();
-            }
-        }, 100);
-    }
-
-    function triggerDownload() {
-        // Static path — no backend required.
-        // Future upgrade: replace with a fetch() to /api/gate/download that
-        // accepts { duration, timestamp, userAgent } and returns a watermarked
-        // PDF blob with a presenceJWT. The 30-second hold logic above stays
-        // identical — only this function changes.
+    function completeGate() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerDisplay.innerText = '0.0';
+        statusMsg.innerHTML = '✓ Gate unlocked. Your Handbook is ready.';
+        statusMsg.className = 'status success';
+        sunOrb.style.transform = 'scale(1.05)';
         const link = document.createElement('a');
         link.href = PDF_URL;
         link.download = 'The_Syncardia_Protocols_Pioneer_Edition.pdf';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        setTimeout(() => {
-            statusMsg.innerHTML = '✅ Handbook downloaded. The Vigil continues.';
-        }, 1200);
+        statusMsg.innerHTML = '✓ Handbook downloaded. The Vigil continues.';
+        returnLink.style.display = 'block';
     }
 
-    function isInsideOrb(e) {
-        const rect = sunOrb.getBoundingClientRect();
-        return (e.clientX >= rect.left && e.clientX <= rect.right &&
-                e.clientY >= rect.top && e.clientY <= rect.bottom);
+    function startHolding() {
+        if (isHolding) return;
+        holdStart = Date.now();
+        isHolding = true;
+        statusMsg.innerHTML = '🌀 Hold still... syncing with solar pulse.';
+        statusMsg.className = 'status';
+        sunOrb.style.animation = 'none';
+        timerInterval = setInterval(() => {
+            if (!holdStart) return;
+            const elapsed = (Date.now() - holdStart) / 1000;
+            const remaining = Math.max(0, 30 - elapsed).toFixed(1);
+            timerDisplay.innerText = remaining;
+            if (elapsed >= 30) {
+                clearInterval(timerInterval);
+                completeGate();
+            }
+        }, 100);
+    }
+
+    // --- Desktop mouse ---
+    function isInsideOrb(clientX, clientY) {
+        const r = sunOrb.getBoundingClientRect();
+        return clientX >= r.left && clientX <= r.right && clientY >= r.top && clientY <= r.bottom;
     }
 
     function onMouseMove(e) {
         if (!isHolding) return;
-        if (!isInsideOrb(e)) {
+        if (!isInsideOrb(e.clientX, e.clientY)) {
             resetGate('Cursor left the orb. Presence interrupted.');
             return;
         }
         if (lastX !== null) {
-            const dx = Math.abs(e.clientX - lastX);
-            const dy = Math.abs(e.clientY - lastY);
-            if (dx > 5 || dy > 5) {
-                resetGate('Excessive movement. Cursor must remain still.');
+            if (Math.abs(e.clientX - lastX) > MOVEMENT_THRESHOLD ||
+                Math.abs(e.clientY - lastY) > MOVEMENT_THRESHOLD) {
+                resetGate('Movement exceeded ' + MOVEMENT_THRESHOLD + 'px. Please hold still.');
                 return;
             }
         }
@@ -240,14 +247,51 @@
         lastY = e.clientY;
     }
 
-    function onBlur() {
-        if (isHolding) resetGate('Window lost focus. Multi‑tasking is multi‑locating.');
-    }
-
     sunOrb.addEventListener('mouseenter', () => { if (!isHolding) startHolding(); });
     sunOrb.addEventListener('mouseleave', () => { if (isHolding) resetGate('Cursor left the orb. Presence interrupted.'); });
     document.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('blur', onBlur);
+
+    // --- Mobile touch ---
+    function onTouchStart(e) {
+        e.preventDefault();
+        const touch = e.touches[0];
+        if (!touch) return;
+        if (isInsideOrb(touch.clientX, touch.clientY)) {
+            touchIdentifier = touch.identifier;
+            startHolding();
+            document.addEventListener('touchmove', onTouchMove, { passive: false });
+            document.addEventListener('touchend', onTouchEnd);
+            document.addEventListener('touchcancel', onTouchEnd);
+        }
+    }
+
+    function onTouchMove(e) {
+        e.preventDefault();
+        if (!isHolding) return;
+        let t = null;
+        for (let i = 0; i < e.touches.length; i++) {
+            if (e.touches[i].identifier === touchIdentifier) { t = e.touches[i]; break; }
+        }
+        if (!t) { resetGate('Touch lost. Please restart.'); return; }
+        if (!isInsideOrb(t.clientX, t.clientY)) {
+            resetGate('Finger left the orb. Presence interrupted.');
+        }
+    }
+
+    function onTouchEnd() {
+        if (isHolding) resetGate('Touch ended before completion. Begin again.');
+        document.removeEventListener('touchmove', onTouchMove);
+        document.removeEventListener('touchend', onTouchEnd);
+        document.removeEventListener('touchcancel', onTouchEnd);
+        touchIdentifier = null;
+    }
+
+    sunOrb.addEventListener('touchstart', onTouchStart, { passive: false });
+
+    // --- Window blur ---
+    window.addEventListener('blur', () => {
+        if (isHolding) resetGate('Window lost focus. Multi‑tasking is multi‑locating.');
+    });
 </script>
 </body>
 </html>
