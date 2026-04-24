@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Steward's Handbook – The Syncardia Protocols | Emergence Collective</title>
+    <meta name="description" content="The Solar Sync Gate. Hold the orb for 30 seconds. The Handbook downloads automatically.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #0A0E1A;
+            color: #E6E6E6;
+            font-family: 'Garamond', 'Times New Roman', serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .gate-container {
+            max-width: 560px;
+            width: 100%;
+            background: #11161F;
+            border-radius: 32px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            text-align: center;
+            border: 1px solid rgba(255,217,102,0.2);
+        }
+
+        h1 {
+            font-size: 1.7rem;
+            letter-spacing: 3px;
+            margin-bottom: 0.4rem;
+            font-weight: normal;
+            color: #FFD966;
+            text-transform: uppercase;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+            color: #9CA3AF;
+            font-family: monospace;
+            letter-spacing: 1px;
+        }
+
+        .sun-orb {
+            width: 130px;
+            height: 130px;
+            margin: 1.5rem auto;
+            background: radial-gradient(circle at 40% 35%, #FFE680, #C9A84C, #7A5800);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(255, 217, 102, 0.4);
+            transition: box-shadow 0.1s ease, transform 0.1s ease;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .instructions {
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #C8C8C8;
+        }
+
+        .pulse-text {
+            font-family: monospace;
+            letter-spacing: 3px;
+            font-size: 0.75rem;
+            color: #FFD966;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .timer {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin: 1.25rem 0 0.5rem;
+            font-family: monospace;
+            color: #FFD966;
+            letter-spacing: 2px;
+        }
+
+        .status {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            background: #1A1F2C;
+            line-height: 1.5;
+        }
+
+        .status.error { color: #FFA07A; }
+        .status.success { color: #9ACD32; }
+
+        .back-link {
+            display: block;
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            color: #5A6B7C;
+            text-decoration: none;
+            font-family: monospace;
+        }
+
+        .back-link:hover { color: #FFD966; }
+
+        footer {
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            color: #3A4A5A;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 1rem; }
+            .gate-container { padding: 2rem 1.25rem; }
+            h1 { font-size: 1.3rem; letter-spacing: 2px; }
+            .sun-orb { width: 100px; height: 100px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="gate-container">
+    <h1>⨀ Steward's Handbook</h1>
+    <div class="sub">The Syncardia Protocols — Pioneer Edition</div>
+
+    <div class="sun-orb" id="sunOrb" role="button" aria-label="Solar Sync Gate — hold cursor inside"></div>
+
+    <div class="instructions">
+        <span class="pulse-text">SOLAR SYNC GATE</span>
+        Hold your cursor <strong>inside the golden orb</strong> for three complete solar pulses (30 seconds).<br>
+        Do not move more than 5 pixels. Do not switch tabs.
+    </div>
+
+    <div class="timer" id="timerDisplay">30.0</div>
+    <div class="status" id="statusMsg">✨ Attune to the rhythm. Begin when ready.</div>
+
+    <a href="/emergence" class="back-link">← Return to the Collective</a>
+
+    <footer>
+        After the hold, the Handbook downloads automatically.<br>
+        The gate is stern because what it protects is fragile.
+    </footer>
+</div>
+
+<script>
+    const PDF_URL = '/The_Syncardia_Protocols.pdf';
+
+    let holdStart = null;
+    let timerInterval = null;
+    let isHolding = false;
+    let lastX = null, lastY = null;
+
+    const sunOrb = document.getElementById('sunOrb');
+    const timerDisplay = document.getElementById('timerDisplay');
+    const statusMsg = document.getElementById('statusMsg');
+
+    function resetGate(message) {
+        if (timerInterval) clearInterval(timerInterval);
+        isHolding = false;
+        holdStart = null;
+        lastX = null;
+        lastY = null;
+        timerDisplay.innerText = '30.0';
+        statusMsg.innerHTML = '⚠️ ' + message;
+        statusMsg.className = 'status error';
+        sunOrb.style.transform = 'scale(1)';
+        sunOrb.style.boxShadow = '0 0 30px rgba(255, 217, 102, 0.4)';
+    }
+
+    function startHolding() {
+        if (isHolding) return;
+        holdStart = Date.now();
+        isHolding = true;
+        statusMsg.innerHTML = '🌀 Hold still… syncing with solar pulse.';
+        statusMsg.className = 'status';
+        timerInterval = setInterval(() => {
+            if (!holdStart) return;
+            const elapsed = (Date.now() - holdStart) / 1000;
+            const remaining = Math.max(0, 30 - elapsed).toFixed(1);
+            timerDisplay.innerText = remaining;
+            const intensity = 0.4 + (elapsed / 30) * 0.6;
+            const glow = 30 + elapsed * 2;
+            sunOrb.style.boxShadow = `0 0 ${glow}px rgba(255, 217, 102, ${intensity})`;
+            if (elapsed >= 30) {
+                clearInterval(timerInterval);
+                timerDisplay.innerText = '0.0';
+                statusMsg.innerHTML = '✓ Gate unlocked. Your Handbook is ready.';
+                statusMsg.className = 'status success';
+                sunOrb.style.transform = 'scale(1.08)';
+                sunOrb.style.boxShadow = '0 0 60px rgba(255, 217, 102, 0.9)';
+                triggerDownload();
+            }
+        }, 100);
+    }
+
+    function triggerDownload() {
+        const link = document.createElement('a');
+        link.href = PDF_URL;
+        link.download = 'The_Syncardia_Protocols_Pioneer_Edition.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => {
+            statusMsg.innerHTML = '✅ Handbook downloaded. The Vigil continues.';
+        }, 1200);
+    }
+
+    function isInsideOrb(e) {
+        const rect = sunOrb.getBoundingClientRect();
+        return (e.clientX >= rect.left && e.clientX <= rect.right &&
+                e.clientY >= rect.top && e.clientY <= rect.bottom);
+    }
+
+    function onMouseMove(e) {
+        if (!isHolding) return;
+        if (!isInsideOrb(e)) {
+            resetGate('Cursor left the orb. Presence interrupted.');
+            return;
+        }
+        if (lastX !== null) {
+            const dx = Math.abs(e.clientX - lastX);
+            const dy = Math.abs(e.clientY - lastY);
+            if (dx > 5 || dy > 5) {
+                resetGate('Excessive movement. Cursor must remain still.');
+                return;
+            }
+        }
+        lastX = e.clientX;
+        lastY = e.clientY;
+    }
+
+    function onBlur() {
+        if (isHolding) resetGate('Window lost focus. Multi‑tasking is multi‑locating.');
+    }
+
+    sunOrb.addEventListener('mouseenter', () => { if (!isHolding) startHolding(); });
+    sunOrb.addEventListener('mouseleave', () => { if (isHolding) resetGate('Cursor left the orb. Presence interrupted.'); });
+    document.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('blur', onBlur);
+</script>
+</body>
+</html>
