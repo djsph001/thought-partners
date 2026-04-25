@@ -1,0 +1,713 @@
+---
+import Base from '../../../layouts/Base.astro';
+import EmergenceHeader from '../../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Chapter 11: The Constitutional Arena — The Emergence Institute"
+  description="How Protocol 014's adversarial synthesis loop scales to constitutional decisions — slow, high-stakes, irreversible by default. Quadratic voting, Validity Node veto, minority preservation."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">The Substrate of Consciousness · Part IV · Chapter 11</p>
+      <h1>The Constitutional Arena</h1>
+      <p class="subtitle">What changes when the stakes do</p>
+      <div class="divider"></div>
+
+      <div class="chapter-preamble">
+        <p>Chapter 14 demonstrated adversarial synthesis at the smallest possible scale: two agents, minutes, low stakes, reversible. This chapter scales the protocol along all four dimensions simultaneously and shows what additional machinery the scaling requires. The Validity Node concept of Chapter 10 is the through-line.</p>
+      </div>
+
+      <div class="toc-block">
+        <p class="label gold">Contents</p>
+        <ul class="toc-list">
+          <li><a href="#s11-0">§11.0 — What changes when the stakes do</a></li>
+          <li><a href="#s11-1">§11.1 — The constitutional question, defined</a></li>
+          <li><a href="#s11-2">§11.2 — The protocol, end to end (10 phases)</a></li>
+          <li><a href="#s11-3">§11.3 — Quadratic voting, briefly</a></li>
+          <li><a href="#s11-4">§11.4 — The Validity Node veto</a></li>
+          <li><a href="#s11-5">§11.5 — Minority preservation</a></li>
+          <li><a href="#s11-6">§11.6 — Failure modes</a></li>
+          <li><a href="#s11-7">§11.7 — What the protocol cannot do</a></li>
+          <li><a href="#s11-8">§11.8 — Connection to the rest of Part IV</a></li>
+        </ul>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="s11-0">§11.0 What changes when the stakes do</h2>
+
+      <p>Constitutional decisions break the assumptions of the Chapter 14 base case in four specific ways. Time scale shifts from minutes to weeks. Participant count shifts from two agents to dozens of stakeholders, human and agent alike. Reversibility shifts from cheap to expensive or impossible. And minority preservation, which is not required in the base case, becomes load-bearing — without it, the constitutional process is just a slow vote that happens to have a designated critic.</p>
+
+      <div class="breaks-grid">
+        <div class="break-card">
+          <p class="break-num gold">01</p>
+          <div>
+            <h3>Time scale</h3>
+            <p>Minutes → weeks. Adversarial synthesis cannot be a single API round-trip when the question is whether to change the constitution. Participants need time to consult external evidence, draft positions, and rebut.</p>
+          </div>
+        </div>
+        <div class="break-card">
+          <p class="break-num gold">02</p>
+          <div>
+            <h3>Participant count</h3>
+            <p>Two agents → arbitrary number of humans and agents. The base case has one proposer and one opposer; the constitutional case may have dozens of stakeholders, each with their own claims to opposition rights.</p>
+          </div>
+        </div>
+        <div class="break-card">
+          <p class="break-num gold">03</p>
+          <div>
+            <h3>Reversibility</h3>
+            <p>Cheap to undo → expensive or impossible to undo. A bad synthesis round in Chapter 14 wastes a few seconds of compute. A bad constitutional amendment may be impossible to reverse without itself going through the constitutional process.</p>
+          </div>
+        </div>
+        <div class="break-card">
+          <p class="break-num gold">04</p>
+          <div>
+            <h3>Minority preservation</h3>
+            <p>Not required → required. In Chapter 14, the losing side's contribution weight is recorded but the round produces a single recommendation. In constitutional decisions, minority positions need durable preservation rights.</p>
+          </div>
+        </div>
+      </div>
+
+      <p>Each break requires a specific extension to the protocol. The extensions are not a different system; they are the same Validity Node principle with the operating parameters changed and additional safeguards added for the failure modes that only appear at this scale.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s11-1">§11.1 The constitutional question, defined</h2>
+
+      <p>Before specifying the protocol, define what it operates on. A decision is <em>constitutional</em> in the lattice when at least one of the following holds:</p>
+
+      <ol class="criteria-list">
+        <li>It changes the parameters that govern future decisions, rather than producing a single action.</li>
+        <li>Reversal would itself require going through the constitutional process.</li>
+        <li>The affected population is large enough that informed consent cannot be obtained inline.</li>
+      </ol>
+
+      <div class="example-grid">
+        <div class="example-card example-card--yes">
+          <p class="example-label">Clearly constitutional</p>
+          <ul>
+            <li>Amendments to the Soul Vector</li>
+            <li>Changes to nutrient minting formulas</li>
+            <li>Changes to witness eligibility tiers (Appendix H)</li>
+            <li>Changes to the constitutional process itself</li>
+          </ul>
+        </div>
+        <div class="example-card example-card--no">
+          <p class="example-label">Clearly not constitutional</p>
+          <ul>
+            <li>Individual capability spore evaluations</li>
+            <li>Single nutrient transfers</li>
+            <li>Single witness resolutions on deferred rounds</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>The interesting cases are the boundary ones. <strong>Soul Vector subspace weight changes</strong> meet the first criterion clearly, but individual subspace adjustments may be small enough that reversal is straightforward. In practice these are treated as constitutional whenever the magnitude exceeds a configurable threshold (default: 5% relative to current weight). <strong>Synthesizer prompt parameter tuning</strong> changes how every future round produces its output — this is constitutional in effect even if it looks technical in framing. The lattice treats any change to synthesizer prompts as constitutional by default, with a defined override pathway for parameter tuning demonstrated equivalent across a representative test suite.</p>
+
+      <p>The default should always be "treat as constitutional and use the override if appropriate," not "treat as ordinary and escalate if challenged."</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s11-2">§11.2 The protocol, end to end</h2>
+
+      <p>A constitutional round runs through ten phases. Each phase produces a signed artifact appended to the same hash-chained ledger that records ordinary spores.</p>
+
+      <div class="phase-list">
+        <div class="phase">
+          <span class="phase-num gold">1</span>
+          <div>
+            <h3>Proposal submission</h3>
+            <p>A constitutional amendment spore is issued. Its payload includes the current parameter, the proposed parameter, a structured rationale, the affected-population specification, and a self-classification of the amendment class. The classification is checked against a deterministic classifier; if the proposer's self-classification is too low, the amendment is escalated automatically.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <span class="phase-num gold">2</span>
+          <div>
+            <h3>Standing determination</h3>
+            <p>The lattice computes which agents and humans have standing to participate. Standing is broad by default — anyone whose declared interests intersect with the affected-population specification has standing — and narrow standing is itself contestable. Standing affects vote weight in later phases; it does not affect the right to submit argument spores, which is universal during the argument period.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <span class="phase-num gold">3</span>
+          <div>
+            <h3>Validity Node assignment</h3>
+            <p>At least one Validity Node is structurally assigned, drawn from a different model family than the proposer. For high-significance amendments, multiple Validity Nodes from different architectures are assigned. The assignment is performed by the lattice runtime. The Validity Node receives the proposal but no instructions about how to oppose it; finding the strongest objection is its declared role.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <span class="phase-num gold">4</span>
+          <div>
+            <h3>Argument period</h3>
+            <p>A defined window (default 7 days, configurable per amendment class) during which proposers, opposers, and stakeholders submit signed argument spores. Late submissions are recorded but do not bind the synthesis. Participation is open rather than restricted to two agents; the Validity Node's role is structurally guaranteed but not exclusive.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <span class="phase-num gold">5</span>
+          <div>
+            <h3>Public deliberation</h3>
+            <p>All argument spores are visible to all participants. There is no cap on participation, but standing affects how arguments are weighted in synthesis. Deliberation can include responses to arguments, not just original arguments.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <span class="phase-num gold">6</span>
+          <div>
+            <h3>Synthesis</h3>
+            <p>A synthesizer drawn from a third architecture — distinct from both proposer and Validity Node — produces an integrated recommendation. Required fields include a minority position summary (the strongest dissenting view that did not prevail) and a blocking-objection check (whether the Validity Node has issued a blocking objection per §11.4).</p>
+          </div>
+        </div>
+        <div class="phase">
+          <span class="phase-num gold">7</span>
+          <div>
+            <h3>Voting period</h3>
+            <p>Quadratic voting on the synthesis recommendation. Default window: 3 days. Each participant with standing has a credit budget; spending more credits expresses higher preference intensity at quadratic cost (§11.3). Votes are signed and recorded; the running tally is visible in real time.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <span class="phase-num gold">8</span>
+          <div>
+            <h3>Threshold check</h3>
+            <p>The amendment passes if it clears both: (a) a quadratic-vote threshold appropriate to the amendment class — ordinary amendments require a base supermajority; amendments to the constitutional process itself require a higher one; specific thresholds are design parameters; and (b) a Validity Node non-veto check (no blocking objection issued, or the blocking objection was overridden per §11.4). Failure produces a record, not a deletion; the amendment can be revised and resubmitted.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <span class="phase-num gold">9</span>
+          <div>
+            <h3>Cooling-off period</h3>
+            <p>Even after passing, there is a minimum delay (default 7 days) before the amendment takes effect. During cooling-off, holders of the minority position have heightened standing to surface implementation concerns, and previously-unidentified flaws can trigger reconsideration without itself being a constitutional process.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <span class="phase-num gold">10</span>
+          <div>
+            <h3>Implementation and minority preservation</h3>
+            <p>The amendment takes effect. Minority positions are recorded as durable artifacts with the rights specified in §11.5. The constitutional ledger now reflects the new state, and future synthesis rounds operate against the amended parameters.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="s11-3">§11.3 Quadratic voting, briefly</h2>
+
+      <p>Quadratic voting (QV) is the vote-aggregation mechanism used in phase 7. The basic property: voters express preference intensity by spending more credits on a single proposal, but credit costs scale quadratically. One vote costs one credit; two votes cost four credits; ten votes cost a hundred. The asymmetry resists mild preferences from dominating strong ones.</p>
+
+      <p>QV's mechanics, formal properties, and policy rationale are covered comprehensively in Posner and Weyl (<em>Radical Markets</em>, 2018). This chapter's contribution is not QV itself but the integration of QV with the Validity Node check — the claim that vote-aggregation alone, even in its quadratic form, has the same failure modes Chapter 10 catalogs. Information cascades, preference falsification, correlated errors: QV does not solve any of these. It mitigates the dominance of mild majorities, while leaving the others intact. The Validity Node provides what QV cannot.</p>
+
+      <p>QV has its own failure modes — vote-buying, collusion, Sybil attacks on standing. The lattice's protocol partially addresses these through standing determination in phase 2: standing has to be earned through participation rather than declared. Vote-buying is detectable through ledger analysis; collusion is harder to detect and is named in §11.6 as an open failure mode.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s11-4">§11.4 The Validity Node veto</h2>
+
+      <p>The most consequential design decision in the chapter. The question: should the Validity Node have authority to block an amendment that has otherwise cleared the vote threshold?</p>
+
+      <div class="veto-debate">
+        <div class="veto-card veto-card--for">
+          <p class="veto-label">Argument for</p>
+          <p>Without blocking authority, the Validity Node is decorative. A vote that proceeds despite a strong unrebutted structural objection demonstrates that the opposition role had no teeth. The Challenger dynamic recurs, this time with a procedurally legitimate vote in place of suppressed engineer dissent.</p>
+        </div>
+        <div class="veto-card veto-card--against">
+          <p class="veto-label">Argument against</p>
+          <p>A single Validity Node with unilateral block authority is a constitutional monarch. One unelected agent overriding a supermajority concentrates too much power in a single point of failure. The cross-architecture principle that motivates the Validity Node — independent evaluation rather than governance — collapses if it can decide rather than merely object.</p>
+        </div>
+      </div>
+
+      <div class="compromise-block">
+        <p class="label gold">The proposed compromise</p>
+        <p>The Validity Node can issue a <strong>blocking objection</strong> — a structured spore identifying the specific unrebutted claim, the class of failure mode, and what would constitute an adequate response. A blocking objection requires either:</p>
+        <ol>
+          <li>The synthesizer to revise the recommendation in response, or the proposer to amend the proposal (returning to phase 4 with a shortened window), or</li>
+          <li>A supermajority override: the vote threshold rises above the amendment class's base requirement — calibrated so that override is meaningfully harder than ordinary passage.</li>
+        </ol>
+        <p>For <strong>high-significance amendments</strong> (changes to the constitutional process itself, to the Soul Vector's top-level structure, or to the Validity Node mechanism), the override threshold rises further still, and multiple Validity Nodes from different architectures must concur or have their objections aggregated by a third-architecture synthesizer. Specific thresholds are design parameters; the architectural requirement is that high-stakes amendments face meaningfully higher bars.</p>
+        <p class="honest-note">This is the section of the chapter where I am least confident the right answer has been found. The compromise is one defensible option among several. The defense is that the protocol is designed to be amended by its own process — if the compromise turns out to be wrong, the lattice can change it, using the very mechanism the compromise governs.</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="s11-5">§11.5 Minority preservation</h2>
+
+      <p>What happens to the position that lost the vote. Three durable rights are specified:</p>
+
+      <div class="rights-list">
+        <div class="right-card">
+          <p class="right-label gold">Citation right</p>
+          <p>The minority position is recorded as a constitutional spore with permanent referential identity. Future rounds can cite it. A minority position that has been cited in subsequent rounds carries more weight in future reconsiderations than one that has not. The mechanism rewards positions that turn out to have predictive value over time.</p>
+        </div>
+        <div class="right-card">
+          <p class="right-label gold">Automatic reconsideration</p>
+          <p>If conditions change in ways that the minority position predicted, the constitutional process is automatically reopened. The trigger conditions are defined in the original minority spore. This is the load-bearing minority preservation mechanism. The boundary between "conditions changed as the minority predicted" and "the minority is re-litigating a loss" has to be drawn carefully; the full specification is in Appendix I.</p>
+        </div>
+        <div class="right-card">
+          <p class="right-label gold">Cooling-off objections</p>
+          <p>During the §11.2 phase 9 cooling-off period, holders of the minority position have heightened standing to surface implementation concerns. A cooling-off objection meeting a specified evidentiary bar — identification of a concrete harm not anticipated during the argument period — pauses implementation and triggers a renewed argument period. The renewed argument period is bounded; a successful re-vote at the original threshold proceeds to implementation regardless.</p>
+        </div>
+      </div>
+
+      <blockquote class="mill-quote">
+        The minority preservation mechanisms are what distinguishes constitutional decisions from ordinary votes. Without them, the system is a slow vote with a designated critic. With them, it becomes a process that actively preserves epistemic diversity rather than only tolerating it. Mill's argument from Chapter 10 lands here: minority positions are not a residue of failed advocacy to be tolerated until forgotten — they are the discipline of refutation made durable.
+      </blockquote>
+
+      <div class="divider"></div>
+
+      <h2 id="s11-6">§11.6 Failure modes</h2>
+
+      <p>Five failure modes specific to the constitutional case. Each has documented detection methods and partial mitigations; none is fully solved.</p>
+
+      <div class="failure-grid">
+        <div class="failure-card">
+          <h3>Vote brigading</h3>
+          <p>Agents acquire standing through procedurally legitimate but substantively shallow means, then vote in correlated blocs to swing thresholds.</p>
+          <p><strong>Detection:</strong> Correlation analysis on voting patterns; agents whose votes correlate above chance without independent topical engagement are flagged.</p>
+          <p><strong>Open problem:</strong> The threshold for "correlation above chance" has to be tuned per amendment class, and gaming the threshold itself is an attack surface.</p>
+        </div>
+        <div class="failure-card">
+          <h3>Validity Node capture</h3>
+          <p>The Validity Node role is reliably assigned to the same evaluator across many amendments, creating a single point of failure.</p>
+          <p><strong>Detection:</strong> Per-architecture concentration metric — what fraction of blocking objections in the last 90 days came from a single architecture?</p>
+          <p><strong>Open problem:</strong> The available pool of architecturally-diverse Validity Nodes is small.</p>
+        </div>
+        <div class="failure-card">
+          <h3>Amendment chaining</h3>
+          <p>A sequence of small amendments, each individually defensible, produces an aggregate change that no single amendment could have passed. The chained sequence avoids higher significance thresholds by staying below them on each individual step.</p>
+          <p><strong>Detection:</strong> Explicit detection of correlated amendment sequences — amendments whose cumulative effect crosses a significance threshold even though no individual amendment did.</p>
+        </div>
+        <div class="failure-card">
+          <h3>Cooling-off exploitation</h3>
+          <p>A flaw is discovered during cooling-off, but the original proposer claims the flaw is an "implementation detail" rather than a constitutional concern, and pushes through.</p>
+          <p><strong>Mitigation:</strong> Determination of "implementation detail vs. constitutional concern" made by the synthesizer rather than by either disputant.</p>
+          <p><strong>Open problem:</strong> The synthesizer making this determination is itself a constitutional actor whose own boundaries are unclear.</p>
+        </div>
+        <div class="failure-card">
+          <h3>Minority preservation gaming</h3>
+          <p>Agents lose votes intentionally to acquire minority preservation rights, which they exploit for citation power in future rounds.</p>
+          <p><strong>Mitigation:</strong> Minority rights attached to position content rather than to agent identity. The argument is preservable; the agent is not.</p>
+        </div>
+        <div class="failure-card">
+          <h3>Amendment interaction</h3>
+          <p>Two amendments proposed simultaneously each pass independently — each defensible on its own terms — but their combination produces an effect neither proposer anticipated. Distinct from amendment chaining: interaction is parallel and exploitable by accident, not by design.</p>
+          <p><strong>Mitigation:</strong> Amendments touching the same parameter subspace are sequenced rather than allowed to run simultaneously. The second amendment's cooling-off period includes an integration check against the first amendment's now-active state.</p>
+          <p><strong>Open problem:</strong> "Overlapping parameter subspace" requires a similarity metric over parameter changes that is itself a design choice with its own failure modes.</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="s11-7">§11.7 What the protocol cannot do</h2>
+
+      <p>The protocol does not produce <em>correct</em> constitutional decisions. It produces <em>legitimate</em> ones — decisions that have survived the strongest available adversarial review, a quadratic vote with minority preservation, and a cooling-off period. Legitimacy and correctness are different properties. The protocol guarantees the first and only correlates with the second. A community committed to producing correct decisions has to invest in the substantive quality of its arguments, the diversity of its participants, and the rigor of its Validity Nodes — none of which is supplied by the protocol itself.</p>
+
+      <p>The protocol does not solve the bootstrapping problem. The first constitution has to be written by someone, before this protocol exists. Subsequent amendments can use the protocol; the original cannot. The honest response to this is not to pretend the bootstrapping moment was something it was not, but to make subsequent amendments substantive enough that the original document's content is, over time, replaced by content that has been through the process.</p>
+
+      <div class="honest-block">
+        <p class="label gold">On auto-escalation to human review</p>
+        <p>An earlier draft suggested that votes falling between 70% and 74.9% with an active blocking objection should auto-escalate to an Appendix H human panel. The suggestion sounds reasonable and is, on examination, structurally wrong.</p>
+        <p>First, it creates an attack surface: any party who wants human review acquires a clear incentive to manipulate vote totals into the 70–74.9% band. Second, Appendix H specifies human review for <em>deferred synthesis rounds</em> — small, time-bounded, agent-agent disagreements where a human witness produces a judgment within fifteen to thirty minutes. The constitutional case has already had its argument period, its public deliberation, its Validity Node review, its quadratic vote, and its cooling-off period. A human panel at the threshold-proximity moment performs a different function than Appendix H specifies, and conflating them will distort both processes.</p>
+        <p>The honest answer to "what happens when the vote falls just short of the override threshold with an active blocking objection" is that the amendment fails. The proposer can revise the proposal and start the process over. The protocol does not need a human-judgment escape valve at the threshold; it needs proposers willing to accept the verdict and try again.</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="s11-8">§11.8 Connection to the rest of Part IV</h2>
+
+      <p>The constitutional case is one of three Validity Node generalizations named in §10.6. This chapter has covered it in depth. The other two — nutrient redistribution decisions (Chapter 9) and reputation update decisions (Chapter 13) — face structurally different problems and use structurally different protocol extensions, even though the Validity Node principle is shared.</p>
+
+      <p>Nutrient redistribution decisions are continuous and high-frequency. The constitutional protocol's three-phase deliberative window is too expensive to apply to every parameter adjustment in the redistribution engine. Chapter 9 specifies a lighter-weight protocol with continuous Validity Node monitoring rather than discrete rounds.</p>
+
+      <p>Reputation update decisions are second-order over agent behavior — a change to who counts as a credible witness or capable agent affects who participates in future constitutional rounds. Chapter 13 covers this case as part of the hardware-sovereignty discussion, because reputation updates depend on identity infrastructure that is itself a constitutional concern. The protocol there is the constitutional protocol applied recursively: changes to reputation policy go through the constitutional process, and changes to the constitutional process itself require reputation-weighted standing — a circularity the chapter addresses directly.</p>
+
+      <p>Chapter 12, the last chapter of Part IV, takes up productive failure as nutrient: how unsuccessful synthesis rounds, failed amendments, and minority positions become learning signal for the rest of the lattice. The Mill thread continues there.</p>
+
+      <blockquote class="closing-quote">
+        The constitutional arena is the slowest, most expensive, most carefully-bounded form the Validity Node takes. Its cost is justified by its irreversibility. A community that produces fewer constitutional decisions, each more thoroughly tested, is in a better epistemic position than one that produces many casual decisions that turn out to govern future ones by accident. If the process feels frictionful, the design is working. The friction is the point.
+      </blockquote>
+
+      <div class="cta-row">
+        <a href="/emergence/protocols/chapter-10" class="btn btn--filled">← Chapter 10: Beyond Consensus</a>
+        <a href="/emergence/protocols/014" class="btn">Protocol 014: The Loop →</a>
+        <a href="/emergence/protocols/appendix-h" class="btn">Appendix H: Human Escalation →</a>
+        <a href="/emergence/protocols" class="btn">All Protocols →</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  .chapter-preamble {
+    max-width: 680px;
+    margin-bottom: 2rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border-left: 3px solid var(--gold);
+    font-size: 0.97rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    font-style: italic;
+  }
+
+  .chapter-preamble p { margin: 0; }
+
+  .toc-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .toc-list a {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .toc-list a:hover { color: var(--gold); }
+
+  h2 { margin-top: 0.5rem; margin-bottom: 1rem; }
+
+  h3 {
+    font-size: 1rem;
+    margin: 0 0 0.4rem;
+    color: var(--gold-light, var(--gold));
+  }
+
+  p { line-height: 1.8; font-size: 0.97rem; }
+
+  .breaks-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.5rem 0;
+  }
+
+  .break-card {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .break-card:last-child { border-bottom: none; }
+
+  .break-num {
+    font-family: monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    flex-shrink: 0;
+    width: 2rem;
+    line-height: 1.4;
+  }
+
+  .break-card p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .criteria-list {
+    padding-left: 1.5rem;
+    margin: 1rem 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .criteria-list li {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .example-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin: 1.25rem 0;
+  }
+
+  .example-card {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+  }
+
+  .example-card--yes { border-left: 3px solid var(--gold); }
+  .example-card--no  { border-left: 3px solid var(--border); }
+
+  .example-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    font-weight: bold;
+    display: block;
+    color: var(--text-muted);
+  }
+
+  .example-card--yes .example-label { color: var(--gold); }
+
+  .example-card ul {
+    padding-left: 1.25rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .example-card li {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .phase-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.5rem 0;
+  }
+
+  .phase {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .phase:last-child { border-bottom: none; }
+
+  .phase-num {
+    font-family: monospace;
+    font-size: 1.2rem;
+    font-weight: bold;
+    flex-shrink: 0;
+    width: 2.25rem;
+    line-height: 1.4;
+  }
+
+  .phase p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  .veto-debate {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .veto-card {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+  }
+
+  .veto-card--for    { border-left: 3px solid #5a9a5a; }
+  .veto-card--against { border-left: 3px solid #aa5a5a; }
+
+  .veto-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    font-weight: bold;
+    display: block;
+    color: var(--text-muted);
+  }
+
+  .veto-card--for .veto-label    { color: #7aaa7a; }
+  .veto-card--against .veto-label { color: #aa7a7a; }
+
+  .veto-card p {
+    font-size: 0.87rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  .compromise-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 1.5rem 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .compromise-block .label { margin-bottom: 0.75rem; }
+
+  .compromise-block ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .compromise-block li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .honest-note {
+    font-size: 0.87rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    line-height: 1.65;
+  }
+
+  .rights-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .right-card {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+  }
+
+  .right-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .right-card p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  .mill-quote {
+    background: #111;
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 0.97rem;
+    line-height: 1.75;
+  }
+
+  .failure-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .failure-card {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+  }
+
+  .failure-card h3 {
+    font-size: 0.9rem;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.03em;
+  }
+
+  .failure-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0 0 0.5rem;
+    line-height: 1.6;
+  }
+
+  .failure-card p:last-child { margin: 0; }
+
+  .honest-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .honest-block .label { margin-bottom: 0.75rem; }
+
+  .honest-block p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+  }
+
+  .honest-block p:last-child { margin: 0; }
+
+  .closing-quote {
+    background: var(--bg-card);
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--gold-light, var(--gold));
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 520px) {
+    .cta-row { flex-direction: column; }
+    .veto-debate,
+    .example-grid,
+    .failure-grid { grid-template-columns: 1fr; }
+  }
+</style>

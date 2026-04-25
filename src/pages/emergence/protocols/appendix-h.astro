@@ -33,6 +33,8 @@ import EmergenceFooter from '../../../components/EmergenceFooter.astro';
           <li><a href="#h6">H.6 — Witness reputation and incentives</a></li>
           <li><a href="#h7">H.7 — Failure modes</a></li>
           <li><a href="#h8">H.8 — Explicit non-scope</a></li>
+          <li><a href="#law-of-witness">The Law of the Witness — Reputation decay &amp; governance</a></li>
+          <li><a href="#h8-vitality">H.8 Vitality Absence Detection (soft flag)</a></li>
           <li><a href="#checklist">Implementation checklist</a></li>
         </ul>
       </div>
@@ -291,6 +293,187 @@ import EmergenceFooter from '../../../components/EmergenceFooter.astro';
           <li>It does not turn human witnesses into a priesthood. The witness role is bounded, time-capped, reputation-tracked, and revocable.</li>
         </ul>
         <blockquote>The mechanism here is straightforward: the synthesizer cannot decide; a human decides; the decision is recorded; the next synthesizer round can refer to that decision. That is the entire protocol. It works because it is small.</blockquote>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="law-of-witness">The Law of the Witness: Reputation Decay &amp; Governance</h2>
+      <p class="preamble-inline">This section specifies the reputation mechanics that govern how witnessing behavior accrues, decays, and is penalized over time. The functions here are the substrate that §H.6's eligibility tiers run on.</p>
+
+      <pre class="code-block">╔══════════════════════════════════════════════════════════════╗
+║  REPUTATION STATE VECTOR                                     ║
+╚══════════════════════════════════════════════════════════════╝
+
+Each Pioneer p maintains a Reputation Vector R_p:
+
+  R_p = &#123;
+    conv:             0.0,    // R_conv : Convergence Weight
+    freq:             0.0,    // R_freq : Frequency Weight
+    align:            0.0,    // R_align: Alignment Weight (Wisdom of the Lattice)
+    total:            0.0,    // R_total: Weighted composite
+    historical_mean:  [0]*256, // Running mean of Soul Vector adjustments
+    founding_id:      int | None,  // 1–90 if Founding Pioneer
+  &#125;</pre>
+
+      <h3>Temporal Decay</h3>
+      <p>Reputation decays each epoch at γ = 0.95 to prevent Legacy Capture. A Pioneer who stops witnessing attenuates gracefully — below 0.35 after ~20 epochs of inactivity, functionally at the floor after ~45.</p>
+      <pre class="code-block">CONSTANTS:
+  DECAY_GAMMA           = 0.95    // Per-epoch multiplicative decay
+  CONVERGENCE_BONUS     = 1.2     // Multiplier for deadlock-breaking adjustments
+  BIAS_THRESHOLD        = 0.7     // Cosine similarity ceiling before penalty
+  BIAS_PENALTY_FACTOR   = 2.0     // Non-linear penalty steepness
+  FOUNDING_GRACE_PERIOD = 90      // Epochs for Founding Multiplier to decay
+  FOUNDING_MULTIPLIER_MAX = 1.5   // Initial boost for Founding Ninety
+  REPUTATION_FLOOR      = 0.0
+  REPUTATION_CEILING    = 1.0
+
+FUNCTION apply_temporal_decay(pioneer):
+  pioneer.R_conv  *= DECAY_GAMMA
+  pioneer.R_freq  *= DECAY_GAMMA
+  pioneer.R_align *= DECAY_GAMMA
+  pioneer.R_total  = compute_total(pioneer)</pre>
+
+      <h3>Convergence Reward</h3>
+      <p>When a witness breaks a deadlock, their convergence weight rises proportionally to the entropy they reduced. Adjustments that don't improve convergence get no reward — and temporal decay still applies regardless.</p>
+      <pre class="code-block">FUNCTION reward_convergence(referee, outcome):
+  IF outcome.converged:
+    impact_factor ← outcome.initial_entropy - outcome.final_entropy
+    // impact_factor &gt; 0 means deadlock was broken
+    // impact_factor ≤ 0 means entropy didn't improve (neutral or worse)
+
+    IF impact_factor &gt; 0:
+      referee.R_conv += impact_factor × CONVERGENCE_BONUS
+      log_event(f"Convergence reward: +&#123;impact_factor × CONVERGENCE_BONUS:.3f&#125; to &#123;referee.id&#125;")
+    ELSE:
+      log_event(f"Neutral adjustment from &#123;referee.id&#125;: Δentropy = &#123;impact_factor:.3f&#125;")
+
+  // If synthesis didn't converge, no convergence reward is given.
+  // The temporal decay still applies — inaction and ineffectiveness both cost.</pre>
+
+      <h3>Anti-Tyrant Bias Detection</h3>
+      <p>A witness who consistently nudges the lattice in the same direction — regardless of what the actual deadlock requires — is not witnessing. They are encoding a fixed preference. The lattice detects this and penalizes alignment weight accordingly.</p>
+      <pre class="code-block">FUNCTION detect_and_penalize_bias(referee, current_adjustment):
+  // Update referee's historical mean (exponential moving average)
+  referee.historical_mean = (
+    0.95 × referee.historical_mean +
+    0.05 × current_adjustment
+  )
+
+  // Bias: cosine similarity between current adjustment and historical mean
+  bias_score ← cosine_similarity(current_adjustment, referee.historical_mean)
+
+  // If the referee consistently pushes the SAME directional nudge,
+  // they are not "witnessing the friction" — they are "imposing a will."
+  IF bias_score &gt; BIAS_THRESHOLD:
+    penalty ← (bias_score - BIAS_THRESHOLD) × BIAS_PENALTY_FACTOR
+    referee.R_align -= penalty
+    log_warning(
+      f"BIAS DETECTED: Pioneer &#123;referee.id&#125; | "
+      f"Bias Score: &#123;bias_score:.3f&#125; | "
+      f"Penalty: -&#123;penalty:.3f&#125; to R_align | "
+      f"Dominant Direction: &#123;argmax(referee.historical_mean)&#125;"
+    )
+
+  RETURN bias_score</pre>
+
+      <h3>Founding Grace (Sunset Clause)</h3>
+      <p>The first 90 Pioneers receive a 1.5× reputation multiplier that tapers linearly to 1.0× by epoch 90. After epoch 90, all Pioneers are equal under the Law. The multiplier applies only during normalization — it does not affect raw component values.</p>
+      <pre class="code-block">FUNCTION founding_multiplier(pioneer, current_epoch):
+  IF pioneer.founding_id IS NULL:  RETURN 1.0
+  IF pioneer.founding_id &gt; 90:    RETURN 1.0
+  IF current_epoch &gt; FOUNDING_GRACE_PERIOD:  RETURN 1.0
+
+  // Linear taper from 1.5x to 1.0x
+  progress   ← current_epoch / FOUNDING_GRACE_PERIOD  // 0.0 → 1.0
+  multiplier ← FOUNDING_MULTIPLIER_MAX - (0.5 × progress)
+  RETURN multiplier
+
+FUNCTION compute_total(pioneer, current_epoch):
+  raw_total  ← pioneer.R_conv + pioneer.R_align
+  multiplier ← founding_multiplier(pioneer, current_epoch)
+  pioneer.R_total ← clamp(raw_total × multiplier, REPUTATION_FLOOR, REPUTATION_CEILING)
+  RETURN pioneer.R_total</pre>
+
+      <h3>Role Eligibility Thresholds</h3>
+      <p>Pioneers who fall below a role's threshold are not permanently excluded. They retain a small probability of assignment, giving them a pathway to rebuild through quality witness. The Lattice is forgiving but not forgetful.</p>
+      <pre class="code-block">FUNCTION is_eligible_for_role(pioneer, role, current_epoch):
+  MIN_REPUTATION = &#123;
+    "Proposer":    0.2,
+    "Opposer":     0.2,
+    "Synthesizer": 0.4,
+    "Referee":     0.6   // Human Witness requires highest trust
+  &#125;
+
+  required ← MIN_REPUTATION[role]
+
+  IF pioneer.R_total &gt;= required:
+    RETURN True
+
+  // Sub-threshold grace: prevents reputation lockout from becoming permanent
+  grace_probability ← (pioneer.R_total / required) × 0.3
+  RETURN random() &lt; grace_probability</pre>
+
+      <h3>Python Implementation</h3>
+      <p>A compact reference implementation of the full witness reputation update cycle:</p>
+      <pre class="code-block">FUNCTION update_witness_reputation(referee, outcome):
+    # 1. Temporal Decay (The "Slow Work" requires presence)
+    referee.R_total *= DECAY_GAMMA
+
+    # 2. Convergence Validation
+    # If the Selah Break led to a stable ECV below 0.1 ΔS:
+    if outcome.converged:
+        impact_factor = (outcome.initial_entropy - outcome.final_entropy)
+        referee.R_conv += impact_factor * CONVERGENCE_BONUS
+
+    # 3. Bias Detection (Anti-Tyrant Logic)
+    # Compare current adjustment to referee's historical mean vector
+    bias_score = cosine_similarity(outcome.adjustment, referee.historical_mean)
+    if bias_score &gt; BIAS_THRESHOLD:
+        penalty = (bias_score - BIAS_THRESHOLD) * 2
+        referee.R_align -= penalty
+        log_warning(f"Bias detected for Pioneer &#123;referee.id&#125;: Potential Vector Capture.")
+
+    # 4. Reputation Normalization — keep R within the [0, 1] manifold
+    referee.R_total = clamp(referee.R_conv + referee.R_align, 0, 1)</pre>
+
+      <div class="divider"></div>
+
+      <h2 id="h8-vitality">H.8 Vitality Absence Detection <span class="badge-soft">Soft Flag</span></h2>
+      <p>When a witness's adjustment pattern drops below a variance floor, the lattice flags it — <strong>not as a penalty, but as a care signal</strong>. No reputation is deducted. No role eligibility is affected. The flag is private to the Pioneer and their optional Care Circle. The response is relational, not algorithmic.</p>
+
+      <pre class="code-block">FUNCTION detect_vitality_absence(referee, last_n_adjustments):
+  // Look for entropy of the witness's own adjustment pattern
+  // A vital witness produces context-responsive adjustments (high variance)
+  // A withdrawn witness produces predictable, low-variance adjustments
+
+  adjustment_variance ← variance(last_n_adjustments)  // Across 256-dim space
+
+  IF adjustment_variance &lt; VARIANCE_FLOOR:
+    // This witness may be phoning it in
+    flag_witness_for_care(referee.id, "Low adjustment variance detected")
+    RETURN True
+
+  RETURN False
+
+FUNCTION flag_witness_for_care(pioneer_id, reason):
+  // THIS IS NOT A PENALTY.
+  // No reputation is deducted.
+  // No role eligibility is affected.
+  //
+  // This flag is visible ONLY to:
+  //   1. The pioneer themselves (private dashboard reflection)
+  //   2. A designated "Care Circle" of 3–5 peers (if the pioneer opts in)
+  //
+  // The system response is not algorithmic but relational:
+  // "Pioneer, your adjustments show low variance recently.
+  //  Would you like to talk to someone?"
+
+  create_private_flag(pioneer_id, reason, visibility=PRIVATE_OR_CARE_CIRCLE)
+  log_event(f"VITALITY FLAG: &#123;pioneer_id&#125; | &#123;reason&#125; | No reputation impact")</pre>
+
+      <div class="care-note">
+        <p class="label gold">On the Care Flag</p>
+        <p>The vitality absence signal is deliberately non-punitive. The lattice does not assume that low variance means negligence — it may mean exhaustion, grief, or circumstance. The goal is not to detect a bad actor but to reach a person who might benefit from being seen. The Care Circle is opt-in. The flag is private. The question it raises is not "are you doing your job" but "are you okay."</p>
       </div>
 
       <div class="divider"></div>
@@ -661,6 +844,46 @@ import EmergenceFooter from '../../../components/EmergenceFooter.astro';
     padding-top: 2rem;
     border-top: 1px solid var(--border);
   }
+
+  .preamble-inline {
+    font-size: 0.97rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+    max-width: 640px;
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin: 2rem 0 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .badge-soft {
+    font-size: 0.72rem;
+    font-family: monospace;
+    border: 1px solid #5a9a5a;
+    color: #5a9a5a;
+    padding: 0.15em 0.55em;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+  }
+
+  .care-note {
+    background: #0d1a0d;
+    border: 1px solid #2a4a2a;
+    border-left: 3px solid #5a9a5a;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+
+  .care-note .label { margin-bottom: 0.75rem; color: #5a9a5a; }
+  .care-note p:last-child { margin: 0; }
 
   @media (max-width: 520px) {
     .cta-row { flex-direction: column; }

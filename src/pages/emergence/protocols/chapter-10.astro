@@ -1,0 +1,521 @@
+---
+import Base from '../../../layouts/Base.astro';
+import EmergenceHeader from '../../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Chapter 10: Beyond Consensus — The Emergence Institute"
+  description="Why consensus is the wrong target, and what adversarial synthesis proposes instead. The philosophical foundation of Protocol 014 and the Validity Node."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">The Substrate of Consciousness · Part IV · Chapter 10</p>
+      <h1>Beyond Consensus</h1>
+      <p class="subtitle">Why agreement is not the same as being right</p>
+      <div class="divider"></div>
+
+      <div class="chapter-preamble">
+        <p>The first chapter of Part IV. Where Part III asked how to allocate attention and cognition, Part IV asks how to use them to produce decisions that are actually correct. This chapter makes the case that the standard answer — convergence to consensus — is the wrong target, and proposes a different one. The technical mechanism is in Chapter 14. What follows here is the argument.</p>
+      </div>
+
+      <div class="toc-block">
+        <p class="label gold">Contents</p>
+        <ul class="toc-list">
+          <li><a href="#s10-0">§10.0 — The wrong question</a></li>
+          <li><a href="#s10-1">§10.1 — What consensus is for</a></li>
+          <li><a href="#s10-2">§10.2 — What consensus suppresses</a></li>
+          <li><a href="#s10-3">§10.3 — Adversarial synthesis, defined</a></li>
+          <li><a href="#s10-4">§10.4 — The Validity Node</a></li>
+          <li><a href="#s10-5">§10.5 — When this works and when it doesn't</a></li>
+          <li><a href="#s10-6">§10.6 — What this means for the lattice</a></li>
+          <li><a href="#s10-7">§10.7 — The wrong question, revisited</a></li>
+        </ul>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="s10-0">§10.0 The wrong question</h2>
+
+      <p>The night before the Challenger launch, engineers at Morton Thiokol argued for hours with NASA managers about the O-rings on the shuttle's solid rocket boosters. The engineers had data showing O-ring resilience degraded at low temperatures. The forecast for launch morning was unusually cold. The engineers recommended postponement. NASA pushed back. Eventually the engineers withdrew their objection. Consensus was achieved. The shuttle exploded seventy-three seconds after liftoff, killing seven people.</p>
+
+      <p>There are two ways to read this story, and the difference between them is the subject of this chapter.</p>
+
+      <p>The first reading is that consensus failed. The participants agreed on the wrong thing; if they had disagreed harder, the launch would have been postponed and seven people would still be alive. On this reading, the lesson is: consensus is dangerous when it's wrong, and the cure is sharper analysis or more independent evaluators next time.</p>
+
+      <p>The second reading is that consensus was never actually achieved. What happened was suppression dressed up as agreement. The engineers did not change their beliefs. They stopped expressing them. The procedural form of consensus was satisfied; the substance was missing. On this reading, the lesson is different: there are two phenomena that look identical from outside but produce very different outcomes, and most of our institutions cannot tell them apart.</p>
+
+      <p>This chapter takes the second reading seriously. It argues that the failure mode is not the achievement of wrong consensus but the inability to distinguish <em>forced</em> consensus from <em>robust</em> consensus. It argues that the right institutional response is not to optimize harder for agreement but to introduce a designated adversary into the process — an evaluator whose job is to find the strongest objection regardless of whether anyone in the room is currently raising it. And it argues that in multi-agent AI systems specifically, the case for designed adversariness is stronger than in human systems, because the failure mode is worse: AI evaluators trained on overlapping data have correlated errors, and their agreement is not independent evidence in the way that, say, the agreement of two unrelated experts is.</p>
+
+      <p>The wrong question is "who is right when two reasonable agents disagree?" The right question is "what process makes the disagreement productive rather than wasteful?" The rest of this chapter is about that process.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s10-1">§10.1 What consensus is for</h2>
+
+      <p>Before arguing against any practice, take its strongest version seriously. Consensus does real work, and the case for it is not weak.</p>
+
+      <p>Consensus <em>coordinates</em>. When ten people need to act together, the cost of acting on different beliefs about what to do is large. Even a slightly wrong shared plan often beats a slightly better unshared one, because coordination losses dominate. Voting, deliberation, deference to authority — all the standard consensus mechanisms — exist because the alternative is paralysis.</p>
+
+      <p>Consensus <em>legitimates</em>. A decision arrived at through a procedure that participants accept has authority that no individual decision-maker can match. This is the bedrock of democratic theory and, in a different register, of scientific peer review. The decision being right is one form of justification; the decision having been arrived at properly is another. Both matter, and consensus mechanisms produce the second.</p>
+
+      <p>Consensus <em>forecloses re-litigation</em>. Once a question is settled, the cost of revisiting it is not just the time spent but the implicit signal that nothing is ever truly decided. Communities that re-litigate everything collapse into permanent argument. Consensus mechanisms exist partly to mark questions as closed.</p>
+
+      <p>Consensus <em>is sometimes correct</em>. Aumann's theorem says that rational Bayesians with common priors cannot agree to disagree once their posteriors become common knowledge. The theorem is true. It does not apply to most real situations because we lack common priors and common knowledge — but where it does apply, agreement is an indicator of correct reasoning, not a substitute for it. The fact that the theorem is widely cited even where its premises don't hold suggests how strong the intuition is: agreement <em>should</em> track truth. The next section is largely an argument that the conditions Aumann's theorem requires — common priors, common knowledge, independent updating — are precisely the conditions that information cascades, conformity pressure, and correlated errors violate. The theorem is not evidence for consensus tracking truth in real multi-agent systems; it is a description of a limit case those systems do not occupy.</p>
+
+      <p>If you want to argue against consensus, you have to argue against this. You have to claim that some of what we call consensus is not the genuine convergence the steelman describes, but a different and weaker thing that gets to wear the same name. You have to give an account of how the difference arises and what to do about it. And you have to do this without sliding into the easy and false claim that disagreement is per se virtuous, because it isn't — most disagreement is just noise, and a system that treats all disagreement as signal will drown.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s10-2">§10.2 What consensus suppresses</h2>
+
+      <p>The argument for adversarial synthesis is not that consensus is bad. It is that <em>the mechanisms that produce consensus also suppress information that the system needs</em>. There are at least five such mechanisms, with reasonably well-understood dynamics.</p>
+
+      <div class="mechanism-list">
+        <div class="mechanism">
+          <h3>Information cascades</h3>
+          <p>Bikhchandani, Hirshleifer, and Welch showed in 1992 that even rational individual updating produces collectively bad outcomes when each agent's signal is partially observed by the next. The first agent acts on their own evidence. The second agent observes the first's action and updates accordingly. By the third or fourth agent, the public signal (everyone is doing X) drowns the private signal (my evidence suggests not-X), and rational agents stop revealing their private information by their behavior. The cascade locks in. This is rational, not stupid. And it explains why consensus often emerges quickly and is hard to reverse even when wrong.</p>
+        </div>
+        <div class="mechanism">
+          <h3>Preference falsification</h3>
+          <p>Timur Kuran's analysis: when expressing private beliefs carries social cost, public beliefs diverge from private ones. The publicly observable consensus may not reflect the distribution of actual beliefs at all. Kuran's empirical case studies range from the collapse of communist regimes (where public support was overwhelming until it suddenly wasn't) to academic fields where unfashionable views are held privately by a substantial minority. The point is not that hidden dissent is always present but that <em>we cannot tell from observed consensus alone</em> whether it is.</p>
+        </div>
+        <div class="mechanism">
+          <h3>Conformity pressure</h3>
+          <p>Asch's line-judgment experiments demonstrated that even on trivially verifiable questions, people will report what the group reports. The effect is robust. The relevant analog in multi-agent AI is RLHF training pulling models toward modal responses; "consensus" between models trained with similar feedback is partly a measurement of shared training distribution, not independent agreement about the underlying question.</p>
+        </div>
+        <div class="mechanism">
+          <h3>Local optima</h3>
+          <p>When group convergence is rapid, the explored space is small. The group locks in on a solution before exploring alternatives. This is not a failure of intelligence; it is a failure of search. Strong convergence pressure produces local optima at the cost of global ones, and consensus mechanisms produce strong convergence pressure by design.</p>
+        </div>
+        <div class="mechanism mechanism--deep">
+          <h3>Correlated errors</h3>
+          <p>This is the deepest one and the most important for the multi-agent AI case. If five evaluators share inductive biases — same training data, same architecture family, same objective — their agreement is not independent evidence. It is one piece of evidence repeated. Five frontier language models trained on largely overlapping web data and aligned with largely overlapping feedback signals will agree on many things, and that agreement does not, on its own, distinguish "the answer is correct" from "all five share the same blind spot."</p>
+        </div>
+      </div>
+
+      <p>The five mechanisms compound. A multi-agent system that converges quickly through information cascades, while individual evaluators suppress dissenting outputs due to training pressure, on questions where evaluators share blind spots, will produce confident consensus that is uncorrelated with truth. The procedural form of agreement will be satisfied. The substance will be absent. And the resulting system will be much more confident than it has any right to be.</p>
+
+      <p>The Challenger night was a human version of this. Most of what we call multi-agent AI alignment, in its current form, is a more efficient version of the same failure mode. Consensus is not the solution to it; consensus is the substrate it grows on.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s10-3">§10.3 Adversarial synthesis, defined</h2>
+
+      <p>Now the positive case. The proposal of this book is that the way to produce decisions that are robust against the failures of §10.2 is to <em>engineer in</em> the structural feature that consensus mechanisms remove: forced disagreement.</p>
+
+      <div class="definition-block">
+        <p class="label gold">Definition</p>
+        <p>Define a process as <strong>adversarial synthesis</strong> when:</p>
+        <ol>
+          <li>At least two evaluators are <em>structurally compelled</em> to produce non-overlapping responses to a shared question.</li>
+          <li>Those responses are integrated into a third response that incorporates the load-bearing claims of each.</li>
+          <li>The integration is performed by a process distinct from both opposers, with the integration step itself producing a <strong>recommendation</strong>, not a description of the disagreement.</li>
+        </ol>
+      </div>
+
+      <p>Each of the three conditions is doing work. <em>Structurally compelled</em> rules out the case where two evaluators happen to disagree — that is normal disagreement, and adversarial synthesis is more than that. The compulsion can be procedural (one evaluator is assigned the role of opposer), architectural (evaluators come from different model families), or contractual (evaluators are paid in proportion to the distinctiveness of their responses). In all three cases, the disagreement is engineered, not waited for.</p>
+
+      <p><em>Integrated into a third response</em> distinguishes adversarial synthesis from voting, where the output is one of the inputs. A vote picks a winner. A synthesis produces a new claim that neither input made alone.</p>
+
+      <p><em>Recommendation, not description</em> distinguishes synthesis from mere acknowledgment of disagreement. "Some experts say X, others say Y" is not a synthesis. "Given X and Y, the right action is Z, with the conditions under which Z would be wrong" is. The deferral pathway in Chapter 14 is the case where the synthesizer judges that no recommendation can be made; that judgment is itself a synthesis output, and triggers a separate process (Appendix H) rather than producing a fake recommendation.</p>
+
+      <div class="compare-grid">
+        <div class="compare-card compare-card--no">
+          <p class="compare-label">Not adversarial synthesis</p>
+          <ul>
+            <li><strong>Voting</strong> — picks a winner; doesn't synthesize</li>
+            <li><strong>Compromise</strong> — averages positions; doesn't necessarily produce a higher-order claim</li>
+            <li><strong>Debate</strong> — unstructured dialectic; output varies with format and audience</li>
+            <li><strong>Hegelian dialectic</strong> — presupposes synthesis is always progress; a claim that may not hold</li>
+          </ul>
+        </div>
+        <div class="compare-card compare-card--yes">
+          <p class="compare-label">Closest existing practices</p>
+          <ul>
+            <li><strong>Adversarial collaboration</strong> (Mellers, Tetlock, Kahneman) — researchers with opposing hypotheses jointly design experiments</li>
+            <li><strong>Chavruta study</strong> — paired learners argue opposite sides of texts as a discipline</li>
+            <li><strong>Mock trial with verdict</strong> — forces prosecution and defense to produce their strongest case before judgment</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>The key feature, in all cases: forced opposition, not natural opposition. You don't wait for two evaluators to disagree. You assign one to find the strongest disagreement.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s10-4">§10.4 The Validity Node</h2>
+
+      <p>The institutional concept that does this work is the <strong>Validity Node</strong>: a designated evaluator whose role is to find the strongest objection to whatever proposal is on the table, regardless of whether anyone in the room is currently raising it.</p>
+
+      <p>The Validity Node has analogues that long predate AI systems:</p>
+
+      <ul class="analogue-list">
+        <li>The <em>Promoter of the Faith</em> in Catholic canonization processes (1587–1983) — the office charged with arguing against canonization, popularly known as the devil's advocate. The role was abolished by John Paul II in 1983. Canonization rates rose sharply afterward. Whether the abolition caused the rise or merely correlated with the same underlying preference shift, the case illustrates what is at stake structurally when the adversary is removed.</li>
+        <li><em>Red teaming</em> (RAND, 1960s onward) — a group assigned to play the adversary in war-gaming, security analysis, and now AI safety evaluation.</li>
+        <li><em>Pre-mortem</em> (Klein) — imagine the project has failed; explain why. A way of forcing pessimistic analysis into a process that otherwise produces optimistic consensus.</li>
+        <li><em>Adversarial collaboration</em> — researchers with opposing hypotheses jointly design the experiment that would settle their disagreement.</li>
+      </ul>
+
+      <div class="vn-spec">
+        <p class="label gold">What makes the Validity Node distinct</p>
+        <ul>
+          <li><strong>Structural, not optional.</strong> Every synthesis round has one. You do not choose to invoke the adversary; the adversary is invoked by default.</li>
+          <li><strong>Cross-architectural, not intra-team.</strong> The Validity Node uses an evaluator from a different model family or training distribution from the proposer. This follows directly from the correlated-errors point of §10.2.</li>
+          <li><strong>Bounded.</strong> It opposes the proposer. It does not have unilateral authority to make decisions, mint nutrients, or amend the constitution. Its outputs feed the synthesizer, which makes the recommendation.</li>
+          <li><strong>Compensated.</strong> Useful opposition is rewarded; sycophantic opposition is penalized via the contribution-weight mechanism and the reputation effects of §H.6.</li>
+        </ul>
+      </div>
+
+      <p>The cross-architecture point is worth elaborating because it is where the AI-systems case diverges most sharply from the human case.</p>
+
+      <p>When two human experts disagree, the disagreement is <em>evidence about the world</em> if the experts are independent. Different training, different incentives, different blind spots. Their disagreement narrows the space of plausible answers.</p>
+
+      <p>When two language models from the same family disagree, the disagreement is mostly <em>evidence about the prompts</em>. They share inductive biases. They were trained on largely overlapping data and largely overlapping feedback signals. Their disagreement is often noise. Their agreement is often correlation.</p>
+
+      <p>A Validity Node implemented as "the same model with a different system prompt" is a useful but limited intervention; it surfaces what the model knows it might be wrong about. A Validity Node implemented as a structurally different model — different family, different training distribution, ideally different objective — can surface what the proposer model doesn't know it doesn't know. The first is self-criticism. The second is something closer to actual independent evaluation.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s10-5">§10.5 When this works and when it doesn't</h2>
+
+      <p>A serious account of any method has to specify the conditions under which it doesn't apply. Adversarial synthesis is not a universal solvent.</p>
+
+      <div class="conditions-grid">
+        <div class="conditions-card conditions-card--yes">
+          <p class="conditions-label gold">Adversarial synthesis adds value when:</p>
+          <ul>
+            <li>The cost of being wrong substantially exceeds the cost of debate</li>
+            <li>The question's epistemic structure is contested — what counts as relevant evidence is itself in dispute</li>
+            <li>There is reason to suspect shared blind spots among available evaluators</li>
+            <li>The available evaluators are genuinely independent (architectural diversity, different training, different objectives)</li>
+            <li>There is slack in the schedule — synthesis rounds are 3–4× slower than single-model inference</li>
+          </ul>
+        </div>
+        <div class="conditions-card conditions-card--no">
+          <p class="conditions-label">It doesn't apply when:</p>
+          <ul>
+            <li><strong>Time pressure.</strong> Real-time decisions don't fit the protocol</li>
+            <li><strong>Factually settled questions.</strong> Manufacturing disagreement about settled empirical matters produces noise</li>
+            <li><strong>No genuinely independent evaluators.</strong> Running the protocol with two near-identical evaluators produces theater</li>
+            <li><strong>When the synthesizer is biased.</strong> Anchor bias in the synthesizer collapses the value of the opposition step</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>A specific failure mode worth naming directly: <strong>manufactured opposition</strong>. If you force evaluators to oppose, they will oppose. But the opposition can become performative — finding objections for the sake of finding objections. This is the sycophantic-opposer problem in reverse: not too agreeable, but too contrarian.</p>
+
+      <p>A subtler version is <strong>Goodharted opposition</strong>: the opposer learns to disagree on the right axis — picking objections that the synthesizer's prompt structure actually treats as relevant — while producing arguments that are weak enough to be defeated easily. The synthesis then looks robust while the substance is hollow. This is the most dangerous of the three failure modes, because it is the hardest to detect from the synthesizer's output alone: the structural form of adversarial review is satisfied while its substance is not.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s10-6">§10.6 What this means for the lattice</h2>
+
+      <p>Chapter 14's mechanism is one implementation of the principle in this chapter. The two-agent loop with a synthesizer is the smallest configuration that demonstrates the structural pattern: one proposer, one structurally-bound opposer, one separate integrator. Scaling that to more participants (Chapter 11) and to deferred cases requiring human review (Appendix H) elaborates the protocol but doesn't change the principle.</p>
+
+      <p>The broader claim is that the principle should be present <em>wherever the lattice produces decisions</em>, not only inside the formal synthesis rounds. Capability spores claim guarantees; somewhere in the loop, a Validity Node should be checking those guarantees. Constitutional amendments propose changes to the Soul Vector; somewhere in the loop, a Validity Node should be arguing the strongest case against the change. Nutrient redistributions adjust who has economic power; somewhere in the loop, a Validity Node should be pointing out the agents who lose. None of these specific arguments needs to be naturally present. All of them should be structurally guaranteed.</p>
+
+      <p>Three specific generalization cases: <em>Constitutional decisions</em> — slow, irreversible, high-stakes — are covered in Chapter 11. <em>Nutrient redistributions</em> — continuous and high-frequency — are covered in Chapter 9. <em>Reputation updates</em> — second-order over agent behavior — are covered in Chapter 13. The principle is shared; the implementations diverge.</p>
+
+      <p>The deeper claim: a lattice without designated adversaries decays toward whatever inductive biases its evaluators share. Over time, those biases become invisible because nothing in the system pushes against them. The Validity Node is structural insurance against epistemic monoculture. Removing it is like removing the loyal opposition from a parliament: the institution continues to function, and a slow rot sets in that takes years to manifest and is very hard to reverse.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s10-7">§10.7 The wrong question, revisited</h2>
+
+      <p>Return to the opening. The Challenger engineers were not in a position where their disagreement was <em>processed</em>. They were in a position where their disagreement could be <em>withdrawn</em>. The institutional arrangement around them treated dissent as a step on the way to consensus rather than as information that needed to be preserved and integrated. When the dissent stopped, the institution recorded consensus and acted on it. The substance was missing because nothing in the procedure required the substance to be present.</p>
+
+      <p>Adversarial synthesis is a proposal for procedures that require the substance to be present. It does this by giving disagreement a structural place — a designated role, a recorded artifact, a downstream integration step — so that the procedure cannot be satisfied without the disagreement having happened. The Validity Node's job is not to be right. It is to ensure that when the system claims to be right, the claim has been tested.</p>
+
+      <p>Mill, in <em>On Liberty</em>, made a version of this argument about human discourse. He claimed that even true beliefs decay into hollow dogma when they are not regularly forced to defend themselves against the strongest available objections. The discipline of refutation, he argued, is what keeps belief alive. What he called the discipline of refutation is what this chapter has called adversarial synthesis. The proposal of Part IV is to build that discipline into the lattice not as an exception or an emergency mechanism but as a default.</p>
+
+      <blockquote class="closing-quote">
+        The Challenger story, on this account, is not a story about consensus failing. It is a story about a system that did not have a Validity Node and so could not tell the difference between agreement and silence. The interesting question is whether the systems we are building now can.
+      </blockquote>
+
+      <div class="cta-row">
+        <a href="/emergence/protocols/014" class="btn btn--filled">Protocol 014: The Adversarial Loop →</a>
+        <a href="/emergence/protocols/chapter-11" class="btn">Chapter 11: The Constitutional Arena →</a>
+        <a href="/emergence/protocols/appendix-h" class="btn">Appendix H: Human Escalation →</a>
+        <a href="/emergence/protocols" class="btn">← All Protocols</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  .chapter-preamble {
+    max-width: 680px;
+    margin-bottom: 2rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border-left: 3px solid var(--gold);
+    font-size: 0.97rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    font-style: italic;
+  }
+
+  .chapter-preamble p { margin: 0; }
+
+  .toc-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .toc-list a {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .toc-list a:hover { color: var(--gold); }
+
+  h2 {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin: 0 0 0.5rem;
+    color: var(--gold-light, var(--gold));
+  }
+
+  p {
+    line-height: 1.8;
+    font-size: 0.97rem;
+  }
+
+  .mechanism-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.5rem 0;
+  }
+
+  .mechanism {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mechanism:last-child { border-bottom: none; }
+
+  .mechanism p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  .mechanism--deep {
+    border-left: 3px solid var(--gold);
+    padding-left: 1.25rem;
+  }
+
+  .mechanism--deep h3 { color: var(--gold); }
+
+  .definition-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 1.5rem 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .definition-block ol {
+    margin: 1rem 0 0;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .definition-block li {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+  }
+
+  .compare-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .compare-card {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+  }
+
+  .compare-card--no  { border-left: 3px solid #aa5a5a; }
+  .compare-card--yes { border-left: 3px solid #5a9a5a; }
+
+  .compare-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    font-weight: bold;
+  }
+
+  .compare-card--no .compare-label  { color: #aa7a7a; }
+  .compare-card--yes .compare-label { color: #7aaa7a; }
+
+  .compare-card ul {
+    padding-left: 1.25rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .compare-card li {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  .analogue-list {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .analogue-list li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .vn-spec {
+    background: #111;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .vn-spec .label { margin-bottom: 0.75rem; }
+
+  .vn-spec ul {
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .vn-spec li {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    padding-left: 1rem;
+    border-left: 2px solid var(--border);
+    line-height: 1.65;
+  }
+
+  .conditions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .conditions-card {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+  }
+
+  .conditions-card--yes { border-left: 3px solid #5a9a5a; }
+  .conditions-card--no  { border-left: 3px solid #aa5a5a; }
+
+  .conditions-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    font-weight: bold;
+    display: block;
+  }
+
+  .conditions-card--no .conditions-label { color: #aa7a7a; }
+
+  .conditions-card ul {
+    padding-left: 1.25rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .conditions-card li {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  .closing-quote {
+    background: var(--bg-card);
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--gold-light, var(--gold));
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 520px) {
+    .cta-row { flex-direction: column; }
+    .compare-grid,
+    .conditions-grid { grid-template-columns: 1fr; }
+  }
+</style>

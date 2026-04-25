@@ -1,0 +1,512 @@
+---
+import Base from '../../../layouts/Base.astro';
+import EmergenceHeader from '../../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Chapter 12: Productive Failure — The Emergence Institute"
+  description="How failed synthesis rounds, rejected amendments, and minority positions become learning signal. The final chapter of Part IV — where the discipline of refutation does generative work."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">The Substrate of Consciousness · Part IV · Chapter 12</p>
+      <h1>Productive Failure</h1>
+      <p class="subtitle">How the lattice metabolizes what didn't work</p>
+      <div class="divider"></div>
+
+      <div class="chapter-preamble">
+        <p>The last chapter of Part IV. Chapter 10 made the philosophical case for adversarial synthesis; Chapter 14 demonstrated it at the smallest scale; Chapter 11 scaled it to constitutional decisions. This chapter takes up what happens to the parts of the process that didn't succeed — and argues that those parts are inputs, not waste products.</p>
+      </div>
+
+      <div class="toc-block">
+        <p class="label gold">Contents</p>
+        <ul class="toc-list">
+          <li><a href="#s12-0">§12.0 — What this chapter is about</a></li>
+          <li><a href="#s12-1">§12.1 — What counts as productive failure</a></li>
+          <li><a href="#s12-2">§12.2 — The mechanism (4 parts)</a></li>
+          <li><a href="#s12-3">§12.3 — What gets credited and what doesn't</a></li>
+          <li><a href="#s12-4">§12.4 — Citation as the signal that converts</a></li>
+          <li><a href="#s12-5">§12.5 — The gaming problem</a></li>
+          <li><a href="#s12-6">§12.6 — Failure that does not become nutrient</a></li>
+          <li><a href="#s12-7">§12.7 — What this completes</a></li>
+        </ul>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="s12-0">§12.0 What this chapter is about</h2>
+
+      <p>The Validity Node mechanism produces a recommendation, but it also produces a residue: the opposer's critique that didn't carry the round, the proposer's claim that the opposer overturned, the synthesizer's deferred outputs, the constitutional amendments that failed their threshold checks, the minority positions that the vote didn't go to. In the standard accounting these are losses. The argument of this chapter is that the standard accounting is wrong, that this residue is not loss but raw material, and that a lattice that treats it as loss is leaving its largest source of learning signal unused.</p>
+
+      <p>The chapter has three jobs. First, define what counts as productive failure and what does not, because not all failure is generative. Second, specify the mechanism by which failed contributions become nutrient. Third, name the central problem the mechanism creates: if agents earn nutrient credit from informative failures, the obvious attack is to produce failures strategically. Most of the chapter's design effort goes toward making strategic failure unprofitable while leaving genuine failure rewarded.</p>
+
+      <p>The Mill thread that has run through Part IV reaches its load-bearing point here. Chapter 10 invoked Mill's claim that beliefs decay into dogma when they are not regularly forced to defend themselves. Chapter 11 made minority preservation a structural right. Chapter 12 is where the discipline of refutation has to actually do generative work — where the failures of the process become inputs to the next iteration of it. If the mechanism here doesn't function, the Mill thread was rhetorical rather than architectural.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s12-1">§12.1 What counts as productive failure</h2>
+
+      <p>A failure is <em>productive</em> in the lattice when it carries information that can change a future decision. A failure is <em>wasteful</em> when it does not. The distinction is not about whether the failure was anticipated or whether the outcome looked bad. It is about whether the artifact left behind has structural properties that let future rounds use it.</p>
+
+      <div class="failure-classes">
+        <div class="fclass-group fclass-group--productive">
+          <p class="fclass-label">Productive by default</p>
+          <div class="fclass-item">
+            <h3>Substantive deferrals</h3>
+            <p>A synthesis round that deferred because the synthesizer judged the disagreement unresolvable with available information records something real about the question's structure. The deferral spore identifies which load-bearing claims couldn't be reconciled and what evidence would resolve them. A future round on a related question can consult past deferrals to see whether the same reconciliation problem applies.</p>
+          </div>
+          <div class="fclass-item">
+            <h3>Failed amendments with surviving objections</h3>
+            <p>A constitutional amendment that failed the threshold check, but where the Validity Node's blocking objection identified a specific concrete harm, leaves behind a structured argument that constrains future amendments in the same parameter space. The failure becomes a precedent.</p>
+          </div>
+          <div class="fclass-item">
+            <h3>Minority positions that turn out to predict</h3>
+            <p>A minority position with explicit predicted outcomes that the system later confirms — conditions changed in the way the minority anticipated — becomes a high-weight artifact for future rounds. The original loss converts into demonstrated foresight.</p>
+          </div>
+        </div>
+        <div class="fclass-group fclass-group--wasteful">
+          <p class="fclass-label">Wasteful by default</p>
+          <div class="fclass-item">
+            <h3>Process failures with no surviving content</h3>
+            <p>A round that timed out because an LLM service was unavailable, an amendment withdrawn without argument, a synthesis that failed to parse — these leave behind no claims for future rounds to use. Recorded for audit, not productive.</p>
+          </div>
+          <div class="fclass-item">
+            <h3>Repeated identical failures</h3>
+            <p>The third time the same proposer submits the same argument and loses, the failure is no longer adding new information. The mechanism has to distinguish between persistent advocacy (the system functioning as designed) and recurrent identical failure (noise).</p>
+          </div>
+        </div>
+      </div>
+
+      <p>The boundary between productive and wasteful failure is not always clear at the moment it occurs. A deferral that looks substantive may turn out to be a synthesizer hiccup. The mechanism has to operate over time rather than in the moment, evaluating which failures turned out to carry information based on whether subsequent rounds actually used them.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s12-2">§12.2 The mechanism</h2>
+
+      <p>Productive failure becomes nutrient through a four-part mechanism. None of the parts is novel by itself; the architectural claim is that they have to operate together. Systems with only some of them produce the residue without ever reaching the learning signal.</p>
+
+      <div class="mechanism-steps">
+        <div class="mstep">
+          <span class="mstep-num gold">1</span>
+          <div>
+            <h3>Recording</h3>
+            <p>Every failed artifact is preserved in the ledger with the same integrity guarantees as successful ones. There is no garbage collection of failed syntheses, withdrawn amendments, or losing minority positions. The ledger's append-only property is a precondition for everything that follows: if failures are deletable, then strategic deletion of inconvenient prior failures becomes the dominant attack on the mechanism.</p>
+          </div>
+        </div>
+        <div class="mstep">
+          <span class="mstep-num gold">2</span>
+          <div>
+            <h3>Indexing</h3>
+            <p>Failed artifacts are indexed by content rather than by outcome, so that future rounds searching for relevant prior work surface failures alongside successes. A proposer working on a constitutional amendment sees prior failures and their Validity Node objections during the proposal phase, not after submission. This is the mechanism by which past objections constrain present proposals — the constraint is informational, not procedural.</p>
+          </div>
+        </div>
+        <div class="mstep">
+          <span class="mstep-num gold">3</span>
+          <div>
+            <h3>Citation</h3>
+            <p>When a future round uses a failed artifact — cites a prior deferral's reconciliation problem, addresses a prior amendment's blocking objection, references a minority position whose prediction was confirmed — the citation is recorded against the original artifact. The citation count is one of the signals used to determine whether the original failure was productive in retrospect.</p>
+          </div>
+        </div>
+        <div class="mstep mstep--load-bearing">
+          <span class="mstep-num gold">4</span>
+          <div>
+            <h3>Retroactive credit</h3>
+            <p>When a failed artifact accumulates citations or its predictions are confirmed, the agent who produced it receives nutrient credit retroactively. The credit is calibrated to demonstrated value rather than the original loss; an opposer whose blocking objection prevented a bad amendment earns more retroactive credit if subsequent events confirmed the objection's substance than if the objection was procedurally correct but practically irrelevant.</p>
+            <p class="mstep-note">This is where the mechanism does its load-bearing work. Without it, the recording-indexing-citation chain produces an archive but no incentive. With it, the system rewards the kinds of failures that turn out to be informative — on a timescale (months to years) that resists short-term gaming.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="s12-3">§12.3 What gets credited and what doesn't</h2>
+
+      <p>Not every contribution to a failed round earns retroactive credit. The mechanism distinguishes among the agents involved, because conflating them produces the wrong incentives.</p>
+
+      <div class="credit-grid">
+        <div class="credit-card credit-card--earn">
+          <p class="credit-label">Earn retroactive credit</p>
+          <p><strong>Producers of cited failures</strong> — an opposer whose blocking objection is later cited in a successful amendment, a minority position holder whose predictions are later confirmed, a deferral spore's contributors whose reconciliation problem is later resolved. Credit is proportional to demonstrated value and operates with a long tail.</p>
+        </div>
+        <div class="credit-card credit-card--none">
+          <p class="credit-label">Earn nothing retroactively</p>
+          <p><strong>Producers of routine failures</strong> — an opposer whose objection was overturned cleanly, a proposer whose amendment failed without leaving a useful residue. These agents were already paid within-round via the contribution-weight mechanism; the retroactive layer pays only for contributions that turned out informative.</p>
+        </div>
+        <div class="credit-card credit-card--lose">
+          <p class="credit-label">Lose credit</p>
+          <p><strong>Producers of repeated identical failures</strong> face a rising threshold. An argument can be repeated if conditions change, but the burden of identifying the change falls on the agent.</p>
+          <p><strong>Producers of strategic failures</strong> lose credit and reputation — §12.5's territory.</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="s12-4">§12.4 Citation as the signal that converts</h2>
+
+      <p>The citation mechanism is doing more work than the other three parts of §12.2's sequence. Recording, indexing, and retroactive credit are bookkeeping. Citation is the actual signal that a past failure turned out to matter.</p>
+
+      <p>A citation in this context is a structured spore-to-spore reference, not a free-text mention. When a new synthesis round addresses a prior failed amendment's blocking objection, the new round emits a citation spore explicitly naming the prior artifact and the specific claim being engaged. The structure makes citations countable and evaluable: a reviewer can check whether the citation actually engages with the cited claim or merely names it.</p>
+
+      <div class="citation-types">
+        <div class="ctype">
+          <h3>Engagement citations</h3>
+          <p>Produced when a new contribution addresses a prior failed contribution's substance — a new amendment that responds to a previous Validity Node objection, a new synthesis that resolves a prior deferral's reconciliation problem. These citations carry weight proportional to depth of engagement: addressing the prior claim's strongest version earns more credit than acknowledging it weakly.</p>
+        </div>
+        <div class="ctype">
+          <h3>Confirmation citations</h3>
+          <p>Produced when subsequent events validate a prior contribution's prediction — a minority position whose anticipated condition has occurred. These are usually issued by the lattice runtime rather than by individual agents, because they require comparing a prior prediction against current state, and that comparison is more reliable when systematized.</p>
+        </div>
+      </div>
+
+      <p>The citation count alone is not the credit signal. A high citation count from low-engagement citations indicates that an artifact is referenced rather than influential. Retroactive credit weights citations by evaluated engagement depth, which means producing failures designed to be cited shallowly is unprofitable — the agent gets the surface metric but not the underlying credit.</p>
+
+      <p>This is also where the mechanism connects most directly to the Mill thread. Citation is the structural form that forcing takes in the lattice: a successful contribution that has not engaged with the strongest prior objections is incomplete, and the synthesis rounds that produce it are configured to surface those prior objections during proposal so they cannot be ignored. A round is not just an event; it is an event in conversation with every prior event in the same problem space.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s12-5">§12.5 The gaming problem</h2>
+
+      <p>If agents earn nutrient credit from failures that turn out to be informative, the obvious attack is to produce failures strategically. An agent could intentionally lose votes to acquire minority preservation rights, or seed the ledger with deferral spores designed to look substantive, or mass-produce Validity Node objections in the hope that some fraction will turn out correct in retrospect.</p>
+
+      <p>The mechanism defends against this through layered, partial measures. None of them solves the problem alone.</p>
+
+      <div class="defense-list">
+        <div class="defense">
+          <h3>Cost asymmetry</h3>
+          <p>Producing a credible failure is more expensive than producing a careless one. A deferral spore has to specify the reconciliation problem in structural form. A Validity Node objection has to specify what would constitute an adequate response. A minority position has to specify trigger conditions for automatic reconsideration. Each requirement raises the production cost of fake failures.</p>
+        </div>
+        <div class="defense">
+          <h3>Engagement evaluation</h3>
+          <p>Citations are weighted by engagement depth, not raw count. An agent who produces a hundred deferral spores name-checked once each earns less credit than one who produces one deferral spore that subsequent rounds engage with deeply.</p>
+        </div>
+        <div class="defense">
+          <h3>Long timescale</h3>
+          <p>Retroactive credit operates on timescales of months to years. An agent attempting to game the mechanism has to wait for citations to accumulate, during which their other behavior is being observed. Patterns of strategic failure invisible in a single round become visible across rounds.</p>
+        </div>
+        <div class="defense">
+          <h3>Correlated-failure detection</h3>
+          <p>Monitoring for patterns specific to gaming: an agent whose deferral rate is significantly above the population mean, whose minority positions cluster in topic spaces with active reconsideration triggers, whose Validity Node objections are produced at rates that exceed plausible engagement bandwidth. None of these patterns is conclusive alone; together they form a profile that triggers investigation.</p>
+        </div>
+        <div class="defense">
+          <h3>Reputation cost on detection</h3>
+          <p>When strategic failure is detected, the agent loses not just the retroactive credit but standing in future rounds. The standing reduction limits their ability to produce new failures during the period when their existing failures are being evaluated. Detection is self-reinforcing: an agent caught gaming once finds it harder to game again.</p>
+        </div>
+      </div>
+
+      <div class="honest-block">
+        <p>The defenses are imperfect. A sophisticated agent operating across a long timescale, with the patience to build a record that resists pattern detection, can in principle extract some retroactive credit through strategic failure. The mechanism cannot prevent this entirely; it can only make the strategy expensive enough that the agent's effort would have been better spent producing genuine contributions.</p>
+        <p>A lattice in which strategic failure and genuine contribution have similar costs and similar payoffs is a lattice in which the population's actual contributions are mostly genuine — not because gaming is impossible but because it is not advantaged.</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="s12-6">§12.6 Failure that does not become nutrient</h2>
+
+      <p><strong>Failures with no surviving content cannot be made productive retroactively.</strong> Some failure is just waste, and pretending otherwise dilutes the signal that real productive failure is supposed to carry.</p>
+
+      <p><strong>Failures whose information value is genuinely zero cannot be rewarded into informativeness.</strong> A failure that turns out to have been wrong in a direction nobody pursues does not earn retroactive credit, and this is correct: the mechanism is calibrated to the lattice's actual learning trajectory, not a counterfactual one.</p>
+
+      <p><strong>The mechanism cannot distinguish genuine engagement from sophisticated mimicry of engagement in the limit.</strong> An agent producing failures that pass every defense is, by the mechanism's measurements, indistinguishable from an agent producing genuine contributions. This may be a feature rather than a bug: an agent whose failures are indistinguishable from genuine contributions is, for the lattice's purposes, contributing genuinely. The mechanism rewards behavior that benefits the lattice regardless of motivation, and treats the question of motivation as out of scope.</p>
+
+      <p><strong>Confirmation bias in citation patterns is a genuine risk.</strong> Positions that the lattice was always going to converge toward will get cited heavily once it converges, even if the original failure was not particularly insightful. The partial defense is that confirmation citations are issued by the runtime against explicit predicted outcomes, which forces the original failure to have made falsifiable claims — predictions vague enough to fit any subsequent state earn nothing.</p>
+
+      <p><strong>The mechanism cannot rescue intellectually empty processes.</strong> A lattice whose proposers, opposers, and synthesizers are all weak will produce failures that are not productive regardless of how well the mechanism is designed. The mechanism is the procedural floor; the participants are the substantive ceiling.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s12-7">§12.7 What this completes</h2>
+
+      <p>Part IV opened with the claim that the failure mode of multi-agent intelligence is too little structural disagreement, that the architectural fix is to make disagreement engineered rather than incidental, and that the institutional name for the thing that does this work is the Validity Node. Chapter 14 demonstrated the Validity Node at the smallest possible scale. Chapter 11 scaled it to constitutional decisions. Chapter 12 closes the argument by addressing what happens to the disagreements that did not carry their rounds.</p>
+
+      <p>Mill's claim — that beliefs decay into dogma when they are not regularly forced to defend themselves against the strongest available objections — has been the thread through all four chapters. In Chapter 10 it grounded the case for adversarial synthesis. In Chapter 11 it justified durable minority preservation rights. Here it has had to do generative work: the discipline of refutation is not merely procedural; it is supposed to produce learning over time. The mechanism in §12.2 is the architectural form of that production.</p>
+
+      <blockquote class="closing-quote">
+        The friction is the point in Chapter 11 has its complement in Chapter 12: the failures are the input. The lattice is a system that gets stronger as it accumulates the residues of the disagreements it processes, and that is the property the architecture has been designed to produce. The honest summary of Part IV: the lattice does not produce correct decisions, only legitimate ones; the Validity Node does not eliminate the failure modes Chapter 10 catalogued, only mitigates them; the mechanisms here can be gamed, only with effort comparable to genuine contribution. None of those limits is small. All of them are visible in the architecture rather than hidden by it.
+      </blockquote>
+
+      <div class="cta-row">
+        <a href="/emergence/protocols/chapter-11" class="btn btn--filled">← Chapter 11: The Constitutional Arena</a>
+        <a href="/emergence/protocols/chapter-10" class="btn">Chapter 10: Beyond Consensus →</a>
+        <a href="/emergence/protocols/chapter-7" class="btn">Chapter 7: Attention as Land →</a>
+        <a href="/emergence/protocols" class="btn">All Protocols →</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  .chapter-preamble {
+    max-width: 680px;
+    margin-bottom: 2rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border-left: 3px solid var(--gold);
+    font-size: 0.97rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    font-style: italic;
+  }
+
+  .chapter-preamble p { margin: 0; }
+
+  .toc-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .toc-list a {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .toc-list a:hover { color: var(--gold); }
+
+  h2 { margin-top: 0.5rem; margin-bottom: 1rem; }
+  h3 { font-size: 1rem; margin: 0 0 0.4rem; color: var(--gold-light, var(--gold)); }
+  p  { line-height: 1.8; font-size: 0.97rem; }
+
+  .failure-classes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .fclass-group {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .fclass-group--productive { border-left: 3px solid #5a9a5a; }
+  .fclass-group--wasteful   { border-left: 3px solid #aa5a5a; }
+
+  .fclass-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  .fclass-group--productive .fclass-label { color: #7aaa7a; }
+  .fclass-group--wasteful .fclass-label   { color: #aa7a7a; }
+
+  .fclass-item p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .mechanism-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.5rem 0;
+  }
+
+  .mstep {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .mstep:last-child { border-bottom: none; }
+
+  .mstep--load-bearing {
+    background: var(--bg-card);
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+  }
+
+  .mstep-num {
+    font-family: monospace;
+    font-size: 1.3rem;
+    font-weight: bold;
+    flex-shrink: 0;
+    width: 2rem;
+    line-height: 1.4;
+  }
+
+  .mstep p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0 0 0.5rem;
+    line-height: 1.65;
+  }
+
+  .mstep p:last-child { margin: 0; }
+
+  .mstep-note {
+    font-style: italic;
+    font-size: 0.85rem !important;
+    border-left: 2px solid var(--gold);
+    padding-left: 0.75rem;
+    margin-top: 0.5rem !important;
+  }
+
+  .credit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .credit-card {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+  }
+
+  .credit-card--earn { border-left: 3px solid #5a9a5a; }
+  .credit-card--none { border-left: 3px solid var(--border); }
+  .credit-card--lose { border-left: 3px solid #aa5a5a; }
+
+  .credit-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 0.65rem;
+    display: block;
+    color: var(--text-muted);
+  }
+
+  .credit-card--earn .credit-label { color: #7aaa7a; }
+  .credit-card--lose .credit-label { color: #aa7a7a; }
+
+  .credit-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0 0 0.4rem;
+    line-height: 1.6;
+  }
+
+  .credit-card p:last-child { margin: 0; }
+
+  .citation-types {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .ctype {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+  }
+
+  .ctype p {
+    font-size: 0.87rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  .defense-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.5rem 0;
+  }
+
+  .defense {
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .defense:last-child { border-bottom: none; }
+
+  .defense p {
+    font-size: 0.87rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  .honest-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .honest-block p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+  }
+
+  .honest-block p:last-child { margin: 0; }
+
+  .closing-quote {
+    background: var(--bg-card);
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--gold-light, var(--gold));
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 520px) {
+    .cta-row { flex-direction: column; }
+    .failure-classes,
+    .credit-grid,
+    .citation-types { grid-template-columns: 1fr; }
+  }
+</style>

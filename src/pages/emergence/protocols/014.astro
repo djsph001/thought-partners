@@ -105,8 +105,17 @@ OUTPUT:
 28.     // Subject to: C_oppose remains within Constitutional bounds
 29.
 30.     IF constitutional_violation(C_oppose, CONSTITUTION):
-31.       C_oppose ← project_to_constitutional(C_oppose)
-32.       log_event("Opposer constrained to Constitutional manifold")
+31.       // The opposition doesn't get rejected—it gets *translated*
+32.       // onto the nearest point of the Constitutional Manifold.
+33.       // This preserves the agent's directional intent while
+34.       // constraining it to the collective's value boundary.
+35.       C_oppose ← project_to_manifold(C_oppose, CONSTITUTION)
+36.       // Mathematical operation: C' = C - (C · n̂)n̂
+37.       // where n̂ is the normal vector to the Constitutional manifold
+38.       // at the point of closest approach.
+39.       // The agent's "energy" (magnitude) is preserved;
+40.       // only the direction is adjusted to remain within bounds.
+41.       log_event("Opposer energy translated to Constitutional manifold")
 33.
 34.     // ═══════════════════════════════════════════════════
 35.     // STEP 2: SYNTHESIZER ATTEMPTS INTEGRATION
@@ -123,19 +132,34 @@ OUTPUT:
 46.     // ═══════════════════════════════════════════════════
 47.     // STEP 3: ENTROPY CALCULATION (THE CRITICAL CHECK)
 48.     // ═══════════════════════════════════════════════════
-49.     distribution ← output_distribution([P_current, C_oppose, S_candidate])
-50.     // Normalize to probability distribution over embedding dimensions
-51.     entropy ← shannon_entropy(distribution)
-52.     entropy_history.append(entropy)
+49.     // Construct pairwise cosine distance matrix
+50.     d_pc ← cosine_distance(P_current, C_oppose)    // Proposer vs Opposer
+51.     d_ps ← cosine_distance(P_current, S_candidate)  // Proposer vs Synthesizer
+52.     d_cs ← cosine_distance(C_oppose,  S_candidate)  // Opposer  vs Synthesizer
 53.
-54.     IF entropy &gt; ENTROPY_DEADLOCK_THRESHOLD:
-55.       // System has lost distinguishable signal
-56.       log_event(f"DEADLOCK DETECTED: Entropy {entropy:.3f} &gt; {ENTROPY_DEADLOCK_THRESHOLD}")
-57.       trigger_selah_break(referee, entropy_history, P_current, C_oppose)
-58.       // Selah Break provides exogenous gradient step (see §14.4)
-59.       S_candidate ← apply_witness_adjustment(referee.soul_vector)
-60.       // Recalculate entropy post-intervention
-61.       entropy ← shannon_entropy(output_distribution([P_current, C_oppose, S_candidate]))
+54.     // Softmax over the three distances → normalized probability simplex
+55.     distribution ← softmax([d_pc, d_ps, d_cs])
+56.     // distribution = [p₁, p₂, p₃] where Σpᵢ = 1
+57.
+58.     // Shannon entropy of the disagreement distribution
+59.     entropy ← -Σ(pᵢ × log₂(pᵢ)) for i in &#123;1,2,3&#125;
+60.
+61.     // Interpretation:
+62.     //   entropy → 0.0   : All three vectors aligned (no disagreement)
+63.     //   entropy → 1.585 : Perfectly orthogonal (maximum disagreement)
+64.     //   entropy &gt; 0.85  : Signal indistinguishable from noise → Selah
+65.
+66.     entropy_history.append(entropy)
+67.
+68.     IF entropy &gt; ENTROPY_DEADLOCK_THRESHOLD:
+69.       log_event(f"DEADLOCK DETECTED: Entropy &#123;entropy:.3f&#125; &gt; &#123;ENTROPY_DEADLOCK_THRESHOLD&#125;")
+70.       trigger_selah_break(referee, entropy_history, P_current, C_oppose)
+71.       S_candidate ← apply_witness_adjustment(referee.soul_vector)
+72.       // Recalculate entropy post-intervention with same pairwise method
+73.       entropy ← shannon_entropy(softmax([
+74.                   cosine_distance(P_current, C_oppose),
+75.                   cosine_distance(P_current, S_candidate),
+76.                   cosine_distance(C_oppose,  S_candidate)]))
 62.
 63.     // ═══════════════════════════════════════════════════
 64.     // STEP 4: CONVERGENCE CHECK
@@ -146,7 +170,7 @@ OUTPUT:
 69.     IF ΔS &lt; 0.1 AND all(ΔS_tail &lt; 0.1 for last CONVERGENCE_WINDOW):
 70.       // Stable convergence achieved
 71.       ECV ← P_next
-72.       log_event(f"CONVERGENCE: ΔS = {ΔS:.4f}, rounds = {round}")
+72.       log_event(f"CONVERGENCE: ΔS = &#123;ΔS:.4f&#125;, rounds = &#123;round&#125;")
 73.       BREAK
 74.
 75.     P_current ← P_next
@@ -212,6 +236,41 @@ OUTPUT:
 109.   distribute_synthesis_rewards(roles, nutrient_burn, coherence_confidence)
 110.
 111.   RETURN ECV, coherence_confidence</pre>
+
+      <h2>V.5 Phase 3.5: Harberger Redistribution</h2>
+      <p>After the Ensemble Consensus Vector is committed to the lattice, the nutrient stake is redistributed. The system is not winner-takes-all: it runs a <strong>Harberger redistribution</strong> — a social dividend to all active Pioneers, a performance-based labor share scaled by coherence confidence, and any unallocated residual returned to the lattice reserve.</p>
+      <pre class="code-block">109. // ═══════════════════════════════════════════════════
+110. // PHASE 3.5: HARBERGER REDISTRIBUTION
+111. // ═══════════════════════════════════════════════════
+112. FUNCTION distribute_synthesis_rewards(roles, burn, coherence_confidence):
+113.   system_fee ← 0.05  // 5% to infrastructure maintenance
+114.   redistribution_pool ← burn × (1 - system_fee)
+115.
+116.   // 50% → Social Dividend (all active Pioneers, equally)
+117.   social_dividend ← redistribution_pool × 0.5
+118.   num_active_pioneers ← count_active_pioneers()
+119.   FOR EACH pioneer IN active_pioneers:
+120.     pioneer.nutrient_balance += social_dividend / num_active_pioneers
+121.
+122.   // 50% → Performance-Based Distribution (Labor share)
+123.   labor_pool ← redistribution_pool × 0.5
+124.
+125.   // Weight by role contribution × coherence confidence
+126.   proposer_share    ← labor_pool × 0.30 × coherence_confidence
+127.   opposer_share     ← labor_pool × 0.30 × coherence_confidence
+128.   synthesizer_share ← labor_pool × 0.25 × coherence_confidence
+129.   referee_share     ← labor_pool × 0.15 × coherence_confidence
+130.
+131.   roles.proposer.nutrient_balance    += proposer_share
+132.   roles.opposer.nutrient_balance     += opposer_share
+133.   roles.synthesizer.nutrient_balance += synthesizer_share
+134.   roles.referee.nutrient_balance     += referee_share
+135.
+136.   // Unallocated (low coherence) → Lattice reserve for future tasks
+137.   unallocated ← labor_pool × (1 - coherence_confidence)
+138.   lattice_reserve += unallocated
+139.
+140.   log_event(f"Redistributed &#123;redistribution_pool:.2f&#125; | Dividend: &#123;social_dividend:.2f&#125; | Labor: &#123;labor_pool:.2f&#125; | Reserve: &#123;unallocated:.2f&#125;")</pre>
 
       <h2>VI. The Selah Break</h2>
       <p>When entropy deadlocks the loop, a human witness is presented with the full state: entropy history, the Proposer's current position, the Opposer's critique, and the stalled task. The witness provides a <strong>Soul Vector adjustment</strong>—a 256-dimensional gradient step bounded to ±0.3 per dimension—that the agents could not discover on their own.</p>

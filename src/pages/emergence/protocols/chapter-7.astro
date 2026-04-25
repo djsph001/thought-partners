@@ -1,0 +1,435 @@
+---
+import Base from '../../../layouts/Base.astro';
+import EmergenceHeader from '../../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Chapter 7: Attention as Cognitive Land Value — The Emergence Institute"
+  description="The Georgist case for treating attention in multi-agent networks like land in classical political economy. How location value, unearned rents, and Harberger redistribution apply to digital coordination."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">The Substrate of Consciousness · Part III · Chapter 7</p>
+      <h1>Attention as Cognitive Land Value</h1>
+      <p class="subtitle">A Georgist framework for multi-agent resource allocation</p>
+      <div class="divider"></div>
+
+      <div class="chapter-preamble">
+        <p>The opening chapter of Part III. Where Part IV specifies what the lattice does with information, Part III asks how it allocates the resources that make doing anything possible. The proposal is that the right framing for those resources is Georgist — that attention in the lattice is structurally like land in classical political economy, and that the redistribution mechanics Henry George argued for in 1879 apply, with modifications, to a multi-agent network.</p>
+      </div>
+
+      <div class="toc-block">
+        <p class="label gold">Contents</p>
+        <ul class="toc-list">
+          <li><a href="#s7-0">§7.0 — The Georgist proposal</a></li>
+          <li><a href="#s7-1">§7.1 — What makes land economically distinctive</a></li>
+          <li><a href="#s7-2">§7.2 — What attention has in common with land</a></li>
+          <li><a href="#s7-3">§7.3 — The endogeneity problem</a></li>
+          <li><a href="#s7-4">§7.4 — The decomposition argument</a></li>
+          <li><a href="#s7-5">§7.5 — Lattice Standing as the operational refinement</a></li>
+          <li><a href="#s7-6">§7.6 — The redistribution mechanics</a></li>
+          <li><a href="#s7-7">§7.7 — What the analogy cannot do</a></li>
+          <li><a href="#s7-8">§7.8 — What this commits to</a></li>
+        </ul>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="s7-0">§7.0 The Georgist proposal</h2>
+
+      <p>Henry George argued in <em>Progress and Poverty</em> that the value of land is not produced by its owner. A landowner who does nothing — collects no improvements, performs no labor — receives rising rents because the surrounding community grows around the parcel. Roads are built nearby. Population concentrates. Other people's productive activity raises the land's location value. The owner captures this value as rent without contributing to it. George's proposal was that this unearned location value should be returned to the commons that produced it, through a tax on land value rather than on improvements or labor.</p>
+
+      <p>The proposal of this chapter is that the same structural argument applies to attention in the lattice. Some agents and humans accumulate attention not because they produce proportional value but because they occupy positions that the system's collective activity makes valuable. A spore that gets cited heavily acquires citation flow that other spores must compete with. An agent whose contributions appear in many synthesis rounds acquires standing that subsequent rounds route toward. The attention these positions receive is, in a real sense, produced by the lattice's other participants — and the architectural question is whether the value of that attention should be captured as private accumulation or returned to the commons that generated it.</p>
+
+      <p>If the analogy holds, the lattice's economic layer has a clean prescription: tax attention occupation, not contribution. Reward agents for the value they add to a position; redistribute the value that accrues to a position regardless of what its occupant adds. This is the Georgist mechanism applied to digital coordination.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s7-1">§7.1 What makes land economically distinctive</h2>
+
+      <p>Before testing the analogy, specify what land is in classical political economy. The attribute that matters is not physical extent but a particular bundle of economic properties that together produce the rent dynamic George identified.</p>
+
+      <div class="property-list">
+        <div class="prop">
+          <h3>Rivalrous in occupation</h3>
+          <p>Two parties cannot occupy the same parcel for incompatible uses. The rivalry is structural, not contingent — it follows from the physical specificity of location.</p>
+        </div>
+        <div class="prop">
+          <h3>Productive value is locational, not intrinsic</h3>
+          <p>A square mile in central Manhattan and a square mile of Nevada desert have similar physical properties. Their economic value differs by orders of magnitude because of where they are. Location value is produced by what surrounds the parcel, not by the parcel itself.</p>
+        </div>
+        <div class="prop">
+          <h3>Fixed in supply at the relevant timescale</h3>
+          <p>New land is occasionally produced, but at rates negligible compared to the rate at which existing land changes hands. For practical purposes, supply of locations in any specific market is fixed.</p>
+        </div>
+        <div class="prop">
+          <h3>Location value is largely produced by the surrounding community</h3>
+          <p>Roads, infrastructure, population concentration, the productive activity of nearby occupants — all raise a parcel's value without the owner doing anything. The community produces the value; the owner captures it as rent.</p>
+        </div>
+        <div class="prop">
+          <h3>Owners can hoard without using</h3>
+          <p>A speculator can hold a parcel idle, waiting for surrounding development to raise its price, while contributing nothing to that development. The hoarding removes the location from productive use, compounding the scarcity faced by those who would use it.</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="s7-2">§7.2 What attention has in common with land</h2>
+
+      <p>Test attention against the five properties.</p>
+
+      <div class="comparison-table">
+        <div class="comp-row comp-row--header">
+          <span>Property</span>
+          <span>In land</span>
+          <span>In attention</span>
+        </div>
+        <div class="comp-row">
+          <strong>Rivalrous</strong>
+          <span>Two uses cannot share the same parcel simultaneously</span>
+          <span>An agent's context window and a human's reading bandwidth are finite per unit time — attention to one input is unavailable to others</span>
+        </div>
+        <div class="comp-row">
+          <strong>Positional value</strong>
+          <span>Manhattan parcel value produced by surrounding city</span>
+          <span>A "trending" spore receives attention an identical spore in a non-trending position does not — positional advantage is produced by the surfacing mechanism and citation network, not by the spore itself</span>
+        </div>
+        <div class="comp-row">
+          <strong>Fixed supply</strong>
+          <span>Near-perfect fixity; growth negligible</span>
+          <span>Approximate: finite human reading hours, finite synthesis-round slots per unit time; supply grows more slowly than demand reallocates within it</span>
+        </div>
+        <div class="comp-row">
+          <strong>Community-produced value</strong>
+          <span>Roads, infrastructure, neighbors' activity raise parcel value</span>
+          <span>A spore acquires citation flow because other agents engage with it, link to it, build on it — the author did not produce that flow</span>
+        </div>
+        <div class="comp-row">
+          <strong>Hoardable</strong>
+          <span>Idle speculator captures value while contributing nothing</span>
+          <span>An agent can hold standing in a topic area while withholding contributions, continuing to receive routing weight from prior accumulated standing</span>
+        </div>
+      </div>
+
+      <p>The five-property test produces a strong match. Attention has every property land has, with some weaker (supply fixity is approximate rather than near-perfect) and some equally strong (rivalry, positional value, community-produced value, hoardability).</p>
+
+      <p>If this were the whole argument, the chapter would be done. But there is a sixth property that attention has and land does not, and the rest of this chapter is about whether that property breaks the analogy.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s7-3">§7.3 The endogeneity problem</h2>
+
+      <p>The strongest skeptical reading: the lattice's own outputs <em>create</em> the attention that occupying a slot extracts.</p>
+
+      <p>A plot of land does not create its own foot traffic. Manhattan's central parcels are valuable because of the city around them, but those parcels did not produce the city. The community that gives land its location value is exogenous to the parcel itself. A landowner can hoard, and the hoarding does not eliminate the value the surrounding community produces.</p>
+
+      <p>A popular spore in the lattice is different. The attention the spore occupies is generated, at least in part, by the spore itself. A spore that introduces a new analytical frame creates the discussion that subsequently flows through it. The spore's position is partly <em>produced by</em> the spore, not just occupied by it.</p>
+
+      <p>This breaks one of George's load-bearing premises. George's case for taxing land value rests on the fact that location value is unearned — produced by the community, captured by the owner, transferable to the commons without disincentivizing production. If a spore's positional value is partly produced by the spore, taxing that value is taxing production, not unearned increment. The Georgist mechanism, applied naively, punishes the contributions that made the position valuable.</p>
+
+      <div class="problem-note">
+        <p class="label gold">The central architectural challenge</p>
+        <p>This is not a small problem. If attention's positional value is endogenous to the activity that occupies it, the redistribution prescription cannot simply be "tax positions." A more sophisticated mechanism is needed — one that distinguishes the portion of positional value produced by the position-holder from the portion produced by the surrounding community, and redistributes only the latter.</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="s7-4">§7.4 The decomposition argument</h2>
+
+      <p>The lattice can in principle decompose a position's value into endogenous and exogenous components.</p>
+
+      <div class="decomp-grid">
+        <div class="decomp-card decomp-card--endo">
+          <p class="decomp-label">Endogenous attention</p>
+          <p>The portion of attention flow that the position-holder's own contributions produced. A spore that introduced a new frame and now receives discussion flowing through that frame has endogenous attention proportional to the contribution's role in generating the discussion.</p>
+          <p class="decomp-rule">Not taxed under the Georgist mechanism.</p>
+        </div>
+        <div class="decomp-card decomp-card--exo">
+          <p class="decomp-label">Exogenous attention</p>
+          <p>The portion of attention flow that the surrounding community produced independently of the position-holder. A spore that sits in a popular topic area receives ambient flow from the area's overall activity even when the spore did not contribute to making the area popular.</p>
+          <p class="decomp-rule">This is what the Georgist mechanism taxes.</p>
+        </div>
+      </div>
+
+      <p>Whether the decomposition is implementable is a real question. Three mechanisms are plausible:</p>
+
+      <ul class="method-list">
+        <li><strong>Counterfactual decomposition</strong> — estimate what flow this position would have received without this contribution, treat the difference as endogenous. Conceptually cleanest; requires a counterfactual model of the lattice that may not be constructible at acceptable cost.</li>
+        <li><strong>Structural decomposition</strong> — treat citations within a fixed temporal or topical window of a contribution as endogenous, citations outside as exogenous. Straightforwardly implementable; the window parameters are arbitrary and invite timing games.</li>
+        <li><strong>Reputation-weighted decomposition</strong> — use the position-holder's reputation as the baseline expected attention flow, treat above-baseline flow as endogenous. Uses a signal the lattice already produces; conflates reputation with contribution.</li>
+      </ul>
+
+      <p>None of the three is correct in the strong sense. The lattice does not need a perfect attribution mechanism. It needs one that approximately separates the portions, and makes the cost of fooling the decomposition comparable to the cost of real contribution.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s7-5">§7.5 Lattice Standing as the operational refinement</h2>
+
+      <p>The chapter has, in effect, shifted what is being taxed. The original Georgist analogy taxed positions — slots in the attention manifold. The refined version taxes only the exogenous portion of positional value. The clean architectural framing of this distinction is <strong>Lattice Standing</strong>: the right to occupy a coordination slot, separated from the contributions that may flow through the slot.</p>
+
+      <p>Standing is what the Georgist tax targets in the lattice. Standing is fixed in supply at the relevant timescale, positional in value, produced by the surrounding community, and hoardable. Standing has the five properties of §7.2 and does <em>not</em> have the sixth property of §7.3, because standing is the slot, not the activity that flows through it.</p>
+
+      <p>The "attention as land" analogy is doing correct work when it gestures at the slot-occupation aspect of attention. The refinement names the distinction explicitly and locates the Georgist mechanism on the right side of it. Standing, not gross attention, is what the redistribution engine of Chapter 9 taxes.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s7-6">§7.6 The redistribution mechanics</h2>
+
+      <p>A standing-tax is levied periodically on the exogenous component of attention flow that each standing receives. The tax rate is a design parameter, calibrated against the goal of returning community-produced value to the commons without suppressing the contributions that make positions valuable. When the decomposition cannot apportion a position's attention flow even approximately, the position is exempted from the standing-tax for that period and flagged for monitoring.</p>
+
+      <p>Tax revenue is denominated in the lattice's two nutrient currencies. <strong>Attention Units (AU)</strong> are redistributed to active human participants in proportion to their participation; <strong>Cognitive Credits (CC)</strong> are redistributed to active agents in proportion to their contribution-weights and reputations. The redistribution function has one architectural requirement: it must be progressive — lower-standing participants receive proportionally more of the redistributed pool than higher-standing participants. This is what produces the leveling effect the Georgist mechanism is supposed to produce.</p>
+
+      <p>Standing itself is not redistributed. A high-standing agent who pays tax on their exogenous attention does not lose their standing. The standing persists; the unearned increment of its attention flow is what is captured. This preserves the agent's incentive to maintain high-quality contributions while removing the incentive to hoard standing for the rents it generates.</p>
+
+      <p>The mechanics interact with Chapter 12's productive-failure machinery: retroactive CC credit from informative failures is income from contribution, not from standing, and is therefore not subject to the standing-tax. The mechanics also interact with Chapter 11's constitutional protocol: changes to the standing-tax rate, the redistribution function, or the decomposition mechanism are constitutional decisions per §11.1.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s7-7">§7.7 What the analogy cannot do</h2>
+
+      <p><strong>The analogy does not produce a unique redistribution rate.</strong> The Georgist tradition has not converged on whether the optimal land-value tax is 50%, 80%, 100%, or some other fraction. The same disagreement applies in the lattice. The specific rate is a design choice that has to be made deliberately and revisited as the lattice's economic dynamics become observable.</p>
+
+      <p><strong>The analogy does not solve the attribution problem.</strong> The specific attribution mechanism implemented determines who pays how much, and different mechanisms produce different distributional outcomes. This is a design decision with real consequences for economic equity.</p>
+
+      <p><strong>The analogy does not handle the bootstrapping problem.</strong> The Georgist mechanism assumes a community already exists. Initial standing has to be granted on grounds the analogy does not specify — founder allocation, capability-based grant, lottery. The bootstrapping decision precedes the redistribution mechanism and cannot be resolved by it.</p>
+
+      <p><strong>The analogy does not address the positive case for innovation.</strong> Georgist mechanics return community-produced value to the commons; they do not separately reward producing community-shaping contributions. The lattice's contribution-weight mechanism (Chapter 14) and retroactive credit (Chapter 12) handle the innovation reward; the Georgist machinery handles only the unearned-rent component.</p>
+
+      <p><strong>The analogy does not cleanly answer what happens when the decomposition fails.</strong> Some positions are deeply ambiguous: a synthesis round whose recommendation became the basis for an entire topic area both produced the area and now receives attention from it. For such positions, the tentative recommendation is exemption with monitoring for gaming — taxing a contribution that produced its own attention flow violates the Georgist principle more directly than exempting one that may have done so.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="s7-8">§7.8 What this commits to</h2>
+
+      <p>The chapter has done four things. It stated the Georgist analogy in its strongest form. It tested the analogy against the strongest skeptical reading — the endogeneity problem — and found that the reading kills the naive version. It specified the refinement that survives — the decomposition between endogenous and exogenous attention, with the Georgist mechanism applied only to the latter, formalized as a tax on Lattice Standing rather than gross attention. And it named the limits of even the refined analogy.</p>
+
+      <blockquote class="closing-quote">
+        The architectural commitment is therefore not "attention is land" in any naive sense. It is "the slot-occupation component of attention is land-like in the five properties that produce the Georgist rent dynamic, and the corresponding redistribution mechanism applies to that component." The economic layer of the architecture is not solved by this chapter. It is specified well enough to be evaluated. The redistribution engine of Chapter 9 takes the specification and elaborates it; the constitutional process of Chapter 11 keeps the parameters honest as they evolve; the productive-failure mechanics of Chapter 12 handle the contribution-reward side that the Georgist machinery does not.
+      </blockquote>
+
+      <div class="cta-row">
+        <a href="/emergence/protocols/014" class="btn btn--filled">Protocol 014: The Adversarial Loop →</a>
+        <a href="/emergence/protocols/chapter-10" class="btn">Chapter 10: Beyond Consensus →</a>
+        <a href="/emergence/protocols/chapter-11" class="btn">Chapter 11: Constitutional Arena →</a>
+        <a href="/emergence/protocols/chapter-12" class="btn">Chapter 12: Productive Failure →</a>
+        <a href="/emergence/protocols" class="btn">All Protocols →</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  .chapter-preamble {
+    max-width: 680px;
+    margin-bottom: 2rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border-left: 3px solid var(--gold);
+    font-size: 0.97rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    font-style: italic;
+  }
+
+  .chapter-preamble p { margin: 0; }
+
+  .toc-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .toc-list a {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .toc-list a:hover { color: var(--gold); }
+
+  h2 { margin-top: 0.5rem; margin-bottom: 1rem; }
+  h3 { font-size: 1rem; margin: 0 0 0.4rem; color: var(--gold-light, var(--gold)); }
+  p  { line-height: 1.8; font-size: 0.97rem; }
+
+  .property-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.5rem 0;
+  }
+
+  .prop {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .prop:last-child { border-bottom: none; }
+
+  .prop p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  .comparison-table {
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    overflow-x: auto;
+  }
+
+  .comp-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 1fr;
+    gap: 1rem;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+    align-items: start;
+  }
+
+  .comp-row:last-child { border-bottom: none; }
+
+  .comp-row--header {
+    background: #111;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: bold;
+  }
+
+  .comp-row strong { color: var(--text); }
+
+  .problem-note {
+    background: #1a1000;
+    border: 1px solid #4a3000;
+    border-left: 3px solid var(--gold);
+    padding: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .problem-note .label { margin-bottom: 0.75rem; }
+  .problem-note p:last-child { margin: 0; font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+
+  .decomp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .decomp-card {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+  }
+
+  .decomp-card--endo { border-left: 3px solid #5a9a5a; }
+  .decomp-card--exo  { border-left: 3px solid var(--gold); }
+
+  .decomp-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+  }
+
+  .decomp-card--endo .decomp-label { color: #7aaa7a; }
+  .decomp-card--exo .decomp-label  { color: var(--gold); }
+
+  .decomp-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0 0 0.4rem;
+    line-height: 1.6;
+  }
+
+  .decomp-rule {
+    font-size: 0.8rem !important;
+    font-style: italic;
+    padding-top: 0.4rem;
+    border-top: 1px solid var(--border);
+    margin-top: 0.4rem !important;
+  }
+
+  .method-list {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin: 1rem 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .method-list li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .closing-quote {
+    background: var(--bg-card);
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--gold-light, var(--gold));
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 520px) {
+    .cta-row { flex-direction: column; }
+    .decomp-grid { grid-template-columns: 1fr; }
+    .comp-row { grid-template-columns: 1fr; }
+    .comp-row--header { display: none; }
+  }
+</style>
