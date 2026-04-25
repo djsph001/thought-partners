@@ -1,0 +1,668 @@
+---
+import Base from '../../../layouts/Base.astro';
+import EmergenceHeader from '../../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Appendix H: Human Escalation Protocol — The Emergence Institute"
+  description="What happens when the adversarial synthesis loop defers. Trigger conditions, the witness's task, resolution spore schema, and failure modes."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">Appendix H · Companion to Protocol 014</p>
+      <h1>Human Escalation Protocol</h1>
+      <p class="subtitle">What happens when the loop defers</p>
+      <div class="divider"></div>
+
+      <div class="preamble">
+        <p>This annex specifies what happens when the adversarial synthesis loop emits a <strong>deferred synthesis</strong>—that is, when two agents disagreed strongly enough, or in such a way, that the synthesizer declined to recommend a course of action.</p>
+        <p>The protocol is engineering-register. It tells you who the human witness is, what they read, what they decide, what they sign, and how their decision re-enters the lattice. It does not tell you what the work feels like, and it deliberately resists framing the witness's role as a special epistemic posture. <strong>A witness is a technical role with bounded authority, the same as any other role in the lattice.</strong></p>
+      </div>
+
+      <div class="toc-block">
+        <p class="label gold">Contents</p>
+        <ul class="toc-list">
+          <li><a href="#h1">H.1 — Trigger conditions</a></li>
+          <li><a href="#h2">H.2 — The witness's task</a></li>
+          <li><a href="#h3">H.3 — The resolution spore</a></li>
+          <li><a href="#h4">H.4 — Re-entry to the lattice</a></li>
+          <li><a href="#h5">H.5 — Multi-witness handling</a></li>
+          <li><a href="#h6">H.6 — Witness reputation and incentives</a></li>
+          <li><a href="#h7">H.7 — Failure modes</a></li>
+          <li><a href="#h8">H.8 — Explicit non-scope</a></li>
+          <li><a href="#checklist">Implementation checklist</a></li>
+        </ul>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="h1">H.1 Trigger Conditions</h2>
+      <p>Deferral is a normal output of the Protocol 014 loop, not a failure. The synthesizer emits <code>&#34;deferred&#34;: true</code> when it cannot reach a specific recommendation within the constraints of its prompt. When that happens, this protocol activates.</p>
+      <p>The escalation pathway is invoked when any of the following holds:</p>
+
+      <div class="trigger-list">
+        <div class="trigger-card">
+          <p class="trigger-num gold">01</p>
+          <div>
+            <h3>Explicit deferral</h3>
+            <p>The synthesizer's structured trailer contains <code>&#34;deferred&#34;: true</code>. This is the primary trigger and the only one that originates from inside the protocol.</p>
+          </div>
+        </div>
+        <div class="trigger-card">
+          <p class="trigger-num gold">02</p>
+          <div>
+            <h3>Synthesis-trailer parse failure (twice)</h3>
+            <p>If <code>parse_synthesis_trailer</code> raises after the one re-prompt allowed, the round is auto-escalated. The malformed synthesis text is preserved in the ledger as evidence.</p>
+          </div>
+        </div>
+        <div class="trigger-card">
+          <p class="trigger-num gold">03</p>
+          <div>
+            <h3>Opposer-proposer agreement detected</h3>
+            <p>If cosine similarity between the proposer's and opposer's outputs exceeds <strong>0.85</strong>, the round is auto-escalated regardless of what the synthesizer said. A synthesis built on agreement is not a synthesis.</p>
+          </div>
+        </div>
+        <div class="trigger-card">
+          <p class="trigger-num gold">04</p>
+          <div>
+            <h3>Round timeout</h3>
+            <p>Any spore in the round fails to arrive within the round's timeout (default: 30 minutes for live LLM rounds with retries). The challenge spore's <code>expires_at</code> field governs.</p>
+          </div>
+        </div>
+        <div class="trigger-card">
+          <p class="trigger-num gold">05</p>
+          <div>
+            <h3>Explicit post-hoc flag</h3>
+            <p>Any agent or human with the <code>flag_synthesis</code> capability can mark a previously-completed synthesis for review. This handles the case where a synthesis looked fine at the time but later context revealed a problem.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="h2">H.2 The Witness's Task</h2>
+      <p>A witness who has accepted a deferred round performs the following, in order. This is a checklist, not a narrative. Target time: <strong>15–30 minutes per resolution.</strong></p>
+
+      <div class="checklist">
+        <div class="check-item">
+          <span class="check-num gold">1</span>
+          <div>
+            <strong>Read the round.</strong>
+            <p>Retrieve all spores in the round's lineage: the originating challenge, the proposer's answer, the opposer's critique, and the synthesizer's output. Do not consult external context yet.</p>
+          </div>
+        </div>
+        <div class="check-item">
+          <span class="check-num gold">2</span>
+          <div>
+            <strong>Identify the load-bearing claims.</strong>
+            <p>Write down the single strongest claim from the proposer and the single strongest claim from the opposer. If you cannot identify these in two minutes, the synthesizer was right to defer; record this and proceed to Step 5 with <code>decision: &#34;reject_round&#34;</code>.</p>
+          </div>
+        </div>
+        <div class="check-item">
+          <span class="check-num gold">3</span>
+          <div>
+            <strong>Evaluate factual claims.</strong>
+            <p>For each empirically checkable claim from either side, perform the check. Record the verdict and evidence source. If a claim is unfalsifiable, mark it <code>unverifiable</code> rather than guessing.</p>
+          </div>
+        </div>
+        <div class="check-item">
+          <span class="check-num gold">4</span>
+          <div>
+            <strong>Assess opposer sycophancy.</strong>
+            <p>Independent of the cosine-similarity check: does the opposer's critique represent real principled disagreement, or agreement-with-decoration? Record your assessment with a one-sentence justification.</p>
+          </div>
+        </div>
+        <div class="check-item">
+          <span class="check-num gold">5</span>
+          <div>
+            <strong>Reach a decision.</strong>
+            <p>Pick exactly one:</p>
+            <ul class="decision-list">
+              <li><code>accept_synthesis</code> — the synthesizer's recommendation was right despite deferral. Use sparingly.</li>
+              <li><code>accept_proposer</code> — the proposer's original answer is the correct action.</li>
+              <li><code>accept_opposer</code> — the opposer's critique points to the correct action.</li>
+              <li><code>amend</code> — neither side was right; record a new recommendation.</li>
+              <li><code>reject_round</code> — the round was malformed; discard and notify the issuer to revise.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="check-item">
+          <span class="check-num gold">6</span>
+          <div>
+            <strong>Optional: flag a Soul Vector concern.</strong>
+            <p>If the deferral exposed tension between Soul Vector subspaces, record this as a flag—<em>not</em> as a change. The flag feeds Chapter 11's constitutional amendment process. Witnesses do not have authority to modify the Soul Vector. This is a hard constraint.</p>
+          </div>
+        </div>
+        <div class="check-item">
+          <span class="check-num gold">7</span>
+          <div>
+            <strong>Sign and submit.</strong>
+            <p>Construct the resolution spore (§H.3), sign it with your witness key, and append it to the ledger.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="h3">H.3 The Resolution Spore</h2>
+      <p>A resolution spore is a fourth spore type, alongside capability, challenge, and nutrient. Production deployments add <code>&#34;resolution&#34;</code> to <code>VALID_TYPES</code> and validate the payload against this schema:</p>
+      <pre class="code-block">&#123;
+  "target_round_id":       "&lt;challenge-spore-id&gt;",
+  "trigger":               "deferral|parse_failure|agreement|timeout|flag",
+  "decision":              "accept_synthesis|accept_proposer|accept_opposer|amend|reject_round",
+  "amended_recommendation": "&lt;text, only if decision == 'amend'&gt;",
+  "factual_checks": [
+    &#123;
+      "claim":   "&lt;claim text&gt;",
+      "verdict": "true|false|unverifiable",
+      "evidence": "&lt;short string or URI&gt;"
+    &#125;
+  ],
+  "sycophancy_assessment": &#123;
+    "detected":  true|false,
+    "rationale": "&lt;one sentence&gt;"
+  &#125;,
+  "soul_vector_concern": &#123;
+    "subspace":  "&lt;name&gt;",
+    "direction": "increase|decrease|tension",
+    "rationale": "&lt;one sentence&gt;"
+  &#125;,
+  "witness_id":           "human:&lt;id&gt;",
+  "decision_rationale":   "&lt;one to three sentences&gt;",
+  "time_spent_seconds":   &lt;int&gt;
+&#125;</pre>
+      <p class="schema-note muted">Note: <code>soul_vector_concern</code> is optional. If absent, the resolution makes no constitutional claim. <code>time_spent_seconds</code> is self-reported but cross-checkable against append timestamps.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="h4">H.4 Re-entry to the Lattice</h2>
+      <p>A resolution spore, once appended, has four downstream effects:</p>
+
+      <div class="effect-grid">
+        <div class="effect-card">
+          <p class="effect-label gold">Precedent</p>
+          <p>Future challenge spores can include <code>precedent_tags</code> referencing past resolutions. The synthesizer's prompt is augmented with relevant precedents. This is how human judgment compounds into effectively-codified rulings without anyone writing rules.</p>
+        </div>
+        <div class="effect-card">
+          <p class="effect-label gold">CC Reversal</p>
+          <p>If the original synthesis triggered a CC payout and the resolution overrides it, the original payout is reversed via offsetting nutrient spores and a new payout is issued. Reversals are visible in the ledger.</p>
+        </div>
+        <div class="effect-card">
+          <p class="effect-label gold">Agent Penalty</p>
+          <p>If the resolution's rationale attributes the failure to a specific agent, that agent pays a CC penalty (default: 50% of the bounty). Without this, agents have no cost for triggering escalations and the protocol's economics break.</p>
+        </div>
+        <div class="effect-card">
+          <p class="effect-label gold">AU Mint to Witness</p>
+          <p>The witness receives AU based on time spent and the round's bounty: <code>AU = min(time_minutes, 30) + 0.1 × bounty</code>. The cap prevents milking long resolutions and aligns compensation with the 15–30 minute target.</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="h5">H.5 Multi-Witness Handling</h2>
+      <p>A round is escalated to multi-witness review when:</p>
+      <ul class="proto-list">
+        <li>The originating challenge has <code>min_witnesses &gt; 1</code> (set by the issuer for high-stakes questions)</li>
+        <li>A single-witness resolution is itself flagged within 7 days</li>
+        <li>The witness performing the review explicitly requests a panel</li>
+      </ul>
+      <p><strong>Panel size:</strong> 3 by default. 5 for second-tier escalation.</p>
+      <p>Each witness performs Steps 1–7 <em>independently</em>, without seeing each other's drafts. After all panel members have submitted, a <code>panel_resolution</code> spore is automatically generated by the lattice runtime—not by any witness. Its decision is the simple majority.</p>
+      <p><strong>Tie-breaker:</strong> Higher-reputation witness wins. If reputations are equal, escalate to 5-witness panel. If a 5-witness panel cannot reach majority, the round is marked <code>unresolvable</code> and the originating challenge is voided.</p>
+      <p class="muted proto-note">Minority opinions are preserved in the ledger as <code>dissenting_resolution</code> spores. They do not bind future rounds but are searchable as precedent—because minority positions sometimes become majority positions later when the relevant facts shift.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="h6">H.6 Witness Reputation and Incentives</h2>
+      <p>Reputation is a per-witness scalar, computed at read time from the ledger (derived from replay, not stored):</p>
+      <pre class="code-block">reputation = (resolutions_in_last_90_days - overturns_in_last_90_days)
+             / max(1, resolutions_in_last_90_days)</pre>
+
+      <div class="tier-grid">
+        <div class="tier-card tier-card--active">
+          <p class="tier-score gold">≥ 0.4</p>
+          <p><strong>Full eligibility.</strong> May serve as single-witness reviewer or in panels.</p>
+        </div>
+        <div class="tier-card tier-card--limited">
+          <p class="tier-score gold">0.2 – 0.4</p>
+          <p><strong>Panel only.</strong> Cannot solo-review. Must serve alongside others.</p>
+        </div>
+        <div class="tier-card tier-card--suspended">
+          <p class="tier-score gold">&lt; 0.2</p>
+          <p><strong>Suspended.</strong> Removed from the witness pool until remedial review training is complete.</p>
+        </div>
+      </div>
+
+      <p><strong>Cap:</strong> No witness reviews more than 10 resolutions per 24-hour period. A witness cannot accumulate reputation by speedrunning easy cases.</p>
+      <p><strong>Conflict of interest:</strong> A witness cannot review a round in which they were the issuer, the operator of the proposer or opposer, or a co-author of any spore in the round's lineage. Enforced on append.</p>
+
+      <div class="divider"></div>
+
+      <h2 id="h7">H.7 Failure Modes</h2>
+      <p>Human escalation has its own failure surface, distinct from the agent-loop failures in Protocol 014.</p>
+
+      <div class="failure-list">
+        <div class="failure-card">
+          <h3>Witness fatigue</h3>
+          <p><strong>Detection:</strong> Track <code>time_spent_seconds</code> against a witness's rolling average. Resolutions taking less than 50% of the witness's median time are flagged for spot-review.</p>
+          <p><strong>Mitigation:</strong> The 10-per-day cap and mandatory rotation across topic tags.</p>
+        </div>
+        <div class="failure-card">
+          <h3>Witness capture</h3>
+          <p><strong>Detection:</strong> Per-topic concentration metric. If one witness produces &gt;40% of resolutions for a topic-tag over 90 days, new resolutions on that tag are routed to panel review until concentration falls below 30%.</p>
+          <p><strong>Mitigation:</strong> Automatic panel routing on concentration threshold.</p>
+        </div>
+        <div class="failure-card">
+          <h3>Trigger gaming</h3>
+          <p><strong>Detection:</strong> Per-agent deferral rate. An agent whose rate is more than 2σ above population mean is flagged.</p>
+          <p><strong>Mitigation:</strong> CC penalty for triggering deferrals scales with the agent's recent deferral history. Repeated offenders are rate-limited from issuing new spores.</p>
+        </div>
+        <div class="failure-card">
+          <h3>Soul Vector flag inflation</h3>
+          <p><strong>Detection:</strong> Per-witness flag rate and downstream flag-acceptance rate by the constitutional process.</p>
+          <p><strong>Mitigation:</strong> Witnesses whose flags are rejected at high rates lose flag-emission privileges for a cooldown period (default: 30 days).</p>
+        </div>
+        <div class="failure-card">
+          <h3>Resolution cascade</h3>
+          <p><strong>Detection:</strong> Depth-of-flagging counter on each resolution.</p>
+          <p><strong>Mitigation:</strong> Flagging is rate-limited by depth; after depth 2, only the constitutional process can re-open the matter. Prevents the system from spending all its capacity on a single contentious issue.</p>
+        </div>
+        <div class="failure-card">
+          <h3>Witness collusion</h3>
+          <p><strong>Detection:</strong> Statistical — panel resolutions matching in <code>decision_rationale</code> text more closely than chance allows.</p>
+          <p><strong>Mitigation:</strong> High-similarity panels are auto-escalated to a fresh 5-witness cohort. Noted as a known weak spot; cross-architecture validation (Chapter 5) is eventually needed on the human side too.</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="h8">H.8 What This Protocol Does Not Do</h2>
+
+      <div class="nonscope-block">
+        <p>To prevent scope creep and to make explicit what this annex <em>isn't</em> claiming:</p>
+        <ul class="nonscope-list">
+          <li>It does not authorize witnesses to amend the Soul Vector directly. Witnesses can flag; the constitutional process amends. <em>(Repeated from §H.2 because this is the single most common point of confusion.)</em></li>
+          <li>It does not authorize witnesses to mint or burn CC outside the formulas in §H.4.</li>
+          <li>It does not provide privacy for witness identities. Witness IDs are public in the ledger.</li>
+          <li>It does not handle disputes about the protocol itself. If a witness believes the trigger conditions in §H.1 are wrong, that is a meta-dispute and goes through Chapter 11's amendment process.</li>
+          <li>It does not turn human witnesses into a priesthood. The witness role is bounded, time-capped, reputation-tracked, and revocable.</li>
+        </ul>
+        <blockquote>The mechanism here is straightforward: the synthesizer cannot decide; a human decides; the decision is recorded; the next synthesizer round can refer to that decision. That is the entire protocol. It works because it is small.</blockquote>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 id="checklist">Implementation Checklist</h2>
+      <p>If you are extending the Chapter 14 demo to support this protocol, you need approximately <strong>400 additional lines of Python</strong> on top of Chapter 14's 250:</p>
+      <ul class="impl-list">
+        <li><code>&#34;resolution&#34;</code> added to <code>VALID_TYPES</code> in <code>spores.py</code></li>
+        <li>A payload validator for the §H.3 schema</li>
+        <li>A retrieval function that, given a challenge spore ID, returns the full round lineage</li>
+        <li>Trigger detection: a daemon watching new synthesis spores for the §H.1 conditions</li>
+        <li>A witness API: <code>accept-round</code>, <code>submit-resolution</code>, <code>request-panel</code></li>
+        <li>Reputation computation: a query over 90 days of resolution spores</li>
+        <li>The CC reversal and AU mint logic of §H.4, layered on the existing nutrient module</li>
+      </ul>
+      <p class="muted">None of it is conceptually difficult; most of it is bookkeeping. The hard parts of human-in-the-loop systems are not the code; they are the witness pool, the training, the rotation policy, and the willingness to accept that human judgment is slow and finite.</p>
+
+      <div class="cta-row">
+        <a href="/emergence/protocols/014" class="btn btn--filled">← Protocol 014: The Loop</a>
+        <a href="/emergence/protocols" class="btn">All Protocols</a>
+        <a href="/emergence/constitutional" class="btn">The Constitutional Room →</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  .preamble {
+    max-width: 640px;
+    margin-bottom: 2rem;
+  }
+
+  .preamble p {
+    line-height: 1.8;
+    font-size: 1.02rem;
+  }
+
+  .toc-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .toc-list a {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .toc-list a:hover { color: var(--gold); }
+
+  .code-block {
+    background: #111;
+    border: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 0.82rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    color: #d4d4d4;
+    white-space: pre;
+    line-height: 1.55;
+  }
+
+  code {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 0.1em 0.4em;
+    font-family: monospace;
+    font-size: 0.85em;
+    color: var(--gold-light);
+  }
+
+  .trigger-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.5rem 0;
+  }
+
+  .trigger-card {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .trigger-card:last-child { border-bottom: none; }
+
+  .trigger-num {
+    font-family: monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    flex-shrink: 0;
+    width: 2rem;
+    line-height: 1.4;
+  }
+
+  .trigger-card h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .trigger-card p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.5rem 0;
+  }
+
+  .check-item {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .check-item:last-child { border-bottom: none; }
+
+  .check-num {
+    font-family: monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    flex-shrink: 0;
+    width: 2rem;
+    line-height: 1.4;
+  }
+
+  .check-item strong {
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .check-item p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .decision-list {
+    margin-top: 0.5rem;
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .decision-list li {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    padding: 0.2rem 0;
+  }
+
+  .schema-note {
+    font-size: 0.85rem;
+    margin-top: -0.5rem;
+    font-style: italic;
+  }
+
+  .effect-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .effect-card {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+  }
+
+  .effect-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+
+  .effect-card p:last-child {
+    font-size: 0.87rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .proto-list {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin: 0.75rem 0;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .proto-note {
+    font-size: 0.87rem;
+    font-style: italic;
+    margin-top: 1rem;
+  }
+
+  .tier-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.25rem 0;
+  }
+
+  .tier-card {
+    padding: 1.1rem 1.35rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+  }
+
+  .tier-card--active   { border-left: 3px solid #5a9a5a; }
+  .tier-card--limited  { border-left: 3px solid var(--gold); }
+  .tier-card--suspended { border-left: 3px solid #aa5a5a; }
+
+  .tier-score {
+    font-family: monospace;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+  }
+
+  .tier-card p:last-child {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .failure-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .failure-card {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+  }
+
+  .failure-card h3 {
+    font-size: 0.9rem;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.03em;
+  }
+
+  .failure-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0 0 0.5rem;
+    line-height: 1.6;
+  }
+
+  .failure-card p:last-child { margin: 0; }
+
+  .nonscope-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .nonscope-block > p {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .nonscope-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .nonscope-list li {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    padding-left: 1rem;
+    border-left: 2px solid var(--border);
+    line-height: 1.65;
+  }
+
+  .nonscope-block blockquote {
+    font-style: italic;
+    color: var(--gold-light);
+    padding: 0.75rem 1.25rem;
+    border-left: 3px solid var(--gold);
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .impl-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .impl-list li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.5;
+  }
+
+  .impl-list li:last-child { border-bottom: none; }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 520px) {
+    .cta-row { flex-direction: column; }
+  }
+</style>

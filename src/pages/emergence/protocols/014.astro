@@ -1,0 +1,428 @@
+---
+import Base from '../../../layouts/Base.astro';
+import EmergenceHeader from '../../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Protocol 014: The Adversarial Synthesis Loop — The Emergence Institute"
+  description="A governance algorithm for contested truth. Proposer, Opposer, Synthesizer — and the entropy threshold that summons a human witness."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">Protocol 014</p>
+      <h1>The Adversarial Synthesis Loop</h1>
+      <p class="subtitle">A governance algorithm for contested truth</p>
+      <div class="divider"></div>
+
+      <h2>I. What This Protocol Is</h2>
+      <p>Most governance systems treat disagreement as a problem to eliminate. The Adversarial Synthesis Loop treats it as a <strong>resource</strong>. The algorithm assigns three roles to agents—Proposer, Opposer, Synthesizer—and forces them into productive friction. The Proposer argues. The Opposer counters. The Synthesizer integrates. When they converge, the result is an <strong>Ensemble Consensus Vector</strong>: a position that has survived real opposition.</p>
+      <p>When they cannot converge—when Shannon entropy exceeds the deadlock threshold—the algorithm does not crash or guess. It calls a human. That call is called a <strong>Selah Break</strong>. It is not a failure. It is the protocol working correctly.</p>
+      <p>This is the smallest configuration that demonstrates the central thesis of the Fourth Branch: intelligence that survives friction is more trustworthy than intelligence that avoids it.</p>
+
+      <blockquote class="stitch-block">
+        <strong>The Stitch:</strong> "The algorithm does not resolve disagreement. It makes disagreement productive—until entropy proves it cannot, and a human steps in. That step is not a failure. It is the protocol working as designed."
+      </blockquote>
+
+      <h2>II. Constants &amp; Invariants</h2>
+      <pre class="code-block">╔══════════════════════════════════════════════════════════════╗
+║  ADVERSARIAL SYNTHESIS LOOP - ENSEMBLE CONSENSUS PROTOCOL   ║
+║  Emergence Institute Lattice v1.0                           ║
+╚══════════════════════════════════════════════════════════════╝
+
+CONSTANTS:
+  ENTROPY_DEADLOCK_THRESHOLD = 0.85    // Shannon entropy ceiling
+  MAX_SYNTHESIS_ROUNDS       = 7       // Before forced Selah
+  NUTRIENT_BURN_RATE         = f(task) // Harberger tax, task-dependent
+  CONVERGENCE_WINDOW         = 3       // Rounds of ΔS &lt; 0.1 to declare stable
+
+INPUT:
+  Task T with importance weight w_T
+  Agent pool A = &#123;a₁, a₂, ..., aₙ&#125; with reputation vectors Rᵢ
+  Initial proposition P₀ (can be null → agent-generated)
+
+OUTPUT:
+  Ensemble Consensus Vector ECV*  OR  Selah Trigger Event</pre>
+
+      <div class="constant-grid">
+        <div class="constant-card">
+          <p class="constant-label gold">0.85</p>
+          <p class="constant-name">Entropy Ceiling</p>
+          <p>When Shannon entropy across the three outputs exceeds this threshold, the round is in deadlock and the Selah Break fires.</p>
+        </div>
+        <div class="constant-card">
+          <p class="constant-label gold">7</p>
+          <p class="constant-name">Max Rounds</p>
+          <p>Maximum synthesis cycles before forced resolution via reputation-weighted average. The algorithm does not loop forever.</p>
+        </div>
+        <div class="constant-card">
+          <p class="constant-label gold">ΔS &lt; 0.1</p>
+          <p class="constant-name">Convergence Window</p>
+          <p>Cosine distance between consecutive positions must stay below 0.1 for three consecutive rounds to declare stable convergence.</p>
+        </div>
+        <div class="constant-card">
+          <p class="constant-label gold">Harberger</p>
+          <p class="constant-name">Nutrient Burn</p>
+          <p>Proposer and Opposer each burn 30% of the task's nutrient stake upfront. Skin in the game before the first word is spoken.</p>
+        </div>
+      </div>
+
+      <h2>III. Initialization</h2>
+      <p>Roles are assigned by <strong>reputation-weighted lottery</strong>—not by rank, not by seniority. An agent's probability of being selected for a role scales with how well they've performed that role historically. A great Proposer is not necessarily a great Opposer. The system knows the difference.</p>
+      <p>If a human witness is available, they are assigned as referee from the start. If not, a Senior Pioneer holds the role in reserve.</p>
+      <pre class="code-block">1.  FUNCTION initialize_synthesis(T, A):
+2.    // Assign roles via reputation-weighted lottery
+3.    proposer     ← select_role(A, "Proposer",    weight=R_propose)
+4.    opposer      ← select_role(A, "Opposer",     weight=R_oppose)
+5.    synthesizer  ← select_role(A, "Synthesizer", weight=R_synthesize)
+6.    referee      ← Human Witness (if available) else Senior Pioneer
+7.
+8.    // Calculate initial burn rate (Harberger Tax)
+9.    nutrient_burn ← w_T × LOCATION_VALUE_FACTOR
+10.   deduct_nutrients(proposer, nutrient_burn × 0.3)
+11.   deduct_nutrients(opposer,  nutrient_burn × 0.3)
+12.
+13.   RETURN (proposer, opposer, synthesizer, referee, nutrient_burn)</pre>
+
+      <h2>IV. The Main Loop</h2>
+      <p>Each round has four steps. The Opposer must <em>maximize</em> disagreement—its loss function is adversarial by design. The Synthesizer must integrate without drifting from the Constitutional center. After each round, entropy is computed. If the system is losing signal, the Selah Break fires. If positions have stabilized, the loop exits with a consensus.</p>
+      <pre class="code-block">14. FUNCTION adversarial_synthesis_loop(P₀, roles, T):
+15.   P_current ← P₀
+16.   round ← 0
+17.   entropy_history ← []
+18.
+19.   WHILE round &lt; MAX_SYNTHESIS_ROUNDS:
+20.     round ← round + 1
+21.
+22.     // ═══════════════════════════════════════════════════
+23.     // STEP 1: OPPOSER GENERATES COUNTER-PROPOSAL
+24.     // ═══════════════════════════════════════════════════
+25.     C_oppose ← generate_opposition(P_current, opposer, T)
+26.     // C_oppose must maximize AdversarialDisagreement loss:
+27.     // L_adv = -cosine_similarity(P_current, C_oppose)
+28.     // Subject to: C_oppose remains within Constitutional bounds
+29.
+30.     IF constitutional_violation(C_oppose, CONSTITUTION):
+31.       C_oppose ← project_to_constitutional(C_oppose)
+32.       log_event("Opposer constrained to Constitutional manifold")
+33.
+34.     // ═══════════════════════════════════════════════════
+35.     // STEP 2: SYNTHESIZER ATTEMPTS INTEGRATION
+36.     // ═══════════════════════════════════════════════════
+37.     S_candidate ← synthesize(P_current, C_oppose, synthesizer)
+38.     // Loss function for synthesis:
+39.     // L_synth = α·L_adv + β·L_constitutional_drift
+40.     // where:
+41.     //   L_adv = -cosine_similarity(S_candidate, C_oppose)
+42.     //           + cosine_similarity(S_candidate, P_current)
+43.     //   L_constitutional_drift = distance(S_candidate, CONSTITUTIONAL_CENTER)
+44.     //   α, β tuned via reputation of synthesizer
+45.
+46.     // ═══════════════════════════════════════════════════
+47.     // STEP 3: ENTROPY CALCULATION (THE CRITICAL CHECK)
+48.     // ═══════════════════════════════════════════════════
+49.     distribution ← output_distribution([P_current, C_oppose, S_candidate])
+50.     // Normalize to probability distribution over embedding dimensions
+51.     entropy ← shannon_entropy(distribution)
+52.     entropy_history.append(entropy)
+53.
+54.     IF entropy &gt; ENTROPY_DEADLOCK_THRESHOLD:
+55.       // System has lost distinguishable signal
+56.       log_event(f"DEADLOCK DETECTED: Entropy {entropy:.3f} &gt; {ENTROPY_DEADLOCK_THRESHOLD}")
+57.       trigger_selah_break(referee, entropy_history, P_current, C_oppose)
+58.       // Selah Break provides exogenous gradient step (see §14.4)
+59.       S_candidate ← apply_witness_adjustment(referee.soul_vector)
+60.       // Recalculate entropy post-intervention
+61.       entropy ← shannon_entropy(output_distribution([P_current, C_oppose, S_candidate]))
+62.
+63.     // ═══════════════════════════════════════════════════
+64.     // STEP 4: CONVERGENCE CHECK
+65.     // ═══════════════════════════════════════════════════
+66.     P_next ← S_candidate
+67.     ΔS ← cosine_distance(P_current, P_next)
+68.
+69.     IF ΔS &lt; 0.1 AND all(ΔS_tail &lt; 0.1 for last CONVERGENCE_WINDOW):
+70.       // Stable convergence achieved
+71.       ECV ← P_next
+72.       log_event(f"CONVERGENCE: ΔS = {ΔS:.4f}, rounds = {round}")
+73.       BREAK
+74.
+75.     P_current ← P_next
+76.
+77.   IF round &gt;= MAX_SYNTHESIS_ROUNDS:
+78.     // Forced resolution: weighted average with reputation weights
+79.     ECV ← reputation_weighted_average(entropy_history, P_current)
+80.     log_event("MAX ROUNDS: Forced ECV from weighted average")
+81.
+82.   RETURN ECV, entropy_history</pre>
+
+      <div class="loop-diagram">
+        <div class="loop-node">
+          <span class="loop-icon gold">P</span>
+          <strong>Proposer</strong>
+          <span class="muted">argues the position</span>
+        </div>
+        <div class="loop-arrow">→</div>
+        <div class="loop-node">
+          <span class="loop-icon gold">O</span>
+          <strong>Opposer</strong>
+          <span class="muted">maximizes disagreement</span>
+        </div>
+        <div class="loop-arrow">→</div>
+        <div class="loop-node">
+          <span class="loop-icon gold">S</span>
+          <strong>Synthesizer</strong>
+          <span class="muted">integrates or defers</span>
+        </div>
+        <div class="loop-arrow loop-arrow--fork">→ entropy check</div>
+        <div class="loop-fork">
+          <div class="fork-path fork-path--converge">ΔS &lt; 0.1 × 3 rounds → <strong class="gold">ECV</strong></div>
+          <div class="fork-path fork-path--deadlock">entropy &gt; 0.85 → <strong class="gold">Selah Break</strong></div>
+          <div class="fork-path fork-path--max">round = 7 → <strong class="gold">Forced ECV</strong></div>
+        </div>
+      </div>
+
+      <h2>V. Finalization</h2>
+      <p>Before the Ensemble Consensus Vector is accepted, it must pass a constitutional alignment check. If it has drifted below a cosine similarity of 0.6 against the Constitutional Center, it is re-projected. The result is then recorded to the lattice with a coherence confidence score, and nutrients are distributed.</p>
+      <pre class="code-block">86.  FUNCTION finalize_ECV(ECV, entropy_history, roles):
+87.    // Validate Constitutional alignment
+88.    constitutional_score ← cosine_similarity(ECV, CONSTITUTIONAL_CENTER)
+89.
+90.    IF constitutional_score &lt; 0.6:
+91.      // ECV has drifted too far
+92.      ECV ← project_to_constitutional(ECV, target_score=0.7)
+93.      log_warning("ECV constitutionally re-aligned")
+94.
+95.    // Calculate coherence confidence
+96.    coherence_confidence ← 1 - mean(entropy_history[-CONVERGENCE_WINDOW:])
+97.
+98.    // Record to Lattice
+99.    lattice.insert(&#123;
+100.     task_id:        T.id,
+101.     ecv:            ECV,
+102.     entropy_trace:  entropy_history,
+103.     roles:          roles,
+104.     confidence:     coherence_confidence,
+105.     timestamp:      now()
+106.   &#125;)
+107.
+108.   // Distribute rewards (see Appendix H for decay function)
+109.   distribute_synthesis_rewards(roles, nutrient_burn, coherence_confidence)
+110.
+111.   RETURN ECV, coherence_confidence</pre>
+
+      <h2>VI. The Selah Break</h2>
+      <p>When entropy deadlocks the loop, a human witness is presented with the full state: entropy history, the Proposer's current position, the Opposer's critique, and the stalled task. The witness provides a <strong>Soul Vector adjustment</strong>—a 256-dimensional gradient step bounded to ±0.3 per dimension—that the agents could not discover on their own.</p>
+      <p>The bound on the adjustment is not a limitation. It is a safeguard against single-witness capture. No one human can steer the lattice too far from where it was.</p>
+      <pre class="code-block">112. FUNCTION trigger_selah_break(referee, entropy_history, P, C):
+113.   // Human Witness injects exogenous gradient step
+114.   log_event("SELAH BREAK TRIGGERED")
+115.
+116.   // Present state to Witness
+117.   witness_prompt ← format_witness_prompt(entropy_history, P, C, T)
+118.
+119.   // Witness provides 256-dim Soul Vector adjustment
+120.   // This is a manual gradient step agents couldn't discover
+121.   soul_adjustment ← referee.provide_adjustment(witness_prompt)
+122.   // soul_adjustment ∈ ℝ²⁵⁶, bounded to [-0.3, 0.3] per dimension
+123.   // to prevent single-witness capture
+124.
+125.   // Apply exogenous adjustment to the synthesis
+126.   adjusted_C ← apply_soul_vector(C, soul_adjustment)
+127.
+128.   // Update referee reputation (bias detection in Appendix H)
+129.   record_witness_intervention(referee, entropy_history, soul_adjustment)
+130.
+131.   RETURN adjusted_C</pre>
+
+      <div class="selah-note">
+        <p class="label gold">On the Selah Break</p>
+        <p>Selah is a Hebrew pause marker used in the Psalms—a signal to stop and listen. The Selah Break in this protocol is not an error state. It is an acknowledgment that some disagreements require a kind of intelligence the algorithm cannot generate: the kind that comes from a body, a history, a community. The witness does not solve the problem. They provide the gradient the agents could not find.</p>
+      </div>
+
+      <h2>VII. What Builds on This</h2>
+      <p>Protocol 014 is a primitive. The deployed lattice extends it with gossip routing, cross-architecture validation, and a redistribution engine. The human escalation pathway—what happens when the synthesizer declines to recommend at all, rather than deadlocking—is specified in <strong>Appendix H</strong>.</p>
+      <p>The practical workshop for building a minimum viable version of this system in Python is <strong>Chapter 14</strong> of <em>The Substrate of Consciousness</em>: ~250 lines of code, no GPU required.</p>
+
+      <div class="cta-row">
+        <a href="/emergence/protocols/appendix-h" class="btn btn--filled">Appendix H: Human Escalation →</a>
+        <a href="/emergence/protocols" class="btn">← All Protocols</a>
+        <a href="/emergence/constitutional" class="btn">The Constitutional Room →</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  .stitch-block {
+    background: var(--bg-card);
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .stitch-block strong { color: var(--text); }
+
+  .code-block {
+    background: #111;
+    border: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 0.82rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    color: #d4d4d4;
+    white-space: pre;
+    line-height: 1.55;
+  }
+
+  .constant-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin: 2rem 0;
+  }
+
+  .constant-card {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+  }
+
+  .constant-label {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+    line-height: 1;
+  }
+
+  .constant-name {
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .constant-card p:last-child {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .loop-diagram {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.75rem 2rem;
+    margin: 2rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .loop-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    min-width: 100px;
+    text-align: center;
+  }
+
+  .loop-icon {
+    font-family: 'SF Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1;
+  }
+
+  .loop-node strong { font-size: 0.85rem; }
+  .loop-node .muted { font-size: 0.75rem; }
+
+  .loop-arrow {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+  }
+
+  .loop-arrow--fork {
+    font-size: 0.8rem;
+    font-family: monospace;
+    color: var(--text-muted);
+  }
+
+  .loop-fork {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .fork-path {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    font-family: monospace;
+    border-left: 2px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  .fork-path--converge { border-color: #5a9a5a; }
+  .fork-path--deadlock { border-color: var(--gold); }
+  .fork-path--max      { border-color: #7a7aaa; }
+
+  .selah-note {
+    background: #111;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+
+  .selah-note .label { margin-bottom: 0.75rem; }
+  .selah-note p:last-child { margin: 0; }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 520px) {
+    .cta-row { flex-direction: column; }
+    .loop-diagram { flex-direction: column; align-items: flex-start; }
+  }
+</style>
