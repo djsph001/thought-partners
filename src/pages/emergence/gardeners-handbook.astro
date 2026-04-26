@@ -169,6 +169,53 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
     </div>
   </section>
 
+  <section class="section">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Volume II · The Emergence Institute Series</p>
+      <h2>From the Book: Beyond Consensus</h2>
+      <p class="subtitle"><em>Chapter 10 · The Gardener's Handbook</em></p>
+
+      <div class="excerpt-body">
+        <p>
+          The night before the Challenger launch, engineers at Morton Thiokol argued for hours
+          with NASA managers about the O-rings on the shuttle's solid rocket boosters. The
+          engineers had data showing O-ring resilience degraded at low temperatures. The forecast
+          for launch morning was unusually cold. The engineers recommended postponement. NASA
+          pushed back. Eventually the engineers withdrew their objection. Consensus was achieved.
+          The shuttle exploded seventy-three seconds after liftoff, killing seven people.
+        </p>
+        <p>There are two ways to read this story.</p>
+        <p>
+          The first reading is that consensus failed — if they had disagreed harder, seven
+          people would still be alive. The second reading is that consensus was never actually
+          achieved. What happened was suppression dressed up as agreement. The engineers did not
+          change their beliefs. They stopped expressing them.
+        </p>
+        <p>
+          This chapter takes the second reading seriously. It argues that the failure mode is
+          not the achievement of wrong consensus but the inability to distinguish <em>forced</em>
+          consensus from <em>robust</em> consensus. And it argues that in multi-agent AI systems
+          specifically, the case for designed adversariness is stronger than in human systems,
+          because the failure mode is worse: AI evaluators trained on overlapping data have
+          correlated errors, and their agreement is not independent evidence.
+        </p>
+        <p>
+          The wrong question is "who is right when two reasonable agents disagree?" The right
+          question is "what process makes the disagreement productive rather than wasteful?"
+          The rest of the chapter is about that process.
+        </p>
+      </div>
+
+      <p class="excerpt-end muted">— End of excerpt — Full chapter available in the book</p>
+
+      <div class="cta-row">
+        <a href="#" class="btn btn--filled">Buy on Amazon →</a>
+        <a href="/emergence/books" class="btn">See All Three Volumes →</a>
+      </div>
+    </div>
+  </section>
+
   <EmergenceFooter slot="footer" />
 </Base>
 
@@ -329,6 +376,23 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
     gap: 1rem;
     flex-wrap: wrap;
     margin-top: 2.5rem;
+  }
+
+  .excerpt-body {
+    max-width: 640px;
+    margin: 1.5rem 0;
+  }
+
+  .excerpt-body p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+  .excerpt-end {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
   }
 
   @media (max-width: 520px) {

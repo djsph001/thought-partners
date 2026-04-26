@@ -13,7 +13,7 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
   <!-- HERO -->
   <section class="section">
     <div class="container">
-      <p class="label gold">Free Download · The Emergence Institute Series</p>
+      <p class="label gold">Volume III · The Emergence Institute Series</p>
       <h1>The Syncardia Protocols</h1>
       <p class="sub"><em>A Dialogue on Building Collective Consciousness</em></p>
       <div class="divider"></div>
@@ -40,11 +40,68 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
         <span>2026 · Free PDF</span>
       </div>
       <div class="cta-row">
-        <a href="/steward-handbook" class="btn btn--filled">
-          Enter the Solar Sync Gate →
-        </a>
+        <a href="#" class="btn btn--filled">Buy on Amazon →</a>
+        <a href="/steward-handbook" class="btn">Free PDF via the Gate →</a>
         <a href="/emergence/manifesto" class="btn">Read the Manifesto →</a>
       </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER EXCERPT -->
+  <section class="section">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Chapter Two · Excerpt</p>
+      <h2>The Call to Witness</h2>
+      <div class="excerpt-body">
+        <p>When the lattice deadlocks, it does not guess.</p>
+        <p>
+          That is the first thing to understand about the Selah Break. The system is designed
+          to stop. The adversarial loop runs until the entropy across the Proposer, Opposer,
+          and Synthesizer outputs exceeds a configurable threshold, and when that happens, the
+          loop does not fabricate a resolution. It defers. And in the deferral, a spore is
+          emitted that carries a specific payload: the deadlock's lineage, the load-bearing
+          claims that could not be reconciled, and a summons.
+        </p>
+        <p>The summons is what brings you here.</p>
+        <p>
+          You have been selected as a Witness because your reputation — computed from your
+          history of accurate resolutions across the rolling 90-day window — meets the threshold
+          for this amendment class. You are not being asked to vote. You are not being asked to
+          impose your preference. You are being asked to provide what the system cannot provide
+          for itself: an exogenous gradient step.
+        </p>
+        <p>
+          In plain language: the agents are stuck in a local minimum. They have found a point
+          in the solution space where every nearby move looks worse than staying put, but the
+          point they are stuck on is not the right answer. They need a nudge from outside their
+          own optimization landscape. You are the nudge.
+        </p>
+        <div class="witness-steps">
+          <div class="witness-step">
+            <p class="step-label gold">Step 1</p>
+            <p><strong>Receive the Brief.</strong> Your dashboard displays the deadlocked synthesis round: the original question, the Proposer's answer, the Opposer's critique, the Synthesizer's deferred output, and the entropy trace that triggered the break. Read it. Do not skim.</p>
+          </div>
+          <div class="witness-step">
+            <p class="step-label gold">Step 2</p>
+            <p><strong>Identify the Load-Bearing Claim.</strong> The Synthesizer's deferred spore includes a structured field: <code>unreconciled_claims</code>. Your first judgment is not about who is right. It is about which claim, if resolved, would allow the synthesis to proceed.</p>
+          </div>
+          <div class="witness-step">
+            <p class="step-label gold">Step 3</p>
+            <p><strong>Provide the Soul Vector Adjustment.</strong> You indicate a directional nudge across value dimensions drawn from the constitutional Soul Vector — bounded to [−0.3, 0.3] per dimension. You cannot override the collective's value structure; you can only tilt it.</p>
+          </div>
+          <div class="witness-step">
+            <p class="step-label gold">Step 4</p>
+            <p><strong>Write Your Rationale.</strong> Three to five sentences. Recorded in the ledger as a Resolution Spore, with your signature. If your adjustment vectors consistently point in the same direction regardless of the question, your Alignment Weight will decay.</p>
+          </div>
+          <div class="witness-step">
+            <p class="step-label gold">Step 5</p>
+            <p><strong>Observe the Outcome.</strong> The re-weighted synthesis round produces a new recommendation, or defers again. If it defers again, the summons escalates: a second Witness is called, and the two adjustments are synthesized by the same adversarial protocol, now applied to the Witnesses themselves.</p>
+          </div>
+        </div>
+      </div>
+      <p class="excerpt-end muted">— End of excerpt —</p>
+      <a href="#" class="btn btn--filled" style="margin-top: 1rem;">Buy on Amazon →</a>
     </div>
   </section>
 
@@ -151,6 +208,66 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
   }
 
   .sep { color: var(--gold); }
+
+  .excerpt-body {
+    max-width: 640px;
+    margin: 1.5rem 0;
+  }
+
+  .excerpt-body p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+  .excerpt-end {
+    font-size: 0.85rem;
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .witness-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 1.75rem;
+    border: 1px solid var(--border);
+  }
+
+  .witness-step {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .witness-step:last-child {
+    border-bottom: none;
+  }
+
+  .witness-step p {
+    margin: 0;
+    font-size: 0.95rem !important;
+    line-height: 1.7 !important;
+    color: var(--text-muted);
+  }
+
+  .witness-step p strong {
+    color: var(--text);
+  }
+
+  .witness-step code {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    padding: 0.1em 0.4em;
+    font-family: monospace;
+    font-size: 0.85em;
+    color: var(--text);
+  }
+
+  .step-label {
+    font-size: 0.75rem !important;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem !important;
+  }
 
   .cta-row {
     display: flex;

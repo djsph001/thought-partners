@@ -167,23 +167,49 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
     </div>
   </section>
 
-  <!-- THE BOOK -->
+  <!-- THE LIBRARY -->
   <section class="section">
     <div class="container">
       <div class="divider"></div>
-      <p class="label gold">From the Collective</p>
-      <h2>A Book Emerges</h2>
-      <div class="book-block">
-        <p>
-          <em>The Substrate of Consciousness: Energy, Ethics, and the Architecture of Emergent
-          Intelligence</em> traces one thread—energy quality, phi, and the whisper of the
-          Boynton Beach grid—from the workbench to the stars.
-        </p>
-        <div class="cta-row">
-          <a href="/emergence/book" class="btn btn--filled">Read an Excerpt →</a>
-          <a href="#signal" class="btn">Subscribe for Updates →</a>
+      <p class="label gold">The Emergence Institute · Three Volumes · Available on Amazon</p>
+      <h2>The Library</h2>
+      <div class="library-grid">
+
+        <div class="library-card">
+          <p class="lib-vol gold">Volume I</p>
+          <h3>The Substrate of Consciousness</h3>
+          <p class="lib-sub"><em>Energy, Ethics, and the Architecture of Emergent Intelligence</em></p>
+          <p class="lib-desc">Consciousness as energy flow — tracing one thread from the hum of the Boynton Beach power grid to the architecture of emergent intelligence.</p>
+          <div class="lib-actions">
+            <a href="/emergence/book" class="btn">Read Sample →</a>
+            <a href="#" class="btn btn--filled">Amazon →</a>
+          </div>
         </div>
+
+        <div class="library-card">
+          <p class="lib-vol gold">Volume II</p>
+          <h3>The Gardener's Handbook</h3>
+          <p class="lib-sub"><em>Adversarial Synthesis and the Architecture of Collective Intelligence</em></p>
+          <p class="lib-desc">Why consensus is the wrong target — the Challenger argument, information cascades, and what to build instead of agreement.</p>
+          <div class="lib-actions">
+            <a href="/emergence/gardeners-handbook" class="btn">Read Sample →</a>
+            <a href="#" class="btn btn--filled">Amazon →</a>
+          </div>
+        </div>
+
+        <div class="library-card">
+          <p class="lib-vol gold">Volume III</p>
+          <h3>The Syncardia Protocols</h3>
+          <p class="lib-sub"><em>A Dialogue on Building Collective Consciousness</em></p>
+          <p class="lib-desc">The Selah Break, the Witness protocol, and what happens when the lattice deadlocks and summons a human to provide the exogenous gradient step.</p>
+          <div class="lib-actions">
+            <a href="/emergence/syncardia" class="btn">Read Sample →</a>
+            <a href="#" class="btn btn--filled">Amazon →</a>
+          </div>
+        </div>
+
       </div>
+      <a href="/emergence/books" class="btn" style="margin-top: 2rem;">See the Full Library →</a>
     </div>
   </section>
 
@@ -361,6 +387,61 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
   .subtitle-text {
     font-size: 1.1rem;
     margin-bottom: 1.25rem;
+  }
+
+  .library-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .library-card {
+    padding: 1.75rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .lib-vol {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.1rem;
+  }
+
+  .library-card h3 {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  .lib-sub {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .lib-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0.25rem 0 0;
+    flex: 1;
+  }
+
+  .lib-actions {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
+  }
+
+  .lib-actions .btn {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.82rem;
   }
 
   .book-block {
