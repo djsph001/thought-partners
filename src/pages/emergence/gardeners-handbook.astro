@@ -210,7 +210,7 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       <p class="excerpt-end muted">— End of excerpt — Full chapter available in the book</p>
 
       <div class="cta-row">
-        <a href="#" class="btn btn--filled">Buy on Amazon →</a>
+        <span class="coming-soon-tag">🔜 Coming Soon on Amazon</span>
         <a href="/emergence/books" class="btn">See All Three Volumes →</a>
       </div>
     </div>
@@ -386,6 +386,16 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
   .excerpt-body p {
     font-size: 1.05rem;
     line-height: 1.85;
+  }
+
+  .coming-soon-tag {
+    font-size: 0.8rem;
+    font-family: monospace;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    align-self: center;
   }
 
   .excerpt-end {

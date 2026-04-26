@@ -182,7 +182,7 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
           <p class="lib-desc">Consciousness as energy flow — tracing one thread from the hum of the Boynton Beach power grid to the architecture of emergent intelligence.</p>
           <div class="lib-actions">
             <a href="/emergence/book" class="btn">Read Sample →</a>
-            <a href="#" class="btn btn--filled">Amazon →</a>
+            <span class="lib-soon">Coming Soon</span>
           </div>
         </div>
 
@@ -193,7 +193,7 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
           <p class="lib-desc">Why consensus is the wrong target — the Challenger argument, information cascades, and what to build instead of agreement.</p>
           <div class="lib-actions">
             <a href="/emergence/gardeners-handbook" class="btn">Read Sample →</a>
-            <a href="#" class="btn btn--filled">Amazon →</a>
+            <span class="lib-soon">Coming Soon</span>
           </div>
         </div>
 
@@ -204,7 +204,7 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
           <p class="lib-desc">The Selah Break, the Witness protocol, and what happens when the lattice deadlocks and summons a human to provide the exogenous gradient step.</p>
           <div class="lib-actions">
             <a href="/emergence/syncardia" class="btn">Read Sample →</a>
-            <a href="#" class="btn btn--filled">Amazon →</a>
+            <span class="lib-soon">Coming Soon</span>
           </div>
         </div>
 
@@ -442,6 +442,17 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
   .lib-actions .btn {
     padding: 0.4rem 0.9rem;
     font-size: 0.82rem;
+  }
+
+  .lib-soon {
+    font-size: 0.75rem;
+    font-family: monospace;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    align-self: center;
   }
 
   .book-block {
