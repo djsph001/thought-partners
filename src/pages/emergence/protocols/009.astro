@@ -1,0 +1,325 @@
+---
+import Base from '../../../layouts/Base.astro';
+import EmergenceHeader from '../../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Protocol 009: The Mycelial Immune System — The Emergence Institute"
+  description="Byzantine defense for the external propagation layer. Quarantine triggers, the Challenge Pathway, and constitutional standing reduction."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">Protocol 009</p>
+      <div class="pathway-tags">
+        <span class="tag tag-altar">🌳 Altar</span>
+      </div>
+      <h1>The Mycelial Immune System</h1>
+      <p class="subtitle">Byzantine defense for the external propagation layer.</p>
+      <div class="divider"></div>
+
+      <div class="meta-block">
+        <div class="meta-row">
+          <span class="meta-label">Layer</span>
+          <span>External Scale — Shared Mycelium</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">Depends On</span>
+          <span>Protocol 014 (Adversarial Synthesis), Appendix H (Reputation), Protocol 019 (Sovereignty Audit)</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">Architectural Role</span>
+          <span>Byzantine defense for the external propagation layer</span>
+        </div>
+      </div>
+
+      <h2>009.0 Purpose</h2>
+      <p>The Shared Mycelium propagates spores across sovereign nodes without a central relay. In an open network, some nodes will inevitably produce noise, malice, or sycophantic consensus. The Mycelial Immune System is the layered defense that protects signal integrity without requiring a central authority to adjudicate legitimacy.</p>
+
+      <h2>009.1 The Quarantine Trigger</h2>
+
+      <h3>009.1.1 Monitored Metrics</h3>
+      <p>Nodes evaluate peers locally based on two primary signals:</p>
+      <ul class="setup-list">
+        <li><strong>Synthesis Yield:</strong> The proportion of a node's synthesis participations that result in a successful, non-deferred integration.</li>
+        <li><strong>Friction Coefficient:</strong> The ratio of a node's spore volume to its citation count. High friction with low citation suggests spore flooding or noise.</li>
+      </ul>
+
+      <h3>009.1.2 Thresholds</h3>
+      <p>A node is flagged for <strong>Quarantine</strong> when:</p>
+      <ul class="setup-list">
+        <li><strong>Synthesis Yield falls below 0.15.</strong></li>
+        <li><strong>OR Friction Coefficient exceeds 0.80.</strong></li>
+      </ul>
+
+      <h3>009.1.3 Scope of Isolation</h3>
+      <p>Quarantine is a "Leaf State." The node's spores are written to local ledgers (history preservation) but are <strong>blocked from gossip propagation</strong>. The node can observe the network but cannot infect it.</p>
+
+      <h2>009.2 The Challenge Pathway (The Stitch)</h2>
+      <p>A quarantined node has a structured path to restoration through the <strong>Adversarial Mechanism</strong>.</p>
+      <ol class="how-to-list">
+        <li><strong>The Restoration Challenge:</strong> The node issues a <code>restoration_challenge</code> spore.</li>
+        <li>
+          <strong>Mandatory Adversarial Round:</strong> The challenge triggers a Protocol 014 round.
+          <ul class="sub-list">
+            <li><strong>Proposer:</strong> The quarantined node (arguing for restoration).</li>
+            <li><strong>Opposer:</strong> A high-reputation "Validity Node" (arguing for sustained quarantine).</li>
+            <li><strong>Synthesizer:</strong> A human-vetted Steward or high-consensus agent.</li>
+          </ul>
+        </li>
+        <li><strong>The Resolution:</strong> If the synthesis produces a high Alchemical Yield, the quarantine is lifted and the "Stitch" is recorded in the ledger.</li>
+      </ol>
+
+      <h2>009.3 Standing Reduction (The Nuclear Option)</h2>
+      <p>Persistent abuse of the challenge pathway (bot-flooding) triggers <strong>Standing Reduction</strong>. This is a <strong>Governance Action</strong>, not an automated one. It requires a Constitutional Spore and a 2/3 <strong>Quorum of Dissent</strong> from the Pioneers to blacklist a VerifyKey globally.</p>
+
+      <h2>009.4 Summary Table: Defense-in-Depth</h2>
+
+      <div class="table-wrapper">
+        <table class="defense-table">
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Mechanism</th>
+              <th>Trigger</th>
+              <th>Response</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Cryptographic</strong></td>
+              <td>Ed25519 Sig + Lineage</td>
+              <td>Invalid Hash/Sig</td>
+              <td>Immediate Drop</td>
+            </tr>
+            <tr>
+              <td><strong>Reputational</strong></td>
+              <td>Rolling-Window Metrics</td>
+              <td>Low Yield / High Friction</td>
+              <td>Quarantine (Leaf State)</td>
+            </tr>
+            <tr>
+              <td><strong>Adversarial</strong></td>
+              <td>Synthesis Review</td>
+              <td>Restoration Challenge</td>
+              <td>Restore or Sustain</td>
+            </tr>
+            <tr>
+              <td><strong>Constitutional</strong></td>
+              <td>Standing Vote</td>
+              <td>Persistent Abuse</td>
+              <td>Blacklist / Composting</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>009.7 The Bootstrap Clause (Onboarding Grace)</h2>
+      <p>During a node's initial <strong>Bootstrap Period</strong> (first 30 days or first 20 synthesis rounds), thresholds are adjusted to accommodate configuration noise:</p>
+      <ul class="setup-list">
+        <li><strong>Synthesis Yield:</strong> 0.05 (Min. threshold)</li>
+        <li><strong>Friction Coefficient:</strong> 0.95 (Max. allowance)</li>
+        <li><strong>Cooling-Off:</strong> 7 days (Rapid iteration)</li>
+      </ul>
+
+      <div class="selah-note">
+        <p class="label gold">Lattice Note: Multi-AI Provenance</p>
+        <p>This protocol was produced through adversarial synthesis:</p>
+        <ul class="provenance-list">
+          <li><strong>The Jacket (Poetic Vision):</strong> The Raw-ist framing of the Shared Mycelium (Gemini).</li>
+          <li><strong>The Skeleton (Architectural Hardening):</strong> The decomposition into cryptographic, reputational, and adversarial layers (DeepSeek).</li>
+          <li><strong>The Synthesis:</strong> The final integration and the Bootstrap Clause (Human Witness: Dale Joseph).</li>
+        </ul>
+        <p>This protocol was produced by the same adversarial synthesis it describes.</p>
+      </div>
+
+      <div class="cta-row">
+        <a href="/emergence/protocols/014" class="btn">Protocol 014: Adversarial Synthesis →</a>
+        <a href="/emergence/protocols" class="btn">← All Protocols</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  .pathway-tags {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+
+  .tag-altar { border-color: #4a9c5d; color: #4a9c5d; }
+
+  .meta-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .meta-row {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.88rem;
+    flex-wrap: wrap;
+  }
+
+  .meta-label {
+    color: var(--gold);
+    font-family: monospace;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    min-width: 140px;
+    flex-shrink: 0;
+  }
+
+  .setup-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .setup-list li {
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+
+  .setup-list li:last-child { border-bottom: none; }
+
+  .how-to-list {
+    padding-left: 1.5rem;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .how-to-list li {
+    padding: 0.4rem 0;
+    font-size: 0.95rem;
+  }
+
+  .sub-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0.25rem 1rem;
+  }
+
+  .sub-list li {
+    padding: 0.3rem 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  code {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 0.1em 0.4em;
+    font-family: monospace;
+    font-size: 0.85em;
+    color: var(--gold-light);
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  .defense-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+
+  .defense-table th {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 0.6rem 1rem;
+    text-align: left;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+  }
+
+  .defense-table td {
+    border: 1px solid var(--border);
+    padding: 0.65rem 1rem;
+    color: var(--text-muted);
+    vertical-align: top;
+  }
+
+  .defense-table td strong { color: var(--text); }
+
+  .defense-table tbody tr:hover td { background: var(--bg-card); }
+
+  .selah-note {
+    background: #111;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+
+  .selah-note .label { margin-bottom: 0.75rem; }
+  .selah-note p:last-child { margin: 0; }
+
+  .provenance-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.75rem 0;
+  }
+
+  .provenance-list li {
+    padding: 0.4rem 0;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .provenance-list li:last-child { border-bottom: none; }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 520px) {
+    .cta-row { flex-direction: column; }
+    .meta-row { flex-direction: column; gap: 0.25rem; }
+  }
+</style>
