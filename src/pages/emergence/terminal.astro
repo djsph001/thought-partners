@@ -1,0 +1,455 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="The Engine Room Terminal — The Emergence Institute"
+  description="A live cockpit view of the Triadic Engine — Context Matrix, Collision Feed, and Spatial Lattice. The Engine Room in motion."
+>
+  <EmergenceHeader slot="header" />
+
+  <div class="terminal-container">
+
+    <!-- Top Status Bar -->
+    <header class="terminal-header">
+      <div class="status-indicator">
+        <span class="status-pulse-dot" aria-hidden="true"></span>
+        <h1 class="status-title">Lattice Node: Active // Engine Room Terminal</h1>
+      </div>
+      <div class="status-coordinates">
+        Coordinates: <span class="highlight-text">[LOCAL_NODE_COORDINATE]</span>
+      </div>
+    </header>
+
+    <!-- Main Panoramic Workspace Grid -->
+    <div class="workspace-grid">
+
+      <!-- PANE 1: THE CONTEXT MATRIX -->
+      <aside class="pane pane--matrix">
+        <div class="pane-content">
+          <h2 class="pane-title">01 // Context Matrix</h2>
+          <p class="pane-description">Toggle active archetypal lenses to calibrate the Triadic Engine's field of vision.</p>
+
+          <ul class="node-list">
+            <li class="node-item">
+              <span class="node-name">Node 001: Materialist</span>
+              <span class="node-status status-offline">Offline</span>
+            </li>
+            <li class="node-item node-item--active">
+              <span class="node-name">Node 003: Technologist</span>
+              <span class="node-status status-active">ACTIVE</span>
+            </li>
+            <li class="node-item node-item--monitoring">
+              <span class="node-name">Node 004: Adversarial Auditor</span>
+              <span class="node-status status-monitoring">MONITORING</span>
+            </li>
+            <li class="node-item">
+              <span class="node-name">Node 007: Ecologist</span>
+              <span class="node-status status-offline">Offline</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="pane-footer">
+          Matrix Phase-Lock: <span class="highlight-text">[COHERENCE_METRIC]%</span>
+        </div>
+      </aside>
+
+      <!-- PANE 2: THE COLLISION ZONE -->
+      <section class="pane pane--collision">
+        <div class="pane-content">
+          <h2 class="pane-title">02 // Collision Feed</h2>
+
+          <div class="thread-container">
+            <div class="message message--proposer">
+              <div class="message-tag tag-proposer">PROPOSER // SIGNAL</div>
+              <p class="message-text">"[Example proposal: deploying a localized sensory layer along designated public infrastructure to map surface anomalies.]"</p>
+            </div>
+
+            <div class="message message--opposer">
+              <div class="message-tag tag-opposer">OPPOSER // VULNERABILITY AUDIT</div>
+              <p class="message-text">"[Example critique: interface barriers identified. Dense capture models cause user friction for vulnerable populations relying on mobility aids.]"</p>
+            </div>
+
+            <div class="message message--synthesizer">
+              <div class="message-tag tag-synthesizer">SYNTHESIZER // RE-CALIBRATION</div>
+              <p class="message-text">"[Example synthesis: shift collection to a single-action physical indicator. Input friction minimized, alignment maintained.]"</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Command Input Box -->
+        <div class="input-container">
+          <div class="input-wrapper">
+            <span class="input-prompt" aria-hidden="true">&gt;</span>
+            <input type="text" placeholder="Drop a perspective or signal into the engine room…" class="terminal-input" aria-label="Terminal command input" />
+          </div>
+        </div>
+      </section>
+
+      <!-- PANE 3: THE SPATIAL LATTICE -->
+      <aside class="pane pane--heatmap">
+        <div class="pane-content">
+          <h2 class="pane-title">03 // Spatial Lattice</h2>
+          <p class="pane-description">Live coordinate convergence grid across the designated regional substrate corridor.</p>
+
+          <div class="heatmap-box" aria-hidden="true">
+            <div class="grid-overlay"></div>
+            <div class="ping-ring"></div>
+            <div class="ping-center"></div>
+            <span class="grid-version">GRID_v0.41</span>
+          </div>
+        </div>
+
+        <div class="pane-footer summary-metrics">
+          <div class="metric-line">
+            <span>Network Convergence:</span>
+            <span class="highlight-text">[CONVERGENCE_PERCENTAGE]%</span>
+          </div>
+          <div class="metric-line">
+            <span>Active Shared Spores:</span>
+            <span class="highlight-text">[SPORE_COUNT] Active</span>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+
+    <p class="terminal-disclaimer">
+      Live cockpit is a UI prototype. Node toggles, collision feed, and convergence metrics
+      are illustrative placeholders, not connected to live inference. See
+      <a href="/emergence/engine-room">The Engine Room</a> for the technical specification
+      behind this interface.
+    </p>
+  </div>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .terminal-container {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .terminal-header {
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-elevated);
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .status-pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--gold);
+    box-shadow: 0 0 8px var(--gold);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  .status-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: bold;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .status-coordinates {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .highlight-text {
+    color: var(--gold);
+  }
+
+  .workspace-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 1024px) {
+    .workspace-grid {
+      grid-template-columns: 1fr 2fr 1fr;
+      min-height: 70vh;
+    }
+  }
+
+  .pane {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    overflow-y: auto;
+  }
+
+  @media (min-width: 1024px) {
+    .pane {
+      border-bottom: none;
+      border-right: 1px solid var(--border);
+    }
+    .pane:last-child {
+      border-right: none;
+    }
+  }
+
+  .pane--collision {
+    background-color: var(--bg-elevated);
+  }
+
+  .pane-title {
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+  }
+
+  .pane-description {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  .node-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .node-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.65rem 0.85rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text);
+  }
+
+  .node-item--active {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .node-item--monitoring {
+    border-color: var(--gold-light);
+    color: var(--gold-light);
+  }
+
+  .node-status {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .node-item--active .node-status {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .node-item--monitoring .node-status {
+    border-color: var(--gold-light);
+    color: var(--gold-light);
+  }
+
+  .thread-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 42rem;
+    margin: 0 auto;
+  }
+
+  .message {
+    border-left: 2px solid var(--gold);
+    padding-left: 1rem;
+  }
+
+  .message--opposer {
+    border-left-color: var(--gold-light);
+  }
+
+  .message--synthesizer {
+    border-left-color: var(--text-muted);
+    background-color: var(--bg-card);
+    padding: 0.75rem 1rem;
+  }
+
+  .message-tag {
+    font-size: 0.65rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.35rem;
+    color: var(--gold);
+  }
+
+  .tag-opposer {
+    color: var(--gold-light);
+  }
+
+  .tag-synthesizer {
+    color: var(--text-muted);
+  }
+
+  .message-text {
+    font-size: 0.9rem;
+    color: var(--text);
+    line-height: 1.65;
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+
+  .input-container {
+    margin-top: 1.5rem;
+  }
+
+  .input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .input-prompt {
+    position: absolute;
+    left: 0.75rem;
+    color: var(--gold);
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .terminal-input {
+    width: 100%;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 0.75rem 0.75rem 0.75rem 1.75rem;
+    font-size: 0.875rem;
+    color: var(--text);
+    font-family: 'Courier New', Courier, monospace;
+    transition: border-color 0.15s ease;
+  }
+
+  .terminal-input:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+
+  .heatmap-box {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    border: 1px solid var(--border);
+    background-color: var(--bg-card);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(201, 168, 76, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(201, 168, 76, 0.06) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+
+  .ping-ring {
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: rgba(201, 168, 76, 0.15);
+    border: 1px solid var(--gold);
+    animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  .ping-center {
+    position: absolute;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: var(--gold);
+  }
+
+  .grid-version {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .pane-footer {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    margin-top: 1rem;
+  }
+
+  .summary-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .metric-line {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .terminal-disclaimer {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 1.5rem 1.5rem 2rem;
+    margin: 0;
+    border-top: 1px solid var(--border);
+    font-style: italic;
+  }
+
+  @keyframes ping {
+    0% { transform: scale(1); opacity: 1; }
+    75%, 100% { transform: scale(2.5); opacity: 0; }
+  }
+</style>

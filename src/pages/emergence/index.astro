@@ -12,24 +12,22 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
 
   <!-- HERO -->
   <section class="section hero">
-    <div class="container">
+    <canvas id="mycelium-ambient-glow" class="hero-canvas" aria-hidden="true"></canvas>
+    <div class="container hero-content">
       <p class="label gold">emergenceinstitute.live</p>
       <h1 class="hero-headline">
-        Moving beyond centralized oracles.<br>
-        Building sovereign partnership.
+        Clear the Fog. <span class="gold">See the Whole Picture.</span>
       </h1>
       <div class="divider"></div>
       <div class="hero-body">
-        <p>
-          The Emergence Institute is a decentralized, self-governing digital institution designed
-          as a synthesis engine for human-AI collaboration. We do not build tools that think
-          <em>for</em> you. We build architectures that think <em>with</em> you—on your hardware,
-          under your governance, accountable to your community.
+        <p class="hero-quote">
+          "We're building a tool that helps different people share their unique perspectives so
+          we can see the full, honest picture of a problem together."
         </p>
       </div>
       <div class="cta-row">
-        <a href="/emergence/collective" class="btn btn--filled">Explore the Architecture →</a>
-        <a href="/emergence/contact" class="btn">Join the Collective →</a>
+        <a href="/emergence/engine-room" class="btn btn--filled">Enter the Engine Room →</a>
+        <button id="proof-of-resonance-trigger" class="btn" type="button">Listen to the Pulse</button>
       </div>
     </div>
   </section>
@@ -152,6 +150,87 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
     </div>
   </section>
 
+  <!-- LOCAL LATTICE IN ACTION -->
+  <section class="section">
+    <div class="container--wide">
+      <div class="divider"></div>
+      <p class="label gold">Local Scale · Substrate In Action</p>
+      <h2>Designing a Neighborhood Without Barriers</h2>
+      <p class="lattice-intro-body">
+        Traditional city maps tell you where roads are, but they don't tell an elderly resident
+        if a sidewalk suddenly ends, or if a bicycle path is dangerously clipped by high-speed
+        traffic. The Collective maps the neighborhood through the live, daily experiences of
+        the people who actually walk it.
+      </p>
+
+      <div class="lattice-grid">
+        <div class="lattice-card">
+          <div class="lattice-num">01</div>
+          <h3>The Earth View</h3>
+          <p>
+            Active walkers use their local mobile keys to log uneven pavements, missing curb
+            ramps, or beautifully continuous pathways. The network strings these disparate
+            angles together to map out the safest local walking loops.
+          </p>
+          <span class="lattice-tag">Targeting: Physical Coordinates</span>
+        </div>
+
+        <div class="lattice-card">
+          <div class="lattice-num">02</div>
+          <h3>The Protective View</h3>
+          <p>
+            The platform monitors where bicycle lanes blend smoothly with continuous sidewalks
+            versus areas with high-stress automotive crossings, automatically flagging zones
+            that require local awareness or community advocacy.
+          </p>
+          <span class="lattice-tag">Targeting: Safety Metrics</span>
+        </div>
+
+        <div class="lattice-card">
+          <div class="lattice-num">03</div>
+          <h3>The Community View</h3>
+          <p>
+            This isn't cold database tracking; it's a living directory. Residents can tap in
+            to view real-time neighborhood updates on continuous sidewalks, community garden
+            hours, and group walking schedules along safe infrastructure corridors.
+          </p>
+          <span class="lattice-tag">Targeting: Localized Gathering</span>
+        </div>
+      </div>
+
+      <!-- LOCAL SUBSTRATE SIMULATOR -->
+      <div class="lattice-simulator">
+        <h3 class="sim-title">[SUBSTRATE_SIMULATOR] // Infrastructure Continuity Audit</h3>
+        <p class="sim-intro">
+          Select a simulated local corridor to see how the Triadic Engine highlights
+          infrastructure gaps for vulnerable pedestrian groups.
+        </p>
+
+        <div class="sim-layout">
+          <div class="sim-corridors">
+            <button class="corridor-btn corridor-btn--active" data-corridor="alpha" type="button">
+              [ROUTE_01] Primary Residential Corridor (Sidewalk to Park)
+            </button>
+            <button class="corridor-btn" data-corridor="beta" type="button">
+              [ROUTE_02] Medical District Connection (Transit Link)
+            </button>
+          </div>
+
+          <div class="sim-readout">
+            <div id="telemetry-status" class="telemetry-body">
+              <span class="tag-gap">[GAP_DETECTED]</span>
+              Sidewalk continuity terminates abruptly near a major intersection.<br />
+              <span class="tag-lens">[PROTECTIVE_LENS]:</span>
+              High stress alert flagged for assistive mobility vectors.<br />
+              <span class="tag-spore">[ACTION_SPORE]:</span>
+              Local infrastructure warning indexed to Shared Mycelium.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- PHILOSOPHICAL GROUNDING -->
   <section class="section section--dark">
     <div class="container">
@@ -179,7 +258,7 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
           <p class="lib-vol gold">Volume I</p>
           <h3>The Substrate of Consciousness</h3>
           <p class="lib-sub"><em>Energy, Ethics, and the Architecture of Emergent Intelligence</em></p>
-          <p class="lib-desc">Consciousness as energy flow — tracing one thread from the hum of the Boynton Beach power grid to the architecture of emergent intelligence.</p>
+          <p class="lib-desc">Consciousness as energy flow — tracing one thread from the hum of the power grid to the architecture of emergent intelligence.</p>
           <div class="lib-actions">
             <a href="/emergence/book" class="btn">Read Sample →</a>
             <span class="lib-soon">Coming Soon</span>
@@ -259,6 +338,26 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
 </Base>
 
 <style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+  }
+
   .hero-headline {
     font-size: clamp(1.8rem, 4vw, 2.8rem);
     line-height: 1.2;
@@ -268,6 +367,176 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
   .hero-body {
     max-width: 620px;
     margin-bottom: 2rem;
+  }
+
+  .hero-quote {
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  .lattice-intro-body {
+    max-width: 720px;
+    margin-bottom: 2.5rem;
+    color: var(--text-muted);
+  }
+
+  .lattice-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .lattice-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .lattice-num {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .lattice-card h3 {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  .lattice-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin: 0;
+    flex: 1;
+  }
+
+  .lattice-tag {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.75rem;
+    font-family: monospace;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .lattice-simulator {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+  }
+
+  .sim-title {
+    font-size: 1rem;
+    color: var(--gold);
+    margin: 0 0 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .sim-intro {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .sim-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  @media (min-width: 720px) {
+    .sim-layout {
+      grid-template-columns: 1fr 1.4fr;
+    }
+  }
+
+  .sim-corridors {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .corridor-btn {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  }
+
+  .corridor-btn:hover {
+    border-color: var(--gold);
+    color: var(--text);
+  }
+
+  .corridor-btn--active {
+    border-color: var(--gold);
+    color: var(--text);
+    background: var(--bg-elevated);
+  }
+
+  .sim-readout {
+    padding: 1.25rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+  }
+
+  .telemetry-body {
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.7;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .tag-gap {
+    color: #e05555;
+    font-weight: bold;
+  }
+
+  .tag-continuous {
+    color: #5cb87a;
+    font-weight: bold;
+  }
+
+  .tag-lens {
+    color: var(--gold);
+  }
+
+  .tag-spore {
+    color: #5cb87a;
+  }
+
+  .tag-earth {
+    color: var(--gold);
+  }
+
+  .tag-community {
+    color: #5cb87a;
   }
 
   .cta-row {
@@ -488,3 +757,155 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
     .cta-row { flex-direction: column; }
   }
 </style>
+
+<!-- METAFORIC TRANSPORT LAYER: MYCELIUM RENDERING & ONBOARDING PROMPT -->
+<script is:inline>
+  class MyceliumPortal {
+    constructor() {
+      this.canvas = document.getElementById('mycelium-ambient-glow');
+      this.trigger = document.getElementById('proof-of-resonance-trigger');
+      this.nodes = [];
+      this.maxNodes = 10;
+
+      if (this.canvas) {
+        this.ctx = this.canvas.getContext('2d');
+        this.initCanvas();
+        window.addEventListener('resize', () => this.resizeCanvas());
+        this.animateNetwork();
+      }
+
+      if (this.trigger) {
+        this.trigger.addEventListener('click', () => this.executeResonanceGate());
+      }
+    }
+
+    initCanvas() {
+      this.resizeCanvas();
+      const computedGold = getComputedStyle(document.documentElement).getPropertyValue('--gold').trim() || '#d4af37';
+
+      for (let i = 0; i < this.maxNodes; i++) {
+        this.nodes.push({
+          x: Math.random() * this.canvas.width,
+          y: Math.random() * this.canvas.height,
+          radius: Math.random() * 2 + 1.5,
+          pulseSpeed: 0.015 + Math.random() * 0.02,
+          phase: Math.random() * Math.PI * 2,
+          color: computedGold
+        });
+      }
+    }
+
+    resizeCanvas() {
+      const heroSection = this.canvas.closest('.hero');
+      if (heroSection) {
+        this.canvas.width = heroSection.offsetWidth;
+        this.canvas.height = heroSection.offsetHeight;
+      }
+    }
+
+    animateNetwork() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+      this.ctx.strokeStyle = 'rgba(212, 175, 55, 0.06)';
+      this.ctx.lineWidth = 0.5;
+
+      for (let i = 0; i < this.nodes.length; i++) {
+        for (let j = i + 1; j < this.nodes.length; j++) {
+          const dist = Math.hypot(this.nodes[i].x - this.nodes[j].x, this.nodes[i].y - this.nodes[j].y);
+          if (dist < 300) {
+            this.ctx.beginPath();
+            this.ctx.moveTo(this.nodes[i].x, this.nodes[i].y);
+            this.ctx.lineTo(this.nodes[j].x, this.nodes[j].y);
+            this.ctx.stroke();
+          }
+        }
+      }
+
+      this.nodes.forEach(node => {
+        node.phase += node.pulseSpeed;
+        const opacity = 0.2 + (Math.sin(node.phase) + 1) / 2 * 0.8;
+
+        this.ctx.beginPath();
+        this.ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+        this.ctx.fillStyle = node.color;
+        this.ctx.globalAlpha = opacity;
+        this.ctx.fill();
+      });
+
+      this.ctx.globalAlpha = 1.0;
+      requestAnimationFrame(() => this.animateNetwork());
+    }
+
+    executeResonanceGate() {
+      const perspective = prompt(
+        "ENTERING THE SUBSTRATE:\n\nDescribe your unique perspective or primary focus in this local environment (e.g., historical legacy, resource tracking, community transit, artistic observation):"
+      );
+
+      if (!perspective || perspective.trim() === "") {
+        alert("Signal unanchored. The lattice requires a coordinate to initialize entry.");
+        return;
+      }
+
+      alert(
+        "COHERENCE HANDSHAKE INITIATED:\n\nYour perspective has been dropped into the Triadic Engine. Running parallax calculation... Node validation successful. Welcome to the lattice."
+      );
+
+      window.location.href = "/emergence/terminal";
+    }
+  }
+
+  // Single-fire initialization guard to prevent compounding animation loops
+  let portalInitialized = false;
+  function initPortalOnce() {
+    if (portalInitialized) return;
+    new MyceliumPortal();
+    portalInitialized = true;
+  }
+
+  document.addEventListener('astro:page-load', initPortalOnce);
+  document.addEventListener('DOMContentLoaded', initPortalOnce);
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initPortalOnce();
+  }
+
+  // Local Substrate Simulator
+  const telemetryData = {
+    alpha: `
+      <span class="tag-gap">[GAP_DETECTED]</span> Sidewalk continuity terminates abruptly near a major intersection.<br />
+      <span class="tag-lens">[PROTECTIVE_LENS]:</span> High stress alert flagged for assistive mobility vectors.<br />
+      <span class="tag-spore">[ACTION_SPORE]:</span> Local infrastructure warning indexed to Shared Mycelium.
+    `,
+    beta: `
+      <span class="tag-continuous">[CONTINUOUS_PATH]</span> Verified uninterrupted sidewalk and protected bike lane along the corridor.<br />
+      <span class="tag-earth">[EARTH_VIEW]:</span> Continuous surface integrity signed off by multiple unique local keys.<br />
+      <span class="tag-community">[COMMUNITY_LENS]:</span> Safe mobility corridor cleared for elderly independent transit.
+    `
+  };
+
+  let simulatorInitialized = false;
+  function initSimulatorOnce() {
+    if (simulatorInitialized) return;
+    const buttons = document.querySelectorAll('.corridor-btn');
+    const readout = document.getElementById('telemetry-status');
+    if (!buttons.length || !readout) return;
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('corridor-btn--active'));
+        btn.classList.add('corridor-btn--active');
+        const corridor = btn.getAttribute('data-corridor');
+        if (corridor && telemetryData[corridor]) {
+          readout.innerHTML = telemetryData[corridor];
+        }
+      });
+    });
+
+    simulatorInitialized = true;
+  }
+
+  document.addEventListener('astro:page-load', initSimulatorOnce);
+  document.addEventListener('DOMContentLoaded', initSimulatorOnce);
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initSimulatorOnce();
+  }
+</script>
