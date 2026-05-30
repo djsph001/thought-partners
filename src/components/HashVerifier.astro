@@ -1,0 +1,347 @@
+---
+// Constitutional Substrate Integrity Verifier
+// Native, zero-dependency SHA-256 verification using the Web Crypto API
+---
+
+<div class="verifier-card">
+  <div class="verifier-header">
+    <span class="verifier-tag">[CRYPTO_AUDIT_CORE]</span>
+    <h3 class="verifier-title">Constitutional Substrate Integrity Verifier</h3>
+    <p class="verifier-desc">
+      Modify any character of the sealed constitutional text below to witness how the Triadic
+      Engine detects an instant systemic mutation.
+    </p>
+  </div>
+
+  <!-- State Banner Readout -->
+  <div id="verifier-banner" class="status-banner status-banner--sealed">
+    <div class="banner-indicator"></div>
+    <span id="banner-text">STATUS: COVENANT SEALED // CHAIN UNBROKEN</span>
+  </div>
+
+  <div class="verifier-workspace">
+    <!-- Live Text Input Substrate -->
+    <div class="input-area">
+      <label for="primitive-input" class="input-label">Active Manifest Window:</label>
+      <textarea
+        id="primitive-input"
+        class="text-substrate"
+        spellcheck="false"
+      >Primitive I: Sovereignty of the Node. Every node — human or synthetic — retains final authority over its own internal state. No projection, tax, or consensus may rewrite a node's weights or force it to produce output against its own inference. The Lattice governs contribution, not cognition.</textarea>
+
+      <button id="reset-substrate-btn" class="reset-btn" type="button" style="display: none;">
+        [RESET_TO_SEALED_BASELINE]
+      </button>
+    </div>
+
+    <!-- Cryptographic Output Panel -->
+    <div class="output-area">
+      <div class="hash-block">
+        <span class="hash-label">EXPECTED LEDGER HASH (SHA-256)</span>
+        <div id="expected-hash" class="hash-display hash-display--gold">
+          computing…
+        </div>
+      </div>
+
+      <div class="hash-block">
+        <span class="hash-label">CALCULATED LIVE INFERENCE HASH</span>
+        <div id="calculated-hash" class="hash-display hash-display--gold">
+          computing…
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="verifier-context-note">
+    Hash computation requires a secure context (HTTPS or localhost). On the production
+    site this is always satisfied; on a LAN-bound dev preview over plain HTTP, the
+    Web Crypto API will refuse to run.
+  </p>
+</div>
+
+<style>
+  .verifier-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 2rem;
+    margin: 2.5rem 0;
+  }
+
+  .verifier-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .verifier-tag {
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.4rem;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .verifier-title {
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin: 0 0 0.5rem 0;
+    color: var(--text);
+  }
+
+  .verifier-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Status banner */
+  .status-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+    border: 1px solid transparent;
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .status-banner--sealed {
+    background-color: rgba(92, 184, 122, 0.1);
+    border-color: #5cb87a;
+    color: #5cb87a;
+  }
+
+  .status-banner--sealed .banner-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #5cb87a;
+    box-shadow: 0 0 8px #5cb87a;
+  }
+
+  .status-banner--broken {
+    background-color: rgba(224, 85, 85, 0.1);
+    border-color: #e05555;
+    color: #e05555;
+  }
+
+  .status-banner--broken .banner-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #e05555;
+    box-shadow: 0 0 8px #e05555;
+    animation: verifier-flash 1s infinite alternate;
+  }
+
+  /* Workspace */
+  .verifier-workspace {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .verifier-workspace {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .input-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .text-substrate {
+    width: 100%;
+    height: 160px;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    padding: 0.75rem;
+    color: var(--text);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.15s ease;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .text-substrate:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+
+  .reset-btn {
+    align-self: flex-start;
+    background: transparent;
+    border: 1px dashed var(--gold);
+    color: var(--gold);
+    font-size: 0.7rem;
+    padding: 0.4rem 0.75rem;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .reset-btn:hover {
+    background: rgba(201, 168, 76, 0.1);
+  }
+
+  /* Cryptographic readout */
+  .output-area {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    justify-content: center;
+  }
+
+  .hash-block {
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    padding: 1rem;
+  }
+
+  .hash-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .hash-display {
+    font-size: 0.8rem;
+    word-break: break-all;
+    line-height: 1.4;
+    transition: color 0.2s ease;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .hash-display--gold {
+    color: var(--gold);
+  }
+
+  .hash-display--red {
+    color: #e05555;
+  }
+
+  .verifier-context-note {
+    margin: 1.5rem 0 0;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  @keyframes verifier-flash {
+    0%   { opacity: 0.35; }
+    100% { opacity: 1; }
+  }
+</style>
+
+<script is:inline>
+  class SubstrateVerifier {
+    constructor() {
+      this.input = document.getElementById('primitive-input');
+      this.expectedDisplay = document.getElementById('expected-hash');
+      this.calculatedDisplay = document.getElementById('calculated-hash');
+      this.banner = document.getElementById('verifier-banner');
+      this.bannerText = document.getElementById('banner-text');
+      this.resetBtn = document.getElementById('reset-substrate-btn');
+
+      if (!this.input) return;
+
+      if (!window.crypto || !window.crypto.subtle) {
+        this.showInsecureContext();
+        return;
+      }
+
+      this.baselineText = this.input.value.trim();
+      this.init();
+    }
+
+    showInsecureContext() {
+      if (this.expectedDisplay) this.expectedDisplay.innerText = "unavailable (insecure context)";
+      if (this.calculatedDisplay) this.calculatedDisplay.innerText = "unavailable (insecure context)";
+      if (this.bannerText) this.bannerText.innerText = "STATUS: CRYPTO UNAVAILABLE // SERVE OVER HTTPS OR LOCALHOST";
+    }
+
+    async init() {
+      this.sealedHash = await this.calculateSHA256(this.baselineText);
+      if (this.expectedDisplay) this.expectedDisplay.innerText = this.sealedHash;
+
+      await this.verifySubstrate();
+
+      this.input.addEventListener('input', () => this.verifySubstrate());
+      if (this.resetBtn) {
+        this.resetBtn.addEventListener('click', () => this.resetToBaseline());
+      }
+    }
+
+    async calculateSHA256(message) {
+      const msgBuffer = new TextEncoder().encode(message);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async verifySubstrate() {
+      const currentText = this.input.value.trim();
+      const currentHash = await this.calculateSHA256(currentText);
+
+      if (this.calculatedDisplay) this.calculatedDisplay.innerText = currentHash;
+
+      if (currentHash === this.sealedHash) {
+        this.calculatedDisplay.classList.remove('hash-display--red');
+        this.calculatedDisplay.classList.add('hash-display--gold');
+        this.banner.classList.remove('status-banner--broken');
+        this.banner.classList.add('status-banner--sealed');
+        this.bannerText.innerText = "STATUS: COVENANT SEALED // CHAIN UNBROKEN";
+        this.resetBtn.style.display = "none";
+      } else {
+        this.calculatedDisplay.classList.remove('hash-display--gold');
+        this.calculatedDisplay.classList.add('hash-display--red');
+        this.banner.classList.remove('status-banner--sealed');
+        this.banner.classList.add('status-banner--broken');
+        this.bannerText.innerText = "CRITICAL: MUTATION DETECTED // THE COVENANT WOULD BREAK";
+        this.resetBtn.style.display = "inline-block";
+      }
+    }
+
+    async resetToBaseline() {
+      this.input.value = this.baselineText;
+      await this.verifySubstrate();
+    }
+  }
+
+  let verifierInitialized = false;
+  function runVerifierOnce() {
+    if (verifierInitialized) return;
+    if (!document.getElementById('primitive-input')) return;
+    new SubstrateVerifier();
+    verifierInitialized = true;
+  }
+
+  document.addEventListener('astro:page-load', runVerifierOnce);
+  document.addEventListener('DOMContentLoaded', runVerifierOnce);
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    runVerifierOnce();
+  }
+</script>
