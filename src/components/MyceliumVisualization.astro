@@ -1,0 +1,557 @@
+---
+// MyceliumVisualization.astro
+// Live canvas-based lattice mycelium network visualization
+// Adapted from the standalone demo for embedded use
+---
+
+<div class="mycelium-viz" id="mycelium-viz">
+  <p class="mycelium-viz__label">Diagram 1: The Pulse</p>
+  <canvas id="mycelium-canvas"></canvas>
+  <div class="mycelium-viz__legend">
+    <p class="mycelium-viz__legend-title">Lattice States</p>
+    <div class="mycelium-viz__legend-row"><span class="mycelium-viz__dot" style="background:#f5e6c8;box-shadow:0 0 6px #f5e6c8"></span> Idle / Listening</div>
+    <div class="mycelium-viz__legend-row"><span class="mycelium-viz__dot" style="background:#4de8d0;box-shadow:0 0 6px #4de8d0"></span> Handshake</div>
+    <div class="mycelium-viz__legend-row"><span class="mycelium-viz__dot" style="background:#f0a030;box-shadow:0 0 6px #f0a030"></span> Adversarial Synthesis</div>
+    <div class="mycelium-viz__legend-row"><span class="mycelium-viz__dot" style="background:#5ce87a;box-shadow:0 0 6px #5ce87a"></span> Resolution / Convergence</div>
+    <div class="mycelium-viz__legend-row"><span class="mycelium-viz__dot" style="background:#9a6dd7;box-shadow:0 0 6px #9a6dd7"></span> Constitutional Review</div>
+    <div class="mycelium-viz__legend-row"><span class="mycelium-viz__dot" style="background:#8b6a3e;box-shadow:0 0 5px rgba(139,106,62,0.5)"></span> Compost / Decay</div>
+  </div>
+</div>
+
+<style>
+  .mycelium-viz {
+    position: relative;
+    margin-top: 2rem;
+    background: #0a0a12;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .mycelium-viz__label {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold, #c9a227);
+    z-index: 2;
+    margin: 0;
+    pointer-events: none;
+  }
+
+  #mycelium-canvas {
+    display: block;
+    width: 100%;
+    height: 450px;
+  }
+
+  .mycelium-viz__legend {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(10, 10, 18, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 11px;
+    line-height: 1.85;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    pointer-events: none;
+    user-select: none;
+    z-index: 2;
+  }
+
+  .mycelium-viz__legend-title {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    color: rgba(255, 255, 255, 0.34);
+    margin: 0 0 6px 0;
+  }
+
+  .mycelium-viz__legend-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mycelium-viz__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 640px) {
+    #mycelium-canvas {
+      height: 320px;
+    }
+    .mycelium-viz__legend {
+      font-size: 9px;
+      padding: 8px 10px;
+      bottom: 8px;
+      right: 8px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const container = document.getElementById('mycelium-viz');
+    const cvs = document.getElementById('mycelium-canvas') as HTMLCanvasElement;
+    if (!container || !cvs) return;
+
+    const ctx = cvs.getContext('2d');
+    if (!ctx) return;
+
+    // --- Configuration (scaled for embedded use) ---
+    const BG = '#0a0a12';
+    const isMobile = window.innerWidth < 640;
+    const NODE_COUNT = isMobile ? 15 : 28;
+    const MAX_EDGES = isMobile ? 20 : 45;
+    const CONNECT_DIST = isMobile ? 140 : 180;
+    const REPULSION = 3500;
+    const ATTRACTION = 0.00035;
+    const DAMPING = 0.93;
+    const CENTER_PULL = 0.00018;
+    const SPORE_CAP = isMobile ? 80 : 200;
+
+    // States
+    const IDLE = 0, HAND = 1, SYNTH = 2, RESOLVE = 3, CONST = 4, COMPOST = 5;
+
+    const PALETTE = [
+      { r: 245, g: 230, b: 200 },
+      { r: 77, g: 232, b: 208 },
+      { r: 240, g: 160, b: 48 },
+      { r: 92, g: 232, b: 122 },
+      { r: 154, g: 109, b: 215 },
+      { r: 139, g: 106, b: 62 },
+    ];
+    const GLOW_R = [13, 18, 28, 17, 22, 9];
+    const BASE_R = [3.2, 3.8, 5.0, 3.6, 4.3, 2.4];
+
+    // Canvas sizing
+    let W: number, H: number;
+    function resize() {
+      const rect = cvs.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = rect.width;
+      H = rect.height;
+      cvs.width = W * dpr;
+      cvs.height = H * dpr;
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Utility
+    const rand = (a: number, b: number) => a + Math.random() * (b - a);
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+    const clamp = (v: number, lo: number, hi: number) => v < lo ? lo : v > hi ? hi : v;
+    const ease = (t: number) => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+
+    interface Color { r: number; g: number; b: number; }
+    const rgba = (c: Color, a: number) => `rgba(${c.r | 0},${c.g | 0},${c.b | 0},${a})`;
+    const lerpC = (a: Color, b: Color, t: number): Color => ({
+      r: lerp(a.r, b.r, t), g: lerp(a.g, b.g, t), b: lerp(a.b, b.b, t),
+    });
+
+    interface Node {
+      x: number; y: number; vx: number; vy: number;
+      state: number; prev: number; stateT: number;
+      phase: number; pSpeed: number;
+      alive: boolean; opacity: number; compostCD: number;
+    }
+
+    interface Edge {
+      a: Node; b: Node; state: number; opacity: number; dying: boolean;
+      born: number; lifespan: number; jitterSeed: number;
+    }
+
+    interface Spore {
+      x: number; y: number; vx: number; vy: number;
+      life: number; decay: number; r: number;
+      cr: number; cg: number; cb: number;
+    }
+
+    // --- Nodes ---
+    const nodes: Node[] = [];
+    for (let i = 0; i < NODE_COUNT; i++) {
+      nodes.push({
+        x: rand(W * 0.1, W * 0.9), y: rand(H * 0.1, H * 0.9),
+        vx: 0, vy: 0,
+        state: IDLE, prev: IDLE, stateT: 1,
+        phase: rand(0, Math.PI * 2),
+        pSpeed: rand(0.008, 0.02),
+        alive: true, opacity: 1, compostCD: 0,
+      });
+    }
+
+    // --- Edges ---
+    const edges: Edge[] = [];
+    function addEdge(a: Node, b: Node) {
+      if (a === b) return;
+      for (const e of edges) if ((e.a === a && e.b === b) || (e.a === b && e.b === a)) return;
+      edges.push({
+        a, b, state: HAND, opacity: 0, dying: false,
+        born: performance.now(), lifespan: rand(7000, 20000),
+        jitterSeed: rand(0, 1000),
+      });
+      setNode(a, HAND);
+      setNode(b, HAND);
+    }
+
+    function setNode(n: Node, s: number) {
+      if (n.state === s) return;
+      n.prev = n.state; n.state = s; n.stateT = 0;
+    }
+    function setEdge(e: Edge, s: number) {
+      e.state = s;
+      setNode(e.a, s); setNode(e.b, s);
+    }
+
+    // --- Spores ---
+    const spores: Spore[] = [];
+    function emit(x: number, y: number, col: Color, count: number, speed?: number) {
+      if (spores.length > SPORE_CAP) return;
+      for (let i = 0; i < count; i++) {
+        const a = rand(0, Math.PI * 2), sp = rand(0.12, speed || 0.55);
+        spores.push({
+          x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp,
+          life: 1, decay: rand(0.004, 0.014), r: rand(0.8, 2.2),
+          cr: col.r, cg: col.g, cb: col.b,
+        });
+      }
+    }
+
+    // --- State Machine ---
+    let lastTick = 0;
+    function tickStates(now: number) {
+      if (now - lastTick < 1800) return;
+      lastTick = now;
+
+      for (const e of edges) {
+        if (e.dying) continue;
+        const age = (now - e.born) / e.lifespan;
+
+        if (e.state === HAND && age > 0.12 + Math.random() * 0.08) {
+          if (Math.random() < 0.40) {
+            setEdge(e, SYNTH);
+            emit(lerp(e.a.x, e.b.x, 0.5), lerp(e.a.y, e.b.y, 0.5), PALETTE[SYNTH], 8, 1.0);
+          } else if (Math.random() < 0.35) {
+            setEdge(e, RESOLVE);
+            emit(lerp(e.a.x, e.b.x, 0.5), lerp(e.a.y, e.b.y, 0.5), PALETTE[RESOLVE], 5, 0.4);
+          }
+        } else if (e.state === SYNTH && age > 0.35 + Math.random() * 0.1) {
+          if (Math.random() < 0.4) {
+            setEdge(e, RESOLVE);
+            emit(lerp(e.a.x, e.b.x, 0.5), lerp(e.a.y, e.b.y, 0.5), PALETTE[RESOLVE], 6, 0.4);
+          } else if (Math.random() < 0.18) {
+            setEdge(e, CONST);
+          }
+        } else if (e.state === RESOLVE && age > 0.6 + Math.random() * 0.1) {
+          if (Math.random() < 0.25) setEdge(e, CONST);
+          else if (Math.random() < 0.15) { setEdge(e, COMPOST); e.dying = true; }
+        } else if (e.state === CONST && age > 0.8) {
+          if (Math.random() < 0.3) { setEdge(e, COMPOST); e.dying = true; }
+        }
+        if (age > 1) { setEdge(e, COMPOST); e.dying = true; }
+      }
+
+      if (edges.length < MAX_EDGES && Math.random() < 0.65) {
+        const a = nodes[Math.random() * nodes.length | 0];
+        if (a.alive) {
+          let best: Node | null = null, bestD = CONNECT_DIST;
+          for (const n of nodes) {
+            if (n === a || !n.alive) continue;
+            const dx = a.x - n.x, dy = a.y - n.y;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d < bestD && !edges.some(e => (e.a === a && e.b === n) || (e.a === n && e.b === a))) {
+              bestD = d; best = n;
+            }
+          }
+          if (best) {
+            addEdge(a, best);
+            emit(lerp(a.x, best.x, 0.5), lerp(a.y, best.y, 0.5), PALETTE[HAND], 4, 0.3);
+          }
+        }
+      }
+
+      if (Math.random() < 0.03) {
+        const pool = nodes.filter(n => n.state === IDLE && n.alive);
+        if (pool.length > 8) {
+          const n = pool[Math.random() * pool.length | 0];
+          setNode(n, COMPOST);
+          n.compostCD = 5000;
+        }
+      }
+    }
+
+    // --- Physics ---
+    function physics(dt: number) {
+      const s = dt / 16.67;
+      for (let i = 0; i < nodes.length; i++) {
+        const a = nodes[i]; if (!a.alive) continue;
+        for (let j = i + 1; j < nodes.length; j++) {
+          const b = nodes[j]; if (!b.alive) continue;
+          const dx = a.x - b.x, dy = a.y - b.y;
+          let d2 = dx * dx + dy * dy;
+          if (d2 > 80000) continue;
+          if (d2 < 1) d2 = 1;
+          const d = Math.sqrt(d2);
+          const f = REPULSION / d2 * s;
+          const fx = dx / d * f, fy = dy / d * f;
+          a.vx += fx; a.vy += fy;
+          b.vx -= fx; b.vy -= fy;
+        }
+      }
+      for (const e of edges) {
+        if (e.dying) continue;
+        const dx = e.b.x - e.a.x, dy = e.b.y - e.a.y;
+        const d = Math.sqrt(dx * dx + dy * dy); if (d < 1) continue;
+        const f = d * ATTRACTION * s;
+        e.a.vx += dx / d * f; e.a.vy += dy / d * f;
+        e.b.vx -= dx / d * f; e.b.vy -= dy / d * f;
+      }
+      const m = 30;
+      for (const n of nodes) {
+        if (!n.alive) continue;
+        n.vx += (W / 2 - n.x) * CENTER_PULL * s;
+        n.vy += (H / 2 - n.y) * CENTER_PULL * s;
+        n.vx *= DAMPING; n.vy *= DAMPING;
+        n.x += n.vx * s; n.y += n.vy * s;
+        if (n.x < m) n.vx += 0.4; if (n.x > W - m) n.vx -= 0.4;
+        if (n.y < m) n.vy += 0.4; if (n.y > H - m) n.vy -= 0.4;
+      }
+    }
+
+    // --- Draw ---
+    let lastFrame = 0;
+    let animId: number;
+    let running = false;
+
+    function frame(now: number) {
+      if (!running) return;
+      animId = requestAnimationFrame(frame);
+      const dt = lastFrame ? Math.min(now - lastFrame, 50) : 16.67;
+      lastFrame = now;
+      const s = dt / 16.67;
+
+      ctx!.fillStyle = BG;
+      ctx!.fillRect(0, 0, W, H);
+
+      // Subtle radial vignette
+      const vg = ctx!.createRadialGradient(W / 2, H / 2, W * 0.12, W / 2, H / 2, W * 0.72);
+      vg.addColorStop(0, 'rgba(14,13,26,0)');
+      vg.addColorStop(1, 'rgba(3,3,7,0.55)');
+      ctx!.fillStyle = vg;
+      ctx!.fillRect(0, 0, W, H);
+
+      tickStates(now);
+      physics(dt);
+
+      // Sync handshake pulses
+      for (const e of edges) {
+        if (e.state === HAND || e.state === RESOLVE) {
+          const avg = (e.a.phase + e.b.phase) / 2;
+          e.a.phase = lerp(e.a.phase, avg, 0.015);
+          e.b.phase = lerp(e.b.phase, avg, 0.015);
+        }
+        if (e.state === CONST) {
+          e.a.pSpeed = lerp(e.a.pSpeed, 0.004, 0.02);
+          e.b.pSpeed = lerp(e.b.pSpeed, 0.004, 0.02);
+        }
+      }
+
+      // Update node transitions
+      for (const n of nodes) {
+        if (n.stateT < 1) n.stateT = Math.min(1, n.stateT + dt * 0.0018);
+        n.phase += n.pSpeed * dt;
+        if (n.state === COMPOST && n.alive) {
+          n.compostCD -= dt;
+          n.opacity = clamp(n.compostCD / 4000, 0, 1);
+          if (n.compostCD <= 0) {
+            n.alive = false; n.opacity = 0;
+            emit(n.x, n.y, PALETTE[COMPOST], 10, 0.3);
+          }
+        } else if (n.alive) {
+          n.opacity = Math.min(1, n.opacity + dt * 0.002);
+        }
+        if (!n.alive && Math.random() < 0.0015) {
+          n.alive = true; n.opacity = 0;
+          n.x = rand(W * 0.15, W * 0.85); n.y = rand(H * 0.15, H * 0.85);
+          n.state = IDLE; n.prev = IDLE; n.stateT = 1;
+          n.pSpeed = rand(0.008, 0.02);
+        }
+      }
+
+      // Update edge opacity
+      for (const e of edges) {
+        e.opacity = e.dying
+          ? Math.max(0, e.opacity - dt * 0.0005)
+          : Math.min(1, e.opacity + dt * 0.003);
+      }
+      // Prune dead edges
+      for (let i = edges.length - 1; i >= 0; i--) {
+        if (edges[i].dying && edges[i].opacity <= 0.01) {
+          const e = edges[i];
+          const aHas = edges.some((x, j) => j !== i && (x.a === e.a || x.b === e.a) && !x.dying);
+          const bHas = edges.some((x, j) => j !== i && (x.a === e.b || x.b === e.b) && !x.dying);
+          if (!aHas) setNode(e.a, IDLE);
+          if (!bHas) setNode(e.b, IDLE);
+          edges.splice(i, 1);
+        }
+      }
+
+      // === Draw Edges ===
+      for (const e of edges) {
+        if (e.opacity <= 0) continue;
+        const col = PALETTE[e.state];
+        let drawCol = col;
+        let alpha = e.opacity * 0.5;
+        let width = 1.0;
+
+        if (e.state === HAND) { alpha *= 0.8; width = 1.3; }
+        else if (e.state === SYNTH) {
+          const flicker = 0.85 + Math.sin(now * 0.02 + e.jitterSeed) * 0.15;
+          drawCol = { r: col.r * flicker, g: col.g * flicker, b: col.b * flicker };
+          alpha *= 1.1; width = 2.0;
+        }
+        else if (e.state === RESOLVE) { alpha *= 0.9; width = 1.5; }
+        else if (e.state === CONST) { alpha *= 0.85; width = 1.6; }
+        else if (e.state === COMPOST) {
+          drawCol = lerpC(col, { r: 40, g: 30, b: 12 }, 1 - e.opacity);
+          width = 0.7;
+        }
+
+        ctx!.beginPath();
+        ctx!.lineWidth = width;
+        ctx!.strokeStyle = rgba(drawCol, alpha);
+
+        if (e.state === SYNTH) {
+          const segs = 14;
+          const dx = e.b.x - e.a.x, dy = e.b.y - e.a.y;
+          const d = Math.sqrt(dx * dx + dy * dy) || 1;
+          const nx = -dy / d, ny = dx / d;
+          ctx!.moveTo(e.a.x, e.a.y);
+          for (let k = 1; k < segs; k++) {
+            const t = k / segs;
+            const amp = Math.sin(now * 0.012 + e.jitterSeed + k * 2.7) * 4;
+            ctx!.lineTo(
+              lerp(e.a.x, e.b.x, t) + nx * amp,
+              lerp(e.a.y, e.b.y, t) + ny * amp,
+            );
+          }
+          ctx!.lineTo(e.b.x, e.b.y);
+          ctx!.shadowColor = rgba(drawCol, alpha * 0.5);
+          ctx!.shadowBlur = 12;
+        } else {
+          const mx = (e.a.x + e.b.x) / 2 + Math.sin(now * 0.002 + e.jitterSeed) * 5;
+          const my = (e.a.y + e.b.y) / 2 + Math.cos(now * 0.003 + e.jitterSeed) * 5;
+          ctx!.moveTo(e.a.x, e.a.y);
+          ctx!.quadraticCurveTo(mx, my, e.b.x, e.b.y);
+          ctx!.shadowColor = rgba(drawCol, alpha * 0.35);
+          ctx!.shadowBlur = 8;
+        }
+        ctx!.stroke();
+        ctx!.shadowBlur = 0;
+
+        if (e.state === SYNTH && Math.random() < 0.035 * s) {
+          const t = rand(0.15, 0.85);
+          emit(lerp(e.a.x, e.b.x, t), lerp(e.a.y, e.b.y, t), PALETTE[SYNTH], 2, 1.1);
+        }
+        if ((e.state === HAND || e.state === RESOLVE) && Math.random() < 0.008 * s) {
+          const t = rand(0.25, 0.75);
+          emit(lerp(e.a.x, e.b.x, t), lerp(e.a.y, e.b.y, t), drawCol, 1, 0.2);
+        }
+      }
+
+      // === Draw Nodes ===
+      for (const n of nodes) {
+        if (!n.alive && n.opacity <= 0) continue;
+        const t = ease(n.stateT);
+        const col = lerpC(PALETTE[n.prev], PALETTE[n.state], t);
+        const baseR = lerp(BASE_R[n.prev], BASE_R[n.state], t);
+        const glowR = lerp(GLOW_R[n.prev], GLOW_R[n.state], t);
+        const pulse = Math.sin(n.phase) * 0.3 + 0.7;
+        const r = baseR * (0.85 + pulse * 0.15);
+        const a = n.opacity * pulse;
+        const gr = glowR * (0.8 + pulse * 0.2);
+
+        const grad = ctx!.createRadialGradient(n.x, n.y, r * 0.3, n.x, n.y, gr);
+        grad.addColorStop(0, rgba(col, a * 0.5));
+        grad.addColorStop(0.45, rgba(col, a * 0.12));
+        grad.addColorStop(1, rgba(col, 0));
+        ctx!.fillStyle = grad;
+        ctx!.beginPath();
+        ctx!.arc(n.x, n.y, gr, 0, Math.PI * 2);
+        ctx!.fill();
+
+        ctx!.fillStyle = rgba(col, a * 0.92);
+        ctx!.shadowColor = rgba(col, a * 0.6);
+        ctx!.shadowBlur = 8;
+        ctx!.beginPath();
+        ctx!.arc(n.x, n.y, r, 0, Math.PI * 2);
+        ctx!.fill();
+        ctx!.shadowBlur = 0;
+      }
+
+      // === Spores ===
+      for (let i = spores.length - 1; i >= 0; i--) {
+        const p = spores[i];
+        p.x += p.vx * s; p.y += p.vy * s;
+        p.vy -= 0.002 * s;
+        p.vx *= 0.995; p.vy *= 0.995;
+        p.life -= p.decay * s;
+        if (p.life <= 0) { spores.splice(i, 1); continue; }
+        const a = p.life * 0.55;
+        ctx!.fillStyle = `rgba(${p.cr},${p.cg},${p.cb},${a})`;
+        ctx!.beginPath();
+        ctx!.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2);
+        ctx!.fill();
+      }
+
+      // Ambient drifting spores
+      if (spores.length < SPORE_CAP && Math.random() < 0.12) {
+        const a = rand(0, Math.PI * 2);
+        spores.push({
+          x: rand(0, W), y: rand(0, H),
+          vx: Math.cos(a) * 0.05, vy: rand(-0.1, -0.02),
+          life: 1, decay: rand(0.002, 0.004), r: rand(0.5, 1.3),
+          cr: 220, cg: 210, cb: 190,
+        });
+      }
+    }
+
+    function start() {
+      if (running) return;
+      running = true;
+      lastFrame = 0;
+      animId = requestAnimationFrame(frame);
+    }
+
+    function stop() {
+      running = false;
+      cancelAnimationFrame(animId);
+    }
+
+    // IntersectionObserver: only animate when visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            start();
+          } else {
+            stop();
+          }
+        }
+      },
+      { threshold: 0.1 },
+    );
+    observer.observe(container);
+  })();
+</script>

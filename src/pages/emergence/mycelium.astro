@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import EmergenceHeader from '../../components/EmergenceHeader.astro';
 import EmergenceFooter from '../../components/EmergenceFooter.astro';
+import MyceliumVisualization from '../../components/MyceliumVisualization.astro';
 ---
 
 <Base
@@ -85,16 +86,7 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
           </li>
         </ol>
 
-        <div class="diagram-placeholder">
-          <div class="diagram-inner">
-            <p class="diagram-label gold">Diagram 1: The Pulse</p>
-            <p class="diagram-desc muted">
-              [Visual: Two nodes exchanging temperature waveforms + keystroke rhythm patterns.
-              The overlap zone where both signatures match is highlighted in amber.
-              A lock icon appears when the Constitutional Hashes align.]
-            </p>
-          </div>
-        </div>
+        <MyceliumVisualization />
       </section>
 
       <section class="myc-section">
