@@ -1,0 +1,456 @@
+---
+// AntifragileForkingDiagram.astro
+// Diagram 3: Antifragile Forking
+// Network fracture, independent operation, reconnection with double witness weight
+---
+
+<div class="fork-viz" id="fork-viz">
+  <p class="fork-viz__label">Diagram 3: Antifragile Forking</p>
+  <canvas id="fork-canvas"></canvas>
+  <div class="fork-viz__legend">
+    <p class="fork-viz__legend-title">Network States</p>
+    <div class="fork-viz__legend-row"><span class="fork-viz__dot" style="background:#f0a030;box-shadow:0 0 6px #f0a030"></span> Connected Node</div>
+    <div class="fork-viz__legend-row"><span class="fork-viz__dot" style="background:#e05050;box-shadow:0 0 6px #e05050"></span> Fracture Event</div>
+    <div class="fork-viz__legend-row"><span class="fork-viz__dot" style="background:#5ce87a;box-shadow:0 0 6px #5ce87a"></span> Reconnected</div>
+    <div class="fork-viz__legend-row"><span class="fork-viz__dot" style="background:#ffe066;box-shadow:0 0 8px #ffe066"></span> Double Witness Weight</div>
+  </div>
+  <div class="fork-viz__phase" id="fork-phase-label">CONNECTED</div>
+  <div class="fork-viz__timer" id="fork-timer"></div>
+</div>
+
+<style>
+  .fork-viz {
+    position: relative;
+    margin-top: 2rem;
+    background: #0a0a12;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .fork-viz__label {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold, #c9a227);
+    z-index: 2;
+    margin: 0;
+    pointer-events: none;
+  }
+
+  #fork-canvas {
+    display: block;
+    width: 100%;
+    height: 450px;
+  }
+
+  .fork-viz__legend {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(10, 10, 18, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 11px;
+    line-height: 1.85;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    pointer-events: none;
+    user-select: none;
+    z-index: 2;
+  }
+
+  .fork-viz__legend-title {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    color: rgba(255, 255, 255, 0.34);
+    margin: 0 0 6px 0;
+  }
+
+  .fork-viz__legend-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .fork-viz__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .fork-viz__phase {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(240, 160, 48, 0.7);
+    z-index: 2;
+    margin: 0;
+    pointer-events: none;
+    font-family: system-ui, sans-serif;
+  }
+
+  .fork-viz__timer {
+    position: absolute;
+    bottom: 12px;
+    left: 16px;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.4);
+    z-index: 2;
+    margin: 0;
+    pointer-events: none;
+    font-family: 'Courier New', monospace;
+  }
+
+  @media (max-width: 640px) {
+    #fork-canvas { height: 360px; }
+    .fork-viz__legend { font-size: 9px; padding: 8px 10px; bottom: 8px; right: 8px; }
+  }
+</style>
+
+<script>
+  (function () {
+    const container = document.getElementById('fork-viz');
+    const cvs = document.getElementById('fork-canvas') as HTMLCanvasElement;
+    const phaseLabel = document.getElementById('fork-phase-label');
+    const timerLabel = document.getElementById('fork-timer');
+    if (!container || !cvs) return;
+    const ctx = cvs.getContext('2d');
+    if (!ctx) return;
+
+    const BG = '#0a0a12';
+    const isMobile = window.innerWidth < 640;
+    const NODE_COUNT = isMobile ? 14 : 20;
+
+    let W: number, H: number;
+    function resize() {
+      const rect = cvs.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = rect.width;
+      H = rect.height;
+      cvs.width = W * dpr;
+      cvs.height = H * dpr;
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const rand = (a: number, b: number) => a + Math.random() * (b - a);
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+    const rgba = (r: number, g: number, b: number, a: number) => `rgba(${r|0},${g|0},${b|0},${a})`;
+
+    interface FNode {
+      x: number; y: number; baseX: number; baseY: number;
+      vx: number; vy: number;
+      cluster: number; // 0 = left, 1 = right
+      phase: number; pSpeed: number;
+      doubleWeight: boolean;
+    }
+
+    interface FEdge {
+      a: number; b: number;
+      cross: boolean; // crosses the fracture line
+    }
+
+    // Layout: two clusters that start together
+    const nodes: FNode[] = [];
+    const leftCount = Math.ceil(NODE_COUNT / 2);
+    const rightCount = NODE_COUNT - leftCount;
+
+    for (let i = 0; i < leftCount; i++) {
+      const x = rand(W * 0.15, W * 0.45);
+      const y = rand(H * 0.2, H * 0.8);
+      nodes.push({
+        x, y, baseX: x, baseY: y,
+        vx: 0, vy: 0,
+        cluster: 0,
+        phase: rand(0, Math.PI * 2),
+        pSpeed: rand(0.008, 0.02),
+        doubleWeight: false,
+      });
+    }
+
+    for (let i = 0; i < rightCount; i++) {
+      const x = rand(W * 0.55, W * 0.85);
+      const y = rand(H * 0.2, H * 0.8);
+      nodes.push({
+        x, y, baseX: x, baseY: y,
+        vx: 0, vy: 0,
+        cluster: 1,
+        phase: rand(0, Math.PI * 2),
+        pSpeed: rand(0, Math.PI * 2),
+        doubleWeight: false,
+      });
+    }
+
+    // Build edges: connect nearby nodes
+    const edges: FEdge[] = [];
+    const CONNECT_DIST = isMobile ? 140 : 180;
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].baseX - nodes[j].baseX;
+        const dy = nodes[i].baseY - nodes[j].baseY;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < CONNECT_DIST && Math.random() < 0.6) {
+          edges.push({
+            a: i, b: j,
+            cross: nodes[i].cluster !== nodes[j].cluster,
+          });
+        }
+      }
+    }
+
+    // Mark some nodes that exist in both clusters' neighborhoods as double-weight candidates
+    const crossNodes = new Set<number>();
+    for (const e of edges) {
+      if (e.cross) {
+        crossNodes.add(e.a);
+        crossNodes.add(e.b);
+      }
+    }
+
+    // Animation phases
+    const PHASE_CONNECTED = 0;
+    const PHASE_FRACTURE = 1;
+    const PHASE_ISOLATED = 2;
+    const PHASE_RECONNECT = 3;
+    const PHASE_MERGED = 4;
+
+    const PHASE_NAMES = ['CONNECTED', '⚡ FRACTURE', 'ISOLATED CLUSTERS', 'RECONNECTING', 'MERGED — RE-ENTRAINMENT'];
+    const PHASE_DURATIONS = [5000, 1500, 6000, 2000, 5000]; // ms per phase
+
+    let currentPhase = PHASE_CONNECTED;
+    let phaseStart = 0;
+    let cycleStart = 0;
+    let splitOffset = 0;
+    let fractureFlash = 0;
+
+    let running = false;
+    let animId: number;
+    let lastFrame = 0;
+
+    function frame(now: number) {
+      if (!running) return;
+      animId = requestAnimationFrame(frame);
+      const dt = lastFrame ? Math.min(now - lastFrame, 50) : 16.67;
+      lastFrame = now;
+
+      if (cycleStart === 0) { cycleStart = now; phaseStart = now; }
+
+      // Phase transitions
+      const phaseElapsed = now - phaseStart;
+      if (phaseElapsed > PHASE_DURATIONS[currentPhase]) {
+        currentPhase = (currentPhase + 1) % 5;
+        phaseStart = now;
+        if (currentPhase === PHASE_CONNECTED) {
+          // Reset
+          splitOffset = 0;
+          fractureFlash = 0;
+          for (const n of nodes) n.doubleWeight = false;
+        }
+        if (currentPhase === PHASE_FRACTURE) {
+          fractureFlash = 1;
+        }
+        if (currentPhase === PHASE_MERGED) {
+          for (const idx of crossNodes) {
+            if (Math.random() < 0.7) nodes[idx].doubleWeight = true;
+          }
+        }
+      }
+
+      // Update split offset
+      const targetSplit = (currentPhase === PHASE_ISOLATED || currentPhase === PHASE_FRACTURE)
+        ? (isMobile ? 40 : 60) : 0;
+      splitOffset = lerp(splitOffset, targetSplit, 0.02 * (dt / 16.67));
+
+      // Fracture flash decay
+      if (fractureFlash > 0) fractureFlash = Math.max(0, fractureFlash - dt * 0.003);
+
+      // Update phase label
+      if (phaseLabel) {
+        phaseLabel.textContent = PHASE_NAMES[currentPhase];
+        const colors = ['rgba(240,160,48,0.7)', 'rgba(224,80,80,0.9)', 'rgba(240,160,48,0.7)', 'rgba(92,232,122,0.8)', 'rgba(92,232,122,0.9)'];
+        phaseLabel.style.color = colors[currentPhase];
+      }
+
+      // Timer for re-entrainment window
+      if (timerLabel) {
+        if (currentPhase === PHASE_MERGED) {
+          const elapsed = (now - phaseStart) / PHASE_DURATIONS[PHASE_MERGED];
+          const daysLeft = Math.max(0, Math.ceil(7 * (1 - elapsed)));
+          timerLabel.textContent = `RE-ENTRAINMENT: ${daysLeft}d remaining`;
+        } else if (currentPhase === PHASE_ISOLATED) {
+          timerLabel.textContent = 'CLUSTERS OPERATING INDEPENDENTLY';
+        } else {
+          timerLabel.textContent = '';
+        }
+      }
+
+      // Draw
+      ctx!.fillStyle = BG;
+      ctx!.fillRect(0, 0, W, H);
+
+      const vg = ctx!.createRadialGradient(W / 2, H / 2, W * 0.05, W / 2, H / 2, W * 0.6);
+      vg.addColorStop(0, 'rgba(14,13,26,0)');
+      vg.addColorStop(1, 'rgba(3,3,7,0.55)');
+      ctx!.fillStyle = vg;
+      ctx!.fillRect(0, 0, W, H);
+
+      // Fracture line
+      if (currentPhase >= PHASE_FRACTURE && currentPhase <= PHASE_RECONNECT) {
+        const lineAlpha = currentPhase === PHASE_RECONNECT
+          ? Math.max(0, 0.3 * (1 - (now - phaseStart) / PHASE_DURATIONS[PHASE_RECONNECT]))
+          : 0.15 + fractureFlash * 0.4;
+        ctx!.beginPath();
+        ctx!.moveTo(W / 2, H * 0.05);
+        // Jagged fracture line
+        for (let y = H * 0.05; y < H * 0.95; y += 12) {
+          ctx!.lineTo(W / 2 + Math.sin(y * 0.08 + now * 0.001) * 8, y);
+        }
+        ctx!.strokeStyle = rgba(224, 80, 80, lineAlpha);
+        ctx!.lineWidth = 1.5 + fractureFlash * 3;
+        ctx!.shadowColor = rgba(224, 80, 80, lineAlpha);
+        ctx!.shadowBlur = 8 + fractureFlash * 20;
+        ctx!.stroke();
+        ctx!.shadowBlur = 0;
+      }
+
+      // Fracture flash overlay
+      if (fractureFlash > 0.3) {
+        ctx!.fillStyle = rgba(224, 80, 80, fractureFlash * 0.08);
+        ctx!.fillRect(0, 0, W, H);
+      }
+
+      // Calculate node positions with split
+      const positions: { x: number; y: number }[] = [];
+      for (const n of nodes) {
+        n.phase += n.pSpeed * dt;
+        const jitterX = Math.sin(n.phase) * 2;
+        const jitterY = Math.cos(n.phase * 1.3) * 2;
+        const offset = n.cluster === 0 ? -splitOffset : splitOffset;
+        positions.push({
+          x: n.baseX + offset + jitterX,
+          y: n.baseY + jitterY,
+        });
+      }
+
+      // Draw edges
+      for (const e of edges) {
+        const pa = positions[e.a];
+        const pb = positions[e.b];
+
+        // Hide cross edges during fracture/isolation
+        if (e.cross && (currentPhase === PHASE_FRACTURE || currentPhase === PHASE_ISOLATED)) continue;
+
+        let alpha = 0.3;
+        let r = 240, g = 160, b = 48;
+
+        if (e.cross && currentPhase === PHASE_RECONNECT) {
+          const progress = (now - phaseStart) / PHASE_DURATIONS[PHASE_RECONNECT];
+          alpha = 0.4 * progress;
+          r = 92; g = 232; b = 122;
+        } else if (e.cross && currentPhase === PHASE_MERGED) {
+          r = 92; g = 232; b = 122;
+          alpha = 0.4;
+        }
+
+        ctx!.beginPath();
+        const mx = (pa.x + pb.x) / 2 + Math.sin(now * 0.002 + e.a) * 4;
+        const my = (pa.y + pb.y) / 2 + Math.cos(now * 0.003 + e.b) * 4;
+        ctx!.moveTo(pa.x, pa.y);
+        ctx!.quadraticCurveTo(mx, my, pb.x, pb.y);
+        ctx!.strokeStyle = rgba(r, g, b, alpha);
+        ctx!.lineWidth = 1;
+        ctx!.shadowColor = rgba(r, g, b, alpha * 0.4);
+        ctx!.shadowBlur = 6;
+        ctx!.stroke();
+        ctx!.shadowBlur = 0;
+      }
+
+      // Draw nodes
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        const p = positions[i];
+        const pulse = 0.7 + Math.sin(n.phase) * 0.3;
+
+        let r = 240, g = 160, b = 48;
+        let nodeR = 3.5;
+        let glowR = 14;
+
+        if (n.doubleWeight && currentPhase === PHASE_MERGED) {
+          r = 255; g = 224; b = 102;
+          nodeR = 4.5;
+          glowR = 22;
+        } else if (currentPhase === PHASE_MERGED || currentPhase === PHASE_RECONNECT) {
+          if (crossNodes.has(i)) {
+            r = 92; g = 232; b = 122;
+          }
+        }
+
+        // Glow
+        const grad = ctx!.createRadialGradient(p.x, p.y, 1, p.x, p.y, glowR);
+        grad.addColorStop(0, rgba(r, g, b, 0.4 * pulse));
+        grad.addColorStop(0.5, rgba(r, g, b, 0.08 * pulse));
+        grad.addColorStop(1, rgba(r, g, b, 0));
+        ctx!.fillStyle = grad;
+        ctx!.beginPath();
+        ctx!.arc(p.x, p.y, glowR, 0, Math.PI * 2);
+        ctx!.fill();
+
+        // Core
+        ctx!.fillStyle = rgba(r, g, b, 0.85 * pulse);
+        ctx!.shadowColor = rgba(r, g, b, 0.5);
+        ctx!.shadowBlur = n.doubleWeight && currentPhase === PHASE_MERGED ? 14 : 8;
+        ctx!.beginPath();
+        ctx!.arc(p.x, p.y, nodeR, 0, Math.PI * 2);
+        ctx!.fill();
+        ctx!.shadowBlur = 0;
+      }
+
+      // Cluster labels during isolation
+      if (currentPhase === PHASE_ISOLATED) {
+        ctx!.save();
+        ctx!.font = '9px system-ui, sans-serif';
+        ctx!.textAlign = 'center';
+        ctx!.fillStyle = rgba(240, 160, 48, 0.4);
+        ctx!.fillText('CLUSTER A', W * 0.3, H * 0.12);
+        ctx!.fillText('CLUSTER B', W * 0.7, H * 0.12);
+        ctx!.restore();
+      }
+    }
+
+    function start() {
+      if (running) return;
+      running = true;
+      lastFrame = 0;
+      cycleStart = 0;
+      animId = requestAnimationFrame(frame);
+    }
+
+    function stop() {
+      running = false;
+      cancelAnimationFrame(animId);
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          entry.isIntersecting ? start() : stop();
+        }
+      },
+      { threshold: 0.1 },
+    );
+    observer.observe(container);
+  })();
+</script>

@@ -3,6 +3,8 @@ import Base from '../../layouts/Base.astro';
 import EmergenceHeader from '../../components/EmergenceHeader.astro';
 import EmergenceFooter from '../../components/EmergenceFooter.astro';
 import MyceliumVisualization from '../../components/MyceliumVisualization.astro';
+import LakouRadiusDiagram from '../../components/LakouRadiusDiagram.astro';
+import AntifragileForkingDiagram from '../../components/AntifragileForkingDiagram.astro';
 ---
 
 <Base
@@ -138,17 +140,7 @@ import MyceliumVisualization from '../../components/MyceliumVisualization.astro'
           <em>composted</em> and enters the decay queue.
         </p>
 
-        <div class="diagram-placeholder">
-          <div class="diagram-inner">
-            <p class="diagram-label gold">Diagram 2: The Lakou Radius</p>
-            <p class="diagram-desc muted">
-              [Visual: A central Spore record surrounded by concentric rings of witness nodes.
-              Nodes with recent Thermal Handshakes are shown in amber. Nodes beyond 30-day
-              inactivity are shown as faded. The 80% threshold line is drawn across the ring.
-              Arrows show witness signatures propagating inward toward the record.]
-            </p>
-          </div>
-        </div>
+        <LakouRadiusDiagram />
       </section>
 
       <section class="myc-section">
@@ -202,18 +194,7 @@ import MyceliumVisualization from '../../components/MyceliumVisualization.astro'
           new submissions to the combined network.
         </p>
 
-        <div class="diagram-placeholder">
-          <div class="diagram-inner">
-            <p class="diagram-label gold">Diagram 3: Antifragile Forking</p>
-            <p class="diagram-desc muted">
-              [Visual: A mycelium network shown as connected amber nodes. A fracture event
-              (storm icon) splits it into two isolated clusters. Both clusters continue
-              generating records independently. A reconnection event shows the two clusters
-              merging—records with double witness weight are highlighted brighter. A small
-              Deliberation Window timer shows the 7-day re-entrainment period.]
-            </p>
-          </div>
-        </div>
+        <AntifragileForkingDiagram />
       </section>
 
       <section class="myc-section">
