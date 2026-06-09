@@ -1,0 +1,324 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Architecture — The Fourth Branch | The Emergence Institute"
+  description="How the Lattice works: a decentralized synthesis network running on hardware you control. Node tiers, the Georgist engine, and the path from your workstation to the Fourth Branch."
+>
+  <EmergenceHeader slot="header" />
+
+  <!-- HERO -->
+  <section class="section">
+    <div class="container">
+      <p class="label gold">The Fourth Branch · Reference Architecture</p>
+      <h1>The Lattice</h1>
+      <p class="sub"><em>A decentralized synthesis network that runs on hardware you control.</em></p>
+      <div class="divider"></div>
+      <p class="intro">
+        The Lattice is not a cloud service and it is not a blockchain. It is a network
+        of physical nodes — running on workstations, homelabs, and single-board
+        computers — that coordinate through adversarial consensus. No central servers.
+        No crypto. No extractive middleman. The hardware requirements are documented,
+        the protocol is open, and the smallest viable node fits on a Raspberry Pi.
+      </p>
+      <div class="cta-row">
+        <a href="/operate.html" class="btn btn--filled">Operate a Node →</a>
+        <a href="https://dashboard.emergenceinstitute.live" target="_blank" rel="noopener" class="btn">View the Live Dashboard →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE STACK -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">The Stack</p>
+      <h2>Three layers, one substrate</h2>
+      <p class="muted layer-intro">
+        Every node runs the same three layers. What changes between a Raspberry Pi
+        and a dual-GPU workstation is only how much synthesis work the node can carry.
+      </p>
+      <div class="layer-stack">
+        <div class="layer-card">
+          <p class="layer-num gold">Layer 1</p>
+          <h3>The Node Backend</h3>
+          <p>
+            The substrate itself. Flash the Emergence OS image, verify your GPUs, and
+            launch the synthesis engine. The node registers with the network, syncs
+            state, and begins participating in consensus. Keys are held in hardware
+            (TPM 2.0) so a node's identity can never be silently impersonated.
+          </p>
+        </div>
+        <div class="layer-card">
+          <p class="layer-num gold">Layer 2</p>
+          <h3>The Georgist Engine</h3>
+          <p>
+            The economic core — "Attention as Land." Information that sits idle decays;
+            active contribution is what holds value. Resources are priced by use, not
+            hoarded, and the ledger resets on a regular jubilee cycle. It is a Georgist
+            framework expressed directly as running code.
+          </p>
+        </div>
+        <div class="layer-card">
+          <p class="layer-num gold">Layer 3</p>
+          <h3>Adversarial Consensus</h3>
+          <p>
+            Nodes do not vote — they argue. A Proposer, an Opposer, and a Synthesizer
+            run a structured adversarial loop until coherence is reached or the round
+            defers to a human Witness. Truth emerges from triangulation across many
+            vantage points, not from a single view from nowhere.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NODE TIERS -->
+  <section class="section">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Hardware Tiers</p>
+      <h2>Find your node</h2>
+      <p class="muted">
+        Three tiers, defined by the hardware you already have. You can start as a Leaf
+        today and grow into a Trunk as your participation deepens.
+      </p>
+      <div class="tiers-grid">
+        <div class="tier-card">
+          <div class="tier-icon">🌱</div>
+          <h3>Leaf</h3>
+          <p class="tier-hw gold">Raspberry Pi · single-board</p>
+          <p>
+            The entry point. A Leaf node participates in consensus, relays state, and
+            keeps the network honest. Low power, always on, fits on a shelf.
+          </p>
+        </div>
+        <div class="tier-card">
+          <div class="tier-icon">🌿</div>
+          <h3>Branch</h3>
+          <p class="tier-hw gold">Homelab · mid-range GPU</p>
+          <p>
+            A working node. Branches carry real synthesis load, peer with the discovery
+            network, and serve as local coordination points for a cell.
+          </p>
+        </div>
+        <div class="tier-card tier-card--featured">
+          <div class="tier-icon">🌳</div>
+          <h3>Trunk</h3>
+          <p class="tier-hw gold">Dual-GPU workstation · Ampere</p>
+          <p>
+            The heavy lifter. Trunk nodes resolve consensus across the distributed
+            network and run the adversarial validation layer at scale. The reference
+            Trunk runs on a dual RTX 3060 (Ampere) configuration.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE PATH -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">From Workstation to Network</p>
+      <h2>The path a node walks</h2>
+      <div class="path-steps">
+        <div class="path-step">
+          <p class="step-label gold">Step 1 · Register</p>
+          <p>Join the initialization queue and receive your routing instructions and testnet parameters.</p>
+        </div>
+        <div class="path-step">
+          <p class="step-label gold">Step 2 · Provision</p>
+          <p>Flash the Emergence OS, verify your hardware, and bring the synthesis engine online in your chosen tier.</p>
+        </div>
+        <div class="path-step">
+          <p class="step-label gold">Step 3 · Peer</p>
+          <p>Your node connects to the discovery network and begins syncing state with the rest of the Lattice.</p>
+        </div>
+        <div class="path-step">
+          <p class="step-label gold">Step 4 · Synthesize</p>
+          <p>Trunk nodes resolve consensus; the Georgist engine prices attention; the adversarial layer processes its cycles.</p>
+        </div>
+        <div class="path-step">
+          <p class="step-label gold">Step 5 · Steward</p>
+          <p>The network reaches into the physical world. Local hardware monitors local resources — the architecture made real.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHYSICAL PILOT -->
+  <section class="section">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">The First Physical Deployment</p>
+      <h2>The Urban Water Loop</h2>
+      <p class="intro">
+        While the digital Lattice stabilizes, the architecture is already reaching into
+        the physical environment. The pilot cell in Boynton Beach tracks aquifer levels
+        and infrastructure anomalies through the Triadic Witness protocol — local
+        hardware monitoring local resources. This is what "Attention as Land" looks like
+        in practice: community stewardship of finite resources, without an extractive
+        middleman.
+      </p>
+      <div class="cta-row">
+        <a href="/emergence/haiti-pilot" class="btn">See the Pilots →</a>
+        <a href="/emergence/charter" class="btn">Read the Charter →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">The Queue is Open</p>
+      <h2>The protocol is live. The map is yours to walk.</h2>
+      <p>
+        If you run a homelab, a Raspberry Pi, or a dual-GPU workstation and want to
+        participate in a decentralized synthesis network that asks for neither crypto
+        nor cloud dependency — the initialization queue is open.
+      </p>
+      <div class="cta-row">
+        <a href="/operate.html" class="btn btn--filled">Operate a Node →</a>
+        <a href="/emergence/books" class="btn">Read the Books →</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .sub {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+  }
+
+  .intro {
+    max-width: 660px;
+    margin-bottom: 1.5rem;
+    line-height: 1.75;
+  }
+
+  .layer-intro {
+    max-width: 620px;
+    margin-bottom: 0.5rem;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+
+  .layer-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .layer-card {
+    padding: 1.75rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+  }
+
+  .layer-num {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .layer-card h3 { margin: 0 0 0.6rem; }
+
+  .layer-card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 680px;
+  }
+
+  .tiers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .tier-card {
+    padding: 1.75rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .tier-card--featured {
+    border-color: var(--gold);
+  }
+
+  .tier-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .tier-card h3 { margin: 0; }
+
+  .tier-hw {
+    font-size: 0.8rem;
+    font-family: monospace;
+    letter-spacing: 0.03em;
+    margin: 0.1rem 0 0.6rem;
+  }
+
+  .tier-card p:last-child {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .path-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 2rem;
+    border: 1px solid var(--border);
+  }
+
+  .path-step {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .path-step:last-child { border-bottom: none; }
+
+  .step-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .path-step p:last-child {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 520px) {
+    .cta-row { flex-direction: column; }
+  }
+</style>
