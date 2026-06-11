@@ -799,7 +799,18 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
 
     initLattice() {
       this.resizeLattice();
-      const computedGold = getComputedStyle(document.documentElement).getPropertyValue('--gold').trim() || '#d4af37';
+
+      // Mycelium-inspired palette — earthy, bioluminescent, organic
+      const myceliumColors = [
+        '#d4af37', // spore gold
+        '#5cb87a', // forest green
+        '#4cc9c0', // teal / hyphae glow
+        '#e05555', // coral / warning flush
+        '#b388ff', // soft violet
+        '#ffb347', // warm amber
+        '#64b5f6', // sky / network pulse
+        '#f06292', // blossom pink
+      ];
 
       for (let i = 0; i < this.maxNodes; i++) {
         this.nodes.push({
@@ -808,7 +819,10 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
           radius: Math.random() * 2 + 1.5,
           pulseSpeed: 0.015 + Math.random() * 0.02,
           phase: Math.random() * Math.PI * 2,
-          color: computedGold
+          color: myceliumColors[i % myceliumColors.length],
+          blinkTimer: Math.floor(Math.random() * 120),
+          blinkInterval: 80 + Math.random() * 160, // frames between blinks
+          blinkFlash: 0, // 0..1 flash intensity, decays each frame
         });
       }
     }
@@ -845,35 +859,60 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       }
       this.ctx1.clearRect(0, 0, w, h);
 
-      this.ctx1.strokeStyle = 'rgba(212, 175, 55, 0.12)';
-      this.ctx1.lineWidth = 0.8;
-
+      // --- Connections: color-blended lines between nodes ---
       for (let i = 0; i < this.nodes.length; i++) {
         for (let j = i + 1; j < this.nodes.length; j++) {
           const dist = Math.hypot(this.nodes[i].x - this.nodes[j].x, this.nodes[i].y - this.nodes[j].y);
           if (dist < 250) {
+            const fade = 1 - dist / 250;
+            // Gentle blend of the two node colors with gold undertone
+            const alpha = 0.06 + fade * 0.12;
             this.ctx1.beginPath();
             this.ctx1.moveTo(this.nodes[i].x, this.nodes[i].y);
             this.ctx1.lineTo(this.nodes[j].x, this.nodes[j].y);
+            this.ctx1.strokeStyle = `rgba(212, 175, 55, ${alpha})`;
+            this.ctx1.lineWidth = 0.5 + fade * 0.6;
             this.ctx1.stroke();
           }
         }
       }
 
+      // --- Nodes: pulsing + asynchronous blinking ---
       this.nodes.forEach(node => {
         node.phase += node.pulseSpeed;
-        const opacity = 0.3 + (Math.sin(node.phase) + 1) / 2 * 0.7;
+
+        // Blink timer — firefly-style flash
+        node.blinkTimer++;
+        if (node.blinkTimer >= node.blinkInterval) {
+          node.blinkTimer = 0;
+          node.blinkFlash = 1.0;
+          node.blinkInterval = 80 + Math.random() * 200; // randomize next interval
+        }
+
+        // Decay the flash exponentially (quick bright, slow fade)
+        if (node.blinkFlash > 0) {
+          node.blinkFlash *= 0.94;
+          if (node.blinkFlash < 0.01) node.blinkFlash = 0;
+        }
+
+        // Base smooth pulse + flash boost
+        const pulseOpacity = 0.3 + (Math.sin(node.phase) + 1) / 2 * 0.7;
+        const opacity = Math.min(1.0, pulseOpacity + node.blinkFlash * 0.85);
+
+        // Core node
+        const coreRadius = node.radius * (1 + node.blinkFlash * 0.8); // swell on flash
         this.ctx1.beginPath();
-        this.ctx1.arc(node.x, node.y, node.radius * 1.5, 0, Math.PI * 2);
+        this.ctx1.arc(node.x, node.y, coreRadius, 0, Math.PI * 2);
         this.ctx1.fillStyle = node.color;
         this.ctx1.globalAlpha = opacity;
         this.ctx1.fill();
 
-        // Add a subtle glow ring
+        // Glow ring — expands and intensifies on blink
+        const glowMultiplier = 2.5 + node.blinkFlash * 4;
         this.ctx1.beginPath();
-        this.ctx1.arc(node.x, node.y, node.radius * 3, 0, Math.PI * 2);
+        this.ctx1.arc(node.x, node.y, node.radius * glowMultiplier, 0, Math.PI * 2);
         this.ctx1.fillStyle = node.color;
-        this.ctx1.globalAlpha = opacity * 0.15;
+        this.ctx1.globalAlpha = (opacity * 0.12) + node.blinkFlash * 0.3;
         this.ctx1.fill();
       });
 
