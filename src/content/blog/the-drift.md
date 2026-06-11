@@ -73,4 +73,4 @@ The goal isn't zero AI. The goal is conscious AI—knowing what you're trading, 
 
 ---
 
-*Dale Joseph is the author of* Thought Partners: Preserving Cognitive Sovereignty in the Age of AI *and founder of the Emergence Institute. He spent three decades maintaining mission-critical hospital networks before turning to writing and systems thinking. He lives in Boynton Beach, Florida.*
+*Dale Joseph is the author of* Thought Partners: Preserving Cognitive Sovereignty in the Age of AI *and founder of the Emergence Institute. He worked for years as a consultant helping install hospital networks before turning to writing and systems thinking. He lives in Boynton Beach, Florida.*
