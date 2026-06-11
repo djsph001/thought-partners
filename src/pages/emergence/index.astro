@@ -836,10 +836,17 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
     }
 
     animateLattice() {
-      this.ctx1.clearRect(0, 0, this.latticeCanvas.width, this.latticeCanvas.height);
+      if (!this.ctx1 || !this.latticeCanvas) return;
+      const w = this.latticeCanvas.width;
+      const h = this.latticeCanvas.height;
+      if (w === 0 || h === 0) {
+        requestAnimationFrame(() => this.animateLattice());
+        return;
+      }
+      this.ctx1.clearRect(0, 0, w, h);
 
-      this.ctx1.strokeStyle = 'rgba(212, 175, 55, 0.06)';
-      this.ctx1.lineWidth = 0.5;
+      this.ctx1.strokeStyle = 'rgba(212, 175, 55, 0.12)';
+      this.ctx1.lineWidth = 0.8;
 
       for (let i = 0; i < this.nodes.length; i++) {
         for (let j = i + 1; j < this.nodes.length; j++) {
@@ -855,11 +862,18 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
 
       this.nodes.forEach(node => {
         node.phase += node.pulseSpeed;
-        const opacity = 0.2 + (Math.sin(node.phase) + 1) / 2 * 0.8;
+        const opacity = 0.3 + (Math.sin(node.phase) + 1) / 2 * 0.7;
         this.ctx1.beginPath();
-        this.ctx1.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+        this.ctx1.arc(node.x, node.y, node.radius * 1.5, 0, Math.PI * 2);
         this.ctx1.fillStyle = node.color;
         this.ctx1.globalAlpha = opacity;
+        this.ctx1.fill();
+
+        // Add a subtle glow ring
+        this.ctx1.beginPath();
+        this.ctx1.arc(node.x, node.y, node.radius * 3, 0, Math.PI * 2);
+        this.ctx1.fillStyle = node.color;
+        this.ctx1.globalAlpha = opacity * 0.15;
         this.ctx1.fill();
       });
 
