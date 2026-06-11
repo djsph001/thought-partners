@@ -21,7 +21,7 @@ const isActive = (path: string) =>
       <a href="/emergence/architecture" class:list={['nav-link nav-link--hide-sm', { active: isActive('/emergence/architecture') }]}>Architecture</a>
       <a href="https://dashboard.emergenceinstitute.live" target="_blank" rel="noopener noreferrer" class="nav-link nav-link--live">Dashboard <span class="live-badge">LIVE</span></a>
       <a href="/operate.html" class:list={['nav-link nav-link--hide-sm', { active: isActive('/operate') }]}>Operate Node</a>
-      <a href="/" class:list={['nav-link nav-link--hide-sm', { active: pathname === '/' }]}>Thought Partners</a>
+      <a href="/book/" class:list={['nav-link nav-link--hide-sm', { active: isActive('/book') }]}>Thought Partners</a>
       <a href="/emergence/books" class:list={['nav-link', { active: isActive('/emergence/books') }]}>Books</a>
       <a href="/emergence/engine-room" class:list={['nav-link nav-link--hide-sm', { active: isActive('/emergence/engine-room') }]}>Engine Room</a>
       <a href="/emergence/mycelium" class:list={['nav-link nav-link--hide-sm', { active: isActive('/emergence/mycelium') }]}>Mycelium</a>
