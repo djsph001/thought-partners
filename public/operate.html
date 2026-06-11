@@ -3,101 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lattice Substrate — Operator Portal</title>
+    <title>Lattice Substrate — The Emergence Institute</title>
     <style>
         :root {
-            --bg-color: #0d1117;
-            --panel-bg: #161b22;
-            --border-color: #30363d;
-            --accent-green: #2ea44f;
-            --accent-blue: #58a6ff;
-            --accent-orange: #f0883e;
-            --text-main: #c9d1d9;
-            --text-muted: #8b949e;
+            --gold: #C9A84C;
+            --gold-light: #E2C47A;
+            --bg: #0e0e0e;
+            --bg-elevated: #161616;
+            --bg-card: #1a1a1a;
+            --border: #2a2a2a;
+            --text: #e8e4dc;
+            --text-muted: #9a9488;
+            --max-width-wide: 1100px;
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 18px;
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
         }
 
-        header {
-            border-bottom: 1px solid var(--border-color);
-            padding: 2rem;
+        body { min-height: 100vh; }
+
+        a { color: var(--gold); text-decoration: none; }
+        a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+        h1, h2, h3 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-weight: normal;
+            line-height: 1.25;
+            color: var(--text);
+        }
+
+        h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+        h2 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
+        h3 { font-size: 1.2rem; margin-bottom: 0.75rem; }
+
+        p { margin-bottom: 1.25rem; }
+        p:last-child { margin-bottom: 0; }
+
+        strong { color: var(--text); font-weight: bold; }
+        em { font-style: italic; }
+
+        .label {
+            font-family: Georgia, serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            margin: 1.25rem auto;
+        }
+
+        .site-header {
+            border-bottom: 1px solid var(--border);
+            padding: 2rem 1.5rem;
             text-align: center;
-            background: linear-gradient(180deg, #1f242c 0%, var(--bg-color) 100%);
         }
 
-        h1 { margin: 0; color: #fff; font-size: 2.2rem; font-weight: 600; letter-spacing: -0.5px; }
-        .subtitle { color: var(--text-muted); margin-top: 0.5rem; }
+        .site-header h1 { margin: 0; font-weight: normal; color: var(--text); letter-spacing: 0.02em; }
+        .site-header .subtitle {
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+            font-size: 1.05rem;
+            font-style: italic;
+        }
 
-        .container { max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem; }
-
-        /* Grid Layouts */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+        .container { max-width: var(--max-width-wide); margin: 2rem auto; padding: 0 1.5rem; }
 
         section {
-            background-color: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
             padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             margin-bottom: 2rem;
         }
 
-        h2 { margin-top: 0; color: #fff; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
+        h2 { margin-bottom: 1.25rem; }
 
-        /* Code and Quickstart UI */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+
         .code-block {
-            background-color: #090d13;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 1rem;
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-            color: #ff7b72;
-            position: relative;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            padding: 1.25rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            line-height: 1.7;
             overflow-x: auto;
+            margin: 1rem 0;
         }
-        .code-comment { color: var(--text-muted); }
-        .code-cmd { color: #79c0ff; }
+        .code-comment { color: var(--text-muted); font-style: italic; }
+        .code-cmd { color: var(--gold-light); }
 
-        /* Calculator Styles */
-        .calc-group { margin-bottom: 1.2rem; }
-        .calc-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: #fff; }
-        .calc-group input[type="range"] { width: 100%; accent-color: var(--accent-blue); }
-        .calc-meta { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); }
-        
+        .code-block .log-success { color: var(--gold-light); }
+        .code-block .log-info { color: var(--gold); }
+
+        /* Lists */
+        ul, ol {
+            padding-left: 1.5rem;
+            margin: 1.25rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        li { line-height: 1.7; }
+
+        /* Calculator */
+        .calc-group { margin-bottom: 1.5rem; }
+        .calc-group label { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text); }
+        .calc-group input[type="range"] { width: 100%; accent-color: var(--gold); background: var(--bg-elevated); height: 4px; }
+        .calc-meta { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); font-family: 'Courier New', Courier, monospace; }
+
         .calc-display {
-            background-color: #090d13;
-            border-left: 4px solid var(--accent-blue);
-            padding: 1rem;
-            border-radius: 0 6px 6px 0;
+            background: var(--bg-elevated);
+            border-left: 3px solid var(--gold);
+            padding: 1.25rem;
             margin-top: 1.5rem;
         }
-        .calc-metric { font-size: 1.25rem; font-weight: bold; color: #fff; }
+        .calc-metric { font-size: 1.2rem; font-weight: bold; color: var(--gold-light); margin-top: 0.25rem; font-family: 'Courier New', Courier, monospace; }
 
-        /* Infographic Components */
+        /* Layer stack */
         .layer-stack { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.5rem 0; }
         .layer-node {
-            background: #21262d;
-            border: 1px solid var(--border-color);
-            padding: 0.75rem;
-            border-radius: 4px;
-            text-align: center;
-            font-weight: 500;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.9rem 1.25rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
         }
-        .layer-node.active { border-color: var(--accent-green); background-color: rgba(46, 164, 79, 0.1); }
+        .layer-node.active { border-color: var(--gold); color: var(--text); }
+
+        /* Glossary */
+        dl { margin: 1.25rem 0; display: flex; flex-direction: column; gap: 1.25rem; }
+        dt strong { display: block; margin-bottom: 0.3rem; font-size: 1rem; }
+        dd { color: var(--text-muted); line-height: 1.7; margin-left: 0; font-size: 0.95rem; }
+
+        .note { color: var(--text-muted); font-style: italic; font-size: 0.95rem; margin-top: 1rem; }
+
+        @media (max-width: 520px) { body { font-size: 16px; } }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>LATTICE SUBSTRATE</h1>
-        <div class="subtitle">Alpha Testnet Onboarding Engine & Sovereign Operating Terminal</div>
+    <header class="site-header">
+        <p class="label">Protocol Specification · External Scale</p>
+        <h1>Lattice Substrate</h1>
+        <div class="divider"></div>
+        <div class="subtitle">Alpha Testnet Onboarding Engine &amp; Sovereign Operating Terminal</div>
     </header>
 
     <div class="container">
@@ -113,7 +177,7 @@
                 <div class="layer-node active">Layer 3-5: Merkle Storage, Consensus Forks, & Cryptographic Trees</div>
                 <div class="layer-node active">Layer 1-2: Omega-1 Wire Protocol Codec & TCP Framed Accumulators</div>
             </div>
-            <p class="subtitle">🟩 Highlighted layers denote fully containerized systems running actively inside the current production build.</p>
+            <p class="note">🟩 Highlighted layers denote fully containerized systems running actively inside the current production build.</p>
         </section>
 
         <div class="grid-2">
@@ -132,15 +196,15 @@
                 <div class="code-block">
                     <span class="code-comment"># Pull down the validated multi-arch engine package and trigger provisioning</span><br>
                     <span class="code-cmd">curl -fsSL https://emergenceinstitute.live/scripts/install_pi_node.sh -o install.sh</span><br>
-                    <span class="code-cmd">chmod +x install.sh && sudo ./install.sh</span>
+                    <span class="code-cmd">chmod +x install.sh &amp;&amp; sudo ./install.sh</span>
                 </div>
 
                 <h3>Expected Log Output</h3>
-                <div class="code-block" style="color: #79c0ff;">
-                    [STORAGE] Initialized clean Merkle journal database...<br>
-                    [SWARM] Generating fresh Ed25519 node identity signature...<br>
-                    [HANDSHAKE] Sending CELL_ANNOUNCE identity frame...<br>
-                    <span style="color: var(--accent-green);">[HANDSHAKE] [SUCCESS] Registered verified key for peer!</span>
+                <div class="code-block">
+                    <span class="log-info">[STORAGE]</span> Initialized clean Merkle journal database...<br>
+                    <span class="log-info">[SWARM]</span> Generating fresh Ed25519 node identity signature...<br>
+                    <span class="log-info">[HANDSHAKE]</span> Sending CELL_ANNOUNCE identity frame...<br>
+                    <span class="log-success">[HANDSHAKE] [SUCCESS] Registered verified key for peer!</span>
                 </div>
             </section>
 
@@ -168,10 +232,10 @@
 
                 <div class="calc-display">
                     <div class="calc-meta">Assessed Land Value Tax (LVT):</div>
-                    <div class="calc-metric" id="out-tax" style="color: var(--accent-orange);">0.0164 Units</div>
+                    <div class="calc-metric" id="out-tax">0.0164 Units</div>
                     
-                    <div class="calc-meta" style="margin-top: 0.5rem;">Remaining Payload Value (After Decay):</div>
-                    <div class="calc-metric" id="out-decay" style="color: #ff7b72;">81.87%</div>
+                    <div class="calc-meta" style="margin-top: 0.75rem;">Remaining Payload Value (After Decay):</div>
+                    <div class="calc-metric" id="out-decay">81.87%</div>
                 </div>
             </section>
 
