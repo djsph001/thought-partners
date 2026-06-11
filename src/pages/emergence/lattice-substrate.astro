@@ -1,0 +1,267 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Lattice Substrate — The Emergence Institute"
+  description="Alpha Testnet Onboarding Engine & Sovereign Operating Terminal"
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section" style="padding-top: 3rem;">
+    <div class="container">
+      <p class="label gold">Protocol Specification · External Scale</p>
+      <h1>Lattice Substrate</h1>
+      <div class="divider"></div>
+      <p class="subtitle-text" style="margin-bottom: 2rem;"><em>Alpha Testnet Onboarding Engine &amp; Sovereign Operating Terminal</em></p>
+    </div>
+  </section>
+
+  <div class="er-body">
+    <div class="container">
+
+      <section class="er-section">
+        <h2>1. Node Execution Framework</h2>
+        <p>Every node running within the Emergence Collective cell architecture enforces an identical 13-layer cryptographic boundary from first principles. Here is how network data transitions from raw wire inputs down to verified storage metrics:</p>
+
+        <div class="layer-stack">
+          <div class="layer-node">Layer 13: Cognitive Advisor — Local Tensor Inference Pipeline (DeepSeek-R1)</div>
+          <div class="layer-node active">Layer 10-12: Governance REST API, Host Containers, &amp; WebSocket Telemetry</div>
+          <div class="layer-node active">Layer 6-9: Cross-Cell Tunnels, Swarm Routers, &amp; Automation Rule Engines</div>
+          <div class="layer-node active">Layer 3-5: Merkle Storage, Consensus Forks, &amp; Cryptographic Trees</div>
+          <div class="layer-node active">Layer 1-2: Omega-1 Wire Protocol Codec &amp; TCP Framed Accumulators</div>
+        </div>
+        <p class="section-sub" style="margin-top: 0.5rem;">&#x1F7E9; Highlighted layers denote fully containerized systems running actively inside the current production build.</p>
+      </section>
+
+      <div class="two-col">
+        <section class="er-section">
+          <h2>2. Edge Deployment Quickstart</h2>
+          <p>Deploy a sovereign validation node onto any 64-bit ARM Linux Raspberry Pi or cloud instance seamlessly over our private encrypted overlay network.</p>
+
+          <h3>Prerequisites</h3>
+          <ul>
+            <li>ARM64/aarch64 Linux OS environment</li>
+            <li>Tailscale active and authenticated on host device</li>
+          </ul>
+
+          <h3>One-Command Production Run</h3>
+          <div class="code-block">
+            <span class="code-comment"># Pull down the validated multi-arch engine package and trigger provisioning</span><br>
+            <span class="code-cmd">curl -fsSL https://emergenceinstitute.live/scripts/install_pi_node.sh -o install.sh</span><br>
+            <span class="code-cmd">chmod +x install.sh &amp;&amp; sudo ./install.sh</span>
+          </div>
+
+          <h3>Expected Log Output</h3>
+          <div class="code-block">
+            <span class="code-log">[STORAGE]</span> Initialized clean Merkle journal database...<br>
+            <span class="code-log">[SWARM]</span> Generating fresh Ed25519 node identity signature...<br>
+            <span class="code-log">[HANDSHAKE]</span> Sending CELL_ANNOUNCE identity frame...<br>
+            <span class="code-success">[HANDSHAKE] [SUCCESS] Registered verified key for peer!</span>
+          </div>
+        </section>
+
+        <section class="er-section">
+          <h2>3. Georgist Storage Economics</h2>
+          <p>The Lattice Substrate treats data cache allocation as physical land. Large payloads are charged land taxes, while stale, unmaintained blocks systematically decay over time.</p>
+
+          <div class="calc-group">
+            <label for="calc-size">Data Land Size (Byte Footprint)</label>
+            <input type="range" id="calc-size" min="256" max="4096" step="256" value="1024">
+            <div class="calc-meta"><span id="val-size">1024 Bytes (1.00 KB)</span><span>Tax Basis Weight</span></div>
+          </div>
+
+          <div class="calc-group">
+            <label for="calc-cycles">Cycles Since Data Refresh (Inactivity)</label>
+            <input type="range" id="calc-cycles" min="0" max="1000" step="50" value="200">
+            <div class="calc-meta"><span id="val-cycles">200 Cycles Stagnant</span><span>Entropy Multiplier</span></div>
+          </div>
+
+          <div class="calc-group">
+            <label for="calc-participation">Node Participation Score (Jubilee Weight)</label>
+            <input type="range" id="calc-participation" min="10" max="100" step="5" value="85">
+            <div class="calc-meta"><span id="val-participation">85% Participation Index</span><span>Treasury Return Allocation</span></div>
+          </div>
+
+          <div class="calc-display">
+            <div class="calc-meta">Assessed Land Value Tax (LVT):</div>
+            <div class="calc-metric" id="out-tax">— Resource Tokens</div>
+            <div class="calc-meta" style="margin-top: 0.75rem;">Remaining Payload Value (After Decay):</div>
+            <div class="calc-metric" id="out-decay">— % Structural Integrity</div>
+          </div>
+        </section>
+      </div>
+
+      <section class="er-section">
+        <h2>4. Core Glossary</h2>
+        <dl>
+          <dt><strong>The Cell Matrix</strong></dt>
+          <dd>An isolated, independent peer group circle coordinating shared local state logs using Omega-1 line profiles.</dd>
+          <dt><strong>Land-Value Tax (LVT)</strong></dt>
+          <dd>An ongoing resource penalty levied exclusively against the raw byte volume occupied by a state variable. Incentivizes radical code minimalism.</dd>
+          <dt><strong>The Jubilee Event</strong></dt>
+          <dd>A recurrent cryptographic state sweep that completely empties the common tax treasury pool and returns the accumulated assets straight back to high-participation nodes.</dd>
+          <dt><strong>Silent Horizon</strong></dt>
+          <dd>The structural point at which unmaintained, decaying state parameters cross below an operational threshold and are cleanly purged from memory caches.</dd>
+        </dl>
+      </section>
+
+    </div>
+  </div>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<script>
+  const inputSize = document.getElementById('calc-size');
+  const inputCycles = document.getElementById('calc-cycles');
+  const inputPart = document.getElementById('calc-participation');
+  const valSize = document.getElementById('val-size');
+  const valCycles = document.getElementById('val-cycles');
+  const valPart = document.getElementById('val-participation');
+  const outTax = document.getElementById('out-tax');
+  const outDecay = document.getElementById('out-decay');
+
+  function recompute() {
+    const size = parseInt(inputSize.value);
+    const cycles = parseInt(inputCycles.value);
+    const participation = parseInt(inputPart.value) / 100;
+    valSize.textContent = `${size} Bytes (${(size/1024).toFixed(2)} KB)`;
+    valCycles.textContent = `${cycles} Cycles Stagnant`;
+    valPart.textContent = `${(participation * 100).toFixed(0)}% Participation Index`;
+    const decayFactor = Math.exp(-0.001 * cycles);
+    const computedTax = 10 * (size / 1024) * decayFactor;
+    outTax.textContent = `${computedTax.toFixed(4)} Resource Tokens`;
+    outDecay.textContent = `${(decayFactor * 100).toFixed(2)}% Structural Integrity`;
+  }
+
+  inputSize?.addEventListener('input', recompute);
+  inputCycles?.addEventListener('input', recompute);
+  inputPart?.addEventListener('input', recompute);
+  recompute();
+</script>
+
+<style>
+  .subtitle-text {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  @media (max-width: 720px) { .two-col { grid-template-columns: 1fr; } }
+
+  .er-section {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+    max-width: 100%;
+  }
+
+  .er-section h2 { margin-bottom: 1.25rem; }
+  .er-section h3 { margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1.1rem; }
+
+  .layer-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .layer-node {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 0.9rem 1.25rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .layer-node.active {
+    border-color: var(--gold);
+    color: var(--text);
+  }
+
+  .code-block {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+
+  .code-comment { color: var(--text-muted); font-style: italic; }
+  .code-cmd { color: var(--gold-light); }
+  .code-log { color: var(--gold); }
+  .code-success { color: #5cb87a; }
+
+  ul, ol {
+    padding-left: 1.5rem;
+    margin: 1.25rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  li { line-height: 1.7; }
+
+  .calc-group { margin-bottom: 1.5rem; }
+  .calc-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+  .calc-group input[type="range"] {
+    width: 100%;
+    accent-color: var(--gold);
+  }
+  .calc-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .calc-display {
+    background: var(--bg-elevated);
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .calc-metric {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--gold-light);
+    margin-top: 0.25rem;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  dl {
+    margin: 1.25rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  dt strong { display: block; margin-bottom: 0.3rem; font-size: 1rem; }
+  dd {
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-left: 0;
+    font-size: 0.95rem;
+  }
+
+  .section-sub {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.9rem;
+  }
+</style>

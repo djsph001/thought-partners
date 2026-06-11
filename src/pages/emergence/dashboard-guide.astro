@@ -1,0 +1,165 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Lattice Dashboard Telemetry Guide — The Emergence Institute"
+  description="Anatomy of your live operator console running at localhost:9001"
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section" style="padding-top: 3rem;">
+    <div class="container">
+      <p class="label gold"><a href="/emergence/lattice-substrate" style="color: var(--gold);">← Return to Operator Portal</a></p>
+      <h1>Lattice Dashboard Telemetry Guide</h1>
+      <div class="divider"></div>
+      <p class="subtitle-text" style="margin-bottom: 2rem;"><em>Anatomy of your live operator console running at http://localhost:9001</em></p>
+    </div>
+  </section>
+
+  <div class="er-body">
+    <div class="container">
+
+      <section class="er-section">
+        <h2>1. Crystal Stream Log <span class="badge">Telemetry UI</span></h2>
+        <p>This is the real-time event window linked natively to your node's WebSocket broadcaster. It displays incoming raw network frames, cryptographic check states, and consensus voting rounds as they slide over the wire protocol stack.</p>
+
+        <div class="mockup">
+          <span class="mock-line"><span class="mock-timestamp">[15:14:02]</span> <span class="mock-green">[OMEGA-1]</span> Unpacked valid 412-byte frame from peer Cell-Bob-Validator</span>
+          <span class="mock-line"><span class="mock-timestamp">[15:14:02]</span> <span class="mock-green">[STORAGE]</span> Appending block #412 to persistent journal file disk cache...</span>
+          <span class="mock-line"><span class="mock-timestamp">[15:14:05]</span> <span class="mock-gold">[SWARM]</span> Received peer sync state pulse from [100.93.232.107:8001]</span>
+          <span class="mock-line"><span class="mock-timestamp">[15:14:10]</span> <span class="mock-warn">[BRIDGE]</span> WARNING: Inbound cross-cell proposal prop_de92a696 quarantined.</span>
+        </div>
+
+        <div class="callout">
+          <p class="gold">Operator Action Checklist</p>
+          <p>Green lines indicate normal background consensus operations. If you see a sustained cascade of yellow or orange lines, check your node's network latency or peer identity certificates.</p>
+        </div>
+      </section>
+
+      <section class="er-section">
+        <h2>2. Wide-Area Mesh Topology <span class="badge">Mesh UI</span></h2>
+        <p>Maps out your direct Tailscale overlay connection endpoints. This block exposes your node's real physical routing profile, listing your structural latencies and current peer consensus weight distribution values.</p>
+
+        <div class="mockup" style="text-align: center; padding: 2rem 1rem;">
+          <div style="font-weight: bold; color: var(--gold); margin-bottom: 0.75rem;">[PEER COORDINATION MATRIX]</div>
+          <div class="mock-line">Z4-Seed-Node (100.93.232.107) — Active — Ping: 12ms — Mass: 100</div>
+          <div class="mock-line">Node-Pi-Edge-01 (100.64.12.44) — Active — Ping: 34ms — Mass: 85</div>
+        </div>
+
+        <div class="field-list">
+          <div class="field-name">Ping Metrics</div>
+          <div>The raw round-trip time over your WireGuard pipe. Ideal targets should remain under 100ms.</div>
+          <div class="field-name">Mass Score</div>
+          <div>The current consensus voting weight held by that peer, dictated directly by its historical uptime.</div>
+        </div>
+      </section>
+
+      <section class="er-section">
+        <h2>3. Governance Authorization Terminal <span class="badge">Human Overrides</span></h2>
+        <p>The core human-in-the-loop firewall interface. When a high-stakes cross-cell mutation passes through the cryptographic bridge, it is held securely in an isolated memory buffer until you manually provide your digital signature authorization.</p>
+
+        <div class="mockup" style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <span style="font-weight: bold; color: var(--text); display: block;">PROPOSAL: prop_de92a696</span>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Type: CONSTITUTIONAL_AMENDMENT | Origin: Cell-Carol</span>
+          </div>
+          <div class="btn" style="cursor: default; padding: 0.5rem 1rem;">&#x270D; Authorize &amp; Commit</div>
+        </div>
+
+        <p style="margin-top: 1.5rem;">Clicking the <strong>Authorize &amp; Commit</strong> trigger commands the local node engine to clear the quarantine queue table, record the asset block to the disk journal, and instantly broadcast the synchronized block state out down the swarm ring to all neighboring nodes.</p>
+      </section>
+
+    </div>
+  </div>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .subtitle-text {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .er-section {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+    max-width: 100%;
+  }
+
+  .er-section h2 { margin-bottom: 1.25rem; }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    vertical-align: middle;
+    margin-left: 0.5rem;
+  }
+
+  .mockup {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+  }
+
+  .mock-line { display: block; margin-bottom: 0.4rem; }
+  .mock-timestamp { color: #5cb87a; }
+  .mock-green { color: #5cb87a; }
+  .mock-gold { color: var(--gold); }
+  .mock-warn { color: var(--gold-light); }
+
+  .callout {
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+  }
+
+  .callout .gold {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .callout p:last-child { margin-bottom: 0; }
+
+  .field-list {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+  }
+
+  .field-name { font-weight: bold; color: var(--text); }
+  .field-list div:last-child { color: var(--text-muted); }
+
+  .btn {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 0.5rem 1rem;
+    font-family: Georgia, serif;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 520px) {
+    .mockup[style*="flex"] { flex-direction: column; gap: 1rem; align-items: stretch !important; }
+  }
+</style>

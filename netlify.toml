@@ -18,36 +18,6 @@
   force = true
 
 [[redirects]]
-  from = "/dashboard-guide"
-  to = "/dashboard-guide.html"
-  status = 200
-
-[[redirects]]
-  from = "/dashboard-guide.html"
-  to = "/dashboard-guide.html"
-  status = 200
-
-[[redirects]]
-  from = "/operate"
-  to = "/operate.html"
-  status = 200
-
-[[redirects]]
-  from = "/operate.html"
-  to = "/operate.html"
-  status = 200
-
-[[redirects]]
-  from = "/steward-handbook"
-  to = "/steward-handbook/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/steward-handbook/*"
-  to = "/steward-handbook/:splat"
-  status = 200
-
-[[redirects]]
   from = "/*"
   to = "/404"
   status = 404
