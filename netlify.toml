@@ -17,8 +17,5 @@
   status = 301
   force = true
 
-[[redirects]]
-  from = "/*"
-  to = "/404"
-  status = 404
+# Let Netlify handle 404s by default for unmatched routes
 
