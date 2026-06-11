@@ -17,15 +17,12 @@
   status = 301
   force = true
 
-# Let Netlify handle 404s by default for unmatched routes
-
 [[redirects]]
   from = "/operate"
-  to = "/emergence/lattice-substrate"
-  status = 301
+  to = "/operate.html"
+  status = 200
 
 [[redirects]]
   from = "/dashboard-guide"
-  to = "/emergence/dashboard-guide"
-  status = 301
-
+  to = "/dashboard-guide.html"
+  status = 200
