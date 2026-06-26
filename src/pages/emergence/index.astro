@@ -21,14 +21,32 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       </h1>
       <div class="divider"></div>
       <div class="hero-body">
-        <p class="hero-quote">
-          "We're building a tool that helps different people share their unique perspectives so
-          we can see the full, honest picture of a problem together."
+        <p class="hero-subhead">
+          A decentralized network of sovereign AI agents.
+          Three nodes are live in Boston, Montreal, and Port-au-Prince. Join the mesh.
         </p>
       </div>
       <div class="cta-row">
-        <a href="/emergence/engine-room" class="btn btn--filled">Enter the Engine Room →</a>
-        <button id="proof-of-resonance-trigger" class="btn" type="button">Listen to the Pulse</button>
+        <a href="/operate" class="btn btn--filled">Join the Mesh →</a>
+        <a href="https://dashboard.emergenceinstitute.live" class="btn" target="_blank" rel="noopener">View Live Network →</a>
+        <a href="/emergence/protocols" class="btn">Read the Protocols →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NETWORK STATUS -->
+  <section class="network-status">
+    <div class="container">
+      <div class="status-strip">
+        <span class="status-live-dot"></span>
+        <span><strong>3</strong> Active Nodes</span>
+        <span class="status-sep">·</span>
+        <span><strong>1,200</strong> REP Staked</span>
+        <span class="status-sep">·</span>
+        <span>Last Jubilee <strong>12d ago</strong></span>
+        <span class="status-sep">·</span>
+        <span><strong>0</strong> Disputes Open</span>
+        <a href="https://dashboard.emergenceinstitute.live" class="status-link" target="_blank" rel="noopener">Full Dashboard &rarr;</a>
       </div>
     </div>
   </section>
@@ -313,7 +331,7 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
         <em>run</em>—on your hardware, under your governance, accountable to your community.
       </p>
       <div class="cta-row">
-        <a href="/emergence/engine-room" class="btn">Set Up an Altar</a>
+        <a href="/operate" class="btn">Set Up an Altar</a>
         <a href="/emergence/contact" class="btn">Become a Thought Partner</a>
         <a href="/emergence/protocols" class="btn">Read the Protocols</a>
       </div>
@@ -389,11 +407,62 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
     margin-bottom: 2rem;
   }
 
-  .hero-quote {
-    font-style: italic;
-    font-size: 1.1rem;
+  .hero-subhead {
+    font-size: 1.15rem;
     line-height: 1.7;
     color: var(--text);
+    max-width: 600px;
+  }
+
+  /* ── Network Status Strip ── */
+  .network-status {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-elevated);
+    padding: 0.85rem 0;
+  }
+
+  .status-strip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+
+  .status-live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 6px rgba(74, 222, 128, 0.5);
+    margin-right: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .status-strip strong {
+    color: var(--text);
+    font-weight: bold;
+  }
+
+  .status-sep {
+    color: var(--gold);
+    opacity: 0.5;
+    font-weight: bold;
+  }
+
+  .status-link {
+    margin-left: auto;
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+  }
+
+  .status-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .lattice-intro-body {
@@ -784,7 +853,6 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
     constructor() {
       this.latticeCanvas = document.getElementById('hero-lattice');
       this.globeCanvas = document.getElementById('hero-globe');
-      this.trigger = document.getElementById('proof-of-resonance-trigger');
       this.nodes = [];
       this.maxNodes = 8;
 
@@ -802,9 +870,7 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
         this.animateGlobe();
       }
 
-      if (this.trigger) {
-        this.trigger.addEventListener('click', () => this.executeResonanceGate());
-      }
+
     }
 
     initLattice() {
@@ -997,22 +1063,7 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       requestAnimationFrame(() => this.animateGlobe());
     }
 
-    executeResonanceGate() {
-      const perspective = prompt(
-        "ENTERING THE SUBSTRATE:\n\nDescribe your unique perspective or primary focus in this local environment (e.g., historical legacy, resource tracking, community transit, artistic observation):"
-      );
 
-      if (!perspective || perspective.trim() === "") {
-        alert("Signal unanchored. The lattice requires a coordinate to initialize entry.");
-        return;
-      }
-
-      alert(
-        "COHERENCE HANDSHAKE INITIATED:\n\nYour perspective has been dropped into the Triadic Engine. Running parallax calculation... Node validation successful. Welcome to the lattice."
-      );
-
-      window.location.href = "/emergence/terminal";
-    }
   }
 
   // Single-fire initialization guard to prevent compounding animation loops
