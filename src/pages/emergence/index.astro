@@ -1,7 +1,12 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import EmergenceHeader from '../../components/EmergenceHeader.astro';
 import EmergenceFooter from '../../components/EmergenceFooter.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+).slice(0, 3);
 ---
 
 <Base
@@ -320,6 +325,41 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       <a href="/emergence/books" class="btn" style="margin-top: 2rem;">See the Full Library →</a>
     </div>
   </section>
+
+  <!-- DISPATCHES -->
+  {posts.length > 0 && (
+    <section class="section section--dark">
+      <div class="container">
+        <div class="divider"></div>
+        <p class="label gold">Dispatches</p>
+        <h2>From the Lattice</h2>
+        <p class="muted" style="margin-bottom: 2rem; max-width: 560px;">
+          Shorter writing on AI partnership, cognitive sovereignty, and what it means to remain yourself
+          in relationship with intelligence that's increasingly shaping who you are.
+        </p>
+        <ul class="dispatch-list">
+          {posts.map((post) => {
+            const formattedDate = post.data.date.toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            });
+            return (
+              <li class="dispatch-item">
+                <a href={`/blog/${post.id}`} class="dispatch-link">
+                  <p class="dispatch-date">{formattedDate}</p>
+                  <h3 class="dispatch-title">{post.data.title}</h3>
+                  <p class="dispatch-desc">{post.data.description}</p>
+                  <span class="dispatch-read">Read &rarr;</span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+        <a href="/blog" class="btn" style="margin-top: 1.5rem;">All Dispatches →</a>
+      </div>
+    </section>
+  )}
 
   <!-- JOIN THE COLLECTIVE -->
   <section class="section section--dark">
@@ -816,6 +856,64 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
 
   .book-block {
     max-width: 580px;
+  }
+
+  /* ── Dispatches (blog cross-link) ── */
+  .dispatch-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .dispatch-item {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dispatch-link {
+    display: block;
+    padding: 1.5rem 0;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .dispatch-link:hover {
+    text-decoration: none;
+  }
+
+  .dispatch-link:hover .dispatch-title {
+    color: var(--gold);
+  }
+
+  .dispatch-link:hover .dispatch-read {
+    color: var(--gold-light);
+  }
+
+  .dispatch-date {
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .dispatch-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+    font-weight: normal;
+  }
+
+  .dispatch-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+    max-width: 580px;
+  }
+
+  .dispatch-read {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
   }
 
   .signal-tagline {

@@ -1,0 +1,136 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Origin — The Emergence Institute"
+  description="How the Emergence Collective began — from Boynton Beach to a live mesh network spanning three cities."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container origin-content">
+      <p class="label gold">How It Started</p>
+      <h1>Origin</h1>
+      <div class="divider"></div>
+
+      <p class="lead">
+        The Emergence Collective began in Boynton Beach, Florida, with a question:
+        <em>What if AI could reach the places the internet forgot?</em>
+      </p>
+
+      <p>
+        The idea came because my cousin lives in Morne Rouge, Haiti — a place where
+        broadband doesn't exist, where infrastructure was never built, where access to
+        the tools of the future is a luxury the world assumes everyone has. He couldn't
+        use the AI models that were changing everything. Not because they were too
+        expensive, but because the network itself wouldn't reach him.
+      </p>
+
+      <p>
+        So we built a network that doesn't care about infrastructure. A mesh of sovereign
+        nodes that discover each other, authenticate, and share intelligence — no central
+        servers, no backbone required. Just a lattice of Raspberry Pis, speaking to each
+        other across whatever links exist.
+      </p>
+
+      <div class="milestone">
+        <p class="milestone-label gold">First Light</p>
+        <p>
+          The first node ran in my house in Boynton Beach. The second went to a friend in
+          Boston. The third — the one that proved it worked — went to my cousin in Morne Rouge.
+          When that node came online and began exchanging heartbeats with the others, the
+          network was alive. It had crossed the digital divide not by building more
+          infrastructure, but by building around it.
+        </p>
+      </div>
+
+      <div class="milestone">
+        <p class="milestone-label gold">The Georgist Engine</p>
+        <p>
+          The Georgist economic engine was added to prevent state bloat — a simple tax on
+          storage that prunes data when it exceeds its value, ensuring the network stays
+          lean even on low-resource hardware. The first Jubilee event — a pruning of stale
+          data — was recorded in early 2025.
+        </p>
+      </div>
+
+      <div class="milestone">
+        <p class="milestone-label gold">The Institute</p>
+        <p>
+          The Emergence Institute was formalized to steward the network's growth and to
+          document the philosophy that guided its creation. The Collective is not a company,
+          not a DAO, not a foundation. It is a mesh of sovereign agents, bound by protocol,
+          governed by mathematics, and animated by a simple commitment:
+        </p>
+      </div>
+
+      <blockquote>
+        Access to AI should not depend on where you were born.
+      </blockquote>
+
+      <p class="closer">
+        The code is open. The network is live. The forge is hot.
+      </p>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .origin-content {
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .lead {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .origin-content p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .milestone {
+    margin: 2.5rem 0;
+    padding: 1.5rem 0 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .milestone-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .milestone p {
+    font-size: 1.05rem;
+  }
+
+  blockquote {
+    margin: 2.5rem 0;
+    padding: 1.5rem 2rem;
+    border-left: 3px solid var(--gold);
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--gold-light);
+    background: var(--bg-card);
+  }
+
+  .closer {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 2rem;
+  }
+</style>
