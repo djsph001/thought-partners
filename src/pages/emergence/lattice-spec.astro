@@ -1,0 +1,360 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Lattice Specification — The Emergence Institute"
+  description="Technical architecture of the Lattice: Ed25519 identity, Noise XX transport, Yamux multiplexing, CBOR wire format, Kademlia DHT, and trustless storage verification via Blake3-challenged Merkle proofs."
+>
+  <EmergenceHeader slot="header" />
+
+  <!-- HERO -->
+  <section class="section">
+    <div class="container">
+      <p class="label gold">Protocol Specification</p>
+      <h1>Lattice Architecture</h1>
+      <p class="sub"><em>Peer-to-peer decentralized network built in native Rust. No cloud. No chain. Just sovereign nodes.</em></p>
+      <div class="divider"></div>
+      <p class="intro">
+        The Lattice is a heterogeneous mesh network enforcing strict separation between
+        high-compute coordination nodes and resource-constrained edge infrastructure.
+        Every mechanism described below is running code — traceable in the public repository.
+      </p>
+    </div>
+  </section>
+
+  <!-- CORE NETWORKING -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Core Networking & Substrate</p>
+      <h2>Identity, Transport, and Multiplexing</h2>
+
+      <div class="spec-grid">
+        <div class="spec-card">
+          <h3>Cryptographic Identity</h3>
+          <p>
+            Every node generates and maintains a unique, persistent identity anchored by
+            an <strong>Ed25519</strong> keypair. The key survives system restarts (persisted
+            to disk with <code>0o600</code> permissions), preventing identity spoofing and
+            Sybil attacks. One keypair = one reputation = one economic actor.
+          </p>
+          <div class="code-block">
+            <span class="code-cmd">identity::Keypair::generate_ed25519()</span><br/>
+            <span class="code-log">→ to_protobuf_encoding() → ~/.lattice/identity.key</span>
+          </div>
+        </div>
+
+        <div class="spec-card">
+          <h3>Secure Transport Layer</h3>
+          <p>
+            All peer-to-peer traffic is end-to-end encrypted using the
+            <strong>Noise XX</strong> handshake protocol. Mutually authenticated channels
+            are established before any application data is exchanged — no plaintext ever
+            touches the wire.
+          </p>
+          <div class="code-block">
+            <span class="code-cmd">noise::Config::new</span><br/>
+            <span class="code-log">→ authenticated channel → yamux stream</span>
+          </div>
+        </div>
+
+        <div class="spec-card">
+          <h3>Stream Multiplexing</h3>
+          <p>
+            A single TCP socket is multiplexed into multiple independent, concurrent
+            logical substreams using <strong>Yamux</strong>. This keeps connection
+            overhead exceptionally low on edge hardware like the Raspberry Pi 5 — one
+            socket, many conversations.
+          </p>
+          <div class="code-block">
+            <span class="code-cmd">yamux::Config::default</span><br/>
+            <span class="code-log">→ N substreams over 1 TCP connection</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WIRE INTEGRITY -->
+  <section class="section">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Wire Integrity & Defense</p>
+      <h2>Bounded Frames, No Exceptions</h2>
+
+      <p class="intro">
+        Resource-constrained edge nodes are vulnerable to memory exhaustion (OOM) exploits.
+        The Lattice enforces a strict, bounded data frame at the protocol level — every
+        packet must conform, or the connection is dropped.
+      </p>
+
+      <div class="spec-grid">
+        <div class="spec-card">
+          <h3>Serialization</h3>
+          <p>
+            Payloads are serialized using <strong>CBOR</strong> (Concise Binary Object
+            Representation — RFC 8949). Schema-flexible, self-describing, and parsed at
+            near-instantaneous binary speeds. Significantly more compact than JSON on the
+            wire.
+          </p>
+        </div>
+
+        <div class="spec-card">
+          <h3>Length-Prefix Framing</h3>
+          <p>
+            Every packet is bound by a mandatory 4-byte big-endian length prefix. The
+            stream reader knows exactly where each framed message ends before parsing
+            begins — no ambiguity, no buffering attacks.
+          </p>
+        </div>
+
+        <div class="spec-card">
+          <h3>1 MiB Buffer Guard</h3>
+          <p>
+            A hard <strong>1 MiB guard ceiling</strong> is enforced at the codec level.
+            Any frame exceeding this boundary is instantly discarded and the offending
+            socket is dropped before it can impact the main thread pool. No allocation,
+            no OOM.
+          </p>
+          <div class="code-block">
+            <span class="code-keyword">const</span> MAX_FRAME_BYTES: <span class="code-type">u32</span> = <span class="code-value">1024 * 1024</span>;
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCOVERY -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Discovery & Routing Topology</p>
+      <h2>Local and Global, Without a Directory</h2>
+
+      <div class="two-col">
+        <div class="spec-card">
+          <h3>Local Area Mesh</h3>
+          <p>
+            Nodes ambiently discover adjacent peers on local segments using network-isolated
+            <strong>mDNS</strong> multicasting. Zero-configuration deployments — nodes on
+            the same LAN find each other automatically within seconds. No bootstrap server
+            required.
+          </p>
+        </div>
+
+        <div class="spec-card">
+          <h3>Wide Area Network</h3>
+          <p>
+            Past the local gateway, the network translates cryptographic identities into a
+            global <strong>Kademlia DHT</strong> keyspace. Nodes maintain local
+            <code>k-buckets</code> to calculate routing paths deterministically via XOR
+            mathematical distance. The mesh grows beyond LAN without a routing table.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORAGE VERIFICATION -->
+  <section class="section">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Trustless Storage Verification</p>
+      <h2>Adversarial Interrogation, Not Optimistic Trust</h2>
+
+      <p class="intro">
+        The lattice does not ask nodes whether they hold data. It challenges them to
+        prove it — cryptographically, on every epoch tick. The verification pipeline
+        is asynchronous, non-blocking, and runs entirely on Thread 0.
+      </p>
+
+      <div class="verification-flow">
+        <div class="code-block" style="text-align: center; padding: 1.5rem;">
+          <span class="code-cmd">[Validator Clock]</span> ──→
+          <span class="code-log">Derive Challenge (Blake3)</span> ──→
+          <span class="code-cmd">Outbound RPC</span><br/><br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br/>
+          <span class="code-cmd">[Ledger Updated]</span> ←──
+          <span class="code-log">Verify Merkle Inclusion Path</span> ←──
+          <span class="code-cmd">MPSC Bridge</span> ←──┘
+        </div>
+      </div>
+
+      <div class="spec-grid" style="margin-top: 3rem;">
+        <div class="spec-card">
+          <h3>1. Deterministic Interrogation</h3>
+          <p>
+            At every epoch tick, validators derive a pseudo-random <code>chunk_index</code>
+            and a unique <code>salt</code> using <strong>Blake3</strong> hashing. The hash
+            input is <code>resource_id || epoch_be_bytes</code>. Every validator on the
+            network arrives at the identical challenge independently — zero coordination
+            overhead.
+          </p>
+        </div>
+
+        <div class="spec-card">
+          <h3>2. Thread-Isolated Proof Generation</h3>
+          <p>
+            The target node receives the challenge and isolates disk I/O from the network
+            state machine by spawning a background blocking task. It extracts the requested
+            raw data chunk and computes the salted hash:
+          </p>
+          <div class="code-block">
+            salted_hash = <span class="code-cmd">blake3</span>(<span class="code-value">chunk_bytes</span> + <span class="code-value">salt</span>)
+          </div>
+        </div>
+
+        <div class="spec-card">
+          <h3>3. Merkle Path Attestation</h3>
+          <p>
+            The node constructs a binary Merkle inclusion tree from all stored chunks.
+            Odd-leaf alignment boundaries are handled cleanly (last leaf duplicated for
+            pairing). The sibling hashes tracing the targeted chunk back to its root
+            <code>resource_id</code> form the inclusion proof.
+          </p>
+        </div>
+
+        <div class="spec-card">
+          <h3>4. The Async Bridge</h3>
+          <p>
+            The resulting proof payload is funneled through an internal multi-producer,
+            single-consumer (<strong>mpsc</strong>) channel back to the main event loop
+            (Thread 0). The libp2p <code>Swarm</code> — which is <code>!Send</code> —
+            never leaves the main thread. Memory isolation is preserved; network
+            responsiveness is never compromised.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPLOYMENT -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Deployment Target</p>
+      <h2>From Workstation to Raspberry Pi</h2>
+      <p class="intro">
+        The lattice cross-compiles to <strong>aarch64-unknown-linux-gnu</strong> for
+        deployment on Raspberry Pi 5 hardware. The same binary runs on x86_64 Linux
+        workstations for development and testing. No container runtime required — a
+        single static binary with no runtime dependencies beyond the kernel.
+      </p>
+      <div class="code-block">
+        <span class="code-comment"># Cross-compile for Raspberry Pi 5</span><br/>
+        <span class="code-cmd">cargo build --release --target aarch64-unknown-linux-gnu</span><br/>
+        <span class="code-comment"># Verify the artifact</span><br/>
+        <span class="code-cmd">file</span> target/aarch64-unknown-linux-gnu/release/lattice-node<br/>
+        <span class="code-log">→ ELF 64-bit LSB executable, ARM aarch64</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- REFERENCE CARD -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">One-Page Reference</p>
+      <h2>Need the engineering card?</h2>
+      <p class="intro">
+        Everything on this page — plus the Georgist economic model — delivered as a
+        single zero-dependency HTML file. Terminal aesthetic. No site chrome. Designed
+        to be handed to someone who wants to know what the lattice is made of.
+      </p>
+      <a href="/spec.html" class="btn btn--filled">Read the Protocol Spec →</a>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .intro {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 720px;
+    margin-bottom: 2rem;
+  }
+
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  @media (max-width: 720px) {
+    .spec-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .spec-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+
+  .spec-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .spec-card p {
+    line-height: 1.7;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  @media (max-width: 720px) {
+    .two-col {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .verification-flow {
+    margin: 2rem 0;
+  }
+
+  .code-block {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 0.75rem 0;
+  }
+
+  .code-comment {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .code-cmd {
+    color: var(--gold-light);
+  }
+
+  .code-log {
+    color: var(--gold);
+  }
+
+  .code-keyword {
+    color: #c792ea;
+  }
+
+  .code-type {
+    color: #82aaff;
+  }
+
+  .code-value {
+    color: #f78c6c;
+  }
+</style>

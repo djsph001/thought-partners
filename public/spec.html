@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lattice Protocol & Economics — Emergence Collective</title>
+    <meta name="description" content="Technical architecture and economic infrastructure of the Lattice: Ed25519 identity, Noise XX transport, CBOR wire format, Kademlia DHT, Blake3 storage verification, and Georgist Land-Value Tax with exponential decay policy.">
+    <meta property="og:title" content="Lattice Protocol & Economics — Emergence Collective">
+    <meta property="og:description" content="Ed25519, Noise XX, Yamux, CBOR, 1 MiB guard, Blake3-challenged Merkle proofs, and Georgist economics with tenure health decay. One page. All the architecture.">
+    <meta property="og:url" content="https://emergenceinstitute.live/spec.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <style>
+        :root {
+            --bg-color: #0d0e12;
+            --panel-bg: #13151a;
+            --border-color: #222630;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --accent-green: #10b981;
+            --accent-orange: #f59e0b;
+            --accent-blue: #3b82f6;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-weight: bold;
+            font-size: 1.25rem;
+            letter-spacing: -0.05em;
+            color: var(--text-primary);
+        }
+
+        .logo span {
+            color: var(--accent-green);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+        }
+
+        @media (min-width: 968px) {
+            main {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+        }
+
+        section {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2.5rem;
+            height: fit-content;
+        }
+
+        h2 {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sec-architecture h2 { color: var(--accent-blue); }
+        .sec-economics h2 { color: var(--accent-green); }
+
+        h3 {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+        }
+
+        ul {
+            padding-left: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+        }
+
+        .diagram {
+            background-color: #090a0d;
+            border: 1px dashed var(--border-color);
+            border-radius: 4px;
+            padding: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            overflow-x: auto;
+            white-space: pre;
+            margin: 1.5rem 0;
+        }
+
+        .math-block {
+            background-color: #090a0d;
+            border-left: 3px solid var(--accent-orange);
+            padding: 1rem;
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            color: var(--text-primary);
+            text-align: center;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            max-width: 1200px;
+            margin: 4rem auto 0 auto;
+        }
+
+        footer a {
+            color: var(--accent-green);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">EMERGENCE_COLLECTIVE<span>.LIVE</span></div>
+        <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-green);">NODE_STATUS: ONLINE [v1.0.0-alpha]</div>
+    </header>
+
+    <main>
+        <section class="sec-architecture">
+            <h2>// 01. Technical Architecture</h2>
+            <p>The Emergence Collective lattice is a heterogeneous, peer-to-peer decentralized network built from the ground up in native Rust. It enforces strict separation of concerns between high-compute coordination nodes and resource-constrained edge infrastructure.</p>
+            
+            <h3>Core Networking & Substrate</h3>
+            <ul>
+                <li><strong>Cryptographic Identity:</strong> Every node generates and maintains a unique, persistent identity anchored by an Ed25519 keypair. Node authorization and reputation survive system restarts, preventing identity spoofing and sybil attacks.</li>
+                <li><strong>Secure Transport Layer:</strong> All peer-to-peer traffic is end-to-end encrypted using the Noise XX handshake protocol, establishing mutually authenticated channels prior to any state exchange.</li>
+                <li><strong>Stream Multiplexing:</strong> Utilizing Yamux, a single underlying TCP socket is multiplexed into multiple independent, concurrent logical substreams. This keeps connection overhead exceptionally low on edge hardware like the Raspberry Pi 5.</li>
+            </ul>
+
+            <h3>Wire Integrity & Defense</h3>
+            <p>To safeguard resource-constrained edge nodes against malicious memory exhaustion (OOM) exploits, the network protocol enforces a strict, bounded data frame:</p>
+            <ul>
+                <li><strong>Serialization:</strong> Payloads are serialized using CBOR (Concise Binary Object Representation) for schema flexibility and near-instantaneous binary parsing speeds.</li>
+                <li><strong>Length-Prefix Framing:</strong> Every packet is bound by a mandatory 4-byte length prefix.</li>
+                <li><strong>Buffer Guard:</strong> A hard 1 MiB guard ceiling is enforced at the codec level. Any frame exceeding this boundary is instantly discarded, and the offending socket is dropped before it can impact the main thread pool.</li>
+            </ul>
+
+            <h3>Discovery & Routing Topology</h3>
+            <ul>
+                <li><strong>Local Area Mesh:</strong> Nodes ambiently discover adjacent peers on local segments using network-isolated mDNS multicasting, enabling zero-configuration deployments.</li>
+                <li><strong>Wide Area Network (WAN):</strong> Past the local gateway, the network translates cryptographic identities into a global Kademlia DHT (Distributed Hash Table) keyspace. Nodes maintain local k-buckets to calculate routing paths deterministically via XOR mathematical distance.</li>
+            </ul>
+
+            <h3>Trustless Storage Verification</h3>
+            <p>The lattice relies on adversarial interrogation rather than optimistic tracking. Data possession is verified through an asynchronous, non-blocking spot-check pipeline:</p>
+            
+            <div class="diagram">[Validator Clock] ──> Derive Deterministic Challenge (Blake3) ──> Outbound RPC
+                                                                        │
+[Ledger Updated] <── Verify Merkle Inclusion Path <── MPSC Bridge <─────┘</div>
+
+            <ul>
+                <li><strong>Deterministic Interrogation:</strong> At every epoch tick, validators derive a pseudo-random chunk_index and a unique salt using a Blake3 hash seeded by the target resource ID and current epoch number. Every validator on the network arrives at the identical challenge independently.</li>
+                <li><strong>Thread-Isolated Proof Generation:</strong> The target node receives the challenge, isolates disk I/O from the network state machine by spawning a background blocking task, extracts the requested raw data chunk, and computes a salted hash of the chunk bytes mixed with the challenge salt.</li>
+                <li><strong>Merkle Path Attestation:</strong> The node constructs a binary Merkle inclusion tree from all stored chunks, handles odd-leaf alignment boundaries cleanly, and generates the sibling hashes necessary to trace the targeted chunk back to its root resource ID.</li>
+                <li><strong>The Async Bridge:</strong> The resulting proof payload is funneled through an internal multi-producer, single-consumer (mpsc) channel back to the main event loop (Thread 0), preserving memory isolation and keeping the node's network responsiveness uncompromised.</li>
+            </ul>
+        </section>
+
+        <section class="sec-economics">
+            <h2>// 02. Economic Infrastructure</h2>
+            <p>Traditional networks suffer from data hoarding and digital landlordism, where early participants claim vast swaths of network authority without providing ongoing utility. The Emergence Collective solves this by treating resource allocation—like hosting telemetry records or hydrological monitoring logs—as a dynamic, economic leasehold.</p>
+            <p>We integrate the economic principles of Henry George directly into the network substrate. Holding presence or data registry space within the lattice comes with an ongoing, automated Land-Value Tax (LVT). This tax is not paid in fiat currency to a centralized authority; it is a structural routing and resource cost calculated natively within the ledger.</p>
+
+            <h3>Contribution Minting & The Tenure Equilibrium</h3>
+            <p>To offset the inherent land-value tax of holding space, nodes must actively prove they are providing value to the collective grid.</p>
+            <ul>
+                <li><strong>Active Auditing:</strong> The network continually issues automated cryptographic storage challenges to your node.</li>
+                <li><strong>Value Balancing:</strong> Passing an audit signals to the ledger that your resource claim is authentic. The network responds by executing a Transaction::Mint event, creating contribution credits that directly neutralize your land-value tax liability.</li>
+            </ul>
+            <p>Your net economic standing in the lattice is determined by your Tenure Health Score, a variable bounded tightly between 0.0 and 1.0.</p>
+
+            <h3>The Forgiveness Curve: Exponential Decay Policy</h3>
+            <p>Because the lattice runs on real-world edge hardware—where home internet connections experience brief blackouts and storm systems can knock out residential power lines—the economic engine is designed with structural forgiveness. It distinguishes between a transient network failure and an adversarial actor.</p>
+            
+            <ul>
+                <li><strong>The Penalty Curve:</strong> If a node misses a deterministic spot-check challenge, its Tenure Health (H) decays exponentially:</li>
+            </ul>
+            <div class="math-block">H_new = H_current × 0.80</div>
+            <p style="padding-left: 1.25rem;">Concurrently, its LVT burden escalates based on its consecutive failure count.</p>
+            
+            <ul>
+                <li><strong>The Recovery Step:</strong> The moment the node stabilizes and passes its next challenge, its failures reset to zero and its health begins a linear march back to optimal status:</li>
+            </ul>
+            <div class="math-block">H_new = min(1.0, H_current + 0.10)</div>
+            
+            <ul>
+                <li><strong>The Eviction Floor:</strong> If a node abandons its duties and its Tenure Health slides below the hard 0.30 eviction floor, the ledger intervenes defensively. The resource claim is dissolved, the space is unallocated, and the data territory returns to the collective pool for other Kademlia peers to reclaim.</li>
+            </ul>
+            <p>Through this elegant mathematical equilibrium, the lattice ensures that digital land always remains in the hands of those actively cultivating it.</p>
+        </section>
+    </main>
+
+    <footer>
+        EMERGENCE COLLECTIVE &copy; 2026 // INFRASTRUCTURE SECURED // CONTACT: <a href="mailto:contact@emergencecollective.live">contact@emergencecollective.live</a>
+    </footer>
+
+</body>
+</html>

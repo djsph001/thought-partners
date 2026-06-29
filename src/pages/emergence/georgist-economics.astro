@@ -1,0 +1,506 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Georgist Economics — The Emergence Institute"
+  description="How the Lattice treats digital storage as land: Land-Value Tax (LVT), contribution minting, tenure health, exponential decay policy, and the 0.30 eviction floor."
+>
+  <EmergenceHeader slot="header" />
+
+  <!-- HERO -->
+  <section class="section">
+    <div class="container">
+      <p class="label gold">Economic Substrate</p>
+      <h1>Georgist Economics</h1>
+      <p class="sub"><em>Digital land taxed. Participation rewarded. Abandonment reclaimed.</em></p>
+      <div class="divider"></div>
+      <p class="intro">
+        Traditional networks suffer from data hoarding and digital landlordism — early
+        participants claim vast swaths of network authority without providing ongoing
+        utility. The Lattice treats resource allocation as a dynamic, economic leasehold
+        with structural incentives that make contribution the dominant strategy.
+      </p>
+    </div>
+  </section>
+
+  <!-- THE DIGITAL COMMONS -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">The Digital Commons</p>
+      <h2>Data Land & the Land-Value Tax</h2>
+
+      <p class="intro">
+        We integrate the economic principles of <strong>Henry George</strong> directly
+        into the network substrate. Holding presence or data registry space within the
+        lattice comes with an ongoing, automated <strong>Land-Value Tax (LVT)</strong>.
+        This tax is not paid in fiat currency to a centralized authority — it is a
+        structural routing and resource cost calculated natively within the ledger.
+      </p>
+
+      <div class="principle-row">
+        <div class="principle-card">
+          <p class="principle-icon">🏛️</p>
+          <h3>You Occupy, You Pay</h3>
+          <p>
+            Every resource claim — hosting telemetry records, hydrological monitoring
+            logs, community sensor data — occupies network capacity. The LVT is
+            proportional to the claim's footprint. Larger claims pay more. Stale claims
+            pay more.
+          </p>
+        </div>
+
+        <div class="principle-card">
+          <p class="principle-icon">⚡</p>
+          <h3>You Contribute, You Earn</h3>
+          <p>
+            Nodes that actively relay traffic, store DHT records, and propagate messages
+            earn contribution credits that offset their LVT burden. The more you serve
+            the mesh, the less you're taxed. Contribution is the dominant strategy.
+          </p>
+        </div>
+
+        <div class="principle-card">
+          <p class="principle-icon">🔄</p>
+          <h3>You Abandon, You Lose</h3>
+          <p>
+            Data territory that goes unmaintained is reclaimed by the network. No
+            permanent claims. No absentee landlords. The land returns to the collective
+            pool for other Kademlia peers to tend.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE TAX FORMULA -->
+  <section class="section">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">The Tax Engine</p>
+      <h2>Your Contribution Ratio Determines Your Rate</h2>
+
+      <p class="intro">
+        The tax rate is not flat — it's a function of your <strong>contribution
+        ratio</strong>: the ratio of what you give (relayed bytes, DHT records stored,
+        messages propagated) to what you take (traffic generated, queries issued).
+      </p>
+
+      <div class="formula-card">
+        <p class="formula-label">Tax Rate Formula</p>
+        <div class="code-block formula-block">
+          <span class="code-keyword">tax_rate</span> = <span class="code-type">BASE_TAX_RATE</span> × (<span class="code-value">1.0</span> / <span class="code-keyword">contribution_ratio</span>)
+        </div>
+        <div class="formula-examples">
+          <div class="example">
+            <span class="example-label">Ratio 2.0</span>
+            <span class="example-desc">Gives twice what it takes</span>
+            <span class="example-result green">Pays 2.5% (half the base rate)</span>
+          </div>
+          <div class="example">
+            <span class="example-label">Ratio 1.0</span>
+            <span class="example-desc">Balanced contribution</span>
+            <span class="example-result">Pays 5% (base rate)</span>
+          </div>
+          <div class="example">
+            <span class="example-label">Ratio 0.5</span>
+            <span class="example-desc">Takes twice what it gives</span>
+            <span class="example-result red">Pays 10% (double the base rate)</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="intro" style="margin-top: 2rem;">
+        Tax collected is redistributed equally to all known peers at each epoch boundary.
+        It doesn't go to a central authority — it circulates back to the participants
+        who are keeping the mesh alive.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTRIBUTION MINTING -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Contribution Minting</p>
+      <h2>Earn by Serving the Mesh</h2>
+
+      <p class="intro">
+        To offset the land-value tax of holding space, nodes must actively prove they
+        are providing value. The network continually issues automated cryptographic
+        storage challenges. Passing an audit triggers a <code>Transaction::Mint</code>
+        event, creating contribution credits that directly neutralize your LVT liability.
+      </p>
+
+      <div class="spec-grid">
+        <div class="spec-card">
+          <h3>Active Auditing</h3>
+          <p>
+            At every epoch tick, the network selects resource claims due for verification
+            and issues deterministic challenges. The challenge targets a specific chunk
+            of the claimed resource — the node must prove it still holds the data.
+          </p>
+        </div>
+
+        <div class="spec-card">
+          <h3>Reward Calculation</h3>
+          <p>
+            A successful verification mints contribution credits proportional to the
+            resource size and current tenure health:
+          </p>
+          <div class="code-block">
+            <span class="code-keyword">reward</span> = <span class="code-value">size_bytes</span> × <span class="code-keyword">tenure_health</span>
+          </div>
+          <p>
+            Larger, healthier resources earn more. A resource with perfect health (1.0)
+            earns the full reward. A degraded resource earns proportionally less.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TENURE HEALTH -->
+  <section class="section">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">The Forgiveness Curve</p>
+      <h2>Exponential Decay With Recovery</h2>
+
+      <p class="intro">
+        The lattice runs on real-world edge hardware — home internet connections
+        experience brief blackouts, storm systems knock out residential power lines.
+        The economic engine is designed with <strong>structural forgiveness</strong>.
+        It distinguishes between a transient network failure and an adversarial actor
+        using the <strong>Tenure Health Score</strong> (H), bounded between 0.0 and 1.0.
+      </p>
+
+      <div class="health-grid">
+        <div class="health-card penalty">
+          <h3>The Penalty Curve</h3>
+          <p>If a node misses a deterministic spot-check challenge, its tenure health decays exponentially:</p>
+          <div class="code-block formula-block">
+            H<sub>new</sub> = H<sub>current</sub> × <span class="code-value">0.80</span>
+          </div>
+          <p class="health-detail">
+            Concurrently, the LVT burden escalates based on the consecutive failure
+            count. Each failure compounds — the tax rate increases while health erodes.
+          </p>
+        </div>
+
+        <div class="health-card recovery">
+          <h3>The Recovery Step</h3>
+          <p>When the node stabilizes and passes its next challenge, failures reset to zero and health recovers:</p>
+          <div class="code-block formula-block">
+            H<sub>new</sub> = <span class="code-keyword">min</span>(<span class="code-value">1.0</span>, H<sub>current</sub> + <span class="code-value">0.10</span>)
+          </div>
+          <p class="health-detail">
+            Recovery is linear and capped — a node at 0.30 health needs seven
+            successful challenges to fully recover. This prevents rapid health
+            gaming while allowing honest nodes to earn their way back.
+          </p>
+        </div>
+
+        <div class="health-card eviction">
+          <h3>The Eviction Floor</h3>
+          <p>If tenure health slides below the hard threshold, the claim is dissolved:</p>
+          <div class="code-block formula-block">
+            <span class="code-keyword">if</span> H &lt; <span class="code-value">0.30</span> → <span class="code-cmd">evict_claim</span>()
+          </div>
+          <p class="health-detail">
+            The resource claim is removed from the ledger. The data territory returns
+            to the collective pool. Other Kademlia peers can reclaim the space. No
+            appeals. No exceptions. The math is the arbiter.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE EQUILIBRIUM -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">The Nash Equilibrium</p>
+      <h2>Contributing Is the Dominant Strategy</h2>
+
+      <p class="intro">
+        The system converges to a stable equilibrium where honest participation is
+        mathematically optimal. A node that gives more than it takes sees its tax
+        rate drop and its contribution minting rise. A node that takes without
+        giving sees its balance erode epoch by epoch — taxed into decline, then
+        evicted entirely.
+      </p>
+
+      <div class="equilibrium-proof">
+        <p class="proof-label">Solo-Node Proof (Phase 5 Testnet)</p>
+        <div class="code-block" style="font-size: 0.8rem; line-height: 1.5;">
+          <span class="code-log">epoch 2:</span> balance 4836 → 4181  <span class="code-comment">(tax -655, ratio 0.36)</span><br/>
+          <span class="code-log">epoch 3:</span> balance 4181 → 3836  <span class="code-comment">(tax -345, ratio 0.50)</span><br/>
+          <span class="code-log">epoch 4:</span> balance 3836 → 3550  <span class="code-comment">(tax -286, ratio 0.67)</span><br/>
+          <span class="code-log">epoch 5:</span> balance 3550 → 3286  <span class="code-comment">(tax -264, minted=0, ratio 0.67)</span><br/>
+          <span class="code-log">epoch 6:</span> balance 3286 → 3041  <span class="code-comment">(tax -245, minted=0, ratio 0.67)</span><br/>
+          <span class="code-log">epoch 7:</span> balance 3041 → 2815  <span class="code-comment">(tax -226, minted=0, ratio 0.67)</span>
+        </div>
+        <p class="proof-caption">
+          A single node, contributing nothing, sitting alone — watching its balance
+          decline epoch by epoch. The tax rate settled at 7.46% because the contribution
+          ratio landed at 0.67. <em>This is not a simulation. This is a log file.</em>
+        </p>
+      </div>
+
+      <p class="intro" style="margin-top: 2rem;">
+        Through this mathematical equilibrium, the lattice ensures that digital land
+        always remains in the hands of those actively cultivating it. No permanent
+        claims. No extractive middlemen. Just running code that proves the thesis.
+      </p>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .intro {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 720px;
+    margin-bottom: 2rem;
+  }
+
+  .principle-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 720px) {
+    .principle-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .principle-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+
+  .principle-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .principle-card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .principle-card p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  .formula-card {
+    background: var(--bg-card);
+    border: 1px solid var(--gold);
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+
+  .formula-label {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .formula-block {
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 1.5rem;
+  }
+
+  .formula-examples {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 720px) {
+    .formula-examples {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .example {
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+  }
+
+  .example-label {
+    display: block;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .example-desc {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .example-result {
+    display: block;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+  }
+
+  .example-result.green {
+    color: #5cb87a;
+  }
+
+  .example-result.red {
+    color: #f78c6c;
+  }
+
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 720px) {
+    .spec-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .spec-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+
+  .spec-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .spec-card p {
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  .health-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 900px) {
+    .health-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .health-card {
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+  }
+
+  .health-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .health-card p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .health-card.penalty {
+    border-left: 3px solid #f78c6c;
+  }
+
+  .health-card.recovery {
+    border-left: 3px solid var(--gold);
+  }
+
+  .health-card.eviction {
+    border-left: 3px solid #c792ea;
+  }
+
+  .health-detail {
+    margin-top: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.85rem !important;
+  }
+
+  .equilibrium-proof {
+    margin-top: 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+
+  .proof-label {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8rem;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .proof-caption {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .code-block {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 0.75rem 0;
+  }
+
+  .code-comment {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .code-cmd {
+    color: var(--gold-light);
+  }
+
+  .code-log {
+    color: var(--gold);
+  }
+
+  .code-keyword {
+    color: #c792ea;
+  }
+
+  .code-type {
+    color: #82aaff;
+  }
+
+  .code-value {
+    color: #f78c6c;
+  }
+</style>
