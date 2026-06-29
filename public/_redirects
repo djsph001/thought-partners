@@ -1,0 +1,2 @@
+# Dashboard subdomain → serve the honest status page
+https://dashboard.emergenceinstitute.live/*  /dashboard.html  200!
