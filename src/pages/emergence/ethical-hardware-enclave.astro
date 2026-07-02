@@ -1,0 +1,333 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Ethical Hardware Enclave — Sovereign Compute | The Emergence Institute"
+  description="The Ethical Hardware Enclave: localized AI inference, hardware-level security, and anti-monopoly infrastructure. Sovereign compute that keeps your data in your possession."
+>
+  <EmergenceHeader slot="header" />
+
+  <!-- HERO -->
+  <section class="section">
+    <div class="container">
+      <p class="label gold">Sovereign Infrastructure</p>
+      <h1>The Ethical Hardware Enclave</h1>
+      <p class="sub"><em>Software protocols are not enough. The silicon must be sovereign too.</em></p>
+      <div class="divider"></div>
+      <p class="intro">
+        To achieve true cognitive sovereignty and data ownership, the underlying physical
+        infrastructure must be secured. The Ethical Hardware Enclave is the Emergence
+        Collective's commitment to <strong>localized, self-hosted execution</strong> —
+        running premium AI models and cryptographic protocols on hardware you control,
+        not on someone else's computer. No cloud dependency. No data harvesting. No
+        remote kill switch.
+      </p>
+    </div>
+  </section>
+
+  <!-- THREE PILLARS -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Three Pillars</p>
+      <h2>What makes hardware ethical?</h2>
+      <p class="muted layer-intro">
+        An "ethical" hardware deployment isn't about the brand of the silicon. It's
+        about <em>who controls it</em>, <em>where data flows</em>, and <em>whether
+        anyone can pull the plug</em>. These three pillars define the standard.
+      </p>
+
+      <div class="layer-stack">
+        <div class="layer-card">
+          <p class="layer-num gold">Pillar I</p>
+          <h3>Localized Inference <span class="muted">· Sovereign Compute</span></h3>
+          <p>
+            Premium AI models run on <strong>local, dedicated hardware workstations</strong>
+            — multi-GPU setups running Linux, homelab servers, or single-board
+            computers for lightweight inference. Data never leaves the node's physical
+            possession. When you query a model, the prompt and the response stay on
+            your machine. No telemetry. No training on your data. No third-party API
+            that can log, rate-limit, or revoke access. <em>Absolute privacy by
+            physical architecture.</em>
+          </p>
+        </div>
+
+        <div class="layer-card">
+          <p class="layer-num gold">Pillar II</p>
+          <h3>Hardware-Level Security <span class="muted">· Trusted Execution</span></h3>
+          <p>
+            The "Enclave" is literal: sensitive cryptographic operations, model
+            execution, and community data processing run inside <strong>hardware-isolated
+            environments</strong>. TPM 2.0 anchors node identity so keys can never be
+            silently exfiltrated or impersonated. Secure enclaves (Intel SGX / AMD
+            SEV) sandbox computation so that even a compromised host OS cannot inspect
+            the data being processed. What happens in the enclave stays in the enclave.
+          </p>
+        </div>
+
+        <div class="layer-card">
+          <p class="layer-num gold">Pillar III</p>
+          <h3>Anti-Monopoly Infrastructure <span class="muted">· Distributed Resilience</span></h3>
+          <p>
+            By distributing compute across an <strong>independent mesh of local
+            nodes</strong> rather than a single cloud provider, the Ethical Hardware
+            Enclave ensures the network is resilient against hardware-level shutoffs,
+            corporate rentier capitalism, and external systemic shocks. No single
+            entity owns enough nodes to halt the network. No data center migration
+            can silently capture a community's compute. The digital collective is
+            grounded in <em>physical, self-reliant reality</em> — not in a terms-of-service
+            agreement that can change overnight.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NODE TIERS -->
+  <section class="section">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Hardware Tiers</p>
+      <h2>From Raspberry Pi to multi-GPU workstation</h2>
+      <p class="intro">
+        The Enclave is not one-size-fits-all. Nodes scale from lightweight edge
+        devices that verify and relay, to high-compute synthesis nodes that run
+        large language models locally. Every tier meets the three-pillar standard.
+      </p>
+
+      <div class="tier-grid">
+        <div class="tier-card">
+          <p class="tier-num gold">Tier 1</p>
+          <h3>Edge Node</h3>
+          <p class="tier-hw">Raspberry Pi 5 · 8 GB RAM</p>
+          <p>
+            Verifies trilateral receipts, relays mesh traffic, and participates in
+            lightweight consensus. Holds a TPM-anchored identity. Cannot run large
+            models, but can verify that others did. The smallest sovereign unit.
+          </p>
+        </div>
+        <div class="tier-card">
+          <p class="tier-num gold">Tier 2</p>
+          <h3>Standard Node</h3>
+          <p class="tier-hw">Homelab server · 32+ GB RAM · Consumer GPU</p>
+          <p>
+            Runs mid-size open-weight models locally (7B–13B parameters). Handles
+            routine synthesis work, Georgist ledger computation, and community data
+            processing. The backbone of the mesh.
+          </p>
+        </div>
+        <div class="tier-card">
+          <p class="tier-num gold">Tier 3</p>
+          <h3>Synthesis Node</h3>
+          <p class="tier-hw">Multi-GPU workstation · 64+ GB RAM · Ubuntu/Linux</p>
+          <p>
+            Runs large models (70B+) entirely on local hardware. Handles complex
+            adversarial synthesis rounds, multi-agent orchestration, and high-stakes
+            governance proposals that require deep reasoning. The engine room.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECURITY MODEL -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Security Model</p>
+      <h2>Defense in depth, from silicon to mesh</h2>
+
+      <div class="spec-grid">
+        <div class="spec-card">
+          <h3>TPM 2.0 Identity Anchoring</h3>
+          <p>
+            Every node's Ed25519 keypair is bound to a TPM 2.0 chip. The private key
+            never leaves the hardware security module. A node's identity cannot be
+            copied, exfiltrated, or silently impersonated — even with root access to
+            the operating system.
+          </p>
+        </div>
+        <div class="spec-card">
+          <h3>Secure Enclave Execution</h3>
+          <p>
+            Sensitive computation — model inference on personal data, cryptographic
+            signing, consensus verification — runs inside hardware-enforced trusted
+            execution environments (SGX/SEV). The host OS cannot inspect enclave
+            memory. A compromised kernel cannot read your queries.
+          </p>
+        </div>
+        <div class="spec-card">
+          <h3>Air-Gapped Key Management</h3>
+          <p>
+            Long-lived signing keys for governance receipts are generated and stored
+            on air-gapped hardware. They sign trilateral receipts through a
+            one-way data diode — the signing device receives the hash, signs it, and
+            returns only the signature. The key never touches a networked system.
+          </p>
+        </div>
+        <div class="spec-card">
+          <h3>Mesh-Level Verification</h3>
+          <p>
+            Even if a single node is compromised, the mesh architecture limits the
+            blast radius. Trilateral receipts require three independent signatures.
+            Adversarial consensus rounds catch anomalous behavior. The network is
+            designed to degrade gracefully, not fail catastrophically.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT INTERSECTS -->
+  <section class="section">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">The Intersection</p>
+      <h2>Governance meets hardware</h2>
+      <p class="intro">
+        The <strong>Tripartite Council</strong> provides the cognitive and organizational
+        framework for decentralized governance. The <strong>Ethical Hardware
+        Enclave</strong> provides the physical, sovereign soil upon which that
+        framework runs safely. One without the other is incomplete: governance
+        without sovereign hardware is a terms-of-service agreement. Hardware without
+        governance is just a computer. Together, they ensure the Emergence Collective
+        remains self-sovereign, secure, and structurally aligned with its foundational
+        principles — from the silicon up.
+      </p>
+    </div>
+  </section>
+
+  <!-- CROSS-LINKS -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Continue Reading</p>
+      <div class="cta-row">
+        <a href="/emergence/tripartite-council" class="btn">The Tripartite Council →</a>
+        <a href="/emergence/architecture" class="btn">Lattice Architecture →</a>
+        <a href="/emergence/lattice-spec" class="btn">Protocol Specification →</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .muted { color: var(--text-muted); }
+  .sub { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+  .intro { font-size: 1.05rem; line-height: 1.75; max-width: 720px; color: var(--text-muted); }
+  .layer-intro { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 2rem; max-width: 680px; }
+
+  .layer-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .layer-card {
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+
+  .layer-num {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+
+  .layer-card h3 {
+    font-size: 1.15rem;
+    margin: 0 0 0.75rem;
+  }
+
+  .layer-card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .tier-card {
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+
+  .tier-num {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+
+  .tier-card h3 {
+    font-size: 1.05rem;
+    margin: 0 0 0.3rem;
+  }
+
+  .tier-hw {
+    font-size: 0.8rem;
+    font-family: monospace;
+    letter-spacing: 0.03em;
+    margin: 0.1rem 0 0.6rem;
+  }
+
+  .tier-card p:last-child {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .spec-card {
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+
+  .spec-card h3 {
+    font-size: 1.05rem;
+    margin: 0 0 0.75rem;
+  }
+
+  .spec-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 780px) {
+    .tier-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    .spec-grid { grid-template-columns: 1fr; }
+    .cta-row { flex-direction: column; }
+  }
+</style>
