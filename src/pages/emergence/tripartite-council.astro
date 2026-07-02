@@ -5,24 +5,28 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
 ---
 
 <Base
-  title="Tripartite Council — Governance | The Emergence Institute"
-  description="The Tripartite Council: decentralized governance balancing human intent, algorithmic optimization, and cryptographic protocol. Three co-equal branches that check and balance each other."
+  title="Tripartite Council — TCP v0.1.0 | The Emergence Institute"
+  description="The Tripartite Council: decentralized governance across three co-equal branches — the Living Node (lvn:), the Fourth Branch AI Infrastructure Agency (tfb:), and the Lattice Protocol Mesh (lat:). Governed by the Tripartite Consensus Protocol (TCP) v0.1.0-draft."
 >
   <EmergenceHeader slot="header" />
 
   <!-- HERO -->
   <section class="section">
     <div class="container">
-      <p class="label gold">Governance Architecture</p>
+      <p class="label gold">Governance Architecture &middot; v0.1.0-draft</p>
       <h1>The Tripartite Council</h1>
-      <p class="sub"><em>Three branches. One lattice. No single point of control.</em></p>
+      <p class="sub"><em>Three branches. Four states. One cryptographic truth.</em></p>
       <div class="divider"></div>
       <p class="intro">
         The Tripartite Council is the core decentralized governance framework of the
-        Emergence Collective. It divides authority across three co-equal branches — human,
-        algorithmic, and cryptographic — so that no single vector, whether institutional,
-        corporate, or automated, can dominate the system. Every decision that affects the
-        network must pass through all three.
+        Emergence Collective, governed by the <strong>Tripartite Consensus Protocol
+        (TCP) v0.1.0</strong>. It divides authority across three co-equal branches —
+        the Living Node (<code>lvn:</code>), the Fourth Branch AI Infrastructure Agency
+        (<code>tfb:</code>), and the Lattice Protocol Mesh (<code>lat:</code>) — so
+        that no single vector, whether institutional, corporate, or automated, can
+        dominate the system. Every decision that affects the network must pass through
+        the full 4-state pipeline: Proposed &rarr; Simulated &rarr; Ratified &rarr;
+        Committed. No signature? No execution.
       </p>
     </div>
   </section>
@@ -34,49 +38,56 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       <p class="label gold">The Three Branches</p>
       <h2>Separation of powers, decentralized</h2>
       <p class="muted layer-intro">
-        Each branch holds a distinct kind of authority. None can act alone. The
-        architecture requires continuous cryptographic coordination among all three —
-        what we call <em>trilateral receipts</em>.
+        Each branch holds a distinct kind of authority and is identified by a
+        deterministic address prefix derived from its public key. None can act alone.
+        The architecture requires continuous cryptographic coordination among all
+        three — what the <strong>TCP v0.1.0</strong> protocol formalizes as
+        <em>trilateral receipts</em>.
       </p>
 
       <div class="layer-stack">
         <div class="layer-card">
-          <p class="layer-num gold">Branch I</p>
-          <h3>The Civic Assembly <span class="muted">· The Living Node</span></h3>
+          <p class="layer-num gold"><code>lvn:</code> &mdash; The Living Node</p>
+          <h3>The Civic Assembly <span class="muted">&middot; Human Intent</span></h3>
           <p>
             Composed of human participants, community members, and stake-aligned
             operators — the people running local initiatives like the Digital Lakou
             or the Urban Water Loop. This branch represents <strong>collective human
-            intent, values, and lived experience</strong>. It ensures that every
-            technical decision is measured against the well-being of the actual
-            community it serves. The Assembly holds veto power over any algorithmic
-            proposal that fails the human-welfare test.
+            intent, values, and lived experience</strong>. Proposals enter the TCP
+            pipeline exclusively from <code>lvn:</code> addresses. The Assembly holds
+            veto power over any algorithmic proposal that fails the human-welfare
+            test. All ratification signatures must originate from registered
+            <code>lvn:</code> identities.
           </p>
         </div>
 
         <div class="layer-card">
-          <p class="layer-num gold">Branch II</p>
-          <h3>The Algorithmic Framework <span class="muted">· The Fourth Branch</span></h3>
+          <p class="layer-num gold"><code>tfb:</code> &mdash; The Fourth Branch</p>
+          <h3>The Algorithmic Infrastructure Agency <span class="muted">&middot; Machine Simulation</span></h3>
           <p>
-            Structured multi-agent AI workflows that manage high-velocity data
-            synthesis, resource optimization, and operational logistics. This branch
-            functions as an <strong>objective, data-driven department</strong>: it
-            models systemic impacts, runs simulations, and proposes optimized solutions
-            based on real-world inputs — Georgist economic resource tracking,
-            environmental sensor data, network health metrics. It proposes; it does
-            not decide.
+            The localized hardware-enclave runtime managing multi-agent system
+            analysis. Every proposal routed to <code>tfb:</code> undergoes an
+            <strong>internal adversarial simulation</strong> — proposing and opposing
+            agents locked in automated debate — producing an immutable
+            <strong>Impact Certificate</strong>. This branch models systemic impacts,
+            runs simulations, and evaluates proposals against Georgist economic
+            resource tracking, environmental sensor data, and network health metrics.
+            It analyzes and certifies; it does not decide. Signing keys never leave
+            hardware isolation.
           </p>
         </div>
 
         <div class="layer-card">
-          <p class="layer-num gold">Branch III</p>
-          <h3>The Protocol Mesh <span class="muted">· The Lattice</span></h3>
+          <p class="layer-num gold"><code>lat:</code> &mdash; The Lattice</p>
+          <h3>The Protocol Mesh <span class="muted">&middot; Cryptographic Execution</span></h3>
           <p>
-            The foundational layer governed by <strong>immutable cryptographic rules</strong>
-            and decentralized mesh protocols. This branch ensures that whatever the
-            Assembly and the Algorithmic Framework agree upon is executed transparently,
-            verifiably, and without centralized tampering. Code-as-constitution: the
-            Lattice cannot be rewritten by any single party, and every state change
+            The foundational layer governed by <strong>immutable cryptographic
+            rules</strong> and decentralized mesh protocols. Once both
+            <code>lvn:</code> and <code>tfb:</code> have validated a transaction,
+            the <code>lat:</code> nodes ingest the trilateral bundle and write it
+            to the Receipt Hash Chain. The Lattice executes — transparently,
+            verifiably, and without centralized tampering. Its keys are derived
+            deterministically from network genesis parameters. Every state change
             produces a trilateral receipt that all three branches must sign.
           </p>
         </div>
@@ -89,51 +100,61 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
     <div class="container">
       <div class="divider"></div>
       <p class="label gold">Coordination Mechanism</p>
-      <h2>Trilateral receipts</h2>
+      <h2>The 4-state TCP pipeline</h2>
       <p class="intro">
-        The Council does not vote in the traditional sense. It runs a structured
-        adversarial loop — Proposer, Opposer, Synthesizer — with each branch
-        occupying a role that rotates by round. A decision is only valid when it
-        carries cryptographic signatures from all three branches. No signature? No
-        execution.
+        The Council does not vote in the traditional sense. It follows the
+        <strong>Tripartite Consensus Protocol (TCP)</strong>: a deterministic 4-state
+        pipeline where every decision must carry cryptographic signatures from all
+        three branches. No signature? No execution. The adversarial process —
+        proposing, opposing, and synthesizing — happens inside the
+        <code>tfb:</code> simulation layer as an internal multi-agent debate, not
+        as separate external states.
       </p>
 
       <div class="path-steps">
         <div class="path-step">
-          <p class="step-label gold">Step 1</p>
+          <p class="step-label gold">State 1 &middot; Proposed (<code>lvn:</code>)</p>
           <p>
-            <strong>Proposal.</strong> Any branch can initiate. The Algorithmic
-            Framework might propose a resource reallocation based on Georgist
-            tracking. The Civic Assembly might propose a community grant. The
-            proposal is cryptographically signed and broadcast to the mesh.
+            Initiated exclusively by an authorized human operator. A signed proposal
+            payload specifies target resources, intent vectors, and boundary
+            constraints. Only <code>lvn:</code> addresses can submit proposals.
+            Unsigned or non-<code>lvn:</code> proposals are discarded at ingress.
           </p>
         </div>
         <div class="path-step">
-          <p class="step-label gold">Step 2</p>
+          <p class="step-label gold">State 2 &middot; Simulated (<code>tfb:</code>)</p>
           <p>
-            <strong>Opposition.</strong> A second branch is randomly assigned as
-            Opposer. It must produce a structured counter-argument — not a veto,
-            but a rigorous adversarial analysis probing for blind spots, externalities,
-            or unexamined assumptions. The opposition is signed and broadcast.
+            The proposal routes to the localized hardware enclave. Inside, an
+            <strong>internal adversarial loop</strong> spins up automatically — a
+            proposing agent generates optimized paths while an opposing agent
+            attempts to break the model, searching for economic extraction vectors
+            or system exploits. The synthesis of this debate produces an immutable
+            <strong>Impact Certificate</strong>. If the simulation finds unmitigated
+            failure, the proposal is rejected with a structured log. Timeout: 300
+            seconds.
           </p>
         </div>
         <div class="path-step">
-          <p class="step-label gold">Step 3</p>
+          <p class="step-label gold">State 3 &middot; Ratified (<code>lvn:</code> Multi-Sig)</p>
           <p>
-            <strong>Synthesis.</strong> The third branch acts as Synthesizer. It
-            receives both the proposal and the opposition, identifies where they
-            converge, and produces a coherent resolution. If synthesis is
-            impossible — genuine irreconcilable conflict — the round escalates to
-            a human Witness panel drawn from the Civic Assembly.
+            The proposal and its Impact Certificate return to the human assembly.
+            An <em>m</em>-of-<em>n</em> multi-signature threshold must be met by
+            registered <code>lvn:</code> operators. If the assembly deadlocks,
+            the <strong>Witness Sortition Protocol</strong> activates: a 5-person
+            panel is drawn deterministically via Blake3-seeded Fisher-Yates shuffle
+            and given 24 hours to break the tie with a 3-of-5 majority vote.
+            Timeout: 600 seconds (standard), 86,400 seconds (Witness).
           </p>
         </div>
         <div class="path-step">
-          <p class="step-label gold">Step 4</p>
+          <p class="step-label gold">State 4 &middot; Committed (<code>lat:</code>)</p>
           <p>
-            <strong>Trilateral Sign-off.</strong> The synthesis is broadcast. All
-            three branches cryptographically sign the final receipt. Only then does
-            the Lattice execute the state change. The receipt is permanently recorded
-            in the mesh — auditable, immutable, public.
+            With both human signatures (or Witness override) and the
+            <code>tfb:</code> Impact Certificate, the Lattice nodes ingest the
+            trilateral bundle. The transaction is written to the Receipt Hash Chain
+            and the state change propagates across the mesh. The receipt is
+            permanently recorded — auditable, immutable, cryptographically
+            verifiable by any node from genesis forward.
           </p>
         </div>
       </div>
@@ -161,20 +182,25 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
         <div class="spec-card">
           <h3>Cognitive Sovereignty</h3>
           <p>
-            The human Civic Assembly always retains the right to say no. The
-            Algorithmic Framework proposes, models, and simulates — but it never
-            overrides human ethical judgment. The Protocol Mesh executes, but
-            only what has been validated. Technology serves human flourishing,
-            not the reverse.
+            The human Civic Assembly (<code>lvn:</code>) always retains the right
+            to say no — and is the only branch authorized to initiate proposals and
+            cast ratification votes. The Fourth Branch (<code>tfb:</code>) simulates,
+            models, and certifies — but it never overrides human ethical judgment.
+            The Lattice (<code>lat:</code>) executes, but only what has been
+            cryptographically validated by both other branches. Technology serves
+            human flourishing, not the reverse.
           </p>
         </div>
         <div class="spec-card">
           <h3>Adversarial Truth-Seeking</h3>
           <p>
-            Consensus by voting converges on popularity, not truth. The Council's
-            adversarial loop — propose, oppose, synthesize — is designed to surface
-            blind spots and hidden assumptions. Truth emerges from triangulation
-            across vantage points, not from a single view from nowhere.
+            Consensus by voting converges on popularity, not truth. The TCP embeds
+            the adversarial process inside the <code>tfb:</code> Simulated state —
+            proposing and opposing agents locked in automated debate, producing an
+            Impact Certificate that captures risks a single perspective would miss.
+            Truth emerges from triangulation across vantage points, not from a
+            single view from nowhere. The Witness Sortition panel provides a human
+            backstop when automated synthesis deadlocks.
           </p>
         </div>
         <div class="spec-card">
@@ -197,10 +223,10 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       <div class="divider"></div>
       <p class="label gold">Continue Reading</p>
       <div class="cta-row">
-        <a href="/emergence/trilateral-receipt-spec" class="btn">Trilateral Receipt Spec →</a>
-        <a href="/emergence/architecture" class="btn">The Lattice Architecture →</a>
-        <a href="/emergence/ethical-hardware-enclave" class="btn">Ethical Hardware Enclave →</a>
-        <a href="/emergence/georgist-economics" class="btn">Georgist Economics →</a>
+        <a href="/emergence/trilateral-receipt-spec" class="btn">TCP v0.1.0 Spec &rarr;</a>
+        <a href="/emergence/ethical-hardware-enclave" class="btn">Ethical Hardware Enclave &rarr;</a>
+        <a href="/emergence/architecture" class="btn">Lattice Architecture &rarr;</a>
+        <a href="/emergence/georgist-economics" class="btn">Georgist Economics &rarr;</a>
       </div>
     </div>
   </section>
