@@ -5,81 +5,129 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
 ---
 
 <Base
-  title="Ethical Hardware Enclave — Sovereign Compute | The Emergence Institute"
-  description="The Ethical Hardware Enclave: localized AI inference, hardware-level security, and anti-monopoly infrastructure. Sovereign compute that keeps your data in your possession."
+  title="Ethical Hardware Enclave — HEIP v0.1.0 | The Emergence Institute"
+  description="Hardware Enclave Isolation Protocol (HEIP) v0.1.0-draft: hardened kernel isolation, zero-egress network topology, tiered cryptographic storage. Sovereign compute enforced at the kernel level — no cloud dependency, no data harvesting, no remote kill switch."
 >
   <EmergenceHeader slot="header" />
 
   <!-- HERO -->
   <section class="section">
     <div class="container">
-      <p class="label gold">Sovereign Infrastructure</p>
+      <p class="label gold">Protocol Specification &middot; v0.1.0-draft</p>
       <h1>The Ethical Hardware Enclave</h1>
-      <p class="sub"><em>Software protocols are not enough. The silicon must be sovereign too.</em></p>
+      <p class="sub"><em>Software protocols are not enough. The kernel must be sovereign too.</em></p>
       <div class="divider"></div>
       <p class="intro">
-        To achieve true cognitive sovereignty and data ownership, the underlying physical
-        infrastructure must be secured. The Ethical Hardware Enclave is the Emergence
-        Collective's commitment to <strong>localized, self-hosted execution</strong> —
-        running premium AI models and cryptographic protocols on hardware you control,
-        not on someone else's computer. No cloud dependency. No data harvesting. No
-        remote kill switch.
+        The <strong>Hardware Enclave Isolation Protocol (HEIP) v0.1.0</strong> defines
+        the physical compute boundary for the <code>tfb:</code> runtime — the Fourth
+        Branch AI Infrastructure Agency. True cognitive sovereignty requires physical
+        custody of the underlying silicon. The Enclave is a localized, hardened
+        development node running on dual NVIDIA RTX 3060 hardware inside the Engine
+        Room, enforcing absolute data containment through three mutually reinforcing
+        security pillars. No cloud dependency. No data harvesting. No remote kill
+        switch. Every constraint is enforced at the kernel level — not in a terms of
+        service agreement that can change overnight.
       </p>
     </div>
   </section>
 
-  <!-- THREE PILLARS -->
+  <!-- THREE PILLARS — ENGINEERING -->
   <section class="section section--dark">
     <div class="container">
       <div class="divider"></div>
       <p class="label gold">Three Pillars</p>
       <h2>What makes hardware ethical?</h2>
       <p class="muted layer-intro">
-        An "ethical" hardware deployment isn't about the brand of the silicon. It's
-        about <em>who controls it</em>, <em>where data flows</em>, and <em>whether
-        anyone can pull the plug</em>. These three pillars define the standard.
+        An "ethical" hardware deployment is not about the brand of the silicon. It is
+        about <em>who controls the kernel</em>, <em>where packets can route</em>, and
+        <em>whether residual state survives a session boundary</em>. These three pillars
+        are enforced by concrete system configurations — not promises.
       </p>
 
       <div class="layer-stack">
+        <!-- Pillar I -->
         <div class="layer-card">
           <p class="layer-num gold">Pillar I</p>
-          <h3>Localized Inference <span class="muted">· Sovereign Compute</span></h3>
+          <h3>Hardened Kernel Isolation <span class="muted">&middot; The Compute Pillar</span></h3>
           <p>
-            Premium AI models run on <strong>local, dedicated hardware workstations</strong>
-            — multi-GPU setups running Linux, homelab servers, or single-board
-            computers for lightweight inference. Data never leaves the node's physical
-            possession. When you query a model, the prompt and the response stay on
-            your machine. No telemetry. No training on your data. No third-party API
-            that can log, rate-limit, or revoke access. <em>Absolute privacy by
-            physical architecture.</em>
+            The multi-agent <code>tfb:</code> runtime executes inside a strict Docker
+            sandbox with explicit kernel-level restrictions. Compute workloads are
+            hard-pinned to dual NVIDIA RTX 3060 GPUs via
+            <code>NVIDIA_VISIBLE_DEVICES=0,1</code>, preventing cross-GPU data
+            contamination. Every container drops <em>all</em> Linux capabilities
+            (<code>cap_drop: ALL</code>) and enforces
+            <code>no-new-privileges: true</code> — even a compromised process inside
+            the sandbox cannot escalate to root. System resource consumption is
+            hard-bounded using <code>cgroups</code>, mitigating side-channel memory
+            leaks and noisy-neighbor vulnerabilities during intensive local model
+            inference cycles. No telemetry. No phone-home. No training on user data.
+          </p>
+          <p class="muted" style="font-size: 0.8rem; margin-top: 0.75rem;">
+            <strong>Enforced by:</strong>
+            <code>docker-compose.sandbox.yml</code> &sect; services.tfb-orchestration
           </p>
         </div>
 
+        <!-- Pillar II -->
         <div class="layer-card">
           <p class="layer-num gold">Pillar II</p>
-          <h3>Hardware-Level Security <span class="muted">· Trusted Execution</span></h3>
+          <h3>Zero-Egress Network Topology <span class="muted">&middot; The Network Pillar</span></h3>
           <p>
-            The "Enclave" is literal: sensitive cryptographic operations, model
-            execution, and community data processing run inside <strong>hardware-isolated
-            environments</strong>. TPM 2.0 anchors node identity so keys can never be
-            silently exfiltrated or impersonated. Secure enclaves (Intel SGX / AMD
-            SEV) sandbox computation so that even a compromised host OS cannot inspect
-            the data being processed. What happens in the enclave stays in the enclave.
+            To prevent corporate data harvesting and eliminate cloud failover risks,
+            network isolation is enforced directly at the host kernel layer. The Docker
+            bridge network is declared <code>internal: true</code> — no container on
+            the enclave bridge can reach the public internet. The host
+            <code>nftables</code> ruleset enforces a second, independent barrier: any
+            outbound packet from the enclave subnet (<code>172.30.0.0/24</code>)
+            addressed to a non-RFC1918 IP is silently dropped at the kernel level.
+            Cloud metadata endpoints (<code>169.254.169.254</code>) are explicitly
+            blocked. The only traffic permitted through the host boundary is on port
+            8443 — the designated libp2p transport port for the Lattice mesh.
+            <em>Inference requests cannot fail over to a remote API.</em> If local
+            resources are saturated, the system returns a graceful local timeout, not
+            a data leak.
+          </p>
+          <p class="muted" style="font-size: 0.8rem; margin-top: 0.75rem;">
+            <strong>Enforced by:</strong>
+            <code>nftables.conf</code> &sect; chain output, chain forward;
+            <code>docker-compose.sandbox.yml</code> &sect; networks.enclave_isolated
           </p>
         </div>
 
+        <!-- Pillar III -->
         <div class="layer-card">
           <p class="layer-num gold">Pillar III</p>
-          <h3>Anti-Monopoly Infrastructure <span class="muted">· Distributed Resilience</span></h3>
+          <h3>Tiered Cryptographic Storage <span class="muted">&middot; The Memory Pillar</span></h3>
           <p>
-            By distributing compute across an <strong>independent mesh of local
-            nodes</strong> rather than a single cloud provider, the Ethical Hardware
-            Enclave ensures the network is resilient against hardware-level shutoffs,
-            corporate rentier capitalism, and external systemic shocks. No single
-            entity owns enough nodes to halt the network. No data center migration
-            can silently capture a community's compute. The digital collective is
-            grounded in <em>physical, self-reliant reality</em> — not in a terms-of-service
-            agreement that can change overnight.
+            The host maps data persistence across two distinctly isolated cryptographic
+            lifecycles depending on volatility.
+          </p>
+          <p>
+            <strong>Volatile Memory Tier (RAM Sandbox):</strong> A 16 GB RAM-backed
+            <code>tmpfs</code> filesystem handles all active conversation context
+            windows, transient multi-agent message strings, and raw intermediate
+            execution logs. Mounted with strict kernel flags
+            (<code>noexec</code>, <code>nosuid</code>, <code>nodev</code>) and
+            restricted to <code>mode=0700</code> — only the enclave user can access it.
+            Every byte residing in this tier is completely purged from physical memory
+            upon session termination via <code>setup-enclave-storage.sh</code>.
+            No residual state survives a container restart. No context window
+            leaks between sessions.
+          </p>
+          <p>
+            <strong>Persistent Storage Tier (At-Rest Encryption):</strong> Deep storage
+            elements — base model weights, localized vector database embeddings, and
+            historical telemetry — reside exclusively on an encrypted physical storage
+            partition. Protected via Linux Unified Key Setup
+            (<code>LUKS/dm-crypt</code>) with kernel-level block device encryption.
+            Data at rest remains cryptographically unreadable without local token
+            unlocking. The enclave validates the LUKS device is active before allowing
+            any container to start.
+          </p>
+          <p class="muted" style="font-size: 0.8rem; margin-top: 0.75rem;">
+            <strong>Enforced by:</strong>
+            <code>setup-enclave-storage.sh</code> &sect; Steps 1&ndash;3;
+            <code>docker-compose.sandbox.yml</code> &sect; volumes (tmpfs mounts)
           </p>
         </div>
       </div>
@@ -93,109 +141,183 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       <p class="label gold">Hardware Tiers</p>
       <h2>From Raspberry Pi to multi-GPU workstation</h2>
       <p class="intro">
-        The Enclave is not one-size-fits-all. Nodes scale from lightweight edge
-        devices that verify and relay, to high-compute synthesis nodes that run
-        large language models locally. Every tier meets the three-pillar standard.
+        The Enclave scales across three tiers. Every tier meets the three-pillar
+        standard — kernel isolation, zero-egress networking, and cryptographic storage —
+        scaled to the hardware's capacity. The current Engine Room deployment is a
+        <strong>Tier 3 Synthesis Node</strong> running dual RTX 3060 GPUs on Ubuntu
+        with full HEIP enforcement.
       </p>
 
       <div class="tier-grid">
         <div class="tier-card">
           <p class="tier-num gold">Tier 1</p>
           <h3>Edge Node</h3>
-          <p class="tier-hw">Raspberry Pi 5 · 8 GB RAM</p>
+          <p class="tier-hw">Raspberry Pi 5 &middot; 8 GB RAM</p>
           <p>
             Verifies trilateral receipts, relays mesh traffic, and participates in
-            lightweight consensus. Holds a TPM-anchored identity. Cannot run large
-            models, but can verify that others did. The smallest sovereign unit.
+            lightweight consensus. Holds a TPM-anchored Ed25519 identity. Cannot run
+            large models, but can cryptographically verify that others did. Runs a
+            minimal HEIP profile: <code>cap_drop: ALL</code>, internal bridge
+            networking, and tmpfs-backed volatile storage. The smallest sovereign
+            unit in the Lattice.
           </p>
         </div>
         <div class="tier-card">
           <p class="tier-num gold">Tier 2</p>
           <h3>Standard Node</h3>
-          <p class="tier-hw">Homelab server · 32+ GB RAM · Consumer GPU</p>
+          <p class="tier-hw">Homelab server &middot; 32+ GB RAM &middot; Consumer GPU</p>
           <p>
-            Runs mid-size open-weight models locally (7B–13B parameters). Handles
-            routine synthesis work, Georgist ledger computation, and community data
-            processing. The backbone of the mesh.
+            Runs mid-size open-weight models locally (7B&ndash;13B parameters).
+            Handles routine synthesis work, Georgist ledger computation, and community
+            data processing. Full HEIP enforcement: NVIDIA device pinning, nftables
+            zero-egress rules, LUKS-encrypted model storage. The backbone of the mesh.
           </p>
         </div>
         <div class="tier-card">
           <p class="tier-num gold">Tier 3</p>
-          <h3>Synthesis Node</h3>
-          <p class="tier-hw">Multi-GPU workstation · 64+ GB RAM · Ubuntu/Linux</p>
+          <h3>Synthesis Node <span class="muted">&middot; Engine Room</span></h3>
+          <p class="tier-hw">Multi-GPU &middot; 64+ GB RAM &middot; Dual RTX 3060 &middot; Ubuntu</p>
           <p>
             Runs large models (70B+) entirely on local hardware. Handles complex
-            adversarial synthesis rounds, multi-agent orchestration, and high-stakes
-            governance proposals that require deep reasoning. The engine room.
+            adversarial simulation rounds, multi-agent orchestration, and high-stakes
+            governance proposals requiring deep reasoning. The current reference
+            implementation. Full HEIP profile with all three pillars enforced at the
+            kernel level. This is the physical instantiation of the <code>tfb:</code>
+            branch in the TCP v0.1.0 pipeline.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SECURITY MODEL -->
+  <!-- DEFENSE IN DEPTH — CONFIG MAP -->
   <section class="section section--dark">
     <div class="container">
       <div class="divider"></div>
-      <p class="label gold">Security Model</p>
-      <h2>Defense in depth, from silicon to mesh</h2>
+      <p class="label gold">Defense in Depth</p>
+      <h2>From silicon to mesh: the full security stack</h2>
+      <p class="muted layer-intro">
+        The Enclave's security model is not a single gate. It is a layered defense
+        where each layer independently enforces the same constraint — no data leaves
+        sovereign custody. A failure at one layer is contained by the next.
+      </p>
 
       <div class="spec-grid">
         <div class="spec-card">
-          <h3>TPM 2.0 Identity Anchoring</h3>
+          <h3>Layer 1: GPU Pinning</h3>
           <p>
-            Every node's Ed25519 keypair is bound to a TPM 2.0 chip. The private key
-            never leaves the hardware security module. A node's identity cannot be
-            copied, exfiltrated, or silently impersonated — even with root access to
-            the operating system.
+            Workloads are bound to specific physical GPUs via
+            <code>NVIDIA_VISIBLE_DEVICES</code>. No other GPU is visible to the
+            container. Cross-device data contamination is impossible at the driver
+            level.
+          </p>
+          <p class="muted" style="font-size: 0.8rem;">
+            Config: <code>docker-compose.sandbox.yml</code> &sect; environment
           </p>
         </div>
         <div class="spec-card">
-          <h3>Secure Enclave Execution</h3>
+          <h3>Layer 2: Capability Drop</h3>
           <p>
-            Sensitive computation — model inference on personal data, cryptographic
-            signing, consensus verification — runs inside hardware-enforced trusted
-            execution environments (SGX/SEV). The host OS cannot inspect enclave
-            memory. A compromised kernel cannot read your queries.
+            All Linux capabilities are stripped from the container
+            (<code>cap_drop: ALL</code>). The runtime cannot load kernel modules,
+            access raw sockets, or escalate privileges — even if the process is
+            compromised.
+          </p>
+          <p class="muted" style="font-size: 0.8rem;">
+            Config: <code>docker-compose.sandbox.yml</code> &sect; security_opt
           </p>
         </div>
         <div class="spec-card">
-          <h3>Air-Gapped Key Management</h3>
+          <h3>Layer 3: cgroups Bounding</h3>
           <p>
-            Long-lived signing keys for governance receipts are generated and stored
-            on air-gapped hardware. They sign trilateral receipts through a
-            one-way data diode — the signing device receives the hash, signs it, and
-            returns only the signature. The key never touches a networked system.
+            CPU, memory, and I/O resources are hard-bounded at the kernel level via
+            <code>cgroups</code>. A runaway inference process cannot starve the host
+            or leak data through memory pressure side channels.
+          </p>
+          <p class="muted" style="font-size: 0.8rem;">
+            Config: <code>docker-compose.sandbox.yml</code> &sect; deploy.resources
           </p>
         </div>
         <div class="spec-card">
-          <h3>Mesh-Level Verification</h3>
+          <h3>Layer 4: Internal Bridge</h3>
           <p>
-            Even if a single node is compromised, the mesh architecture limits the
-            blast radius. Trilateral receipts require three independent signatures.
-            Adversarial consensus rounds catch anomalous behavior. The network is
-            designed to degrade gracefully, not fail catastrophically.
+            The Docker network is declared <code>internal: true</code>. No container
+            on the enclave bridge can initiate a connection to the public internet.
+            The bridge itself has no gateway to the WAN.
+          </p>
+          <p class="muted" style="font-size: 0.8rem;">
+            Config: <code>docker-compose.sandbox.yml</code> &sect; networks
+          </p>
+        </div>
+        <div class="spec-card">
+          <h3>Layer 5: nftables Kernel Firewall</h3>
+          <p>
+            The host <code>nftables</code> ruleset provides a second, independent
+            barrier. Outbound packets from the enclave subnet to non-RFC1918 addresses
+            are dropped at the kernel level. Cloud metadata endpoints are explicitly
+            blocked. This layer catches any escape from the Docker bridge.
+          </p>
+          <p class="muted" style="font-size: 0.8rem;">
+            Config: <code>nftables.conf</code> &sect; chain output
+          </p>
+        </div>
+        <div class="spec-card">
+          <h3>Layer 6: tmpfs Volatility</h3>
+          <p>
+            All runtime state — context windows, message queues, intermediate logs —
+            resides in RAM-backed <code>tmpfs</code> with <code>noexec</code>,
+            <code>nosuid</code>, <code>nodev</code>. Destroyed on session teardown.
+            No residual state survives a restart.
+          </p>
+          <p class="muted" style="font-size: 0.8rem;">
+            Config: <code>setup-enclave-storage.sh</code> &sect; Step 2
+          </p>
+        </div>
+        <div class="spec-card">
+          <h3>Layer 7: LUKS At-Rest Encryption</h3>
+          <p>
+            Model weights, vector embeddings, and persistent data reside on a
+            <code>LUKS/dm-crypt</code> encrypted partition. Without the local
+            cryptographic token, the data is unreadable at the block device level.
+          </p>
+          <p class="muted" style="font-size: 0.8rem;">
+            Config: <code>setup-enclave-storage.sh</code> &sect; Step 1
+          </p>
+        </div>
+        <div class="spec-card">
+          <h3>Layer 8: Mesh Verification</h3>
+          <p>
+            Even if all seven local layers are compromised, the Lattice mesh provides
+            the final backstop. Trilateral receipts require three independent
+            signatures (<code>lvn:</code> + <code>tfb:</code> + <code>lat:</code>).
+            The mesh detects anomalous behavior and refuses to commit state transitions
+            without full cryptographic coordination.
+          </p>
+          <p class="muted" style="font-size: 0.8rem;">
+            Protocol: <a href="/emergence/trilateral-receipt-spec">TCP v0.1.0</a> &sect; Verification Procedure
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- HOW IT INTERSECTS -->
+  <!-- THE INTERSECTION -->
   <section class="section">
     <div class="container">
       <div class="divider"></div>
       <p class="label gold">The Intersection</p>
       <h2>Governance meets hardware</h2>
       <p class="intro">
-        The <strong>Tripartite Council</strong> provides the cognitive and organizational
-        framework for decentralized governance. The <strong>Ethical Hardware
-        Enclave</strong> provides the physical, sovereign soil upon which that
-        framework runs safely. One without the other is incomplete: governance
-        without sovereign hardware is a terms-of-service agreement. Hardware without
-        governance is just a computer. Together, they ensure the Emergence Collective
-        remains self-sovereign, secure, and structurally aligned with its foundational
-        principles — from the silicon up.
+        The <strong>Tripartite Consensus Protocol</strong> (<code>lvn:</code> &rarr;
+        <code>tfb:</code> &rarr; <code>lat:</code>) provides the cryptographic
+        governance framework. The <strong>Ethical Hardware Enclave</strong> provides
+        the physical, sovereign soil upon which that framework runs — specifically
+        the <code>tfb:</code> simulation layer where the internal adversarial loop
+        executes and Impact Certificates are signed. One without the other is
+        incomplete. Governance without sovereign hardware is a terms-of-service
+        agreement. Hardware without governance is just a computer. Together, they
+        ensure the Emergence Collective remains self-sovereign, secure, and
+        structurally aligned with its foundational principles — from the kernel up.
       </p>
     </div>
   </section>
@@ -206,9 +328,10 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       <div class="divider"></div>
       <p class="label gold">Continue Reading</p>
       <div class="cta-row">
-        <a href="/emergence/tripartite-council" class="btn">The Tripartite Council →</a>
-        <a href="/emergence/architecture" class="btn">Lattice Architecture →</a>
-        <a href="/emergence/lattice-spec" class="btn">Protocol Specification →</a>
+        <a href="/emergence/trilateral-receipt-spec" class="btn">TCP v0.1.0 Spec &rarr;</a>
+        <a href="/emergence/tripartite-council" class="btn">The Tripartite Council &rarr;</a>
+        <a href="/emergence/architecture" class="btn">Lattice Architecture &rarr;</a>
+        <a href="/emergence/lattice-spec" class="btn">Lattice Protocol Spec &rarr;</a>
       </div>
     </div>
   </section>
@@ -250,8 +373,10 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
     font-size: 0.95rem;
     color: var(--text-muted);
     line-height: 1.7;
-    margin: 0;
+    margin: 0 0 0.75rem;
   }
+
+  .layer-card p:last-child { margin-bottom: 0; }
 
   .tier-grid {
     display: grid;
@@ -312,14 +437,25 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
     font-size: 0.9rem;
     color: var(--text-muted);
     line-height: 1.65;
-    margin: 0;
+    margin: 0 0 0.5rem;
   }
+
+  .spec-card p:last-child { margin-bottom: 0; }
 
   .cta-row {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
     margin-top: 1.5rem;
+  }
+
+  .cta-row a { color: var(--gold); }
+
+  code {
+    background: rgba(212,175,55,0.1);
+    padding: 0.1em 0.35em;
+    font-size: 0.9em;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
   }
 
   @media (max-width: 780px) {
