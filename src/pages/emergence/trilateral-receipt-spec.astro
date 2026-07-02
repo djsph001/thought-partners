@@ -5,27 +5,220 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
 ---
 
 <Base
-  title="Trilateral Receipt Protocol — Governance Spec | The Emergence Institute"
-  description="Full cryptographic specification of the Trilateral Receipt protocol: CBOR structure, Ed25519 multi-signature scheme, round lifecycle state machine, role rotation, and Witness escalation for the Tripartite Council."
+  title="Trilateral Receipt Protocol — TCP v0.1.0 | The Emergence Institute"
+  description="Full specification of the Tripartite Consensus Protocol (TCP) v0.1.0-draft: 4-state pipeline, lvn:/tfb:/lat: addressing, Impact Certificates, Witness sortition deadlock resolution, CBOR receipt structure, and Ed25519 multi-signature verification."
 >
   <EmergenceHeader slot="header" />
 
   <!-- HERO -->
   <section class="section">
     <div class="container">
-      <p class="label gold">Protocol Specification</p>
+      <p class="label gold">Protocol Specification &middot; v0.1.0-draft</p>
       <h1>Trilateral Receipt Protocol</h1>
-      <p class="sub"><em>Cryptographic consensus across three branches. No signature, no execution.</em></p>
+      <p class="sub"><em>Four states. Three branches. One cryptographic truth.</em></p>
       <div class="divider"></div>
       <p class="intro">
-        The Trilateral Receipt is the atomic unit of governance in the Emergence
-        Collective. It is a cryptographically signed record — produced at the
-        conclusion of every adversarial round — that carries independent signatures
-        from the Civic Assembly (Branch I), the Algorithmic Framework (Branch II),
-        and the Protocol Mesh (Branch III). A state change is only valid when it is
-        accompanied by a complete trilateral receipt. No signature? No execution.
-        This is not a voting system. It is a cryptographic checkpoint.
+        The Trilateral Receipt Protocol — formally the <strong>Tripartite Consensus
+        Protocol (TCP) v0.1.0</strong> — defines the deterministic state machine and
+        cryptographic verification layers required to execute a governance action across
+        the three co-equal branches of the Emergence Collective: the Living Node
+        (<code>lvn:</code>), the Fourth Branch AI Infrastructure Agency
+        (<code>tfb:</code>), and the Lattice Protocol Mesh (<code>lat:</code>). No
+        branch can act alone. Every state transition requires cryptographic coordination
+        across all three. No signature? No execution.
       </p>
+    </div>
+  </section>
+
+  <!-- ADDRESSING & IDENTITY -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Node Identity</p>
+      <h2>Deterministic Addressing &amp; Cryptographic Primitives</h2>
+      <p class="muted layer-intro">
+        Every participating entity within the network operates using deterministic
+        public key infrastructure (Ed25519 or secp256k1) prefixed by its structural
+        branch role. These prefixes enforce strict access control boundary validation
+        at the protocol level — a node cannot claim a role it does not hold.
+      </p>
+
+      <div class="spec-grid">
+        <div class="spec-card">
+          <h3><code>lvn:</code> &mdash; The Living Node</h3>
+          <p>
+            The Civic Assembly. Human operators or multi-signature wallets representing
+            local community intent. Proposals enter the TCP pipeline exclusively from
+            <code>lvn:</code> addresses. All ratification signatures must originate
+            from registered <code>lvn:</code> identities. This is the only branch
+            authorized to initiate state changes or cast votes in the human assembly.
+          </p>
+        </div>
+
+        <div class="spec-card">
+          <h3><code>tfb:</code> &mdash; The Fourth Branch</h3>
+          <p>
+            The Algorithmic Infrastructure Agency. Localized hardware-enclave runtime
+            managing multi-agent system analysis. Every proposal routed to
+            <code>tfb:</code> undergoes an internal adversarial simulation — a proposing
+            agent and an opposing agent locked in automated debate. The output is an
+            immutable <strong>Impact Certificate</strong> carrying expected outcomes,
+            risk vectors, and a pass/fail determination. If the simulation discovers
+            unmitigated failure, the proposal is rejected. No proposal reaches
+            ratification without a <code>tfb:</code> Impact Certificate.
+          </p>
+        </div>
+
+        <div class="spec-card">
+          <h3><code>lat:</code> &mdash; The Lattice</h3>
+          <p>
+            The Protocol Mesh Consensus layer. Decoupled network nodes validating state
+            changes over the P2P transport layer. Once both <code>lvn:</code> and
+            <code>tfb:</code> have validated a transaction, the <code>lat:</code> nodes
+            ingest the trilateral bundle, write it to the Receipt Hash Chain, and
+            propagate the state transition across the mesh. The Lattice is the
+            execution layer — it commits, but it does not propose or simulate.
+          </p>
+        </div>
+
+        <div class="spec-card">
+          <h3>Key Material &amp; Signatures</h3>
+          <p>
+            All signatures use <strong>Ed25519</strong> (EdDSA over Curve25519, RFC
+            8032) — the same primitive used for node identity in the Lattice transport
+            layer. secp256k1 is accepted as an alternative for compatibility with
+            existing wallet infrastructure. Each branch maintains its own keypair.
+            Branch II (<code>tfb:</code>) signing keys never leave hardware isolation.
+            Branch III (<code>lat:</code>) keys are derived deterministically from
+            network genesis parameters.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE 4-STATE PIPELINE -->
+  <section class="section">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">State Machine</p>
+      <h2>The 4-State Consensus Pipeline</h2>
+      <p class="muted layer-intro">
+        The TCP replaces the historical multi-turn external adversarial loop with a
+        streamlined, four-state deterministic pipeline. The core adversarial process is
+        collapsed entirely into an internal multi-agent runtime inside the
+        <code>tfb:</code> simulation layer. The Witness Sortition Panel survives as a
+        deadlock breaker — not a separate state, but a tiebreaker within Ratified.
+      </p>
+
+      <div class="code-block" style="text-align: center; padding: 1.5rem;">
+        <span class="code-cmd">[Proposed (lvn:)]</span> ──&rarr;
+        <span class="code-log">[Simulated (tfb:)]</span> ──&rarr;
+        <span class="code-keyword">[Ratified (lvn: Multi-Sig)]</span> ──&rarr;
+        <span class="code-type">[Committed (lat:)]</span>
+      </div>
+
+      <div class="lifecycle-diagram">
+        <div class="lifecycle-step">
+          <div class="lc-badge">1</div>
+          <div class="lc-body">
+            <h4>Proposed <span class="muted">&middot; lvn:</span></h4>
+            <p>
+              Initiated exclusively by an authorized human operator. A signed proposal
+              payload specifies target resources, intent vectors, and boundary
+              constraints — Georgist land-use parameters, Urban Water Loop telemetry
+              targets, or mesh resource allocation. The proposal must include a valid
+              <code>lvn:</code> Ed25519 signature. Proposals without a valid signature
+              or from non-<code>lvn:</code> addresses are discarded at ingress.
+            </p>
+          </div>
+        </div>
+        <div class="lifecycle-arrow">&darr;</div>
+        <div class="lifecycle-step">
+          <div class="lc-badge">2</div>
+          <div class="lc-body">
+            <h4>Simulated <span class="muted">&middot; tfb:</span></h4>
+            <p>
+              The signed proposal payload routes to the localized <code>tfb:</code>
+              hardware enclave. Inside, an <strong>internal adversarial loop</strong>
+              spins up automatically. A Proposing Agent generates optimized
+              implementation paths matching the human intent. An Opposing Agent
+              programmatically attempts to break the model — searching for economic
+              extraction vectors, system exploits, or environmental threshold overruns.
+              The synthesis of this automated debate produces an immutable
+              <strong>Impact Certificate</strong>: a cryptographic digest carrying
+              expected outputs, a risk matrix, and a binary pass/fail determination.
+            </p>
+            <p>
+              If the simulation discovers unmitigated system failure risks, the
+              proposal transitions to <strong>Rejected</strong> with a structured
+              rejection log. If successful, the Impact Certificate is signed by the
+              enclave and returned for human ratification. Timeout: 300 seconds.
+            </p>
+          </div>
+        </div>
+        <div class="lifecycle-split">
+          <div class="lifecycle-step">
+            <div class="lc-badge fail">REJ</div>
+            <div class="lc-body">
+              <h4>Rejected</h4>
+              <p>
+                Simulation failure. The enclave broadcasts a structured rejection log
+                identifying the specific risk vectors that could not be mitigated. The
+                original proposer may revise and resubmit. No state change occurs.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="lifecycle-arrow">&darr;</div>
+        <div class="lifecycle-step">
+          <div class="lc-badge">3</div>
+          <div class="lc-body">
+            <h4>Ratified <span class="muted">&middot; lvn: Multi-Sig</span></h4>
+            <p>
+              The evaluated proposal and its Impact Certificate return to the human
+              assembly. Moving past this state requires meeting a definitive
+              <em>m</em>-of-<em>n</em> multi-signature threshold across the local
+              human node registry. Standard ratification window: 600 seconds.
+            </p>
+          </div>
+        </div>
+        <div class="lifecycle-split">
+          <div class="lifecycle-step">
+            <div class="lc-badge fail">W</div>
+            <div class="lc-body">
+              <h4>Witness Sortition <span class="muted">&middot; Deadlock Breaker</span></h4>
+              <p>
+                If the human assembly stalls or falls into contested deadlock during
+                ratification, the <strong>Witness Escalation Protocol</strong> activates.
+                A 5-person sortition panel is selected deterministically via a
+                Blake3-seeded Fisher-Yates shuffle of the local registry. Panel members
+                who participated in the last 3 escalations are excluded. The panel
+                receives the full proposal, opposition log, Impact Certificate, and
+                deadlock report. They have 86,400 seconds (24 hours) to deliberate and
+                break the deadlock via a 3-of-5 majority vote. Their ruling
+                becomes the ratification outcome. This is not a separate state — it is
+                a tiebreaker embedded within Ratified.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="lifecycle-arrow">&darr;</div>
+        <div class="lifecycle-step">
+          <div class="lc-badge final">4</div>
+          <div class="lc-body">
+            <h4>Committed <span class="muted">&middot; lat:</span></h4>
+            <p>
+              Upon receiving both the human signatures (or Witness tiebreaker override)
+              and the <code>tfb:</code> Impact Certificate, the protocol nodes ingest
+              the trilateral bundle. The transaction is written sequentially to the
+              <strong>Receipt Hash Chain</strong>, updating the global mesh ledger state
+              across all active physical infrastructure. A committed receipt is
+              immutable and permanently auditable. The state change is executed.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -34,100 +227,74 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
     <div class="container">
       <div class="divider"></div>
       <p class="label gold">Data Structure</p>
-      <h2>The Receipt Format</h2>
+      <h2>The Trilateral Receipt (CBOR Serialization)</h2>
       <p class="muted layer-intro">
-        Every trilateral receipt is a CBOR-encoded document (RFC 8949). CBOR was
-        chosen for deterministic serialization, compact wire representation, and
+        To minimize parsing overhead and ensure absolute structural integrity within
+        the <code>lattice-node</code> Rust framework, receipt transactions are
+        serialized using CBOR (Concise Binary Object Representation, RFC 8949). CBOR
+        was chosen for deterministic serialization, compact wire representation, and
         self-describing schema — the same codec used by the Lattice transport layer.
       </p>
 
-      <div class="code-block" style="padding: 1.75rem;">
-        <span class="code-cmd">TrilateralReceipt</span> &#123;<br/>
-        &nbsp;&nbsp;<span class="code-keyword">u64</span> <span class="code-field">receipt_id</span>;         <span class="code-comment">// monotonically increasing, network-wide</span><br/>
-        &nbsp;&nbsp;<span class="code-keyword">u64</span> <span class="code-field">round_number</span>;        <span class="code-comment">// the adversarial round this receipt concludes</span><br/>
-        &nbsp;&nbsp;<span class="code-keyword">u64</span> <span class="code-field">epoch</span>;               <span class="code-comment">// Lattice epoch at time of proposal</span><br/>
-        &nbsp;&nbsp;<span class="code-type">Hash</span> <span class="code-field">parent_receipt</span>;      <span class="code-comment">// Blake3 hash of the preceding receipt (chain)</span><br/>
-        &nbsp;&nbsp;<span class="code-type">Hash</span> <span class="code-field">proposal_hash</span>;       <span class="code-comment">// Blake3 hash of the proposal payload</span><br/>
-        &nbsp;&nbsp;<span class="code-type">Hash</span> <span class="code-field">opposition_hash</span>;     <span class="code-comment">// Blake3 hash of the structured opposition</span><br/>
-        &nbsp;&nbsp;<span class="code-type">Hash</span> <span class="code-field">synthesis_hash</span>;      <span class="code-comment">// Blake3 hash of the synthesized resolution</span><br/>
-        &nbsp;&nbsp;<span class="code-keyword">u8</span>  <span class="code-field">outcome</span>;              <span class="code-comment">// 0=executed, 1=escalated, 2=withdrawn, 3=expired</span><br/>
-        &nbsp;&nbsp;<span class="code-keyword">u64</span> <span class="code-field">proposer_branch</span>;     <span class="code-comment">// branch ID that initiated: 1|2|3</span><br/>
-        &nbsp;&nbsp;<span class="code-keyword">u64</span> <span class="code-field">opposer_branch</span>;      <span class="code-comment">// branch ID assigned as Opposer</span><br/>
-        &nbsp;&nbsp;<span class="code-keyword">u64</span> <span class="code-field">synthesizer_branch</span>;  <span class="code-comment">// branch ID assigned as Synthesizer</span><br/>
-        &nbsp;&nbsp;<span class="code-type">Timestamp</span> <span class="code-field">proposed_at</span>;     <span class="code-comment">// Unix nanoseconds, monotonic clock</span><br/>
-        &nbsp;&nbsp;<span class="code-type">Timestamp</span> <span class="code-field">synthesized_at</span>;   <span class="code-comment">// when synthesis completed or round expired</span><br/>
-        &nbsp;&nbsp;<span class="code-keyword">u16</span> <span class="code-field">timeout_seconds</span>;     <span class="code-comment">// round timeout, determined by proposal priority</span><br/>
-        &nbsp;&nbsp;<span class="code-keyword">[u8; 3]</span> <span class="code-field">signature_count</span>;   <span class="code-comment">// signatures present: [branch1, branch2, branch3] flags</span><br/>
-        &nbsp;&nbsp;<span class="code-type">Signature</span> <span class="code-field">sig_branch_i</span>;    <span class="code-comment">// Ed25519 signature from Branch I (Civic Assembly)</span><br/>
-        &nbsp;&nbsp;<span class="code-type">Signature</span> <span class="code-field">sig_branch_ii</span>;   <span class="code-comment">// Ed25519 signature from Branch II (Algorithmic)</span><br/>
-        &nbsp;&nbsp;<span class="code-type">Signature</span> <span class="code-field">sig_branch_iii</span>;  <span class="code-comment">// Ed25519 signature from Branch III (Protocol Mesh)</span><br/>
-        &nbsp;&nbsp;<span class="code-keyword">[u8; 32]</span> <span class="code-field">receipt_hash</span>;     <span class="code-comment">// Blake3 of all fields above (self-referential integrity)</span><br/>
-        &#125;
-      </div>
-
-      <p class="muted" style="margin-top: 1.5rem;">
-        The <code>receipt_hash</code> is computed as Blake3 over the full CBOR encoding
-        of all preceding fields, with the three signature slots set to zero-filled
-        buffers. After all three signatures are populated, the receipt hash is
-        recomputed and becomes the canonical identifier. Any node can verify integrity
-        by recomputing the hash and checking it matches.
-      </p>
-    </div>
-  </section>
-
-  <!-- SIGNATURE SCHEME -->
-  <section class="section">
-    <div class="container">
-      <div class="divider"></div>
-      <p class="label gold">Cryptographic Signatures</p>
-      <h2>Signature Scheme &amp; Verification</h2>
-
-      <div class="spec-grid">
+      <div class="spec-grid" style="margin-top: 2rem;">
         <div class="spec-card">
-          <h3>Algorithm</h3>
+          <h3>Header Tier [01&ndash;04]</h3>
           <p>
-            All signatures use <strong>Ed25519</strong> (EdDSA over Curve25519, RFC
-            8032). This is the same primitive used for node identity in the Lattice
-            transport layer, ensuring cryptographic consistency across the stack.
-            Ed25519 provides 128-bit security, deterministic signatures (no RNG
-            dependency), and compact 64-byte signatures.
+            Protocol version (<code>u32</code>), unique session ID (<code>uuid</code>),
+            transaction timestamp (<code>u64</code>, Unix nanoseconds), and previous
+            receipt hash (<code>Blake3</code>). The parent hash forms the Receipt Hash
+            Chain — an unbroken cryptographic sequence from genesis forward.
           </p>
         </div>
-
         <div class="spec-card">
-          <h3>Key Material</h3>
+          <h3>Context Vectors [05&ndash;09]</h3>
           <p>
-            Each branch maintains its own Ed25519 keypair. Branch I keys are held by
-            the Civic Assembly's delegated signers (quorum of N-of-M, where N and M
-            are Assembly-configurable). Branch II keys are held inside the Algorithmic
-            Framework's secure enclave — the signing key never leaves hardware
-            isolation. Branch III keys are generated deterministically by the Protocol
-            Mesh from the network's genesis parameters; they are effectively
-            immutable.
+            Proposer identity address (<code>lvn:</code> string), target resource ID,
+            proposed delta mapping, and resource boundary constraints. These fields
+            capture the full intent of the proposal as signed by the human proposer.
           </p>
         </div>
-
         <div class="spec-card">
-          <h3>What Gets Signed</h3>
+          <h3>Simulation Telemetry [10&ndash;14]</h3>
           <p>
-            Each branch signs <strong>the same canonical message</strong>: the CBOR
-            encoding of the receipt with all three signature slots zero-filled. This
-            ensures that all three branches are attesting to the identical set of
-            facts — same proposal hash, same opposition hash, same synthesis hash,
-            same outcome. There is no ambiguity about what was agreed to.
+            Enclave ID (<code>tfb:</code> string), Impact Certificate digest
+            (<code>Blake3</code>), risk matrix array (enumerated risk vectors with
+            severity scores), and simulation step count. These fields are immutable
+            once the enclave signs — the <code>tfb:</code> cannot revise its analysis
+            after the fact.
           </p>
         </div>
-
+        <div class="spec-card">
+          <h3>Ratification State [15&ndash;18]</h3>
+          <p>
+            Multi-sig state flag (0=pending, 1=ratified, 2=witness-override,
+            3=expired), Witness sortition seed (<code>u64</code>), Witness panel mask
+            (5-bit field indicating which panel members voted), and ratification
+            timestamp. If the Witness path was taken, the sortition seed allows any
+            observer to verify the panel was drawn fairly.
+          </p>
+        </div>
+        <div class="spec-card">
+          <h3>Cryptographic Proofs [19&ndash;22]</h3>
+          <p>
+            <code>lvn:</code> Signature string (Ed25519, 64 bytes), <code>tfb:</code>
+            Enclave Signature string (Ed25519, 64 bytes), <code>lat:</code> Consensus
+            multi-sig payload, and the self-referential receipt hash — Blake3 of all
+            preceding fields with signature slots zero-filled. Any node can verify
+            integrity by recomputing and comparing.
+          </p>
+        </div>
         <div class="spec-card">
           <h3>Verification Procedure</h3>
           <p>
-            Any node receiving a receipt MUST: (1) Parse the receipt. (2) Extract the
+            Any node receiving a receipt MUST: (1) Parse the CBOR. (2) Extract the
             three signature slots. (3) Serialize the receipt with signature slots
             zeroed. (4) Verify each non-zero signature against its branch's public key
             and the serialized message. (5) Verify that enough signatures are present
-            (all three for execution, any two for escalation to Witness). (6) Verify
-            that <code>receipt_hash</code> matches Blake3 of the fully-populated CBOR.
-            All checks must pass or the receipt is discarded.
+            (all three for committed state, <code>lvn:</code> + <code>tfb:</code>
+            minimum for witness-override). (6) Verify that <code>receipt_hash</code>
+            matches Blake3 of the fully-populated CBOR. All checks must pass or the
+            receipt is discarded.
           </p>
           <div class="code-block">
             <span class="code-keyword">fn</span> <span class="code-cmd">verify_receipt</span>(receipt: &<span class="code-type">TrilateralReceipt</span>) -> <span class="code-type">Result</span>&lt;<span class="code-keyword">bool</span>&gt; &#123;<br/>
@@ -144,187 +311,47 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
     </div>
   </section>
 
-  <!-- ROUND LIFECYCLE -->
-  <section class="section section--dark">
-    <div class="container">
-      <div class="divider"></div>
-      <p class="label gold">State Machine</p>
-      <h2>Round Lifecycle</h2>
-      <p class="muted layer-intro">
-        Every governance round is a finite state machine with mandatory transitions
-        and hard timeouts. Rounds that stall are not retried — they escalate or
-        expire. The system is designed to degrade gracefully, not to hang.
-      </p>
-
-      <div class="lifecycle-diagram">
-        <div class="lifecycle-step">
-          <div class="lc-badge">0</div>
-          <div class="lc-body">
-            <h4>Idle</h4>
-            <p>A proposal is received from any branch. The mesh validates the proposal's structure and assigns the Opposer and Synthesizer roles via deterministic rotation. The round transitions to <strong>Proposed</strong>. A timeout clock starts.</p>
-          </div>
-        </div>
-        <div class="lifecycle-arrow">↓</div>
-        <div class="lifecycle-step">
-          <div class="lc-badge">1</div>
-          <div class="lc-body">
-            <h4>Proposed</h4>
-            <p>The proposal is broadcast to all nodes. The assigned Opposer branch has <code>T_oppose</code> (default: 300 seconds, configurable by proposal priority) to produce a structured opposition. If the Opposer fails to respond, the round transitions to <strong>OppositionTimeout</strong>. Otherwise, it transitions to <strong>Opposed</strong>.</p>
-          </div>
-        </div>
-        <div class="lifecycle-arrow">↓</div>
-        <div class="lifecycle-step">
-          <div class="lc-badge">2</div>
-          <div class="lc-body">
-            <h4>Opposed</h4>
-            <p>The opposition is broadcast. The Synthesizer branch receives both the proposal and the opposition. It has <code>T_synthesize</code> (default: 600 seconds) to produce a coherent resolution. If synthesis succeeds, the round transitions to <strong>Synthesized</strong>. If the Synthesizer declares irreconcilable conflict, the round transitions to <strong>Escalated</strong>. If the Synthesizer times out, the round transitions to <strong>SynthesisTimeout</strong>.</p>
-          </div>
-        </div>
-        <div class="lifecycle-arrow">↓</div>
-        <div class="lifecycle-step">
-          <div class="lc-badge">3a</div>
-          <div class="lc-body">
-            <h4>Synthesized</h4>
-            <p>The synthesis is broadcast to all three branches. Each branch independently verifies that the synthesis faithfully resolves the proposal-opposition pair. If verified, each branch signs. Once all three signatures are collected, the receipt is finalized, the Lattice executes the state change, and the round transitions to <strong>Executed</strong>.</p>
-          </div>
-        </div>
-        <div class="lifecycle-split">
-          <div class="lifecycle-step">
-            <div class="lc-badge fail">3b</div>
-            <div class="lc-body">
-              <h4>Escalated</h4>
-              <p>Irreconcilable conflict. The Synthesizer broadcasts a structured deadlock report identifying the specific point of impasse. The round transitions to the Witness Escalation Protocol. The receipt carries outcome=1 (escalated) with whatever signatures have been collected. A new round may be initiated with a revised proposal.</p>
-            </div>
-          </div>
-        </div>
-        <div class="lifecycle-arrow">↓</div>
-        <div class="lifecycle-step">
-          <div class="lc-badge final">4</div>
-          <div class="lc-body">
-            <h4>Executed / Expired / Withdrawn</h4>
-            <p><strong>Executed:</strong> All three signatures collected. State change committed. Receipt permanently recorded. <strong>Expired:</strong> Timeout reached without resolution. Receipt recorded with outcome=3. <strong>Withdrawn:</strong> Proposer retracts before opposition phase completes. Receipt recorded with outcome=2. All terminal states produce a receipt — the Lattice never silently drops a round.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ROLE ROTATION -->
+  <!-- TIMEOUTS -->
   <section class="section">
     <div class="container">
       <div class="divider"></div>
-      <p class="label gold">Fair Assignment</p>
-      <h2>Role Rotation</h2>
-      <p class="intro">
-        Branch roles (Proposer, Opposer, Synthesizer) rotate deterministically each
-        round to prevent any single branch from consistently occupying an advantageous
-        position. The rotation is computed from the previous receipt hash — making it
-        unpredictable in advance but verifiable by any node after the fact.
+      <p class="label gold">Temporal Constraints</p>
+      <h2>System Commitments &amp; Network Timeouts</h2>
+      <p class="muted layer-intro">
+        The protocol enforces strict, non-negotiable temporal constraints to protect
+        nodes from infinite resource locking, distributed denial of state, and
+        deadlocked governance. Rounds that stall do not hang — they expire or escalate.
       </p>
 
       <div class="spec-grid">
         <div class="spec-card">
-          <h3>Deterministic Derivation</h3>
+          <h3>Simulation Timeout</h3>
+          <p class="timeout-value">300s</p>
           <p>
-            For round <code>N</code>, the role assignment is derived from
-            <code>Blake3(parent_receipt_hash || N.to_be_bytes())</code>. The resulting
-            hash is interpreted as a permutation of [1,2,3] using Fisher-Yates shuffle
-            seeded by the hash bytes. This produces six possible role assignments with
-            uniform probability.
+            If the internal multi-agent adversarial simulation fails to output an
+            Impact Certificate or clear rejection log within 5 minutes, the node
+            clears its volatile context and drops the transaction. The proposer
+            receives a timeout notification and may resubmit.
           </p>
-          <div class="code-block">
-            <span class="code-keyword">fn</span> <span class="code-cmd">assign_roles</span>(parent_hash: &[<span class="code-keyword">u8</span>; 32], round: <span class="code-keyword">u64</span>) -> <span class="code-type">RoleAssignment</span> &#123;<br/>
-            &nbsp;&nbsp;<span class="code-keyword">let</span> seed = <span class="code-cmd">blake3_hash</span>(parent_hash, &round.<span class="code-cmd">to_be_bytes</span>());<br/>
-            &nbsp;&nbsp;<span class="code-type">RoleAssignment</span>::<span class="code-cmd">from_seed</span>(seed)<br/>
-            &#125;
-          </div>
         </div>
-
         <div class="spec-card">
-          <h3>Rotation Constraints</h3>
+          <h3>Ratification Window</h3>
+          <p class="timeout-value">600s</p>
           <p>
-            Two additional constraints guard against gaming: (1) A branch that
-            proposed in round <code>N</code> cannot propose in round <code>N+1</code>
-            — the rotation is re-seeded if this occurs. (2) A branch that timed out
-            as Opposer or Synthesizer in the previous three rounds is deprioritized
-            for those roles for the next two. These constraints are enforced
-            post-derivation: the assignment is recomputed with an incremented nonce
-            until constraints are satisfied.
+            Standard human consensus multi-sig confirmations must compile signatures
+            within 10 minutes before the payload expires. If the proposal is complex
+            and likely to require extended deliberation, the proposer may request an
+            extended window at submission time.
           </p>
         </div>
-
         <div class="spec-card">
-          <h3>Genesis Round</h3>
+          <h3>Witness Deliberation</h3>
+          <p class="timeout-value">86,400s</p>
           <p>
-            The genesis receipt (receipt_id=0) has no parent. Its role assignment is
-            derived from the network genesis parameters — a deterministic seed agreed
-            upon at network initialization. This ensures that even the first round's
-            role assignment is verifiable and not subject to manipulation by early
-            participants.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WITNESS ESCALATION -->
-  <section class="section section--dark">
-    <div class="container">
-      <div class="divider"></div>
-      <p class="label gold">Deadlock Resolution</p>
-      <h2>Witness Escalation Protocol</h2>
-      <p class="muted layer-intro">
-        When the adversarial loop reaches genuine irreconcilable conflict —
-        synthesis is impossible without overriding one branch's legitimate concern —
-        the round escalates to human judgment. This is not a failure mode. It is a
-        designed pressure-release valve that acknowledges the limits of algorithmic
-        resolution.
-      </p>
-
-      <div class="path-steps">
-        <div class="path-step">
-          <p class="step-label gold">Trigger</p>
-          <p>
-            The Synthesizer broadcasts a <strong>Deadlock Report</strong>: a
-            structured document identifying the specific proposition where the
-            proposal and opposition cannot be reconciled. The report must cite the
-            exact claims from both sides and explain why synthesis is impossible
-            without overriding one. Vague "agree to disagree" reports are rejected;
-            the Synthesizer must re-attempt with specificity.
-          </p>
-        </div>
-        <div class="path-step">
-          <p class="step-label gold">Witness Selection</p>
-          <p>
-            A panel of <strong>5 human Witnesses</strong> is drawn from the Civic
-            Assembly using sortition — random selection from the pool of registered
-            Assembly members who have not participated in the last 3 escalations.
-            Members can opt out of the Witness pool; those who remain are weighted
-            equally. Selection is deterministic from the deadlock report hash, making
-            it verifiable that no cherry-picking occurred.
-          </p>
-        </div>
-        <div class="path-step">
-          <p class="step-label gold">Deliberation</p>
-          <p>
-            Witnesses receive the full proposal, opposition, and deadlock report.
-            They have <code>T_witness</code> (default: 86,400 seconds / 24 hours) to
-            deliberate and produce a <strong>Witness Ruling</strong>: a structured
-            decision that resolves the impasse. The ruling can side with the proposal,
-            side with the opposition, or propose a modified resolution. Majority (3 of
-            5) is required. The ruling is signed by each Witness and broadcast as a new
-            proposal for a fresh adversarial round.
-          </p>
-        </div>
-        <div class="path-step">
-          <p class="step-label gold">Re-entry</p>
-          <p>
-            The Witness Ruling becomes a new proposal in the normal adversarial
-            pipeline — it must pass through opposition and synthesis like any other
-            proposal. The Witnesses do not bypass the Council; they unstick it. The
-            original deadlocked round is recorded with outcome=1 (escalated) and its
-            receipt is chained as the parent of the Witness-initiated round, preserving
-            full audit trail.
+            If deadlock sortition is triggered, the selected 5-person human panel has
+            exactly 24 hours to deliberate and finalize an override vote. If the window
+            expires without a 3-of-5 majority, the proposal is marked dead and cleared
+            from memory queues. The deadlock is recorded on-chain for audit.
           </p>
         </div>
       </div>
@@ -332,29 +359,28 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
   </section>
 
   <!-- RECEIPT CHAIN -->
-  <section class="section">
+  <section class="section section--dark">
     <div class="container">
       <div class="divider"></div>
       <p class="label gold">Auditability</p>
-      <h2>The Receipt Chain</h2>
+      <h2>The Receipt Hash Chain</h2>
       <p class="intro">
-        Every receipt carries a <code>parent_receipt</code> hash, forming an
-        unbroken cryptographic chain from the genesis receipt forward. This is not
-        a blockchain — there is no proof-of-work, no token, no mining. It is a
-        hash chain for auditability only: any observer can walk the chain from any
-        point backward to genesis and verify that every decision followed the
-        adversarial protocol, that all three branches participated, and that no
-        receipt was silently inserted or removed.
+        Every receipt carries a <code>parent_receipt</code> hash, forming an unbroken
+        cryptographic chain from the genesis receipt forward. This is not a blockchain —
+        there is no proof-of-work, no token, no mining. It is a hash chain for
+        auditability only: any observer can walk the chain from any point backward to
+        genesis and verify that every decision followed the TCP, that all three branches
+        participated, and that no receipt was silently inserted or removed.
       </p>
 
       <div class="code-block" style="text-align: center; padding: 1.5rem;">
-        <span class="code-cmd">[Genesis]</span> ──→
-        <span class="code-log">receipt_1</span> ──→
-        <span class="code-log">receipt_2</span> ──→
-        <span class="code-log">receipt_3</span> ──→
-        ... ──→
+        <span class="code-cmd">[Genesis]</span> ──&rarr;
+        <span class="code-log">receipt_1</span> ──&rarr;
+        <span class="code-log">receipt_2</span> ──&rarr;
+        <span class="code-log">receipt_3</span> ──&rarr;
+        ... ──&rarr;
         <span class="code-cmd">[Current Tip]</span><br/><br/>
-        <span class="code-comment">// Each arrow is parent_receipt → receipt_id<br/>
+        <span class="code-comment">// Each arrow is parent_receipt &rarr; receipt_id<br/>
         // Tampering with any receipt breaks all subsequent hashes<br/>
         // The entire governance history is verifiable in O(n) time</span>
       </div>
@@ -386,15 +412,15 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
   </section>
 
   <!-- CROSS-LINKS -->
-  <section class="section section--dark">
+  <section class="section">
     <div class="container">
       <div class="divider"></div>
       <p class="label gold">Continue Reading</p>
       <div class="cta-row">
-        <a href="/emergence/tripartite-council" class="btn">The Tripartite Council →</a>
-        <a href="/emergence/ethical-hardware-enclave" class="btn">Ethical Hardware Enclave →</a>
-        <a href="/emergence/lattice-spec" class="btn">Lattice Protocol Spec →</a>
-        <a href="/emergence/architecture" class="btn">Lattice Architecture →</a>
+        <a href="/emergence/tripartite-council" class="btn">The Tripartite Council &rarr;</a>
+        <a href="/emergence/ethical-hardware-enclave" class="btn">Ethical Hardware Enclave &rarr;</a>
+        <a href="/emergence/lattice-spec" class="btn">Lattice Protocol Spec &rarr;</a>
+        <a href="/emergence/architecture" class="btn">Lattice Architecture &rarr;</a>
       </div>
     </div>
   </section>
@@ -453,6 +479,14 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
 
   .spec-card p:last-child { margin-bottom: 0; }
 
+  .timeout-value {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 1.5rem;
+    color: var(--gold);
+    font-weight: 700;
+    margin: 0 0 0.5rem !important;
+  }
+
   /* Lifecycle */
   .lifecycle-diagram {
     display: flex;
@@ -481,7 +515,7 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 700;
     color: var(--gold);
     flex-shrink: 0;
@@ -499,68 +533,26 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
     color: #4caf50;
   }
 
-  .lc-body h4 {
-    font-size: 1rem;
-    margin: 0 0 0.4rem;
-  }
-
-  .lc-body p {
-    font-size: 0.88rem;
-    color: var(--text-muted);
-    line-height: 1.65;
-    margin: 0;
-  }
+  .lc-body { flex: 1; }
+  .lc-body h4 { font-size: 1rem; margin: 0 0 0.5rem; }
+  .lc-body p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0 0 0.5rem; }
+  .lc-body p:last-child { margin-bottom: 0; }
 
   .lifecycle-arrow {
+    font-size: 1.5rem;
     color: var(--gold);
-    font-size: 1.2rem;
-    padding: 0.3rem 0;
+    padding: 0.25rem 0;
   }
 
   .lifecycle-split {
+    display: flex;
     width: 100%;
     max-width: 680px;
-    margin: 0.5rem 0;
   }
 
-  .path-steps {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-top: 2rem;
-    border: 1px solid var(--border);
+  .lifecycle-split .lifecycle-step {
+    flex: 1;
   }
 
-  .path-step {
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .path-step:last-child { border-bottom: none; }
-
-  .step-label {
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 0.4rem;
-  }
-
-  .path-step p:last-child {
-    margin: 0;
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-
-  .cta-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-  }
-
-  @media (max-width: 640px) {
-    .spec-grid { grid-template-columns: 1fr; }
-    .cta-row { flex-direction: column; }
-  }
+  .code-block code { background: none; padding: 0; font-size: inherit; }
 </style>
