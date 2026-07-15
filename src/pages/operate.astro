@@ -1,0 +1,271 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Run a Node — The Emergence Institute"
+  description="Join the Lattice mesh in 15 minutes. No blockchain. No crypto wallet. Just a computer and a command line."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">Get Started</p>
+      <h1>Run a Node</h1>
+      <p class="subtitle-text"><em>You're the missing input. Here's how to join.</em></p>
+      <div class="divider"></div>
+
+      <p class="intro">
+        The Lattice is a mesh of sovereign nodes. Right now there are two — both run by
+        the founder. The mesh correctly produces nothing at this size, because contribution
+        requires a third party. <strong>You're the third party.</strong>
+      </p>
+
+      <p class="intro">
+        This takes about 15 minutes. You need a computer with internet access — a laptop,
+        a Raspberry Pi, a cloud VM, anything that runs Linux or macOS. No crypto wallet.
+        No blockchain. No signup.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container">
+      <h2>Step 1: Install Rust</h2>
+
+      <div class="step-block">
+        <p>You need the Rust compiler. If you already have it, skip ahead.</p>
+        <div class="code-block">
+          <pre><code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</code></pre>
+        </div>
+        <p class="step-note">Follow the prompts. Choose the default installation. When it finishes, run:</p>
+        <div class="code-block">
+          <pre><code>source "$HOME/.cargo/env"</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Step 2: Clone the Repository</h2>
+
+      <div class="step-block">
+        <div class="code-block">
+          <pre><code>git clone https://github.com/djsph001/lattice-node.git
+cd lattice-node</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container">
+      <h2>Step 3: Build</h2>
+
+      <div class="step-block">
+        <p>This takes a few minutes the first time. Subsequent builds are fast.</p>
+        <div class="code-block">
+          <pre><code>cargo build --release</code></pre>
+        </div>
+        <p class="step-note">
+          If you're on a low-memory machine (like a Pi), add <code>CARGO_BUILD_JOBS=1</code>
+          before the command to avoid running out of RAM.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Step 4: Start Your Node</h2>
+
+      <div class="step-block">
+        <p>One command. The node generates a persistent identity, connects to the relay, and joins the mesh.</p>
+        <div class="code-block">
+          <pre><code>./target/release/lattice-node \
+  --name your-name-here \
+  --port 0 \
+  --listen-addr 0.0.0.0 \
+  --identity-dir ~/.lattice \
+  --storage-dir ./lattice-storage \
+  --bootstrap-peer /ip4/167.233.223.174/tcp/4001</code></pre>
+        </div>
+        <p class="step-note">
+          <code>--port 0</code> picks a random available port.
+          <code>--name</code> is whatever you want to call your node — it shows up in logs.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container">
+      <h2>Step 5: Verify You're Connected</h2>
+
+      <div class="step-block">
+        <p>Look for these lines in the output. If you see them, you're on the mesh:</p>
+        <div class="code-block">
+          <pre><code>Connection established peer=12D3KooWBoVfr...
+Identify: peer supports relay (HOP_PROTOCOL)
+Kademlia routing table: peer added
+Status response received from=relay-hub</code></pre>
+        </div>
+        <p>
+          You should also see heartbeats arriving from relay-hub every 10 seconds,
+          and your node's identity line: <code>Node identity established peer_id=...</code>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>What Happens Now</h2>
+
+      <div class="step-block">
+        <p>
+          Your node is running and peered. The economic layer is active — the
+          receipt-gated mint is running — but it correctly produces 0 DUUs because
+          there's no third party whose traffic you could relay. <strong>Relaying is a
+          three-party act.</strong> Someone originates a message, you carry it, someone
+          else receives it. With three nodes, real relay work happens for the first time.
+        </p>
+
+        <p>
+          When a fourth person joins, the mesh crosses the threshold where quorum
+          (3-of-5) becomes possible. Certified contributions begin. Thickness accrues.
+          Governance activates. Your node helped make that happen.
+        </p>
+
+        <p>
+          <strong>You're not late. You're the third node.</strong> The mesh has been running
+          with two — correctly producing nothing — because it was waiting for you.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container">
+      <h2>Keeping It Running</h2>
+
+      <div class="step-block">
+        <p>
+          The node stops when you close the terminal. To keep it running permanently,
+          add it as a systemd service (Linux) or launchd agent (macOS). A service file
+          is in the repository at <code>deploy/lattice-lumen.service</code> — copy and
+          customize it.
+        </p>
+        <p>
+          On restart, your node's identity persists (the key at <code>~/.lattice/identity.key</code>).
+          The economic state does not yet persist — this is being built. Until then, a
+          restart means starting fresh, which is fine while the mesh is bootstrapping.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>What You're Joining</h2>
+
+      <div class="step-block">
+        <p>
+          The Emergence Institute is building an apparatus for turning multiple vantage
+          points into shared truth — without central servers, without a blockchain,
+          without requiring anyone to trust the founder. Every mechanism is running
+          code in a public repository.
+        </p>
+        <p>
+          <a href="/emergence/architecture">Read the architecture →</a>
+        </p>
+        <p>
+          <a href="/emergence/constitutional">Read the constitutional design →</a>
+        </p>
+        <p>
+          <a href="/emergence/protocols">Read the protocol specifications →</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container">
+      <h2>Questions?</h2>
+
+      <div class="step-block">
+        <p>
+          Something didn't work? The build failed? Join the
+          <a href="https://discord.gg/emergenceinstitute">Discord</a> and ask.
+          The mesh is small enough that you'll get an answer from the person who
+          wrote the code.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .subtitle-text {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+
+  .intro {
+    max-width: 620px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  .step-block {
+    max-width: 680px;
+  }
+
+  .code-block {
+    margin: 1rem 0;
+    padding: 1rem 1.25rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    overflow-x: auto;
+  }
+
+  .code-block pre {
+    margin: 0;
+  }
+
+  .code-block code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.88rem;
+    color: var(--gold-light);
+    background: none;
+    padding: 0;
+    line-height: 1.6;
+  }
+
+  .step-note {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+
+  .step-note code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    color: var(--gold-light);
+  }
+
+  section h2 {
+    margin-bottom: 1rem;
+  }
+
+  section + section {
+    border-top: none;
+  }
+</style>

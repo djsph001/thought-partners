@@ -1,0 +1,130 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Updates — The Emergence Institute"
+  description="What's happening at the Emergence Institute. Node status, recent builds, and what's next."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">The Log</p>
+      <h1>What's Happening</h1>
+      <p class="subtitle-text"><em>A running record of what's built, what's running, and what's next.</em></p>
+      <div class="divider"></div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container">
+      <h2>Now</h2>
+
+      <div class="entry">
+        <p class="entry-date gold">July 15, 2026</p>
+        <p>
+          <strong>Two nodes, peered.</strong> The Z4 in Florida and the relay in Germany
+          are connected and exchanging gossip across the Atlantic. The economic layer is
+          active — the receipt-gated mint is running — and correctly produces 0 DUUs.
+          Contribution requires a third party, and there isn't one yet.
+        </p>
+        <p>
+          The landing page now shows honest telemetry for the first time: real node
+          counts, real locations, no fabricated numbers. The architecture pages describe
+          what runs, not what might run someday.
+        </p>
+      </div>
+
+      <div class="entry">
+        <p class="entry-date gold">July 15, 2026</p>
+        <p>
+          <strong>Phase 6 wired.</strong> The receipt-gated mint is operational. Relay
+          receipts now correctly attest to genuine relay work (source ≠ propagation).
+          Self-reported minting — a Phase 5 placeholder — is gated to test-only.
+          The economic layer no longer manufactures value from one perspective.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Built</h2>
+
+      <div class="entry">
+        <p class="entry-date gold">July 2026</p>
+        <p><strong>BootstrapEnded spec.</strong> A single chain-anchored block that partitions the ledger into two honest eras — root-authorized and quorum-certified. One-way, irreversible. Waiting on a third peer before it can be committed.</p>
+      </div>
+
+      <div class="entry">
+        <p class="entry-date gold">June–July 2026</p>
+        <p><strong>Thickness provenance graph.</strong> Contribution-derived and vouch-derived thickness with full derivation lineage. Four verified properties. Chained clawback for collusion detection. Scale-invariant gauge.</p>
+      </div>
+
+      <div class="entry">
+        <p class="entry-date gold">June 2026</p>
+        <p><strong>Witness/certificate flow.</strong> Deterministic sortition, 3-of-5 quorum, append-only Blake3 hash-chain ledger. Certificates become blocks through accumulation, not authorship.</p>
+      </div>
+
+      <div class="entry">
+        <p class="entry-date gold">May 2026</p>
+        <p><strong>P2P mesh with cross-Atlantic peering.</strong> libp2p stack: Noise XX + Yamux + Kademlia DHT + gossipsub. Relay server at Hetzner. mDNS for local discovery.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container">
+      <h2>Next</h2>
+
+      <div class="entry">
+        <p><strong>The third node.</strong> Every mechanism is built and waiting. The mesh correctly produces nothing at two nodes because contribution is a three-party act. The first person to run a node who isn't the founder is the person who activates the Lattice. <a href="/operate">Run a node →</a></p>
+      </div>
+
+      <div class="entry">
+        <p><strong>Persistence.</strong> Economic state doesn't survive restarts yet. Designed as chain-replay (log-authoritative, not snapshot). Blocked on economic events riding the certificate flow — which needs quorum — which needs a third peer.</p>
+      </div>
+
+      <div class="entry">
+        <p><strong>BootstrapEnded.</strong> The one-way block that ends root authority and begins quorum governance. Spec exists, build waits on the same thing everything else waits on.</p>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .subtitle-text {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+
+  .entry {
+    max-width: 640px;
+    margin-bottom: 2rem;
+  }
+
+  .entry:last-child {
+    margin-bottom: 0;
+  }
+
+  .entry-date {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+
+  .entry p {
+    line-height: 1.7;
+  }
+
+  section h2 {
+    margin-bottom: 1.75rem;
+  }
+</style>
