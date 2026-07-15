@@ -21,7 +21,7 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
         The Lattice is not a cloud service and it is not a blockchain. It is a network
         of physical nodes — running on workstations, homelabs, and single-board
         computers — that coordinate through adversarial consensus. No central servers.
-        No crypto. No extractive middleman. The hardware requirements are documented,
+        No extractive middleman. The hardware requirements are documented,
         the protocol is open, and the smallest viable node fits on a Raspberry Pi.
       </p>
       <div class="cta-row">
@@ -48,7 +48,8 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
           <p>
             The substrate itself. Flash the Emergence OS image, verify your GPUs, and
             launch the synthesis engine. The node registers with the network, syncs
-            state, and begins participating in consensus. Keys are held in hardware
+            state, and — once enough independent peers are present — begins
+            participating in consensus. Keys are held in hardware
             (TPM 2.0) so a node's identity can never be silently impersonated.
           </p>
         </div>
@@ -69,7 +70,9 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
             Nodes do not vote — they argue. A Proposer, an Opposer, and a Synthesizer
             run a structured adversarial loop until coherence is reached or the round
             defers to a human Witness. Truth emerges from triangulation across many
-            vantage points, not from a single view from nowhere.
+            vantage points, not from a single view from nowhere — and with two nodes
+            there is no triangulation, so the mesh correctly produces nothing. Consensus
+            waits for enough independent perspectives to form.
           </p>
         </div>
       </div>

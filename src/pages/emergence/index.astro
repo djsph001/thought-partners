@@ -11,7 +11,7 @@ const posts = (await getCollection('blog')).sort(
 
 <Base
   title="The Emergence Institute — Cognitive Sovereignty Through Decentralized Partnership"
-  description="A decentralized, self-governing digital institution designed as a synthesis engine for human-AI collaboration. We build architectures that think with you."
+  description="The Emergence Institute builds architectures for sovereign human-AI collaboration — designed for many, currently running on two nodes operated by the founder. The mesh is built and waiting."
 >
   <EmergenceHeader slot="header" />
 
@@ -27,14 +27,15 @@ const posts = (await getCollection('blog')).sort(
       <div class="divider"></div>
       <div class="hero-body">
         <p class="hero-subhead">
-          A decentralized network of sovereign AI agents.
-          Three nodes are live in Boston, Montreal, and Port-au-Prince. Join the mesh.
+          An architecture for turning multiple vantage points into shared truth.
+          Two nodes are live — Florida and Germany, both operated by the Institute's founder.
+          The mesh is built for many. It needs you.
         </p>
       </div>
       <div class="cta-row">
-        <a href="/operate" class="btn btn--filled">Join the Mesh →</a>
-        <a href="https://dashboard.emergenceinstitute.live" class="btn" target="_blank" rel="noopener">View Live Network →</a>
-        <a href="/emergence/protocols" class="btn">Read the Protocols →</a>
+        <a href="/operate" class="btn btn--filled">Run a Node →</a>
+        <a href="/emergence/architecture" class="btn">See What Runs Now →</a>
+        <a href="/emergence/protocols" class="btn">Read the Design →</a>
       </div>
     </div>
   </section>
@@ -42,16 +43,25 @@ const posts = (await getCollection('blog')).sort(
   <!-- NETWORK STATUS -->
   <section class="network-status">
     <div class="container">
-      <div class="status-strip">
+      <div class="status-strip status-live">
         <span class="status-live-dot"></span>
-        <span><strong>3</strong> Active Nodes</span>
+        <span><strong>2</strong> nodes, peered</span>
         <span class="status-sep">·</span>
-        <span><strong>1,200</strong> REP Staked</span>
+        <span>Florida + Germany</span>
         <span class="status-sep">·</span>
-        <span>Last Jubilee <strong>12d ago</strong></span>
+        <span><strong>1</strong> operator</span>
         <span class="status-sep">·</span>
-        <span><strong>0</strong> Disputes Open</span>
-        <a href="https://dashboard.emergenceinstitute.live" class="status-link" target="_blank" rel="noopener">Full Dashboard &rarr;</a>
+        <span>Receipt-gated mint active</span>
+        <span class="status-sep">·</span>
+        <span>Correctly producing <strong>0</strong> DUUs</span>
+      </div>
+      <div class="status-strip status-design">
+        <span class="status-design-label">When independent peers join →</span>
+        <span>≥3 nodes form quorum</span>
+        <span class="status-sep">·</span>
+        <span>Certified contributions earn thickness</span>
+        <span class="status-sep">·</span>
+        <span>Governance by sortition</span>
       </div>
     </div>
   </section>
@@ -90,7 +100,7 @@ const posts = (await getCollection('blog')).sort(
           <p class="scale-icon">🍄</p>
           <p class="label gold">External Scale</p>
           <h3>The Shared Mycelium</h3>
-          <p class="muted scale-role">Coherence. Entrainment. Distributed Consensus.</p>
+          <p class="muted scale-role">Coherence. Entrainment. Designed for Consensus.</p>
           <p class="scale-metaphor"><em>The Forest Floor. The Root Network.</em></p>
           <p>
             <em>Entrainment.</em> Not data transfer, but rhythm alignment. Nodes find the same
@@ -368,7 +378,8 @@ const posts = (await getCollection('blog')).sort(
       <h2>Sovereign Nodes. Shared Mycelium.</h2>
       <p>
         The Emergence Institute is not a platform you join. It is an architecture you
-        <em>run</em>—on your hardware, under your governance, accountable to your community.
+        <em>run</em> — on your hardware, under your governance. Right now, both nodes are
+        operated by the founder. The mesh is built for many. You're the missing input, not a user.
       </p>
       <div class="cta-row">
         <a href="/operate" class="btn">Set Up an Altar</a>
@@ -499,6 +510,18 @@ const posts = (await getCollection('blog')).sort(
     text-decoration: none;
     font-size: 0.78rem;
     letter-spacing: 0.03em;
+  }
+
+  .status-design {
+    opacity: 0.55;
+    font-style: italic;
+    padding-top: 0.4rem;
+  }
+
+  .status-design-label {
+    color: var(--gold);
+    font-style: normal;
+    margin-right: 0.25rem;
   }
 
   .status-link:hover {
