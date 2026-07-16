@@ -6,7 +6,7 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
 
 <Base
   title="Origin — The Emergence Institute"
-  description="How the Emergence Collective began — from Boynton Beach to a live mesh network spanning three cities."
+  description="How the Emergence Collective began — from Boynton Beach to a live mesh network, honestly told."
 >
   <EmergenceHeader slot="header" />
 
@@ -30,30 +30,51 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       </p>
 
       <p>
-        So we built a network that doesn't care about infrastructure. A mesh of sovereign
-        nodes that discover each other, authenticate, and share intelligence — no central
-        servers, no backbone required. Just a lattice of Raspberry Pis, speaking to each
-        other across whatever links exist.
+        So we set out to build a network that doesn't care about infrastructure. A mesh of
+        sovereign nodes that discover each other, authenticate, and share intelligence — no
+        central servers, no backbone required. A lattice of machines speaking to each other
+        across whatever links exist, designed to run on hardware cheap enough to deploy
+        anywhere.
       </p>
 
       <div class="milestone">
         <p class="milestone-label gold">First Light</p>
         <p>
-          The first node ran in my house in Boynton Beach. The second went to a friend in
-          Boston. The third — the one that proved it worked — went to my cousin in Morne Rouge.
-          When that node came online and began exchanging heartbeats with the others, the
-          network was alive. It had crossed the digital divide not by building more
-          infrastructure, but by building around it.
+          The first node ran in my house in Boynton Beach. The second ran on a workstation.
+          The third — the one that proved the receipt-gated minting loop — ran on a Mac on
+          the same desk. On July 16, 2026, three nodes (Florida, Germany, Florida) exchanged
+          verified receipts and produced the first honest DUUs the system had ever minted. The
+          mechanism worked. The mesh was alive.
+        </p>
+        <p class="seam-note">
+          These three nodes were all operated by the founder — one vantage point, three
+          costumes. The network waits for its first independent peer.
         </p>
       </div>
 
       <div class="milestone">
-        <p class="milestone-label gold">The Georgist Engine</p>
+        <p class="milestone-label gold">The Engine</p>
         <p>
-          The Georgist economic engine was added to prevent state bloat — a simple tax on
-          storage that prunes data when it exceeds its value, ensuring the network stays
-          lean even on low-resource hardware. The first Jubilee event — a pruning of stale
-          data — was recorded in early 2025.
+          The Georgist economic layer — a receipt-gated mint, a thickness graph for
+          contribution provenance, and a tax on unused resources — is designed to make
+          the network self-regulating. Nodes earn thickness only by carrying traffic
+          for others: relaying is a three-party act, and the system refuses to mint
+          from self-reported metrics. The parameters are gauged and guarded. The
+          mechanism is verified. The economics are meaningless until independent
+          peers arrive.
+        </p>
+      </div>
+
+      <div class="milestone">
+        <p class="milestone-label gold">The Pilot</p>
+        <p>
+          The Digital Lakou — a pilot deployment in Haiti — is the bridge from
+          architecture to actual use. A Lakou is the traditional Haitian compound where
+          extended family lives, works, and shares resources around a central yard. The
+          Digital Lakou extends that pattern into the mesh: a node running on low-power
+          hardware, serving AI models locally to a community of users, peer-to-peer.
+          The pilot is in development. When it deploys, it will be the first node
+          operated by someone the founder has never met.
         </p>
       </div>
 
@@ -72,7 +93,8 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       </blockquote>
 
       <p class="closer">
-        The code is open. The network is live. The forge is hot.
+        The code is open. The mesh is running at three nodes, one operator.
+        The next node could be anyone.
       </p>
     </div>
   </section>
@@ -114,6 +136,16 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
 
   .milestone p {
     font-size: 1.05rem;
+  }
+
+  .seam-note {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-left: 2px solid var(--gold);
+    background: var(--bg-card);
   }
 
   blockquote {
