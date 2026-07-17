@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join the Lattice — The Emergence Institute</title>
+    <style>
+        :root {
+            --gold: #C9A84C;
+            --gold-light: #E2C47A;
+            --bg: #0e0e0e;
+            --bg-elevated: #161616;
+            --bg-card: #1a1a1a;
+            --border: #2a2a2a;
+            --text: #e8e4dc;
+            --text-muted: #9a9488;
+            --max-width: 720px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 18px;
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body { min-height: 100vh; }
+
+        a { color: var(--gold); text-decoration: none; }
+        a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+        h1, h2, h3 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-weight: normal;
+            line-height: 1.3;
+            color: var(--text);
+        }
+
+        h1 { font-size: clamp(2rem, 5vw, 3rem); }
+        h2 { font-size: clamp(1.3rem, 3vw, 1.6rem); margin-bottom: 1rem; }
+        h3 { font-size: 1.1rem; margin-bottom: 0.6rem; color: var(--gold-light); }
+
+        p { margin-bottom: 1.25rem; }
+        p:last-child { margin-bottom: 0; }
+
+        strong { color: var(--text); font-weight: bold; }
+        em { font-style: italic; color: var(--text-muted); }
+
+        .label {
+            font-family: Georgia, serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            margin: 1.5rem auto;
+        }
+
+        .site-header {
+            border-bottom: 1px solid var(--border);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+        }
+
+        .site-header h1 { margin: 0; color: var(--text); }
+        .site-header .subtitle {
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+            font-size: 1.05rem;
+            font-style: italic;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .container { max-width: var(--max-width); margin: 2rem auto; padding: 0 1.5rem; }
+
+        section {
+            padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .steps {
+            counter-reset: step;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .step {
+            counter-increment: step;
+            padding: 1.25rem;
+            border-left: 2px solid var(--border);
+            transition: border-color 0.2s;
+        }
+
+        .step:hover { border-left-color: var(--gold); }
+
+        .step::before {
+            content: "Step " counter(step);
+            display: block;
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .step p { margin-bottom: 0.75rem; }
+        .step p:last-child { margin-bottom: 0; }
+
+        .code-block {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            padding: 1.25rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            overflow-x: auto;
+            margin: 0.75rem 0;
+        }
+
+        .code-cmd { color: var(--gold-light); }
+
+        .log-info { color: var(--gold); }
+        .log-success { color: var(--gold-light); }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .checklist li {
+            padding-left: 1.75rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .checklist li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+        }
+
+        .box {
+            border: 1px solid var(--gold);
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .box p { margin-bottom: 0.75rem; }
+        .box p:last-child { margin-bottom: 0; }
+
+        .help-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 520px) { body { font-size: 16px; } }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <p class="label">Get Started</p>
+        <h1>Join the Lattice</h1>
+        <div class="divider"></div>
+        <div class="subtitle">
+            Run a node. Help build a peer-governed network. No account, no sign-up, no permission needed.
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- What you need -->
+        <section>
+            <h2>What You Need</h2>
+            <ul class="checklist">
+                <li>A computer that stays on &mdash; a Raspberry Pi 4 or 5 works, so does an old laptop or a cloud server</li>
+                <li>An internet connection &mdash; broadband or better</li>
+                <li>A terminal &mdash; you already have one if you're reading this</li>
+            </ul>
+            <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.95rem;">
+                No account. No sign-up form. No email. No one to ask.
+            </p>
+        </section>
+
+        <!-- Steps -->
+        <section>
+            <h2>How to Join</h2>
+            <ol class="steps">
+                <li class="step">
+                    <p>Open a terminal on your machine.</p>
+                </li>
+                <li class="step">
+                    <p>Copy and paste this command, then press Enter:</p>
+                    <div class="code-block">
+                        <span class="code-cmd">curl -fsSL https://emergenceinstitute.live/scripts/install_pi_node.sh -o install.sh</span><br>
+                        <span class="code-cmd">chmod +x install.sh &amp;&amp; sudo ./install.sh</span>
+                    </div>
+                    <p style="font-size: 0.95rem; color: var(--text-muted);">
+                        It will download, verify, and start the node software. This takes a minute or two.
+                    </p>
+                </li>
+                <li class="step">
+                    <p>Watch the terminal. You should see something like this:</p>
+                    <div class="code-block">
+                        <span class="log-info">[STORAGE]</span> Initialized clean Merkle journal database...<br>
+                        <span class="log-info">[SWARM]</span> Generating fresh Ed25519 node identity signature...<br>
+                        <span class="log-info">[HANDSHAKE]</span> Sending CELL_ANNOUNCE identity frame...<br>
+                        <span class="log-success">[HANDSHAKE] [SUCCESS] Registered verified key for peer!</span>
+                    </div>
+                    <p>When you see <span style="color: var(--gold-light);">[SUCCESS]</span>, your node is live and connected to the mesh.</p>
+                </li>
+            </ol>
+        </section>
+
+        <!-- What this means -->
+        <section>
+            <h2>You're In</h2>
+            <p>
+                Your node is now a peer on the Lattice. It validates proposals, witnesses certificates,
+                and helps secure the network. Nothing to configure. Nothing to maintain day-to-day.
+            </p>
+            <p>
+                The mesh is small right now &mdash; a handful of nodes run by a handful of people.
+                Every new node makes it stronger. Yours is one of them.
+            </p>
+            <div class="box">
+                <p style="font-size: 0.95rem; color: var(--text-muted);">
+                    <strong style="color: var(--text);">Where is this going?</strong><br>
+                    The Lattice is designed to be a peer-governed network &mdash; no central server,
+                    no company, no platform. Nodes coordinate directly. What they coordinate about
+                    depends on who runs them. Right now it's early. You joining shapes what it becomes.
+                </p>
+            </div>
+        </section>
+
+        <!-- Help -->
+        <section>
+            <h2>Questions?</h2>
+            <div class="help-links">
+                <span>Discord: <a href="#">link</a></span>
+                <span>Email: <a href="mailto:contact@emergencecollective.live">contact@emergencecollective.live</a></span>
+            </div>
+            <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                Or ask someone already running a node. They&rsquo;ll know.
+            </p>
+        </section>
+
+    </div>
+
+</body>
+</html>

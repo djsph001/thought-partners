@@ -19,8 +19,15 @@
 
 [[redirects]]
   from = "/operate"
-  to = "/operate.html"
-  status = 200
+  to = "/join.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/operate.html"
+  to = "/join.html"
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/dashboard-guide"
