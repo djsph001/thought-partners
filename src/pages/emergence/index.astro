@@ -66,6 +66,22 @@ const posts = (await getCollection('blog')).sort(
     </div>
   </section>
 
+  <!-- LIVE MESH STATUS -->
+  <section class="section section--dark mesh-status">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Lattice Mesh · Live Status</p>
+      <div id="lattice-widget"></div>
+      <p class="muted" style="margin-top: 1rem; font-size: 0.85rem; text-align: center;">
+        <a href="https://dale-joseph-hp-z4-g4-workstation.taild96c2e.ts.net/mesh/" target="_blank" style="color: var(--gold);">Watch full dashboard →</a>
+        <span style="opacity: 0.4; margin-left: 0.5rem;">·</span>
+        <a href="/emergence/architecture" style="color: var(--text-muted); font-size: 0.8rem;">How the mesh works →</a>
+      </p>
+    </div>
+  </section>
+
+  <script is:inline src="https://dale-joseph-hp-z4-g4-workstation.taild96c2e.ts.net/mesh/static/embed.js"></script>
+
   <!-- TWO SCALES -->
   <section class="section section--dark">
     <div class="container--wide">
