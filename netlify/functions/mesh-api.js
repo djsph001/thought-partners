@@ -1,13 +1,11 @@
-// Mesh API — ingest (POST from pusher) + serve (GET for widget)
-// Data stored in-memory (module-scoped Map), with cold-start fallback
-// to the bridge's public Funnel URL.
-//
-// No auth on POST — data is public mesh status, pusher overwrites
-// every 12s. Worst case: widget shows spoofed data for one push cycle.
+// Mesh API — ingest (POST with auth) + serve (GET, public)
+// Data persisted in Netlify Blobs keyed by endpoint name.
+// Cold starts and concurrent instances share the same blob store.
 
-const FALLBACK = 'https://dale-joseph-hp-z4-g4-workstation.taild96c2e.ts.net/mesh/api';
+import { getStore } from '@netlify/blobs';
+
+const SECRET='***';
 const ENDPOINTS = ['nodeinfo', 'peers', 'epoch', 'persistence'];
-const store = new Map();
 
 export const config = { path: '/mesh-api/*' };
 
@@ -15,39 +13,34 @@ export default async (request) => {
   const url = new URL(request.url);
   const path = url.pathname.replace(/^\/mesh-api\/?/, '');
 
-  // ── POST: ingest from pusher ───────────────────────────────────
+  // ── POST: ingest from pusher (authenticated) ──────────────────
   if (request.method === 'POST') {
+    const auth = request.headers.get('authorization') || '';
+    if (auth !== `Bearer ${SECRET}`) {
+      return Response.json({ error: 'Forbidden' }, { status: 403 });
+    }
     const body = await request.json();
     const received_at = new Date().toISOString();
+    const store = getStore('mesh-api');
     for (const ep of ENDPOINTS) {
-      if (body[ep]) store.set(ep, { data: body[ep], received_at });
+      if (body[ep]) {
+        await store.set(ep, JSON.stringify({ data: body[ep], received_at }));
+      }
     }
     return Response.json({ ok: true, received_at });
   }
 
-  // ── GET: serve data to widget ──────────────────────────────────
+  // ── GET: serve data to widget (public) ────────────────────────
   if (path === '__health') {
-    return Response.json({ ok: true, has_data: store.size > 0 });
+    return Response.json({ ok: true });
   }
-
   const endpoint = path || 'nodeinfo';
-  let entry = store.get(endpoint);
-
-  // Cold-start fallback
-  if (!entry && FALLBACK) {
-    try {
-      const resp = await fetch(`${FALLBACK}/${endpoint}`);
-      if (resp.ok) {
-        const body = await resp.json();
-        entry = { data: body.data || body, received_at: new Date().toISOString() };
-        store.set(endpoint, entry);
-      }
-    } catch (_) { /* fallback failed — return 503 */ }
+  const store = getStore('mesh-api');
+  const raw = await store.get(endpoint);
+  if (!raw) {
+    return Response.json({ error: 'No data yet' }, { status: 503 });
   }
-
-  if (!entry) return Response.json({ error: 'No data yet' }, { status: 503 });
-
-  return Response.json(entry, {
+  return Response.json(JSON.parse(raw), {
     headers: { 'content-type': 'application/json', 'cache-control': 'no-cache' },
   });
 };
