@@ -2,6 +2,11 @@
 // Data stored in-memory (module-scoped Map). Survives warm starts,
 // resets on cold starts — pusher fills within 12s either way.
 
+// Shared secret for POST authentication. Same value as the pusher's
+// config file at /home/dale-joseph/.config/mesh-push/secret.
+// GET requests remain unauthenticated (public mesh status).
+const PUSH_SECRET = '16ebYAHpD3XUUSGVKNXX+775ykOl7sUNeu9tbkrvZzc=';
+
 const ENDPOINTS = ['nodeinfo', 'peers', 'epoch', 'persistence'];
 
 // In-memory store per endpoint. Keyed by name, value = { data, received_at }.
@@ -14,8 +19,13 @@ export default async (request) => {
   const url = new URL(request.url);
   const path = url.pathname.replace(/^\/mesh-api\/?/, '');
 
-  // ── POST: ingest from pusher (no auth — data is public mesh status) ──
+  // ── POST: ingest from pusher (authenticated with shared secret) ────
   if (request.method === 'POST') {
+    const auth = request.headers.get('authorization') || '';
+    if (auth !== `Bearer ${PUSH_SECRET}`) {
+      return Response.json({ error: 'Forbidden' }, { status: 403 });
+    }
+
     const body = await request.json();
     const received_at = new Date().toISOString();
 
