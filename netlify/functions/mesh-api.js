@@ -4,7 +4,7 @@
 
 import { getStore } from '@netlify/blobs';
 
-const SECRET='***';
+const SECRET='Hj7ukiVBMpbRu0b89BgruQpYWQJtS9Vq4D/qPFoEN0Y=';
 const ENDPOINTS = ['nodeinfo', 'peers', 'epoch', 'persistence'];
 
 export const config = { path: '/mesh-api/*' };
