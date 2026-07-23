@@ -33,11 +33,3 @@
   from = "/dashboard-guide"
   to = "/dashboard-guide.html"
   status = 200
-
-# Proxy mesh API calls to the live bridge via Tailscale Funnel
-# Keeps embed.js same-origin — no cross-origin tailnet dependency
-[[redirects]]
-  from = "/mesh-api/*"
-  to = "https://dale-joseph-hp-z4-g4-workstation.taild96c2e.ts.net/mesh/api/:splat"
-  status = 200
-  force = true
