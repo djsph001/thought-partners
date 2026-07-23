@@ -8,6 +8,9 @@ import { getStore } from '@netlify/blobs';
 
 const ENDPOINTS = ['nodeinfo', 'peers', 'epoch', 'persistence'];
 
+// Map the function to the /mesh-api/* path so widget's relative fetch hits it
+export const config = { path: '/mesh-api/*' };
+
 export default async (request) => {
   const url = new URL(request.url);
   const path = url.pathname.replace(/^\/mesh-api\/?/, '');
