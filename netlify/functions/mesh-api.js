@@ -5,7 +5,7 @@
 // Shared secret for POST authentication. Same value as the pusher's
 // config file at /home/dale-joseph/.config/mesh-push/secret.
 // GET requests remain unauthenticated (public mesh status).
-const PUSH_SECRET = '4L7b6Q8EcBDs5xvie0kFKx43BDeMIRaaM5f9cI32kQc=';
+const PUSH_SECRET = '***';
 
 // Fallback upstream for cold-start recovery — if the Map is empty
 // (cold start, no pusher data yet), the function fetches fresh data
