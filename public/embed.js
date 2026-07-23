@@ -1,6 +1,6 @@
 // Lattice Mesh Live Widget — same-origin, no tailnet dependency
 (function() {
-  var API = '/mesh-api';
+  var API = 'https://dale-joseph-hp-z4-g4-workstation.taild96c2e.ts.net/mesh/api';
   var CONTAINER_ID = 'lattice-widget';
 
   var style = document.createElement('style');
