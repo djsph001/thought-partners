@@ -1,12 +1,11 @@
 // Mesh API — ingest (POST from pusher) + serve (GET for widget)
-// Data stored in Netlify Blob keyed by endpoint name.
-//
-// POST /.netlify/functions/mesh-api  (body: {nodeinfo, peers, epoch, persistence})
-// GET  /.netlify/functions/mesh-api/peers
-
-import { getStore } from '@netlify/blobs';
+// Data stored in-memory (module-scoped Map). Survives warm starts,
+// resets on cold starts — pusher fills within 12s either way.
 
 const ENDPOINTS = ['nodeinfo', 'peers', 'epoch', 'persistence'];
+
+// In-memory store per endpoint. Keyed by name, value = { data, received_at }.
+const store = new Map();
 
 // Map the function to the /mesh-api/* path so widget's relative fetch hits it
 export const config = { path: '/mesh-api/*' };
@@ -24,13 +23,11 @@ export default async (request) => {
     }
 
     const body = await request.json();
-    const store = getStore('mesh-api');
     const received_at = new Date().toISOString();
 
     for (const ep of ENDPOINTS) {
       if (body[ep]) {
-        const entry = JSON.stringify({ data: body[ep], received_at });
-        await store.set(ep, entry);
+        store.set(ep, { data: body[ep], received_at });
       }
     }
 
@@ -40,23 +37,19 @@ export default async (request) => {
   // ── GET: serve data to widget ────────────────────────────────
   // health check
   if (path === '__health') {
-    const store = getStore('mesh-api');
-    const sample = await store.get('nodeinfo');
     return Response.json({
       ok: true,
-      has_data: !!sample,
+      has_data: store.size > 0,
     });
   }
 
   const endpoint = path || 'nodeinfo';
-  const store = getStore('mesh-api');
-  const raw = await store.get(endpoint);
+  const entry = store.get(endpoint);
 
-  if (!raw) {
+  if (!entry) {
     return Response.json({ error: 'No data yet' }, { status: 503 });
   }
 
-  const entry = JSON.parse(raw);
   return Response.json(entry, {
     headers: { 'content-type': 'application/json', 'cache-control': 'no-cache' },
   });
