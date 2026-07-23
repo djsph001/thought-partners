@@ -33,3 +33,9 @@
   from = "/dashboard-guide"
   to = "/dashboard-guide.html"
   status = 200
+
+# Route /mesh-api/* to the Netlify Function (server-side proxy)
+[[redirects]]
+  from = "/mesh-api/*"
+  to = "/.netlify/functions/mesh-api"
+  status = 200

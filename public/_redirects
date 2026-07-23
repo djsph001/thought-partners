@@ -1,6 +1,2 @@
 # Dashboard subdomain → redirect to live tailnet dashboard
 https://dashboard.emergenceinstitute.live/*  https://dale-joseph-hp-z4-g4-workstation.taild96c2e.ts.net/mesh/static/index.html  302!
-
-# Proxy mesh API calls to the live bridge via Tailscale Funnel
-# Keeps embed.js same-origin — no cross-origin tailnet dependency
-/mesh-api/*  https://dale-joseph-hp-z4-g4-workstation.taild96c2e.ts.net/mesh/api/:splat  200!
