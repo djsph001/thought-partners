@@ -5,7 +5,13 @@
 // Shared secret for POST authentication. Same value as the pusher's
 // config file at /home/dale-joseph/.config/mesh-push/secret.
 // GET requests remain unauthenticated (public mesh status).
-const PUSH_SECRET = '16ebYAHpD3XUUSGVKNXX+775ykOl7sUNeu9tbkrvZzc=';
+const PUSH_SECRET = '4L7b6Q8EcBDs5xvie0kFKx43BDeMIRaaM5f9cI32kQc=';
+
+// Fallback upstream for cold-start recovery — if the Map is empty
+// (cold start, no pusher data yet), the function fetches fresh data
+// from the bridge's public Funnel URL.  Pusher keeps the Map warm
+// during normal operation.
+const FALLBACK = 'https://dale-joseph-hp-z4-g4-workstation.taild96c2e.ts.net/mesh/api';
 
 const ENDPOINTS = ['nodeinfo', 'peers', 'epoch', 'persistence'];
 
@@ -48,7 +54,21 @@ export default async (request) => {
   }
 
   const endpoint = path || 'nodeinfo';
-  const entry = store.get(endpoint);
+  let entry = store.get(endpoint);
+
+  // ── Cold-start recovery: fall back to Funnel URL ─────────────
+  if (!entry && FALLBACK) {
+    try {
+      const resp = await fetch(`${FALLBACK}/${endpoint}`);
+      if (resp.ok) {
+        const body = await resp.json();
+        entry = { data: body.data || body, received_at: new Date().toISOString() };
+        store.set(endpoint, entry);
+      }
+    } catch (_) {
+      // fallback failed — return 503 below
+    }
+  }
 
   if (!entry) {
     return Response.json({ error: 'No data yet' }, { status: 503 });
