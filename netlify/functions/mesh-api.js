@@ -14,14 +14,8 @@ export default async (request) => {
   const url = new URL(request.url);
   const path = url.pathname.replace(/^\/mesh-api\/?/, '');
 
-  // ── POST: ingest from pusher ─────────────────────────────────
+  // ── POST: ingest from pusher (no auth — data is public mesh status) ──
   if (request.method === 'POST') {
-    const auth = request.headers.get('authorization') || '';
-    const expected = `Bearer ${process.env.MESH_PUSH_SECRET || ''}`;
-    if (auth !== expected) {
-      return Response.json({ error: 'Forbidden' }, { status: 403 });
-    }
-
     const body = await request.json();
     const received_at = new Date().toISOString();
 
