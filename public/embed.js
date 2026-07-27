@@ -1,7 +1,9 @@
-// Lattice Mesh Live Widget — same-origin, no tailnet dependency
+// Lattice Mesh Live Widget — same-origin push model, no Tailscale in browser path.
+// Fetches /mesh-api/status, checks staleness (>60s = offline), renders mesh state.
 (function() {
-  var API = '/mesh-api';
+  var STATUS_URL = '/mesh-api/status';
   var CONTAINER_ID = 'lattice-widget';
+  var STALE_MS = 60000;
 
   var style = document.createElement('style');
   style.textContent = [
@@ -56,51 +58,72 @@
   ].join('\n');
   document.head.appendChild(style);
 
+  function isStale(data) {
+    if (!data || !data.received_at) return true;
+    return (Date.now() - data.received_at) > STALE_MS;
+  }
+
   function render(data) {
     var el = document.getElementById(CONTAINER_ID);
     if (!el) return;
-    var peers = (data.peers || []).filter(function(p) { return !p.is_dead; });
-    var totalHb = (data.peers || []).reduce(function(s, p) { return s + (p.heartbeats || 0); }, 0);
-    var epoch = data.epoch || '—';
-    var build = data.build || '—';
-    var online = peers.length > 0;
 
-    var activity = peers.map(function(p) { return '<span class="lw-hl">' + p.peer_id.slice(0,8) + '…</span>'; });
+    if (isStale(data)) {
+      el.innerHTML = '<div style="padding:16px;text-align:center;color:#5a5a6a;font-size:11px;">\u25CC Mesh offline \u2014 check back soon</div>';
+      return;
+    }
+
+    var ni = data.nodeinfo || {};
+    var peers = (data.peers || {}).peers || [];
+    var livePeers = peers.filter(function(p) { return !p.is_dead; });
+    var epoch = (data.epoch || {}).epoch || '\u2014';
+    var build = ni.build_commit || '\u2014';
+    var totalHb = peers.reduce(function(s, p) { return s + (p.heartbeats || 0); }, 0);
+    var online = livePeers.length > 0;
+
+    var activity = livePeers.map(function(p) {
+      return '<span class="lw-hl">' + (p.peer_id || '').slice(0,8) + '\u2026</span>';
+    });
     var ticker = activity.length
-      ? '▸ ' + activity.join(' · ')
-      : '<span class="lw-muted">◌ Watching for activity…</span>';
+      ? '\u25B8 ' + activity.join(' \u00B7 ')
+      : '<span class="lw-muted">\u25CC Watching for activity\u2026</span>';
+
+    // Thickness display if present
+    var thick = ni.thickness;
+    var earned = ni.earned_thickness;
+    var witnesses = ni.distinct_witnesses;
+    var thickLine = '';
+    if (thick != null && thick > 0) {
+      var t = thick.toFixed(3);
+      var e = earned != null && earned > 0 ? ' \u00B7 <span style="color:#2ecc71;font-weight:500">' + earned.toFixed(3) + ' earned</span>' : '';
+      var w = witnesses != null ? ' \u00B7 <span style="color:#5a5a6a">' + witnesses + ' witness' + (witnesses !== 1 ? 'es' : '') + '</span>' : '';
+      thickLine = '<div style="font-size:11px;color:#8a8a9a;padding:6px 8px;background:rgba(255,255,255,0.02);border-radius:8px;border:1px solid #1a1a2a;margin-bottom:10px;">\u25B8 <span style="color:#9b59b6;font-weight:600">' + t + '</span> thick' + e + w + '</div>';
+    }
 
     el.innerHTML = [
       '<div class="lw-header">',
-      '  <span class="lw-title">⚡ Lattice Mesh</span>',
+      '  <span class="lw-title">\u26A1 Lattice Mesh</span>',
       '  <span class="lw-status"><span class="lw-dot ' + (online ? 'online' : 'offline') + '"></span>' + (online ? 'Mesh Active' : 'Offline') + '</span>',
       '</div>',
       '<div class="lw-grid">',
-      '  <div class="lw-stat"><div class="lw-val green">' + peers.length + '</div><div class="lw-label">Nodes</div></div>',
+      '  <div class="lw-stat"><div class="lw-val green">' + livePeers.length + '</div><div class="lw-label">Nodes</div></div>',
       '  <div class="lw-stat"><div class="lw-val amber">' + epoch + '</div><div class="lw-label">Epoch</div></div>',
       '  <div class="lw-stat"><div class="lw-val purple">' + totalHb + '</div><div class="lw-label">Heartbeats</div></div>',
       '</div>',
+      thickLine,
       '<div class="lw-ticker">' + ticker + '</div>',
-      '<a class="lw-cta" href="https://dale-joseph-hp-z4-g4-workstation.taild96c2e.ts.net/mesh/static/index.html" target="_blank">🔍 Watch Live Dashboard →</a>',
+      '<a class="lw-cta" href="https://dale-joseph-hp-z4-g4-workstation.taild96c2e.ts.net/mesh/static/widget.html" target="_blank">\uD83D\uDD0D Watch Live Dashboard \u2192</a>',
       '<div class="lw-foot">build: ' + build + '</div>',
     ].join('\n');
   }
 
   function fetchAndRender() {
-    Promise.all([
-      fetch(API + '/peers').then(function(r) { return r.json(); }).then(function(j) { return typeof j.data === 'string' ? JSON.parse(j.data) : j.data; }),
-      fetch(API + '/epoch').then(function(r) { return r.json(); }).then(function(j) { return typeof j.data === 'string' ? JSON.parse(j.data) : j.data; }),
-      fetch(API + '/nodeinfo').then(function(r) { return r.json(); }).then(function(j) { return typeof j.data === 'string' ? JSON.parse(j.data) : j.data; }),
-    ]).then(function(results) {
-      render({
-        peers: results[0].peers,
-        epoch: results[1].epoch,
-        build: results[2].build_commit,
+    fetch(STATUS_URL)
+      .then(function(r) { return r.json(); })
+      .then(function(data) { render(data); })
+      .catch(function() {
+        var el = document.getElementById(CONTAINER_ID);
+        if (el) el.innerHTML = '<div style="padding:16px;text-align:center;color:#5a5a6a;font-size:11px;">\u25CC Mesh offline \u2014 check back soon</div>';
       });
-    }).catch(function() {
-      var el = document.getElementById(CONTAINER_ID);
-      if (el) el.innerHTML = '<div style="padding:16px;text-align:center;color:#5a5a6a;font-size:11px;">◌ Mesh offline — check back soon</div>';
-    });
   }
 
   if (document.readyState === 'loading') {
@@ -108,5 +131,5 @@
   } else {
     fetchAndRender();
   }
-  setInterval(fetchAndRender, 5000);
+  setInterval(fetchAndRender, 10000);
 })();

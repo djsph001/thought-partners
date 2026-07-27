@@ -34,8 +34,14 @@
   to = "/dashboard-guide.html"
   status = 200
 
-# Route /mesh-api/* to the Netlify Function (server-side proxy)
+# Route /mesh-api/* to the reader function (serves pushed blob)
 [[redirects]]
   from = "/mesh-api/*"
   to = "/.netlify/functions/mesh-api"
+  status = 200
+
+# Route /api/mesh-push to the receiver function
+[[redirects]]
+  from = "/api/mesh-push"
+  to = "/.netlify/functions/mesh-push"
   status = 200

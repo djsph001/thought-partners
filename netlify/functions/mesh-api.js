@@ -1,47 +1,25 @@
-// Mesh API — ingest (POST with auth) + serve (GET, public)
-// Data stored in Netlify Blobs (shared across all Function instances).
-// Replaces the in-memory Map that caused stale reads when GET and POST
-// landed on different Lambda instances.
+// Mesh status reader — serves latest pushed status from Netlify Blobs.
+// Single endpoint: /mesh-api/status returns the full bundle.
 
-import { getStore } from "@netlify/blobs";
+import { getStore } from '@netlify/blobs';
 
-const SECRET = '5WnD4LAPp/GzMQ80ivuRGTDTy/3p/6wTRXyD3yrpsH0=';
-const ENDPOINTS = ['nodeinfo', 'peers', 'epoch', 'persistence'];
-const store = getStore("mesh-api");
-
-export const config = { path: '/mesh-api/*' };
+const store = getStore('mesh-status');
 
 export default async (request) => {
-  const url = new URL(request.url);
-  const path = url.pathname.replace(/^\/mesh-api\/?/, '');
+  const raw = await store.get('latest');
 
-  // ── POST: ingest from pusher (authenticated) ──────────────────
-  if (request.method === 'POST') {
-    const auth = request.headers.get('authorization') || '';
-    if (auth !== `Bearer ${SECRET}`) {
-      return Response.json({ error: 'Forbidden' }, { status: 403 });
-    }
-    const body = await request.json();
-    const received_at = new Date().toISOString();
-    for (const ep of ENDPOINTS) {
-      if (body[ep]) {
-        await store.set(ep, JSON.stringify({ data: body[ep], received_at }));
-      }
-    }
-    return Response.json({ ok: true, received_at });
-  }
-
-  // ── GET: serve data to widget (public) ────────────────────────
-  if (path === '__health') {
-    return Response.json({ ok: true });
-  }
-  const endpoint = path || 'nodeinfo';
-  const raw = await store.get(endpoint);
   if (!raw) {
-    return Response.json({ error: 'No data yet' }, { status: 503 });
+    return Response.json(
+      { online: false, error: 'No data yet — pusher may be starting' },
+      {
+        status: 200,
+        headers: { 'content-type': 'application/json', 'cache-control': 'no-cache' },
+      }
+    );
   }
-  const entry = JSON.parse(raw);
-  return Response.json(entry, {
+
+  return new Response(raw, {
+    status: 200,
     headers: { 'content-type': 'application/json', 'cache-control': 'no-cache' },
   });
 };
