@@ -111,7 +111,7 @@
       '</div>',
       thickLine,
       '<div class="lw-ticker">' + ticker + '</div>',
-      '<a class="lw-cta" href="https://dale-joseph-hp-z4-g4-workstation.taild96c2e.ts.net/mesh/static/widget.html" target="_blank">\uD83D\uDD0D Watch Live Dashboard \u2192</a>',
+      '<a class="lw-cta" href="/emergence/updates">See what\'s new →</a>',
       '<div class="lw-foot">build: ' + build + '</div>',
     ].join('\n');
   }
