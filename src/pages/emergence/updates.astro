@@ -24,6 +24,46 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       <h2>Now</h2>
 
       <div class="entry">
+        <p class="entry-date gold">August 4, 2026</p>
+        <p>
+          <strong>C7.1 Crash Recovery certified.</strong> A restarted node can now recover
+          from its persisted finalized anchor, verify every missing certified block against
+          the exact production validation rules, and converge to the same finalized state as
+          the live cluster — without exercising protocol authority during recovery. 16/16
+          harness assertions, zero skipped.
+        </p>
+        <p>
+          Negative control proven: three unauthorized signers injected, correctly rejected
+          with no state mutation. Catch-up enforces the same designated-attester and
+          panel-eligibility rules as live ingestion. Authority muting verified: zero
+          proposals, attestations, signatures, or local QCs while Recovering.
+        </p>
+      </div>
+
+      <div class="entry">
+        <p class="entry-date gold">August 4, 2026</p>
+        <p>
+          <strong>Ratification integrity repair.</strong> Located and fixed a consensus bug
+          where panel derivation was node-relative — different nodes computed different
+          designated-attester panels from the same participant set. The derivation is now
+          deterministic: identical pools produce identical panels, verified offline across all
+          six callers. Domain-separated signature binding ties attestations to exact block
+          content. Full Ed25519 verification on the live QC path.
+        </p>
+      </div>
+
+      <div class="entry">
+        <p class="entry-date gold">August 2, 2026</p>
+        <p>
+          <strong>Forensic instrumentation.</strong> Structured diagnostic output on every
+          catch-up and live rejection: per-signer panel membership, required-attester
+          peer-table detail (last seen, heartbeat epoch, public-key availability),
+          peer-table snapshot, and state-root context. The harness captures the exact
+          moment and cause of the first post-recovery canonical-chain rejection.
+        </p>
+      </div>
+
+      <div class="entry">
         <p class="entry-date gold">July 15, 2026</p>
         <p>
           <strong>Two nodes, peered.</strong> The Z4 in Florida and the relay in Germany
