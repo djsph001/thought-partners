@@ -26,29 +26,23 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       <div class="entry">
         <p class="entry-date gold">August 7, 2026</p>
         <p>
-          <strong>C7.2.1 Bootstrap phantom peer repair closed.</strong> Two coupled fixes
-          confirmed in a combined harness run: bootstrap-only identities are now filtered
-          from ratification eligibility on every node, and the recovering node's own PeerId
-          is no longer falsely rejected as unknown during catch-up validation. The harness
-          went from 0 catch-up commits (all prior runs) to <strong>7 blocks independently
-          verified</strong> — blocks 6 through 12, caught up and committed.
-        </p>
-        <p>
-          This closes the C7.2 membership-set correctness program. Panel derivation is
-          consensus-deterministic for identical candidate pools. Bootstrap phantoms no
-          longer contaminate authority.
+          <strong>Crash recovery now catches up and verifies history.</strong> A restarted
+          node independently verifies seven historical certified blocks — catching up, committing,
+          and converging without exercising protocol authority during recovery. The catch-up
+          path enforces the same designated-attester and panel-eligibility rules as live
+          ingestion. Recovering nodes stay silent until caught up.
         </p>
       </div>
 
       <div class="entry">
         <p class="entry-date gold">August 7, 2026</p>
         <p>
-          <strong>C7.3 boundary confirmed experimentally.</strong> At epoch-16, the catch-up
-          harness hit a wall that isn't a bug — it's the predicted C7.3 boundary, reached at
-          the exact point where a recovering node's local peer table can no longer independently
-          reconstruct the historical producer's peer set. No amount of C7.2 cleverness bridges
-          this gap. Durable historical authority records (chained AuthorityCertificates) are
-          the next milestone. Design documents exist; implementation begins from clean ground.
+          <strong>Durable historical authority — next milestone scoped.</strong> At epoch-16,
+          catch-up reaches a boundary where today's peer table can no longer independently
+          reconstruct the historical producer's authority set. This confirms the design
+          prediction: chained AuthorityCertificates are the next engineering milestone.
+          Design documents exist; implementation begins from a clean, empirically confirmed
+          boundary.
         </p>
       </div>
 
@@ -56,12 +50,12 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
         <p class="entry-date gold">August 7, 2026</p>
         <p>
           <strong>Site refresh.</strong> Removed the Digital Lakou case study temporarily
-          until further notice — the site is now purely focused on technical architecture. Replaced the broken Tailscale dashboard
-          link with the Updates page you're reading. The Urban Water Loop section correctly
-          marked as designed, not yet deployed. Zero broken links remain.
+          until further notice — the site is now purely focused on technical architecture.
+          Replaced the broken Tailscale dashboard link with the Updates page you're reading.
+          The Urban Water Loop section correctly marked as designed, not yet deployed.
+          Zero broken links remain.
         </p>
       </div>
-
       <div class="entry">
         <p class="entry-date gold">August 4, 2026</p>
         <p>
