@@ -5,7 +5,7 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
 ---
 
 <Base
-  title="Updates — The Emergence Institute"
+  title="What's Happening — The Emergence Institute"
   description="What's happening at the Emergence Institute. Node status, recent builds, and what's next."
 >
   <EmergenceHeader slot="header" />
@@ -24,6 +24,20 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       <h2>Now</h2>
 
       <div class="entry">
+        <p class="entry-date gold">August 13, 2026</p>
+        <p>
+          <strong>Durable historical authority — implementation underway.</strong> The
+          certificate structure that carries a historical block's panel and keys is now
+          wired into the recovery path, backed by a persistent store and a network path
+          for requesting records from peers. The block hash chain now binds a reference to
+          the authority that certified each block, so the ledger can prove which authority
+          set produced which history. Recovery reaches the boundary the design predicted —
+          blocks produced under an older peer set — and the machinery to cross it is
+          taking shape.
+        </p>
+      </div>
+
+      <div class="entry">
         <p class="entry-date gold">August 7, 2026</p>
         <p>
           <strong>Crash recovery now catches up and verifies history.</strong> A restarted
@@ -37,39 +51,24 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       <div class="entry">
         <p class="entry-date gold">August 7, 2026</p>
         <p>
-          <strong>Durable historical authority — next milestone scoped.</strong> At epoch-16,
-          catch-up reaches a boundary where today's peer table can no longer independently
-          reconstruct the historical producer's authority set. This confirms the design
-          prediction: chained AuthorityCertificates are the next engineering milestone.
-          Design documents exist; implementation begins from a clean, empirically confirmed
-          boundary.
+          <strong>Durable historical authority — next milestone scoped.</strong> Catch-up
+          reaches a boundary in the chain's history where today's peer table can no longer
+          independently reconstruct the historical producer's authority set. This confirms
+          the design prediction: chained authority certificates are the next engineering
+          milestone. Design documents exist; implementation begins from a clean, empirically
+          confirmed boundary.
         </p>
       </div>
 
       <div class="entry">
-        <p class="entry-date gold">August 7, 2026</p>
-        <p>
-          <strong>Site refresh.</strong> Removed the Digital Lakou case study temporarily
-          until further notice — the site is now purely focused on technical architecture.
-          Replaced the broken Tailscale dashboard link with the Updates page you're reading.
-          The Urban Water Loop section correctly marked as designed, not yet deployed.
-          Zero broken links remain.
-        </p>
-      </div>
-      <div class="entry">
         <p class="entry-date gold">August 4, 2026</p>
         <p>
-          <strong>C7.1 Crash Recovery certified.</strong> A restarted node can now recover
+          <strong>Crash recovery certified.</strong> A restarted node can now recover
           from its persisted finalized anchor, verify every missing certified block against
           the exact production validation rules, and converge to the same finalized state as
-          the live cluster — without exercising protocol authority during recovery. 16/16
-          harness assertions, zero skipped.
-        </p>
-        <p>
-          Negative control proven: three unauthorized signers injected, correctly rejected
-          with no state mutation. Catch-up enforces the same designated-attester and
-          panel-eligibility rules as live ingestion. Authority muting verified: zero
-          proposals, attestations, signatures, or local QCs while Recovering.
+          the live cluster — without exercising protocol authority during recovery.
+          Unauthorized signers are rejected with no state change, and a recovering node
+          stays silent — no proposals, attestations, or signatures — until it has caught up.
         </p>
       </div>
 
@@ -88,11 +87,11 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       <div class="entry">
         <p class="entry-date gold">August 2, 2026</p>
         <p>
-          <strong>Forensic instrumentation.</strong> Structured diagnostic output on every
-          catch-up and live rejection: per-signer panel membership, required-attester
-          peer-table detail (last seen, heartbeat epoch, public-key availability),
-          peer-table snapshot, and state-root context. The harness captures the exact
-          moment and cause of the first post-recovery canonical-chain rejection.
+          <strong>Recovery diagnostics.</strong> Every catch-up and live rejection now
+          produces a readable explanation of what happened and why — which peers were
+          expected to attest, what the node needed to accept a block, and the exact point
+          a recovering node first diverges from the canonical chain. Makes recovery
+          failures diagnosable instead of mysterious.
         </p>
       </div>
 
@@ -154,12 +153,13 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       <h2>Next</h2>
 
       <div class="entry">
-        <p><strong>C7.3 — Durable historical authority.</strong> The catch-up harness now
-        succeeds until epoch-16, where it hits the exact boundary predicted by the design:
-        historical blocks produced under a different peer set demand durable authority records.
-        Chained AuthorityCertificates will carry the panel, public keys, and quorum that a
-        recovering node needs to independently verify history. Design exists; implementation
-        begins from a clean, empirically confirmed boundary — not from a hypothetical.</p>
+        <p><strong>Durable historical authority.</strong> Implementation is under active
+        development — the certificate structure, its persistent store, and the recovery path
+        that uses them are in place. What remains: thread authority records through the live
+        consensus path, complete recovery verification end-to-end, and ratify. The chained
+        authority certificates will carry the panel, public keys, and quorum a recovering
+        node needs to independently verify history, built from a clean, empirically
+        confirmed boundary rather than a hypothetical.</p>
       </div>
 
       <div class="entry">
