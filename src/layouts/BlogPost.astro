@@ -38,6 +38,19 @@ const formattedDate = date.toLocaleDateString('en-US', {
         <div class="divider"></div>
         <a href="/blog" class="btn">← Back to Essays</a>
       </footer>
+
+      <div class="subscribe">
+        <h2>Get the next essay</h2>
+        <p class="subscribe-copy">New essays on AI partnership and cognitive sovereignty, delivered to your inbox.</p>
+        <form class="email-form" action="https://formspree.io/f/maqpvlgz" method="POST">
+          <input type="hidden" name="source" value="blog-footer" />
+          <div class="form-row">
+            <input type="email" name="email" placeholder="your@email.com" required aria-label="Email address" />
+            <button type="submit" class="btn btn--filled">Subscribe</button>
+          </div>
+          <p class="form-note muted">No noise. Unsubscribe at any time.</p>
+        </form>
+      </div>
     </div>
   </article>
   <Footer slot="footer" />
@@ -105,5 +118,43 @@ const formattedDate = date.toLocaleDateString('en-US', {
 
   .post-footer {
     margin-top: 3rem;
+  }
+
+  .subscribe {
+    margin-top: 3.5rem;
+    max-width: 500px;
+  }
+
+  .subscribe h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .subscribe-copy {
+    color: var(--text-muted);
+    margin-bottom: 0;
+  }
+
+  .email-form {
+    margin-top: 1.5rem;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .form-row input {
+    flex: 1;
+  }
+
+  .form-note {
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+  }
+
+  @media (max-width: 520px) {
+    .form-row {
+      flex-direction: column;
+    }
   }
 </style>
