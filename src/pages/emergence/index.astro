@@ -405,7 +405,8 @@ const posts = (await getCollection('blog')).sort(
       <h2>Receive the Signal</h2>
       <p class="muted signal-tagline"><em>The grid whispers.</em></p>
       <p>Publication updates, protocol releases, and dispatches from the Collective. No noise.</p>
-      <form id="ec-signup" class="email-form" action="#" method="post">
+      <form id="ec-signup" class="email-form" action="https://formspree.io/f/maqpvlgz" method="POST">
+        <input type="hidden" name="source" value="emergence-home" />
         <div class="form-row">
           <input type="email" name="email" placeholder="your@email.com" required aria-label="Email address" />
           <button type="submit" class="btn btn--filled">Subscribe →</button>
@@ -414,14 +415,6 @@ const posts = (await getCollection('blog')).sort(
       </form>
     </div>
   </section>
-
-  <script>
-    document.getElementById('ec-signup')?.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const form = e.target as HTMLFormElement;
-      form.innerHTML = '<p class="gold"><em>Signal received. We will be in touch.</em></p>';
-    });
-  </script>
 
   <EmergenceFooter slot="footer" />
 </Base>

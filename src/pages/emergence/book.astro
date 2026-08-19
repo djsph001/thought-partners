@@ -28,7 +28,8 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       <div class="book-section">
         <h2>Stay Informed</h2>
         <p>Subscribe to receive chapter releases, updates, and dispatches from the Collective.</p>
-        <form id="book-signup" class="email-form" action="#" method="post">
+        <form id="book-signup" class="email-form" action="https://formspree.io/f/maqpvlgz" method="POST">
+          <input type="hidden" name="source" value="emergence-book" />
           <div class="form-row">
             <input type="email" name="email" placeholder="your@email.com" required aria-label="Email address" />
             <button type="submit" class="btn btn--filled">Subscribe →</button>
@@ -130,7 +131,8 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       <div class="divider"></div>
       <h2>Receive the Next Chapter</h2>
       <p>Subscribe to be notified when Chapter Two is ready.</p>
-      <form id="book-signup-2" class="email-form" action="#" method="post">
+      <form id="book-signup-2" class="email-form" action="https://formspree.io/f/maqpvlgz" method="POST">
+        <input type="hidden" name="source" value="emergence-book" />
         <div class="form-row">
           <input type="email" name="email" placeholder="your@email.com" required aria-label="Email address" />
           <button type="submit" class="btn btn--filled">Subscribe →</button>
@@ -143,18 +145,6 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       </div>
     </div>
   </section>
-
-  <script>
-    function wireSignup(id: string) {
-      document.getElementById(id)?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const form = e.target as HTMLFormElement;
-        form.innerHTML = '<p class="gold"><em>Signal received. We will be in touch.</em></p>';
-      });
-    }
-    wireSignup('book-signup');
-    wireSignup('book-signup-2');
-  </script>
 
   <EmergenceFooter slot="footer" />
 </Base>

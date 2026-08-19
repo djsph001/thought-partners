@@ -11,6 +11,8 @@ The first answer is a pitch: seamless, effortless, a tireless partner that finis
 
 Neither one matches what it's actually like to build something with these systems, week after week, when the marketing has left the room.
 
+*This is the plain-language version. The full technical account of both incidents lives in* [The Case Study — Two Incidents, One Discipline](/blog/the-case-study).
+
 ## The Part Nobody Puts in the Pitch Deck
 
 Here's what collaboration actually looks like on a project I run: a recovery harness reports all green. Six nodes, one killed and restarted, verified and rejoined, every assertion passed.

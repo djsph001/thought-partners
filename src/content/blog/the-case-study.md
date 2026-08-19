@@ -7,6 +7,8 @@ author: Dale Joseph
 
 There's a specific kind of failure I want to document because I've now seen it twice, in two different parts of the same codebase, and the second instance surfaced while this very piece was being drafted. That makes it worth writing down — not as criticism of any single conversation or collaborator, but because the failure mode appears to be structural rather than situational, and the discipline that caught it is the discipline the project now runs on.
 
+*This is the technical deep-dive. For the shorter, plain-language version of the same story, see* [What AI-Human Collaboration Actually Looks Like](/blog/what-collaboration-actually-looks-like).
+
 ## The First Incident: A False-Green Harness
 
 We had a recovery harness. Six nodes converge to a finalized anchor. One node is killed and restarted from persisted state. It requests historical blocks, verifies them, and rejoins the cluster. The harness reported green: all assertions passed.
