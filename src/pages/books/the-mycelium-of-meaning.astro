@@ -2,6 +2,12 @@
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+
+// Publication status is intentionally a non-clickable "Coming Soon on Amazon" tag.
+// TO PUBLISH when a live listing exists: replace the .status-tag <span> in the
+// pub-status block below with an anchor to the real Amazon product URL
+// (open in a new tab, rel="noopener") and change the copy to "Available Now".
+// No ASIN or Amazon URL is emitted to the browser until then.
 ---
 
 <Base
@@ -18,8 +24,7 @@ import Footer from '../../components/Footer.astro';
       <p class="subtitle">How Language Models Grow, Fail, and Reshape the Question of Understanding</p>
 
       <!-- Publication status: non-clickable until a live Amazon listing exists.
-           To publish: replace this span with an anchor to https://www.amazon.com/dp/<ASIN>
-           (target="_blank" rel="noopener") and update the copy to "Available Now". -->
+           See the frontmatter note above for how to add the real buy link. -->
       <p class="pub-status" aria-label="Publication status">
         <span class="status-tag">Coming Soon on Amazon</span>
       </p>
