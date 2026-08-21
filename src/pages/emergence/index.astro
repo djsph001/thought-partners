@@ -344,6 +344,18 @@ const posts = (await getCollection('blog')).sort(
     </div>
   </section>
 
+  <!-- RECENT WORK (author layer — light mention, not an Institute volume) -->
+  <section class="section--tight recent-work">
+    <div class="container">
+      <p class="label gold">Recent Work</p>
+      <p class="recent-work-line">
+        <a href="/books/the-mycelium-of-meaning">The Mycelium of Meaning</a> — a new book by the
+        Institute's founder tracing how machine language grew, failed, and reshaped the question of
+        understanding. <span class="muted">Coming soon on Amazon.</span>
+      </p>
+    </div>
+  </section>
+
   <!-- DISPATCHES -->
   {posts.length > 0 && (
     <section class="section section--dark">
@@ -702,6 +714,11 @@ const posts = (await getCollection('blog')).sort(
 
   .section-label {
     margin-bottom: 1.5rem;
+  }
+
+  .recent-work-line {
+    max-width: 640px;
+    line-height: 1.7;
   }
 
   .two-col {
