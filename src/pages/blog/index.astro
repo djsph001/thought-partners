@@ -23,6 +23,10 @@ const posts = (await getCollection('blog')).sort(
         Shorter writing on AI partnership, the drift, and what it means to remain yourself
         in relationship with intelligence that's increasingly shaping who you are.
       </p>
+      <p class="intro-book muted">
+        These essays share their soil with <a href="/books/the-mycelium-of-meaning">The Mycelium of Meaning</a>—an
+        ongoing inquiry into language, intelligence, and human meaning.
+      </p>
       <div class="divider"></div>
 
       {posts.length === 0 ? (
@@ -70,6 +74,12 @@ const posts = (await getCollection('blog')).sort(
     font-style: italic;
     font-size: 1.05rem;
     max-width: 580px;
+  }
+
+  .intro-book {
+    font-size: 0.95rem;
+    max-width: 580px;
+    margin-top: 0.75rem;
   }
 
   .post-list {

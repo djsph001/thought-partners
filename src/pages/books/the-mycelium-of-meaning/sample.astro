@@ -1,0 +1,409 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+---
+
+<Base
+  title="Read a Sample: Chapter 1, The Mechanical Dream — The Mycelium of Meaning"
+  description="A sample from The Mycelium of Meaning by Dale Joseph. Chapter 1, The Rule-Based Era — Language as Logic, arriving at the axiom the book stands on: meaning cannot be reduced to syntax."
+>
+  <Header slot="header" />
+
+  <article class="section">
+    <div class="container">
+      <header class="sample-header">
+        <p class="sample-meta muted">
+          <a href="/books/the-mycelium-of-meaning">The Mycelium of Meaning</a> · Sample
+        </p>
+        <p class="label gold">Chapter 1</p>
+        <h1>The Rule-Based Era — Language as Logic</h1>
+        <p class="sample-note">
+          An excerpt from <em>The Mycelium of Meaning</em>, presented as the author wrote it.
+        </p>
+        <div class="divider"></div>
+      </header>
+
+      <div class="prose">
+        <h2>The Mechanical Dream</h2>
+
+        <p>In the beginning was the word. And the word, the pioneers believed, was a rule.</p>
+
+        <p>
+          Before there were language models, before there were statistical machines, before anyone
+          had ever watched a neural network assemble a sentence, there was a dream. It was a clean,
+          bright, almost architectural dream: that language could be captured in its entirety by a
+          finite set of explicit rules, written down and handed to a machine. That beneath the
+          surface noise of speech &mdash; the hesitation, the idiom, the half-finished thought &mdash;
+          lay a structure as precise as arithmetic, and that if you could only write that structure
+          down completely, a computer could follow it the way a clerk follows a ledger.
+        </p>
+
+        <p>
+          The dream was not foolish. It was, in its time, the most reasonable idea available. Language
+          displayed regularities. Regularities could be formalized, and formal descriptions could be
+          programmed. The step from &ldquo;language has rules&rdquo; to &ldquo;language is rules&rdquo;
+          felt short enough to cross.
+        </p>
+
+        <p>
+          There was a reason to hurry. Cold War agencies confronted large volumes of Russian scientific
+          and technical material, and faster translation was treated as a strategic need. Funding
+          followed the promise. The dream of mechanical translation was, from the start, half
+          intellectual and half urgent, and the urgency made people willing to believe what the
+          demonstration seemed to show.
+        </p>
+
+        <p>
+          This chapter is about that crossing, and about where it broke. It is the first era of the
+          story this book tells &mdash; the era that mistook formal structure for meaning itself, and
+          in failing, planted the seed of every era that followed.
+        </p>
+
+        <h2>Six Rules and a Promise</h2>
+
+        <p>
+          The dream first became visible to the public on January 7, 1954. Georgetown University and
+          IBM staged a demonstration of machine translation at IBM&rsquo;s headquarters in New York: a
+          system running on the IBM 701 translated more than sixty selected sentences from Russian into
+          English. The demonstration was, by modern standards, tiny &mdash; a vocabulary of roughly 250
+          words and six operational grammar rules.
+        </p>
+
+        <p>
+          But the audience saw more than a constrained demonstration. It saw a promise. Here was a
+          machine rendering Russian sentences into English; if that could be done for sixty selected
+          examples, observers could imagine sixty thousand, and then everything. Press coverage
+          amplified the researchers&rsquo; prediction that automatic translation might be only three to
+          five years away.
+        </p>
+
+        <p>
+          The truth was more modest. The vocabulary and rules were designed around selected material,
+          and the system performed no general analysis of sentence structure. It was a carefully
+          constrained proof of concept, not a general translation system. But the distinction between a
+          constrained demonstration and a general capability is precisely the distinction that the next
+          two decades would keep failing to draw. The promise was made first; the reckoning came later.
+        </p>
+
+        <p>
+          What the demonstration accomplished deserves respect: it publicly showed a computer
+          automatically transforming Russian sentences into English. It was a real first step, and the
+          field was right to be excited. The error was not the excitement. The error was the
+          extrapolation &mdash; the leap from selected examples to general translation, from a proof of
+          concept to a promise of completion.
+        </p>
+
+        <h2>Grammar as a Generative System</h2>
+
+        <p>
+          Machine translation had begun before Noam Chomsky&rsquo;s most influential work appeared.
+          Formal linguistics soon gave the rule-based project a more powerful vocabulary, and Chomsky
+          became one of the most influential figures in that linguistic tradition. In 1957 Chomsky
+          published <em>Syntactic Structures</em>, a slim book that reframed what a grammar was. A
+          grammar, Chomsky argued, was not just a description of sentences that already existed. It was
+          a generative system &mdash; a finite device capable of producing an infinite number of
+          sentences. A language was not a list; it was a procedure.
+        </p>
+
+        <p>
+          This was a genuinely profound idea, and computational researchers could read it as evidence
+          that linguistic structure was susceptible to formal description. But a generative grammar is a
+          theory of syntactic structure, not a recipe for machine understanding. The engineering leap
+          &mdash; from &ldquo;language has formally describable structure&rdquo; to &ldquo;encoding that
+          structure will yield understanding&rdquo; &mdash; belonged to the era, not to the linguistic
+          theory itself.
+        </p>
+
+        <p>
+          The mature framework &mdash; including the distinction between deep and surface structure in
+          <em>Aspects of the Theory of Syntax</em>, and a broader theory of universal grammar &mdash;
+          arrived in 1965 and remained contested. But the earlier work had already established that
+          language could be studied as a formal system. For parts of computational linguistics, this
+          offered powerful tools for representing and parsing structure. The overreach came not from
+          formal grammar itself but from treating its account of structure as a complete account of
+          meaning.
+        </p>
+
+        <p>
+          That last step &mdash; the assumption that meaning follows from grammar &mdash; is where the
+          era quietly overreached. It is one thing to say that a sentence has a structure. It is another
+          to say that the structure <em>is</em> the sentence&rsquo;s meaning. The first claim is true
+          and remains true. The second claim is the reduction this chapter is about.
+        </p>
+
+        <h2>ELIZA and the Illusion of Understanding</h2>
+
+        <p>
+          The era produced two artifacts that, between them, defined both its triumph and its limit. The
+          first was ELIZA.
+        </p>
+
+        <p>
+          In the mid-1960s at MIT, Joseph Weizenbaum created ELIZA, a framework for scripted
+          conversation. Its most famous script, DOCTOR, imitated a nondirective psychotherapist by
+          turning parts of a user&rsquo;s statements back into prompts and questions.
+        </p>
+
+        <p>
+          The program identified ranked keywords, decomposed inputs into patterns, and applied scripted
+          reassembly rules; it could also recall a small amount of earlier material. It had no semantic
+          model of the user&rsquo;s situation, but its mechanism was more structured than simple keyword
+          substitution.
+        </p>
+
+        <p>
+          Some users nevertheless confided in it. Weizenbaum famously reported that his secretary asked
+          him to leave the room so she could converse with the program privately. ELIZA had no model of
+          a mind and no knowledge of therapy, yet its patterned responses were sufficient to elicit
+          genuine feeling.
+        </p>
+
+        <p>
+          Weizenbaum took that reaction seriously and later became one of the most prominent critics of
+          careless claims about computer intelligence and authority. The danger he identified was not
+          simply what machines might become, but what human beings were already willing to attribute to
+          them.
+        </p>
+
+        <p>
+          The illusion of understanding did not live in the program. It lived in the expectations of the
+          person reading its replies.
+        </p>
+
+        <p>
+          That lesson is not a footnote. It is the first appearance, in this book, of a thread that runs
+          all the way to the present &mdash; the human tendency to mistake fluency for comprehension,
+          and the human responsibility to know the difference. ELIZA did not understand a word of what
+          it was told. It did not need to. Understanding, it turned out, was something the user supplied,
+          generously and without being asked, the way we supply faces to clouds and intentions to the
+          weather. The program returned the user&rsquo;s language in altered form, and the user supplied
+          the depth.
+        </p>
+
+        <h2>SHRDLU: A World Small Enough for Logic</h2>
+
+        <p>
+          The second artifact was SHRDLU, developed by Terry Winograd at MIT between 1968 and 1970.
+          SHRDLU operated in a &ldquo;blocks world&rdquo;: a simulated space containing colored blocks
+          and pyramids that a virtual arm could move. Users could issue commands, ask questions about
+          the scene, and refer back to objects mentioned earlier. Within that domain, SHRDLU could parse
+          the language, resolve references, maintain a record of the scene, and connect words to actions.
+        </p>
+
+        <p>
+          Its success was remarkable, but it depended on a tiny, closed world. Every object, property,
+          and action was known in advance. The meaning of &ldquo;red&rdquo; and &ldquo;block&rdquo; and
+          &ldquo;pick up&rdquo; was not something SHRDLU had to discover from an open environment; its
+          builder had specified how those terms connected to objects and procedures inside the
+          simulation.
+        </p>
+
+        <p>
+          This was the era&rsquo;s deepest problem, though it did not yet have its name. What Stevan
+          Harnad would later call the <em>symbol grounding problem</em> &mdash; the question of how
+          symbols like &ldquo;red&rdquo; or &ldquo;block&rdquo; come to be connected to the actual world
+          they refer to &mdash; was already visible in 1970, even if the term lay twenty years in the
+          future. For SHRDLU, those connections were specified inside the program. How to extend them
+          beyond a closed microworld remained unresolved.
+        </p>
+
+        <p>
+          SHRDLU knew so much about its world because the relevant objects, properties, relations, and
+          procedures had been specified in advance. Extending the domain meant extending that hand-built
+          knowledge. The system could reason productively within its microworld, but its knowledge did
+          not independently expand beyond it. SHRDLU was an important step toward connecting language
+          with action; it also demonstrated how sharply that success depended on keeping the domain
+          closed.
+        </p>
+
+        <h2>The Failure: Syntax Without Ground</h2>
+
+        <p>
+          The rule-based era did not collapse overnight. It eroded, the way a promise erodes when it
+          keeps being postponed. Each new domain turned out to need more rules than anyone had expected.
+          Each rule that was written down revealed three more that had been assumed. The knowledge had
+          to come from somewhere &mdash; from a human being, item by item, case by case &mdash; and the
+          supply of human patience ran out long before the supply of language did.
+        </p>
+
+        <p>
+          The broader history of that decline &mdash; the funding winters, the expert systems that
+          worked in the laboratory and stalled at the bedside, the institutional retrenchment &mdash;
+          belongs to a later chapter. What matters here is the philosophical shape of the failure, which
+          is simpler than the history. The rule-based era failed not because its rules were badly
+          written, but because meaning was never entirely in the rules to begin with. Syntax describes
+          the skeleton of a sentence. It does not supply the flesh.
+        </p>
+
+        <p>
+          The failure showed up in small, telling ways. A translation that followed every rule and still
+          came out wrong, because the words meant something in context that no dictionary captured. A
+          parser that produced the correct tree for a sentence and still had nothing to say about whether
+          the sentence was true. The rules were doing their job. It was the job itself that was too
+          small. Trying to capture meaning in rules was like trying to hold a forest in a blueprint: its
+          structure could be described, but the living system exceeded the description.
+        </p>
+
+        <p>
+          A grammar can tell you that &ldquo;colorless green ideas sleep furiously&rdquo; is a
+          well-formed sentence. It cannot tell you that it is a strange thing to say. That second kind of
+          knowledge &mdash; about the world, about what things are and how they are and whether a claim
+          could possibly be true &mdash; is not syntax. The era&rsquo;s central error was to treat the
+          part as the whole: to take the formal structure of language, which is real and important, as
+          meaning itself.
+        </p>
+
+        <h2>Philosophical Revelation and Axiom I</h2>
+
+        <p>
+          And so the first era of this story leaves behind its lesson, and it is the load-bearing one,
+          the one every later chapter stands on.
+        </p>
+
+        <blockquote>
+          <strong>Axiom I: Meaning cannot be reduced to syntax.</strong>
+        </blockquote>
+
+        <p>
+          Logic is not the enemy; reduction is. Language is not exhausted by logic. Logic is too clean
+          for a world that is dirty, ambiguous, and alive. The rules were not useless; they were
+          insufficient. More rules could expand coverage, but syntactic description alone could not
+          supply everything the systems lacked: the world words point toward, the bodies that use them,
+          and the histories that give them weight.
+        </p>
+
+        <p>
+          This is not a defeat for the mycelium. The rule-based era left a durable substrate: formal
+          grammars, parsers, and hard-won precision about syntax that every later approach could build
+          upon. The lesson of the era is not &ldquo;logic was useless.&rdquo; The lesson is &ldquo;logic
+          was necessary and insufficient.&rdquo; Those are different sentences, and the difference is the
+          whole point.
+        </p>
+
+        <p>
+          The distinction is worth holding firmly, because the book&rsquo;s later chapters keep returning
+          to it. Every era that followed would make its own version of the same mistake &mdash;
+          mistaking a necessary part for the sufficient whole &mdash; and every era would have to
+          relearn, in its own vocabulary, that a tool is not the thing it reaches for. The rule-based era
+          was the first to learn it, and it learned it the hard way: by building, and by watching the
+          building fall short.
+        </p>
+
+        <h2>Nutrients That Remain</h2>
+
+        <p>Three things the rule-based era gave to everything that came after.</p>
+
+        <p>
+          First, the discipline of form. The era established that language can be treated as a formal
+          object &mdash; that it has structure, and that structure can be described with precision. That
+          achievement is permanent. Syntax did not turn out to be meaning, but syntax was never nothing.
+        </p>
+
+        <p>
+          Second, the distinction between responsive behavior and comprehension. ELIZA showed, a
+          generation early, that carefully designed conversational behavior could elicit an attribution
+          of understanding without the program representing the user&rsquo;s meaning. That became one of
+          the most durable warnings in the history of language technology.
+        </p>
+
+        <p>
+          Third, the humbling fact of the world&rsquo;s resistance. SHRDLU showed how much a formal
+          system could accomplish in a closed domain &mdash; and how sharply that success depended on the
+          domain&rsquo;s boundaries.
+        </p>
+
+        <p>
+          The mycelium does not grow in straight lines. The rule-based era mistook formal structure for
+          meaning, yet its effort described linguistic structure more carefully than anyone had before.
+          Meaning cannot be reduced to syntax. But the attempt to reduce it &mdash; the brave, limited,
+          brilliant attempt &mdash; is where this book&rsquo;s story begins.
+        </p>
+      </div>
+
+      <footer class="sample-footer">
+        <div class="divider"></div>
+        <p class="sample-end muted">
+          End of sample &mdash; Chapter 1 of <em>The Mycelium of Meaning</em>.
+        </p>
+        <div class="cta-row">
+          <a href="/books/the-mycelium-of-meaning" class="btn">&larr; Back to the book</a>
+          <a href="/blog" class="btn">Essays</a>
+        </div>
+      </footer>
+    </div>
+  </article>
+
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .sample-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .sample-meta {
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 1rem;
+    font-family: Georgia, serif;
+  }
+
+  .label {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .sample-header h1 {
+    margin-bottom: 1rem;
+  }
+
+  .sample-note {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    font-style: italic;
+    margin-bottom: 0;
+  }
+
+  .prose :global(h2) {
+    margin-top: 2.75rem;
+    margin-bottom: 1rem;
+    color: var(--gold-light);
+    font-size: 1.35rem;
+  }
+
+  .prose :global(blockquote) {
+    border-left: 3px solid var(--gold);
+    padding: 0.75rem 1.25rem;
+    margin: 1.75rem 0;
+    background: var(--bg-card);
+    color: var(--gold-light);
+    font-style: italic;
+    font-size: 1.1rem;
+  }
+
+  .prose :global(blockquote strong) {
+    color: var(--gold-light);
+  }
+
+  .prose :global(em) {
+    font-style: italic;
+  }
+
+  .sample-footer {
+    margin-top: 3rem;
+  }
+
+  .sample-end {
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+</style>

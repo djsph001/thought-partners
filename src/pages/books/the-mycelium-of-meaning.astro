@@ -1,0 +1,235 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Base
+  title="The Mycelium of Meaning — Thought Partners by Dale Joseph"
+  description="The Mycelium of Meaning by Dale Joseph. A living-systems history of machine language — from rule-based systems to transformers and agents — and what their successes and failures reveal about syntax, meaning, and human responsibility. Coming soon on Amazon."
+>
+  <Header slot="header" />
+
+  <!-- BOOK INTRO -->
+  <section class="section book-intro">
+    <div class="container">
+      <p class="label gold">Recent Work</p>
+      <h1>The Mycelium of Meaning</h1>
+      <p class="subtitle">How Language Models Grow, Fail, and Reshape the Question of Understanding</p>
+
+      <!-- Publication status: non-clickable until a live Amazon listing exists.
+           To publish: replace this span with an anchor to https://www.amazon.com/dp/<ASIN>
+           (target="_blank" rel="noopener") and update the copy to "Available Now". -->
+      <p class="pub-status" aria-label="Publication status">
+        <span class="status-tag">Coming Soon on Amazon</span>
+      </p>
+
+      <div class="divider"></div>
+
+      <div class="book-desc">
+        <p>
+          Artificial intelligence did not arrive fully formed. It grew. For more than seventy years,
+          researchers have tried to teach machines how language works — and each attempt solved a real
+          problem while exposing another boundary. <em>The Mycelium of Meaning</em> traces that history
+          and asks a harder question than whether machines are becoming intelligent:
+          <strong>what do their successes and failures reveal about language, comprehension, and us?</strong>
+        </p>
+        <p>
+          This is a book about the development of machine language systems — from rule-based and
+          statistical methods through neural networks and transformers to retrieval, agents, and
+          the systems that surround them. It reads that history as a way of thinking clearly about a
+          set of distinctions that keep getting blurred.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE CENTRAL INQUIRY -->
+  <section class="section section--dark inquiry">
+    <div class="container">
+      <div class="divider"></div>
+      <h2>The Central Inquiry</h2>
+      <p class="inquiry-intro">
+        The book's subject is not "AI" in the generic sense. It is a sustained inquiry into the
+        difference between what these systems do and what we are tempted to believe they do — the
+        distinctions between:
+      </p>
+      <ul class="distinctions">
+        <li><strong>syntax</strong> and <strong>meaning</strong></li>
+        <li><strong>probability</strong> and <strong>understanding</strong></li>
+        <li><strong>representation</strong> and <strong>truth</strong></li>
+        <li><strong>machine capability</strong> and <strong>human intent</strong></li>
+        <li><strong>intelligence</strong> and <strong>relationship</strong></li>
+        <li><strong>simulation</strong> and <strong>lived meaning</strong></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- THE METAPHOR -->
+  <section class="section metaphor">
+    <div class="container">
+      <div class="divider"></div>
+      <h2>Why Mycelium</h2>
+      <p>
+        The governing metaphor is the <strong>mycelium</strong> — the underground network of fungal
+        threads that connects a forest. It is the book's way of holding a claim about meaning itself:
+        that meaning is relational, distributed, contextual, and alive — generated through connection
+        rather than contained in isolated symbols.
+      </p>
+      <p>
+        A rule-based system captured syntax but not meaning. A statistical system predicted linguistic
+        habits without establishing understanding. A neural network mapped language into geometry
+        without turning coherence into truth. Each era achieved something genuine, and each mistook a
+        necessary part for the sufficient whole. The mycelium is what remains: not a single symbol that
+        carries meaning, but the living web of context, use, and consequence in which meaning grows.
+      </p>
+      <blockquote>
+        Meaning emerges through relationships of context, use, interpretation, and consequence —
+        while responsibility remains with those who design, deploy, evaluate, and live with these systems.
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- THE ARGUMENT -->
+  <section class="section section--dark argument">
+    <div class="container">
+      <div class="divider"></div>
+      <h2>Symbiosis, Not Replacement</h2>
+      <p>
+        <em>The Mycelium of Meaning</em> ultimately argues for a human–machine relationship built on
+        <strong>symbiosis rather than replacement</strong>. Distinct intelligences can produce meaning
+        together without becoming the same thing. But symbiosis is not surrender: human intention,
+        judgment, responsibility, and meaning-making remain central.
+      </p>
+      <p>
+        This is neither a prophecy of machine consciousness nor a dismissal of what these systems can do.
+        It is a disciplined account of capability without mythology, collaboration without sameness, and
+        responsibility without the illusion of complete control.
+      </p>
+    </div>
+  </section>
+
+  <!-- SAMPLE CTA -->
+  <section class="section sample-cta">
+    <div class="container">
+      <div class="divider"></div>
+      <h2>Read a Sample</h2>
+      <p>
+        Chapter&nbsp;1, <em>The Mechanical Dream</em>, follows the rule-based era — from the 1954
+        Georgetown–IBM translation demonstration to ELIZA and SHRDLU — and arrives at the axiom the
+        rest of the book stands on: <strong>meaning cannot be reduced to syntax.</strong>
+      </p>
+      <div class="cta-row">
+        <a href="/books/the-mycelium-of-meaning/sample" class="btn btn--filled">Read Chapter 1 &rarr;</a>
+        <a href="/blog" class="btn">Essays</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .label {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .book-intro h1 {
+    margin-bottom: 0.4rem;
+  }
+
+  .subtitle {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 1.1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .pub-status {
+    margin-bottom: 0;
+  }
+
+  .status-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 0.3rem 0.75rem;
+  }
+
+  .book-desc {
+    margin-top: 0.5rem;
+  }
+
+  .book-desc p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .section--dark {
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .inquiry h2,
+  .metaphor h2,
+  .argument h2,
+  .sample-cta h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .inquiry-intro {
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    max-width: 620px;
+  }
+
+  .distinctions {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.75rem 2rem;
+  }
+
+  .distinctions li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 1.02rem;
+  }
+
+  .distinctions strong {
+    color: var(--gold-light);
+  }
+
+  .metaphor blockquote {
+    border-left: 3px solid var(--gold);
+    padding: 0.75rem 1.5rem;
+    margin: 2rem 0 0;
+    color: var(--gold-light);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 520px) {
+    .distinctions {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
