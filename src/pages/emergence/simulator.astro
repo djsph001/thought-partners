@@ -1,0 +1,318 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Substrate Simulator — The Emergence Institute"
+  description="Designing a neighborhood without barriers: a live demonstration of how the Emergence Institute's Triadic Engine turns residents' daily experiences into an infrastructure continuity audit."
+>
+  <EmergenceHeader slot="header" />
+
+  <!-- LOCAL LATTICE IN ACTION -->
+  <section class="section">
+    <div class="container--wide">
+      <div class="divider"></div>
+      <p class="label gold">Local Scale · Substrate In Action</p>
+      <h1>Designing a Neighborhood Without Barriers</h1>
+      <p class="lattice-intro-body">
+        Traditional city maps tell you where roads are, but they don't tell an elderly resident
+        if a sidewalk suddenly ends, or if a bicycle path is dangerously clipped by high-speed
+        traffic. The Collective maps the neighborhood through the live, daily experiences of
+        the people who actually walk it.
+      </p>
+
+      <div class="lattice-grid">
+        <div class="lattice-card">
+          <div class="lattice-num">01</div>
+          <h3>The Earth View</h3>
+          <p>
+            Active walkers use their local mobile keys to log uneven pavements, missing curb
+            ramps, or beautifully continuous pathways. The network strings these disparate
+            angles together to map out the safest local walking loops.
+          </p>
+          <span class="lattice-tag">Targeting: Physical Coordinates</span>
+        </div>
+
+        <div class="lattice-card">
+          <div class="lattice-num">02</div>
+          <h3>The Protective View</h3>
+          <p>
+            The platform monitors where bicycle lanes blend smoothly with continuous sidewalks
+            versus areas with high-stress automotive crossings, automatically flagging zones
+            that require local awareness or community advocacy.
+          </p>
+          <span class="lattice-tag">Targeting: Safety Metrics</span>
+        </div>
+
+        <div class="lattice-card">
+          <div class="lattice-num">03</div>
+          <h3>The Community View</h3>
+          <p>
+            This isn't cold database tracking; it's a living directory. Residents can tap in
+            to view real-time neighborhood updates on continuous sidewalks, community garden
+            hours, and group walking schedules along safe infrastructure corridors.
+          </p>
+          <span class="lattice-tag">Targeting: Localized Gathering</span>
+        </div>
+      </div>
+
+      <!-- LOCAL SUBSTRATE SIMULATOR -->
+      <div class="lattice-simulator">
+        <h2 class="sim-title">[SUBSTRATE_SIMULATOR] // Infrastructure Continuity Audit</h2>
+        <p class="sim-intro">
+          Select a simulated local corridor to see how the Triadic Engine highlights
+          infrastructure gaps for vulnerable pedestrian groups.
+        </p>
+
+        <div class="sim-layout">
+          <div class="sim-corridors">
+            <button class="corridor-btn corridor-btn--active" data-corridor="alpha" type="button">
+              [ROUTE_01] Primary Residential Corridor (Sidewalk to Park)
+            </button>
+            <button class="corridor-btn" data-corridor="beta" type="button">
+              [ROUTE_02] Medical District Connection (Transit Link)
+            </button>
+          </div>
+
+          <div class="sim-readout">
+            <div id="telemetry-status" class="telemetry-body">
+              <span class="tag-gap">[GAP_DETECTED]</span>
+              Sidewalk continuity terminates abruptly near a major intersection.<br />
+              <span class="tag-lens">[PROTECTIVE_LENS]:</span>
+              High stress alert flagged for assistive mobility vectors.<br />
+              <span class="tag-spore">[ACTION_SPORE]:</span>
+              Local infrastructure warning indexed to Shared Mycelium.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="back-link">
+        <a href="/emergence">← Back to the Institute overview</a>
+      </p>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  h1 {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    line-height: 1.25;
+    margin-bottom: 1.5rem;
+  }
+
+  .lattice-intro-body {
+    max-width: 720px;
+    margin-bottom: 2.5rem;
+    color: var(--text-muted);
+  }
+
+  .lattice-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .lattice-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .lattice-num {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .lattice-card h3 {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  .lattice-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin: 0;
+    flex: 1;
+  }
+
+  .lattice-tag {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.75rem;
+    font-family: monospace;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .lattice-simulator {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+  }
+
+  .sim-title {
+    font-size: 1rem;
+    color: var(--gold);
+    margin: 0 0 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .sim-intro {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .sim-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  @media (min-width: 720px) {
+    .sim-layout {
+      grid-template-columns: 1fr 1.4fr;
+    }
+  }
+
+  .sim-corridors {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .corridor-btn {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  }
+
+  .corridor-btn:hover {
+    border-color: var(--gold);
+    color: var(--text);
+  }
+
+  .corridor-btn--active {
+    border-color: var(--gold);
+    color: var(--text);
+    background: var(--bg-elevated);
+  }
+
+  .sim-readout {
+    padding: 1.25rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+  }
+
+  .telemetry-body {
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.7;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .tag-gap {
+    color: #e05555;
+    font-weight: bold;
+  }
+
+  .tag-continuous {
+    color: #5cb87a;
+    font-weight: bold;
+  }
+
+  .tag-lens {
+    color: var(--gold);
+  }
+
+  .tag-spore {
+    color: #5cb87a;
+  }
+
+  .tag-earth {
+    color: var(--gold);
+  }
+
+  .tag-community {
+    color: #5cb87a;
+  }
+
+  .back-link {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+  }
+</style>
+
+<!-- LOCAL SUBSTRATE SIMULATOR -->
+<script is:inline>
+  const telemetryData = {
+    alpha: `
+      <span class="tag-gap">[GAP_DETECTED]</span> Sidewalk continuity terminates abruptly near a major intersection.<br />
+      <span class="tag-lens">[PROTECTIVE_LENS]:</span> High stress alert flagged for assistive mobility vectors.<br />
+      <span class="tag-spore">[ACTION_SPORE]:</span> Local infrastructure warning indexed to Shared Mycelium.
+    `,
+    beta: `
+      <span class="tag-continuous">[CONTINUOUS_PATH]</span> Verified uninterrupted sidewalk and protected bike lane along the corridor.<br />
+      <span class="tag-earth">[EARTH_VIEW]:</span> Continuous surface integrity signed off by multiple unique local keys.<br />
+      <span class="tag-community">[COMMUNITY_LENS]:</span> Safe mobility corridor cleared for elderly independent transit.
+    `
+  };
+
+  let simulatorInitialized = false;
+  function initSimulatorOnce() {
+    if (simulatorInitialized) return;
+    const buttons = document.querySelectorAll('.corridor-btn');
+    const readout = document.getElementById('telemetry-status');
+    if (!buttons.length || !readout) return;
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('corridor-btn--active'));
+        btn.classList.add('corridor-btn--active');
+        const corridor = btn.getAttribute('data-corridor');
+        if (corridor && telemetryData[corridor]) {
+          readout.innerHTML = telemetryData[corridor];
+        }
+      });
+    });
+
+    simulatorInitialized = true;
+  }
+
+  document.addEventListener('astro:page-load', initSimulatorOnce);
+  document.addEventListener('DOMContentLoaded', initSimulatorOnce);
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initSimulatorOnce();
+  }
+</script>

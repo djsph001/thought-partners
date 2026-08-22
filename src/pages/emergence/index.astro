@@ -15,7 +15,7 @@ const posts = (await getCollection('blog')).sort(
 >
   <EmergenceHeader slot="header" />
 
-  <!-- HERO -->
+  <!-- MOVEMENT 1: HERO + LIVE STATUS -->
   <section class="section hero">
     <canvas id="hero-lattice" class="hero-visual hero-visual--left" aria-hidden="true"></canvas>
     <canvas id="hero-globe" class="hero-visual hero-visual--right" aria-hidden="true"></canvas>
@@ -72,19 +72,20 @@ const posts = (await getCollection('blog')).sort(
 
   <script is:inline src="/embed.js"></script>
 
-  <!-- TWO SCALES -->
+  <!-- MOVEMENT 2: HOW IT WORKS -->
   <section class="section section--dark">
     <div class="container--wide">
       <div class="container">
         <div class="divider"></div>
-        <h2 class="section-label">Two Scales. One Intelligence.</h2>
+        <h2 class="section-label">How It Works</h2>
         <p>
-          The Emergence Institute operates at two distinct scales—internal and external—each
-          with its own architecture, its own tempo, and its own role in the ecosystem. One
-          generates the spore. The other propagates it.
+          The Emergence Institute operates at two distinct scales — internal and external —
+          bound by one stable constitutional layer. The Engine Room generates the spore.
+          The Constitutional Room decides what endures. The Shared Mycelium carries it
+          across the mesh.
         </p>
       </div>
-      <div class="two-col">
+      <div class="scales-grid">
         <div class="scale-card">
           <p class="scale-icon">⚙️</p>
           <p class="label gold">Internal Scale</p>
@@ -93,8 +94,9 @@ const posts = (await getCollection('blog')).sort(
           <p class="scale-metaphor"><em>The Prefrontal Cortex. The Forge.</em></p>
           <p>
             <em>Friction.</em> The AI does not simply agree. It acts as a sparring partner—smashing
-            existing patterns together to forge new ideas. And beneath that loop sits the Altar:
-            inference on hardware you own, a floor that still answers when every cloud goes dark.
+            existing patterns together to forge new ideas. Fast, generative, exploratory. And
+            beneath that loop sits the Altar: inference on hardware you own, a floor that still
+            answers when every cloud goes dark.
           </p>
           <p class="scale-output">
             Output: <strong class="gold">The Spore</strong> — a refined idea, a code fragment,
@@ -103,14 +105,32 @@ const posts = (await getCollection('blog')).sort(
           <a href="/emergence/engine-room" class="btn">Deep Dive: The Engine Room →</a>
         </div>
         <div class="scale-card">
+          <p class="scale-icon">🏛️</p>
+          <p class="label gold">The Stable Layer</p>
+          <h3>The Constitutional Room</h3>
+          <p class="muted scale-role">Stable Memory. Core Principles. Immutable Records.</p>
+          <p class="scale-metaphor"><em>The Ballast. The Rulebook.</em></p>
+          <p>
+            <em>Deliberation.</em> Where the Engine Room runs hot and associative, the
+            Constitutional Room is slow, deliberate, and rule-bound — the layer that holds
+            the Institute's core principles and decides what survives contact with the forge.
+          </p>
+          <p class="scale-output">
+            Output: <strong class="gold">Stable constraints</strong> — deliberate rules for
+            network participation.
+          </p>
+          <a href="/emergence/constitutional" class="btn">Read the Constitution →</a>
+        </div>
+        <div class="scale-card">
           <p class="scale-icon">🍄</p>
           <p class="label gold">External Scale</p>
           <h3>The Shared Mycelium</h3>
           <p class="muted scale-role">Coherence. Entrainment. Designed for Consensus.</p>
           <p class="scale-metaphor"><em>The Forest Floor. The Root Network.</em></p>
           <p>
-            <em>Entrainment.</em> Not data transfer, but rhythm alignment. Nodes find the same
-            frequency without a middleman. The mycelium remembers together.
+            <em>Entrainment.</em> Not data transfer, but rhythm alignment. Nodes propagate and
+            witness each other's work, finding the same frequency without a middleman.
+            The mycelium remembers together.
           </p>
           <p class="scale-output">
             Output: <strong class="gold">The Propagation</strong> — the spore carried across
@@ -122,31 +142,7 @@ const posts = (await getCollection('blog')).sort(
     </div>
   </section>
 
-  <!-- ARCHITECTURE: TWO ROOMS -->
-  <section class="section">
-    <div class="container">
-      <div class="divider"></div>
-      <h2>Balance. Speed. Stability.</h2>
-      <p>The architecture balances two modes of intelligence.</p>
-      <div class="rooms-grid">
-        <div class="room-card">
-          <p class="room-icon">⚙️</p>
-          <h3>The Engine Room</h3>
-          <p class="muted">Fluid reasoning. Active synthesis. "Warp speed" processing.</p>
-          <p>Fast, associative, generative, hot.</p>
-        </div>
-        <div class="room-card">
-          <p class="room-icon">🏛️</p>
-          <h3>The Constitutional Room</h3>
-          <p class="muted">Stable memory. Core principles. Immutable records.</p>
-          <p>Slow, deliberate, anchoring, cool.</p>
-        </div>
-      </div>
-      <a href="/emergence/constitutional" class="btn">Read the Constitution →</a>
-    </div>
-  </section>
-
-  <!-- KEY ARTIFACTS -->
+  <!-- MOVEMENT 3: WHAT WE BUILD -->
   <section class="section section--dark">
     <div class="container">
       <div class="divider"></div>
@@ -176,92 +172,31 @@ const posts = (await getCollection('blog')).sort(
     </div>
   </section>
 
-  <!-- LOCAL LATTICE IN ACTION -->
+  <!-- MOVEMENT 4: IN PRACTICE -->
   <section class="section">
-    <div class="container--wide">
+    <div class="container">
       <div class="divider"></div>
       <p class="label gold">Local Scale · Substrate In Action</p>
-      <h2>Designing a Neighborhood Without Barriers</h2>
-      <p class="lattice-intro-body">
-        Traditional city maps tell you where roads are, but they don't tell an elderly resident
-        if a sidewalk suddenly ends, or if a bicycle path is dangerously clipped by high-speed
-        traffic. The Collective maps the neighborhood through the live, daily experiences of
-        the people who actually walk it.
+      <h2>In Practice: A Neighborhood Without Barriers</h2>
+      <p class="practice-body">
+        Traditional city maps tell you where the roads are — not where a sidewalk suddenly
+        ends, or where a bicycle path is dangerously clipped by high-speed traffic. The
+        Collective maps the neighborhood through the live, daily experiences of the people
+        who actually walk it: residents log broken pavement and missing curb ramps, the
+        platform flags high-stress crossings for vulnerable pedestrians, and the community
+        taps into a living directory of safe routes and gathering hours. The Substrate
+        Simulator shows how the Triadic Engine turns those vantage points into an
+        infrastructure continuity audit.
       </p>
-
-      <div class="lattice-grid">
-        <div class="lattice-card">
-          <div class="lattice-num">01</div>
-          <h3>The Earth View</h3>
-          <p>
-            Active walkers use their local mobile keys to log uneven pavements, missing curb
-            ramps, or beautifully continuous pathways. The network strings these disparate
-            angles together to map out the safest local walking loops.
-          </p>
-          <span class="lattice-tag">Targeting: Physical Coordinates</span>
-        </div>
-
-        <div class="lattice-card">
-          <div class="lattice-num">02</div>
-          <h3>The Protective View</h3>
-          <p>
-            The platform monitors where bicycle lanes blend smoothly with continuous sidewalks
-            versus areas with high-stress automotive crossings, automatically flagging zones
-            that require local awareness or community advocacy.
-          </p>
-          <span class="lattice-tag">Targeting: Safety Metrics</span>
-        </div>
-
-        <div class="lattice-card">
-          <div class="lattice-num">03</div>
-          <h3>The Community View</h3>
-          <p>
-            This isn't cold database tracking; it's a living directory. Residents can tap in
-            to view real-time neighborhood updates on continuous sidewalks, community garden
-            hours, and group walking schedules along safe infrastructure corridors.
-          </p>
-          <span class="lattice-tag">Targeting: Localized Gathering</span>
-        </div>
-      </div>
-
-      <!-- LOCAL SUBSTRATE SIMULATOR -->
-      <div class="lattice-simulator">
-        <h3 class="sim-title">[SUBSTRATE_SIMULATOR] // Infrastructure Continuity Audit</h3>
-        <p class="sim-intro">
-          Select a simulated local corridor to see how the Triadic Engine highlights
-          infrastructure gaps for vulnerable pedestrian groups.
-        </p>
-
-        <div class="sim-layout">
-          <div class="sim-corridors">
-            <button class="corridor-btn corridor-btn--active" data-corridor="alpha" type="button">
-              [ROUTE_01] Primary Residential Corridor (Sidewalk to Park)
-            </button>
-            <button class="corridor-btn" data-corridor="beta" type="button">
-              [ROUTE_02] Medical District Connection (Transit Link)
-            </button>
-          </div>
-
-          <div class="sim-readout">
-            <div id="telemetry-status" class="telemetry-body">
-              <span class="tag-gap">[GAP_DETECTED]</span>
-              Sidewalk continuity terminates abruptly near a major intersection.<br />
-              <span class="tag-lens">[PROTECTIVE_LENS]:</span>
-              High stress alert flagged for assistive mobility vectors.<br />
-              <span class="tag-spore">[ACTION_SPORE]:</span>
-              Local infrastructure warning indexed to Shared Mycelium.
-            </div>
-          </div>
-        </div>
-      </div>
+      <a href="/emergence/simulator" class="btn">Explore the Simulator →</a>
     </div>
   </section>
 
-  <!-- PHILOSOPHICAL GROUNDING -->
+  <!-- MOVEMENT 5: PRINCIPLES & PUBLICATIONS -->
   <section class="section section--dark">
     <div class="container">
       <div class="divider"></div>
-      <h2>The Compost Heap</h2>
+      <h2>Principles &amp; Publications</h2>
       <p class="subtitle-text"><em>Let Data Die. Let New Growth Rise.</em></p>
       <p>
         The Emergence Institute is influenced by Georgist economics and the Compost Heap
@@ -269,84 +204,66 @@ const posts = (await getCollection('blog')).sort(
         community, fertilizing new growth.
       </p>
       <a href="/emergence/charter" class="btn">Read the Charter →</a>
-    </div>
-  </section>
 
-  <!-- THE LIBRARY -->
-  <section class="section">
-    <div class="container">
-      <div class="divider"></div>
-      <p class="label gold">The Emergence Institute · Publications</p>
-      <h2>The Library</h2>
-      <p>
+      <p class="library-note">
         The Institute's publications — <em>The Substrate of Consciousness</em>,
         <em>The Gardener's Handbook</em>, and <em>The Syncardia Protocols</em> —
-        now live alongside Dale Joseph's other books in the global library.
+        live alongside Dale Joseph's other books in the global library.
       </p>
       <a href="/books" class="btn" style="margin-top: 0.5rem;">All Books →</a>
+
+      {posts.length > 0 && (
+        <div class="essays-bridge">
+          <p class="label gold">From the Essays</p>
+          <ul class="essays-bridge-list">
+            {posts.map((post) => {
+              const formattedDate = post.data.date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              });
+              return (
+                <li>
+                  <span class="essays-bridge-date">{formattedDate}</span>
+                  <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                </li>
+              );
+            })}
+          </ul>
+          <a href="/blog" class="btn" style="margin-top: 1.25rem;">All Essays →</a>
+        </div>
+      )}
     </div>
   </section>
 
-  <!-- FROM THE ESSAYS -->
-  {posts.length > 0 && (
-    <section class="section essays-bridge">
-      <div class="container">
-        <div class="divider"></div>
-        <p class="label gold">From the Essays</p>
-        <ul class="essays-bridge-list">
-          {posts.map((post) => {
-            const formattedDate = post.data.date.toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            });
-            return (
-              <li>
-                <span class="essays-bridge-date">{formattedDate}</span>
-                <a href={`/blog/${post.id}`}>{post.data.title}</a>
-              </li>
-            );
-          })}
-        </ul>
-        <a href="/blog" class="btn" style="margin-top: 1.25rem;">All Essays →</a>
-      </div>
-    </section>
-  )}
-
-  <!-- JOIN THE COLLECTIVE -->
-  <section class="section section--dark">
+  <!-- MOVEMENT 6: PARTICIPATE -->
+  <section class="section" id="signal">
     <div class="container">
       <div class="divider"></div>
-      <h2>Sovereign Nodes. Shared Mycelium.</h2>
+      <h2>Participate</h2>
       <p>
         The Emergence Institute is not a platform you join. It is an architecture you
         <em>run</em> — on your hardware, under your governance. Right now, both nodes are
         operated by the founder. The mesh is built for many. You're the missing input, not a user.
       </p>
       <div class="cta-row">
-        <a href="/join.html" class="btn">Set Up an Altar</a>
-        <a href="/emergence/community" class="btn">Join the Community</a>
-        <a href="/emergence/contact" class="btn">Become a Thought Partner</a>
-        <a href="/emergence/protocols" class="btn">Read the Protocols</a>
+        <a href="/join.html" class="btn btn--filled">Run a Node →</a>
+        <a href="/emergence/contact" class="btn">Become a Thought Partner →</a>
       </div>
-    </div>
-  </section>
 
-  <!-- EMAIL SIGNUP -->
-  <section class="section" id="signal">
-    <div class="container">
-      <div class="divider"></div>
-      <h2>Receive the Signal</h2>
-      <p class="muted signal-tagline"><em>The grid whispers.</em></p>
-      <p>Publication updates, protocol releases, and dispatches from the Collective. No noise.</p>
-      <form id="ec-signup" class="email-form" action="https://formspree.io/f/maqpvlgz" method="POST">
-        <input type="hidden" name="source" value="emergence-home" />
-        <div class="form-row">
-          <input type="email" name="email" placeholder="your@email.com" required aria-label="Email address" />
-          <button type="submit" class="btn btn--filled">Subscribe →</button>
-        </div>
-        <p class="form-note muted">Your information is never shared. Unsubscribe at any time.</p>
-      </form>
+      <div class="signal-block">
+        <h3>Receive the Signal</h3>
+        <p class="muted signal-tagline"><em>The grid whispers.</em></p>
+        <p>Publication updates, protocol releases, and dispatches from the Collective. No noise.</p>
+        <form id="ec-signup" class="email-form" action="https://formspree.io/f/maqpvlgz" method="POST">
+          <input type="hidden" name="source" value="emergence-home" />
+          <div class="form-row">
+            <input type="email" name="email" placeholder="your@email.com" required aria-label="Email address" />
+            <button type="submit" class="btn btn--filled">Subscribe →</button>
+          </div>
+          <p class="form-note muted">Your information is never shared. Unsubscribe at any time.</p>
+        </form>
+      </div>
     </div>
   </section>
 
@@ -463,167 +380,11 @@ const posts = (await getCollection('blog')).sort(
     text-underline-offset: 3px;
   }
 
-  .lattice-intro-body {
+  .practice-body {
     max-width: 720px;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     color: var(--text-muted);
-  }
-
-  .lattice-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .lattice-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    padding: 1.75rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .lattice-num {
-    width: 2.5rem;
-    height: 2.5rem;
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: monospace;
-    font-weight: bold;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .lattice-card h3 {
-    font-size: 1.1rem;
-    margin: 0;
-  }
-
-  .lattice-card p {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.65;
-    margin: 0;
-    flex: 1;
-  }
-
-  .lattice-tag {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border);
-    font-size: 0.75rem;
-    font-family: monospace;
-    color: var(--text-muted);
-    letter-spacing: 0.05em;
-  }
-
-  .lattice-simulator {
-    margin-top: 3rem;
-    padding: 2rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--gold);
-  }
-
-  .sim-title {
-    font-size: 1rem;
-    color: var(--gold);
-    margin: 0 0 1rem;
-    font-family: 'Courier New', Courier, monospace;
-    letter-spacing: 0.05em;
-  }
-
-  .sim-intro {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-bottom: 1.5rem;
-  }
-
-  .sim-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    font-family: 'Courier New', Courier, monospace;
-  }
-
-  @media (min-width: 720px) {
-    .sim-layout {
-      grid-template-columns: 1fr 1.4fr;
-    }
-  }
-
-  .sim-corridors {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .corridor-btn {
-    padding: 0.75rem 1rem;
-    text-align: left;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 0.85rem;
-    letter-spacing: 0.03em;
-    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
-  }
-
-  .corridor-btn:hover {
-    border-color: var(--gold);
-    color: var(--text);
-  }
-
-  .corridor-btn--active {
-    border-color: var(--gold);
-    color: var(--text);
-    background: var(--bg-elevated);
-  }
-
-  .sim-readout {
-    padding: 1.25rem;
-    background: var(--bg);
-    border: 1px solid var(--border);
-  }
-
-  .telemetry-body {
-    font-size: 0.85rem;
-    color: var(--text);
-    line-height: 1.7;
-    font-family: 'Courier New', Courier, monospace;
-  }
-
-  .tag-gap {
-    color: #e05555;
-    font-weight: bold;
-  }
-
-  .tag-continuous {
-    color: #5cb87a;
-    font-weight: bold;
-  }
-
-  .tag-lens {
-    color: var(--gold);
-  }
-
-  .tag-spore {
-    color: #5cb87a;
-  }
-
-  .tag-earth {
-    color: var(--gold);
-  }
-
-  .tag-community {
-    color: #5cb87a;
+    line-height: 1.75;
   }
 
   .cta-row {
@@ -637,9 +398,9 @@ const posts = (await getCollection('blog')).sort(
     margin-bottom: 1.5rem;
   }
 
-  .two-col {
+  .scales-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
     margin-top: 3rem;
     padding: 0 1.5rem;
@@ -676,29 +437,6 @@ const posts = (await getCollection('blog')).sort(
     padding-top: 1rem;
     border-top: 1px solid var(--border);
     font-size: 0.9rem;
-  }
-
-  .rooms-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-    margin: 2rem 0;
-  }
-
-  .room-card {
-    padding: 1.75rem 2rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--gold);
-  }
-
-  .room-icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .room-card h3 {
-    margin-bottom: 0.5rem;
   }
 
   .artifacts {
@@ -745,11 +483,17 @@ const posts = (await getCollection('blog')).sort(
     margin-bottom: 1.25rem;
   }
 
-  .book-block {
-    max-width: 580px;
+  .library-note {
+    margin-top: 2rem;
   }
 
   /* ── From the Essays (compact bridge to /blog) ── */
+  .essays-bridge {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
   .essays-bridge-list {
     list-style: none;
     padding: 0;
@@ -772,6 +516,12 @@ const posts = (await getCollection('blog')).sort(
     color: var(--text-muted);
     letter-spacing: 0.05em;
     margin-right: 0.75rem;
+  }
+
+  .signal-block {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
   }
 
   .signal-tagline {
@@ -1035,46 +785,5 @@ const posts = (await getCollection('blog')).sort(
   document.addEventListener('DOMContentLoaded', initPortalOnce);
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
     initPortalOnce();
-  }
-
-  // Local Substrate Simulator
-  const telemetryData = {
-    alpha: `
-      <span class="tag-gap">[GAP_DETECTED]</span> Sidewalk continuity terminates abruptly near a major intersection.<br />
-      <span class="tag-lens">[PROTECTIVE_LENS]:</span> High stress alert flagged for assistive mobility vectors.<br />
-      <span class="tag-spore">[ACTION_SPORE]:</span> Local infrastructure warning indexed to Shared Mycelium.
-    `,
-    beta: `
-      <span class="tag-continuous">[CONTINUOUS_PATH]</span> Verified uninterrupted sidewalk and protected bike lane along the corridor.<br />
-      <span class="tag-earth">[EARTH_VIEW]:</span> Continuous surface integrity signed off by multiple unique local keys.<br />
-      <span class="tag-community">[COMMUNITY_LENS]:</span> Safe mobility corridor cleared for elderly independent transit.
-    `
-  };
-
-  let simulatorInitialized = false;
-  function initSimulatorOnce() {
-    if (simulatorInitialized) return;
-    const buttons = document.querySelectorAll('.corridor-btn');
-    const readout = document.getElementById('telemetry-status');
-    if (!buttons.length || !readout) return;
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('corridor-btn--active'));
-        btn.classList.add('corridor-btn--active');
-        const corridor = btn.getAttribute('data-corridor');
-        if (corridor && telemetryData[corridor]) {
-          readout.innerHTML = telemetryData[corridor];
-        }
-      });
-    });
-
-    simulatorInitialized = true;
-  }
-
-  document.addEventListener('astro:page-load', initSimulatorOnce);
-  document.addEventListener('DOMContentLoaded', initSimulatorOnce);
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    initSimulatorOnce();
   }
 </script>
