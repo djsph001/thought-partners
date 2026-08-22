@@ -20,7 +20,8 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       <p class="intro">
         The Lattice is not a cloud service and it is not a blockchain. It is a network
         of physical nodes — running on workstations, homelabs, and single-board
-        computers — that coordinate through adversarial consensus. No central servers.
+        computers — that coordinate through peer witnessing, deterministic sortition,
+        and ratification. No central servers.
         No extractive middleman. The hardware requirements are documented,
         the protocol is open, and the smallest viable node fits on a Raspberry Pi.
       </p>
@@ -46,11 +47,12 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
           <p class="layer-num gold">Layer 1</p>
           <h3>The Node Backend</h3>
           <p>
-            The substrate itself. Flash the Emergence OS image, verify your GPUs, and
-            launch the synthesis engine. The node registers with the network, syncs
-            state, and — once enough independent peers are present — begins
-            participating in consensus. Keys are held in hardware
-            (TPM 2.0) so a node's identity can never be silently impersonated.
+            The substrate itself — a Rust peer node you build and run on the hardware
+            you control. The node registers with the network, syncs state, and — once
+            enough independent peers are present — begins participating in consensus.
+            A node's identity today is a persistent Ed25519 key held on disk;
+            hardware-held keys (TPM) are a planned direction so identity can never
+            be silently impersonated.
           </p>
         </div>
         <div class="layer-card">
@@ -59,20 +61,19 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
           <p>
             The economic core — "Attention as Land." Information that sits idle decays;
             active contribution is what holds value. Resources are priced by use, not
-            hoarded, and the ledger resets on a regular jubilee cycle. It is a Georgist
-            framework expressed directly as running code.
+            hoarded. It is a Georgist framework expressed directly as running code.
           </p>
         </div>
         <div class="layer-card">
           <p class="layer-num gold">Layer 3</p>
-          <h3>Adversarial Consensus</h3>
+          <h3>Witnessed Consensus</h3>
           <p>
-            Nodes do not vote — they argue. A Proposer, an Opposer, and a Synthesizer
-            run a structured adversarial loop until coherence is reached or the round
-            defers to a human Witness. Truth emerges from triangulation across many
-            vantage points, not from a single view from nowhere — and with two nodes
-            there is no triangulation, so the mesh correctly produces nothing. Consensus
-            waits for enough independent perspectives to form.
+            Contributions are ratified by a witness panel selected through deterministic,
+            contribution-weighted sortition, and committed to an append-only hash chain.
+            The durable consensus and authority layers are still under development, and
+            end-to-end liveness across multiple nodes does not yet pass. The earlier
+            "Proposer / Opposer / Synthesizer" framing was conceptual design language —
+            it is not how the running engine reaches consensus.
           </p>
         </div>
       </div>
@@ -114,7 +115,7 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
           <p class="tier-hw gold">Dual-GPU workstation · Ampere</p>
           <p>
             The heavy lifter. Trunk nodes resolve consensus across the distributed
-            network and run the adversarial validation layer at scale. The reference
+            network and run the validation layer at scale. The reference
             Trunk runs on a dual RTX 3060 (Ampere) configuration.
           </p>
         </div>
@@ -131,11 +132,11 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       <div class="path-steps">
         <div class="path-step">
           <p class="step-label gold">Step 1 · Register</p>
-          <p>Join the initialization queue and receive your routing instructions and testnet parameters.</p>
+          <p>Get the node software and generate a persistent identity.</p>
         </div>
         <div class="path-step">
           <p class="step-label gold">Step 2 · Provision</p>
-          <p>Flash the Emergence OS, verify your hardware, and bring the synthesis engine online in your chosen tier.</p>
+          <p>Install and run the node, verify your hardware, and bring the synthesis engine online in your chosen tier.</p>
         </div>
         <div class="path-step">
           <p class="step-label gold">Step 3 · Peer</p>
@@ -143,7 +144,7 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
         </div>
         <div class="path-step">
           <p class="step-label gold">Step 4 · Synthesize</p>
-          <p>Trunk nodes resolve consensus; the Georgist engine prices attention; the adversarial layer processes its cycles.</p>
+          <p>Trunk nodes resolve consensus; the Georgist engine prices resources; the validation layer processes its cycles.</p>
         </div>
         <div class="path-step">
           <p class="step-label gold">Step 5 · Steward</p>
@@ -178,17 +179,33 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
   <section class="section section--dark">
     <div class="container">
       <div class="divider"></div>
-      <p class="label gold">The Queue is Open</p>
-      <h2>The protocol is live. The map is yours to walk.</h2>
+      <p class="label gold">The Work Is Open</p>
+      <h2>The mesh capability exists. The full architecture is still being built.</h2>
       <p>
-        If you run a homelab, a Raspberry Pi, or a dual-GPU workstation and want to
-        participate in a decentralized synthesis network that asks for neither crypto
-        nor cloud dependency — the initialization queue is open.
+        Run a node on hardware you control, inspect the engineering specifications, or
+        contribute to the build — a decentralized network that asks for neither crypto
+        nor cloud dependency.
       </p>
       <div class="cta-row">
         <a href="/join.html" class="btn btn--filled">Join the Lattice →</a>
         <a href="/spec.html" class="btn">Protocol Spec (One-Page) →</a>
         <a href="/books" class="btn">Read the Books →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECHNICAL REFERENCE -->
+  <section class="section">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Go Deeper</p>
+      <h2>Lattice Technical Reference</h2>
+      <p class="intro">
+        See the implemented protocols, current development state, and engineering
+        specifications behind the architecture.
+      </p>
+      <div class="cta-row">
+        <a href="https://themycelium-lattice.netlify.app" target="_blank" rel="noopener" class="btn">Open the Technical Reference →</a>
       </div>
     </div>
   </section>
