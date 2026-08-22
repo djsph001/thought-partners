@@ -1,0 +1,105 @@
+---
+const pathname = Astro.url.pathname;
+
+// Institute contextual navigation — six-item ceiling (approved).
+// Active state is section-scoped: each item owns its mapped child routes.
+const sections = [
+  {
+    label: 'About',
+    href: '/emergence/origin',
+    match: ['/emergence/origin', '/emergence/charter', '/emergence/collective', '/emergence/community', '/emergence/gallery', '/emergence/contact'],
+  },
+  {
+    label: 'Protocols',
+    href: '/emergence/protocols',
+    match: ['/emergence/protocols', '/emergence/syncardia', '/emergence/gardeners-handbook', '/emergence/audit'],
+  },
+  {
+    label: 'Architecture',
+    href: '/emergence/architecture',
+    match: ['/emergence/architecture', '/emergence/lattice-spec', '/emergence/lattice-substrate', '/emergence/constitutional', '/emergence/tripartite-council', '/emergence/trilateral-receipt-spec', '/emergence/ethical-hardware-enclave', '/emergence/georgist-economics'],
+  },
+  {
+    label: 'Mesh',
+    href: '/emergence/mycelium',
+    match: ['/emergence/mycelium', '/emergence/engine-room', '/emergence/terminal'],
+  },
+  {
+    label: 'Updates',
+    href: '/emergence/updates',
+    match: ['/emergence/updates'],
+  },
+  {
+    label: 'Join',
+    href: '/join.html',
+    match: ['/join.html'],
+  },
+];
+
+const isActive = (match: string[]) =>
+  match.some((m) => pathname === m || pathname.startsWith(m + '/'));
+---
+
+<div class="institute-bar">
+  <div class="container--wide institute-inner">
+    <span class="institute-label">The Emergence Institute</span>
+    <nav class="institute-nav" aria-label="Institute sections">
+      {sections.map((s) => (
+        <a href={s.href} class:list={['institute-link', { active: isActive(s.match) }]}>{s.label}</a>
+      ))}
+    </nav>
+  </div>
+</div>
+
+<style>
+  .institute-bar {
+    border-top: 1px solid var(--border);
+    background: var(--bg-elevated);
+    padding: 0.5rem 0;
+  }
+
+  .institute-inner {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .institute-label {
+    font-family: Georgia, serif;
+    font-size: 0.78rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .institute-nav {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .institute-link {
+    font-family: Georgia, serif;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+  }
+
+  .institute-link:hover,
+  .institute-link.active {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  @media (max-width: 600px) {
+    .institute-inner {
+      gap: 0.5rem 1.25rem;
+    }
+
+    .institute-nav {
+      gap: 0.9rem;
+    }
+  }
+</style>

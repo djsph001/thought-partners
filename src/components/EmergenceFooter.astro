@@ -1,64 +1,44 @@
 ---
-const year = new Date().getFullYear();
+import Footer from './Footer.astro';
 ---
 
-<footer class="site-footer">
-  <div class="container--wide footer-inner">
-    <p class="footer-copy">&copy; {year} The Emergence Institute &mdash; Cognitive Sovereignty Through Decentralized Partnership</p>
-    <nav class="footer-nav">
-      <a href="/emergence/collective">The Collective</a>
-      <a href="/emergence/origin">Origin</a>
-      <a href="/emergence/community">Community</a>
-      <a href="/emergence/gardeners-handbook">Handbook</a>
-      <a href="/emergence/protocols">Protocols</a>
-      <a href="/emergence/engine-room">Engine Room</a>
-      <a href="/emergence/mycelium">Mycelium</a>
-      <a href="/emergence/syncardia">Syncardia Protocols</a>
-      <a href="/emergence/books">Books</a>
-      <a href="/emergence/gallery">First Witnesses</a>
-      <a href="/emergence/book">The Book</a>
-      <a href="/emergence/charter">Charter</a>
-      <a href="/emergence/contact">Contact</a>
-    </nav>
+<!-- Institute pages: global footer + one muted Institute row.
+     Import name preserved so existing pages need no edits. -->
+<Footer>
+  <div class="container--wide footer-extra institute-row">
+    <span class="institute-row-label">The Emergence Institute:</span>
+    <a href="/emergence/collective">Collective</a>
+    <a href="/emergence/charter">Charter</a>
+    <a href="/emergence/community">Community</a>
+    <a href="/emergence/gallery">Gallery</a>
+    <a href="/emergence/engine-room">Engine Room</a>
+    <a href="/emergence/updates">Updates</a>
   </div>
-</footer>
+</Footer>
 
 <style>
-  .site-footer {
-    border-top: 1px solid var(--border);
-    padding: 2.5rem 0;
-    margin-top: auto;
-  }
-
-  .footer-inner {
+  .institute-row {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
+    align-items: baseline;
+    gap: 1.25rem;
     flex-wrap: wrap;
   }
 
-  .footer-copy {
+  .institute-row-label {
     font-size: 0.8rem;
-    color: var(--text-muted);
-    margin: 0;
+    color: var(--gold);
+    letter-spacing: 0.05em;
     font-style: italic;
   }
 
-  .footer-nav {
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .footer-nav a {
+  .institute-row a {
     font-size: 0.8rem;
     color: var(--text-muted);
     text-decoration: none;
     letter-spacing: 0.03em;
   }
 
-  .footer-nav a:hover {
+  .institute-row a:hover {
     color: var(--gold);
     text-decoration: none;
   }

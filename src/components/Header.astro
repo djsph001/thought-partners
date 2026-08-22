@@ -1,24 +1,33 @@
 ---
 const pathname = Astro.url.pathname;
-const isActive = (path: string) =>
-  pathname === path || (path !== '/' && pathname.startsWith(path));
+
+// Section-aware active states: a nav item can own multiple routes.
+const bookRoutes = [
+  '/book',
+  '/antichrist-prophet',
+  '/antichrist-read',
+  '/mycelium-of-meaning',
+  '/entangled-sovereign',
+  '/entangled-sovereign-read',
+];
+const isActive = (path: string, routes: string[] = []) =>
+  pathname === path ||
+  (path !== '/' && pathname.startsWith(path)) ||
+  routes.some((r) => pathname === r || pathname.startsWith(r + '/'));
 ---
 
 <header class="site-header">
   <div class="container--wide header-inner">
-    <a href="/" class="wordmark">
-      <span class="wordmark-title">Thought Partners</span>
-      <span class="wordmark-sub">by Dale Joseph</span>
-    </a>
+    <a href="/" class="wordmark">Dale Joseph</a>
     <nav class="nav">
-      <a href="/book" class:list={['nav-link', { active: isActive('/book') }]}>Thought Partners</a>
-      <a href="/antichrist-prophet" class:list={['nav-link nav-link--novel', { active: isActive('/antichrist-prophet') }]}>The Antichrist &amp; the Prophet</a>
-      <a href="/mycelium-of-meaning" class:list={['nav-link', { active: isActive('/mycelium-of-meaning') }]}>The Mycelium of Meaning</a>
-      <a href="/about" class:list={['nav-link', { active: isActive('/about') }]}>About</a>
+      <a href="/books" class:list={['nav-link', { active: isActive('/books', bookRoutes) }]}>Books</a>
       <a href="/blog" class:list={['nav-link', { active: isActive('/blog') }]}>Essays</a>
+      <a href="/emergence" class:list={['nav-link', { active: isActive('/emergence') }]}>Institute</a>
+      <a href="/about" class:list={['nav-link', { active: isActive('/about') }]}>About</a>
       <a href="/contact" class:list={['nav-link', { active: isActive('/contact') }]}>Contact</a>
     </nav>
   </div>
+  <slot name="contextual" />
 </header>
 
 <style>
@@ -39,30 +48,18 @@ const isActive = (path: string) =>
   }
 
   .wordmark {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-    text-decoration: none;
-  }
-
-  .wordmark:hover {
-    text-decoration: none;
-  }
-
-  .wordmark-title {
     font-family: Georgia, serif;
     font-size: 1.05rem;
     color: var(--text);
     letter-spacing: 0.01em;
     line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
   }
 
-  .wordmark-sub {
-    font-family: Georgia, serif;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    letter-spacing: 0.05em;
-    line-height: 1;
+  .wordmark:hover {
+    color: var(--gold);
+    text-decoration: none;
   }
 
   .nav {
@@ -94,20 +91,8 @@ const isActive = (path: string) =>
       font-size: 0.85rem;
     }
 
-    .wordmark-title {
+    .wordmark {
       font-size: 0.95rem;
-    }
-  }
-
-  @media (max-width: 420px) {
-    .wordmark-sub {
-      display: none;
-    }
-  }
-
-  @media (max-width: 760px) {
-    .nav-link--novel {
-      display: none;
     }
   }
 </style>

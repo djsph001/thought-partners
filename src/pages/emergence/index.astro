@@ -20,7 +20,7 @@ const posts = (await getCollection('blog')).sort(
     <canvas id="hero-lattice" class="hero-visual hero-visual--left" aria-hidden="true"></canvas>
     <canvas id="hero-globe" class="hero-visual hero-visual--right" aria-hidden="true"></canvas>
     <div class="container hero-content">
-      <p class="label gold">emergenceinstitute.live</p>
+      <p class="label gold">emergencecollective.live</p>
       <h1 class="hero-headline">
         Clear the Fog. <span class="gold">See the Whole Picture.</span>
       </h1>
@@ -329,30 +329,8 @@ const posts = (await getCollection('blog')).sort(
           </div>
         </div>
 
-        <div class="library-card">
-          <p class="lib-vol gold">Novel · Canon Explorer</p>
-          <h3>The Voice of One</h3>
-          <p class="lib-sub"><em>Scrolls, scenes, and persons in the universe of The Antichrist and the Prophet</em></p>
-          <p class="lib-desc">A browsable, filterable canon record — every entry marked for what it is: canon, draft, seed, or in need of repair. A plain index for a story about who you can believe.</p>
-          <div class="lib-actions">
-            <a href="https://scrollsofone.com" class="btn btn--filled" target="_blank" rel="noopener">Explore the Canon →</a>
-          </div>
-        </div>
-
       </div>
-      <a href="/emergence/books" class="btn" style="margin-top: 2rem;">See the Full Library →</a>
-    </div>
-  </section>
-
-  <!-- RECENT WORK (author layer — light mention, not an Institute volume) -->
-  <section class="section--tight recent-work">
-    <div class="container">
-      <p class="label gold">Recent Work</p>
-      <p class="recent-work-line">
-        <a href="/mycelium-of-meaning">The Mycelium of Meaning</a> — a new book by the
-        Institute's founder tracing how machine language grew, failed, and reshaped the question of
-        understanding. <span class="muted">Coming soon on Amazon.</span>
-      </p>
+      <a href="/books" class="btn" style="margin-top: 2rem;">All Books →</a>
     </div>
   </section>
 
@@ -714,11 +692,6 @@ const posts = (await getCollection('blog')).sort(
 
   .section-label {
     margin-bottom: 1.5rem;
-  }
-
-  .recent-work-line {
-    max-width: 640px;
-    line-height: 1.7;
   }
 
   .two-col {

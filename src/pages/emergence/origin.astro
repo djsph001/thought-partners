@@ -99,6 +99,35 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
     </div>
   </section>
 
+  <section class="section about-institute">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">About the Institute</p>
+      <div class="about-links">
+        <a href="/emergence/charter">
+          <strong>The Charter</strong>
+          <span>The Institute's commitments</span>
+        </a>
+        <a href="/emergence/collective">
+          <strong>The Collective</strong>
+          <span>The network of people building the Lattice</span>
+        </a>
+        <a href="/emergence/community">
+          <strong>Community</strong>
+          <span>Discord, conversation, and operator support</span>
+        </a>
+        <a href="/emergence/gallery">
+          <strong>Gallery</strong>
+          <span>First witnesses of the mesh</span>
+        </a>
+        <a href="/emergence/contact">
+          <strong>Contact</strong>
+          <span>Reach the Institute</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <EmergenceFooter slot="footer" />
 </Base>
 
@@ -164,5 +193,37 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
     color: var(--text-muted);
     font-style: italic;
     margin-top: 2rem;
+  }
+
+  .about-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .about-links a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    text-decoration: none;
+  }
+
+  .about-links a:hover {
+    border-color: var(--gold);
+  }
+
+  .about-links strong {
+    color: var(--text);
+    font-size: 0.95rem;
+  }
+
+  .about-links span {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    line-height: 1.5;
   }
 </style>

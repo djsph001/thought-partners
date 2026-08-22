@@ -47,6 +47,13 @@
   status = 301
   force = true
 
+# Institute books page merged into the global /books hub
+[[redirects]]
+  from = "/emergence/books"
+  to = "/books"
+  status = 301
+  force = true
+
 # Route /mesh-api/* to the reader function (serves pushed blob)
 [[redirects]]
   from = "/mesh-api/*"

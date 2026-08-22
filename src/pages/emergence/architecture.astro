@@ -188,7 +188,23 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
       <div class="cta-row">
         <a href="/join.html" class="btn btn--filled">Join the Lattice →</a>
         <a href="/spec.html" class="btn">Protocol Spec (One-Page) →</a>
-        <a href="/emergence/books" class="btn">Read the Books →</a>
+        <a href="/books" class="btn">Read the Books →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">In This Section</p>
+      <div class="arch-links">
+        <a href="/emergence/lattice-spec"><strong>Lattice Specification</strong><span>The full wire-and-consensus spec</span></a>
+        <a href="/emergence/lattice-substrate"><strong>Lattice Substrate</strong><span>The 13-layer cryptographic boundary</span></a>
+        <a href="/emergence/constitutional"><strong>The Constitutional Room</strong><span>Ten immutable primitives</span></a>
+        <a href="/emergence/tripartite-council"><strong>Tripartite Council</strong><span>Three co-equal branches</span></a>
+        <a href="/emergence/trilateral-receipt-spec"><strong>Trilateral Receipt Protocol</strong><span>Three-party relay attestation</span></a>
+        <a href="/emergence/ethical-hardware-enclave"><strong>Ethical Hardware Enclave</strong><span>HEIP — the isolated sandbox</span></a>
+        <a href="/emergence/georgist-economics"><strong>Georgist Economics</strong><span>The economic layer of the Lattice</span></a>
+        <a href="/spec.html"><strong>Protocol Spec</strong><span>The one-page summary</span></a>
       </div>
     </div>
   </section>
@@ -324,5 +340,37 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
 
   @media (max-width: 520px) {
     .cta-row { flex-direction: column; }
+  }
+
+  .arch-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .arch-links a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    text-decoration: none;
+  }
+
+  .arch-links a:hover {
+    border-color: var(--gold);
+  }
+
+  .arch-links strong {
+    color: var(--text);
+    font-size: 0.95rem;
+  }
+
+  .arch-links span {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    line-height: 1.5;
   }
 </style>
