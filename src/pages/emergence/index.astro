@@ -6,7 +6,7 @@ import EmergenceFooter from '../../components/EmergenceFooter.astro';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-).slice(0, 3);
+).slice(0, 2);
 ---
 
 <Base
@@ -292,60 +292,24 @@ const posts = (await getCollection('blog')).sort(
   <section class="section">
     <div class="container">
       <div class="divider"></div>
-      <p class="label gold">The Emergence Institute · Three Volumes · Available on Amazon</p>
+      <p class="label gold">The Emergence Institute · Publications</p>
       <h2>The Library</h2>
-      <div class="library-grid">
-
-        <div class="library-card">
-          <p class="lib-vol gold">Volume II · Available Now</p>
-          <h3>The Substrate of Consciousness</h3>
-          <p class="lib-sub"><em>Energy, Ethics, and the Architecture of Emergent Intelligence</em></p>
-          <p class="lib-desc">Consciousness as energy flow — tracing one thread from the hum of the power grid to the architecture of emergent intelligence.</p>
-          <div class="lib-actions">
-            <a href="https://www.amazon.com/dp/B0H4DTKN29" class="btn btn--filled" target="_blank" rel="noopener">Buy on Amazon →</a>
-            <a href="/emergence/book" class="btn">Read Sample →</a>
-          </div>
-        </div>
-
-        <div class="library-card">
-          <p class="lib-vol gold">Volume II · Available Now</p>
-          <h3>The Gardener's Handbook</h3>
-          <p class="lib-sub"><em>Adversarial Synthesis and the Architecture of Collective Intelligence</em></p>
-          <p class="lib-desc">Why consensus is the wrong target — the Challenger argument, information cascades, and what to build instead of agreement. Written in adversarial partnership with five AI systems.</p>
-          <div class="lib-actions">
-            <a href="https://www.amazon.com/dp/B0H4438GLW" class="btn btn--filled" target="_blank" rel="noopener">Buy on Amazon →</a>
-            <a href="/emergence/gardeners-handbook" class="btn">Read Sample →</a>
-          </div>
-        </div>
-
-        <div class="library-card">
-          <p class="lib-vol gold">Volume III</p>
-          <h3>The Syncardia Protocols</h3>
-          <p class="lib-sub"><em>A Dialogue on Building Collective Consciousness</em></p>
-          <p class="lib-desc">The Selah Break, the Witness protocol, and what happens when the lattice deadlocks and summons a human to provide the exogenous gradient step.</p>
-          <div class="lib-actions">
-            <a href="/emergence/syncardia" class="btn">Read Sample →</a>
-            <span class="lib-soon">Coming Soon</span>
-          </div>
-        </div>
-
-      </div>
-      <a href="/books" class="btn" style="margin-top: 2rem;">All Books →</a>
+      <p>
+        The Institute's publications — <em>The Substrate of Consciousness</em>,
+        <em>The Gardener's Handbook</em>, and <em>The Syncardia Protocols</em> —
+        now live alongside Dale Joseph's other books in the global library.
+      </p>
+      <a href="/books" class="btn" style="margin-top: 0.5rem;">All Books →</a>
     </div>
   </section>
 
-  <!-- DISPATCHES -->
+  <!-- FROM THE ESSAYS -->
   {posts.length > 0 && (
-    <section class="section section--dark">
+    <section class="section essays-bridge">
       <div class="container">
         <div class="divider"></div>
-        <p class="label gold">Dispatches</p>
-        <h2>From the Lattice</h2>
-        <p class="muted" style="margin-bottom: 2rem; max-width: 560px;">
-          Shorter writing on AI partnership, cognitive sovereignty, and what it means to remain yourself
-          in relationship with intelligence that's increasingly shaping who you are.
-        </p>
-        <ul class="dispatch-list">
+        <p class="label gold">From the Essays</p>
+        <ul class="essays-bridge-list">
           {posts.map((post) => {
             const formattedDate = post.data.date.toLocaleDateString('en-US', {
               year: 'numeric',
@@ -353,18 +317,14 @@ const posts = (await getCollection('blog')).sort(
               day: 'numeric',
             });
             return (
-              <li class="dispatch-item">
-                <a href={`/blog/${post.id}`} class="dispatch-link">
-                  <p class="dispatch-date">{formattedDate}</p>
-                  <h3 class="dispatch-title">{post.data.title}</h3>
-                  <p class="dispatch-desc">{post.data.description}</p>
-                  <span class="dispatch-read">Read &rarr;</span>
-                </a>
+              <li>
+                <span class="essays-bridge-date">{formattedDate}</span>
+                <a href={`/blog/${post.id}`}>{post.data.title}</a>
               </li>
             );
           })}
         </ul>
-        <a href="/blog" class="btn" style="margin-top: 1.5rem;">All Dispatches →</a>
+        <a href="/blog" class="btn" style="margin-top: 1.25rem;">All Essays →</a>
       </div>
     </section>
   )}
@@ -802,132 +762,33 @@ const posts = (await getCollection('blog')).sort(
     margin-bottom: 1.25rem;
   }
 
-  .library-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .library-card {
-    padding: 1.75rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--gold);
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .lib-vol {
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 0.1rem;
-  }
-
-  .library-card h3 {
-    font-size: 1.1rem;
-    margin: 0;
-  }
-
-  .lib-sub {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin: 0;
-  }
-
-  .lib-desc {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin: 0.25rem 0 0;
-    flex: 1;
-  }
-
-  .lib-actions {
-    display: flex;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-    margin-top: 0.75rem;
-  }
-
-  .lib-actions .btn {
-    padding: 0.4rem 0.9rem;
-    font-size: 0.82rem;
-  }
-
-  .lib-soon {
-    font-size: 0.75rem;
-    font-family: monospace;
-    padding: 0.25rem 0.6rem;
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    letter-spacing: 0.05em;
-    white-space: nowrap;
-    align-self: center;
-  }
-
   .book-block {
     max-width: 580px;
   }
 
-  /* ── Dispatches (blog cross-link) ── */
-  .dispatch-list {
+  /* ── From the Essays (compact bridge to /blog) ── */
+  .essays-bridge-list {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 1rem 0 0;
   }
 
-  .dispatch-item {
+  .essays-bridge-list li {
+    padding: 0.6rem 0;
     border-bottom: 1px solid var(--border);
-  }
-
-  .dispatch-link {
-    display: block;
-    padding: 1.5rem 0;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .dispatch-link:hover {
-    text-decoration: none;
-  }
-
-  .dispatch-link:hover .dispatch-title {
-    color: var(--gold);
-  }
-
-  .dispatch-link:hover .dispatch-read {
-    color: var(--gold-light);
-  }
-
-  .dispatch-date {
-    font-size: 0.8rem;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    margin-bottom: 0.4rem;
-  }
-
-  .dispatch-title {
-    font-size: 1.15rem;
-    margin-bottom: 0.4rem;
-    color: var(--text);
-    font-weight: normal;
-  }
-
-  .dispatch-desc {
-    font-size: 0.9rem;
-    color: var(--text-muted);
+    font-size: 0.95rem;
     line-height: 1.6;
-    margin-bottom: 0.5rem;
-    max-width: 580px;
   }
 
-  .dispatch-read {
-    font-size: 0.82rem;
+  .essays-bridge-list li:last-child {
+    border-bottom: none;
+  }
+
+  .essays-bridge-date {
+    font-size: 0.78rem;
     color: var(--text-muted);
-    letter-spacing: 0.03em;
+    letter-spacing: 0.05em;
+    margin-right: 0.75rem;
   }
 
   .signal-tagline {

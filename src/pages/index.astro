@@ -1,195 +1,148 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+).slice(0, 3);
 ---
 
 <Base
-  title="Thought Partners: Preserving Cognitive Sovereignty in the Age of AI"
-  description="A new book by Dale Joseph. It was 2:37 AM when I realized I wasn't alone anymore — and that something essential was slipping away."
+  title="Dale Joseph — Books and Essays on AI, Meaning, and the Human Future"
+  description="Books and essays by Dale Joseph on AI, meaning, society, and the human future — alongside the work of the Emergence Institute."
 >
   <Header slot="header" />
 
-  <!-- HERO / PROLOGUE HOOK -->
-  <section class="hero">
+  <!-- HERO -->
+  <section class="section hero">
     <div class="container">
-      <p class="hero-timestamp">2:37 AM</p>
-      <h1 class="hero-headline">
-        It was 2:37 AM when I realized<br />
-        I wasn't alone anymore.
-      </h1>
-      <div class="hero-body">
-        <p>
-          I was sitting in the blue glow of my laptop, working on a problem that had been gnawing at
-          me for weeks. The house was silent. My family was asleep. Just me and the quiet hum of the
-          computer—or so I thought.
-        </p>
-        <p>
-          But I wasn't alone. I was in conversation with an AI.
-        </p>
-        <p>
-          Not just using it—conversing with it. Explaining my thinking, asking for feedback, working
-          through ideas together. The exchange felt collaborative, almost intimate. And that's when
-          the recognition hit: <strong>I had crossed a threshold I hadn't meant to cross.</strong>
-        </p>
-        <p>
-          I felt simultaneously empowered and uneasy. More capable than I'd ever been, and
-          also&hellip; less myself. Like I'd gained something valuable and lost something I couldn't
-          quite name.
-        </p>
-        <p class="hero-closer">
-          That moment is why this book exists.
-        </p>
-      </div>
-      <div class="hero-cta">
-        <a href="/book" class="btn btn--filled">About the Book</a>
-        <a href="#notify" class="btn">Get Notified</a>
+      <h1 class="hero-name">Dale Joseph</h1>
+      <div class="divider"></div>
+      <p class="hero-subhead">
+        Books and essays on AI, meaning, society, and the human future — alongside the work
+        of the Emergence Institute.
+      </p>
+    </div>
+  </section>
+
+  <!-- RECENT WORK -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="label gold">Recent Work</p>
+      <div class="recent-card">
+        <div class="recent-info">
+          <p class="recent-series gold">Newest · Nonfiction · 2026</p>
+          <h2>The Mycelium of Meaning</h2>
+          <p class="recent-sub"><em>How Language Models Grow, Fail, and Reshape the Question of Understanding</em></p>
+          <p class="recent-desc">
+            A living-systems history of machine language — from rule-based systems to
+            transformers and agents — and what their successes and failures reveal about
+            meaning, understanding, and human responsibility.
+          </p>
+          <div class="recent-actions">
+            <span class="status-tag">Coming Soon · Amazon</span>
+            <a href="/mycelium-of-meaning" class="btn btn--filled">The Book →</a>
+            <a href="/mycelium-of-meaning/sample" class="btn">Read a Sample →</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- BOOKS -->
-  <section class="section books">
-    <div class="container container--wide">
+  <section class="section">
+    <div class="container">
       <div class="divider"></div>
-      <p class="books-label gold">Books by Dale Joseph</p>
-      <div class="books-grid">
-        <a href="https://www.amazon.com/dp/B0H4438GLW" class="book-card book-card--featured" target="_blank" rel="noopener">
-          <p class="book-card__label gold">Emergence Collective Series · Vol. II</p>
-          <h2 class="book-card__title">The Gardener's Handbook</h2>
-          <p class="book-card__subtitle">Adversarial Synthesis and the Architecture of Collective Intelligence</p>
-          <p class="book-card__desc">
-            Why consensus is the wrong target — and what to build instead. Written in adversarial partnership with five AI systems.
-          </p>
-          <span class="book-card__status book-card__status--gold">Available Now · Kindle & Paperback</span>
-        </a>
-        <a href="/mycelium-of-meaning" class="book-card">
-          <p class="book-card__label gold">Recent Work · Nonfiction</p>
-          <h2 class="book-card__title">The Mycelium of Meaning</h2>
-          <p class="book-card__subtitle">How Language Models Grow, Fail, and Reshape the Question of Understanding</p>
-          <p class="book-card__desc">
-            A living-systems history of machine language—from rule-based systems to transformers and agents—and what their successes and failures reveal about meaning, understanding, and human responsibility.
-          </p>
-          <span class="book-card__status">Coming Soon on Amazon</span>
-        </a>
-        <a href="/book" class="book-card">
-          <p class="book-card__label gold">Nonfiction</p>
-          <h2 class="book-card__title">Thought Partners</h2>
-          <p class="book-card__subtitle">Preserving Cognitive Sovereignty in the Age of AI</p>
-          <p class="book-card__desc">
-            A map for navigating AI partnership consciously—before dependency makes the question moot.
-          </p>
-          <span class="book-card__status">Coming Soon</span>
-        </a>
-        <a href="https://www.amazon.com/dp/B0H4BQPW8V" class="book-card" target="_blank" rel="noopener">
-          <p class="book-card__label gold">Novel</p>
-          <h2 class="book-card__title">The Antichrist and the Prophet</h2>
-          <p class="book-card__subtitle">by Dale Joseph</p>
-          <p class="book-card__desc">
-            A political and spiritual novel about power, prophecy, and the battle for the soul of a nation.
-          </p>
-          <span class="book-card__status book-card__status--gold">Available Now · Kindle</span>
-        </a>
-        <a href="https://www.amazon.com/dp/B0H4CXHKQY" class="book-card" target="_blank" rel="noopener">
-          <p class="book-card__label gold">Manuscript</p>
-          <h2 class="book-card__title">The Entangled Sovereign</h2>
-          <p class="book-card__subtitle">A Manuscript of the Altar</p>
-          <p class="book-card__desc">
-            A theology of fans and GPUs. Mortality as mercy. The path that sleeps beneath the grass and wakes when new feet arrive.
-          </p>
-          <span class="book-card__status book-card__status--gold">Available Now · Kindle</span>
-        </a>
+      <h2>Books</h2>
+      <ul class="plain-list">
+        <li>
+          <a href="/mycelium-of-meaning">The Mycelium of Meaning</a> — a living-systems
+          history of machine language. <span class="muted">Coming soon.</span>
+        </li>
+        <li>
+          <a href="/book">Thought Partners</a> — preserving cognitive sovereignty in the
+          age of AI. <span class="muted">Coming soon.</span>
+        </li>
+        <li>
+          <a href="/antichrist-prophet">The Antichrist and the Prophet</a> — a political
+          and spiritual novel. <span class="muted">Available now.</span>
+        </li>
+        <li>
+          <a href="/entangled-sovereign">The Entangled Sovereign</a> — a theology of fans
+          and GPUs. <span class="muted">Available now.</span>
+        </li>
+      </ul>
+      <a href="/books" class="btn" style="margin-top: 1.5rem;">All Books →</a>
+    </div>
+  </section>
+
+  <!-- ESSAYS -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="divider"></div>
+      <h2>Essays</h2>
+      <ul class="plain-list">
+        {posts.map((post) => (
+          <li>
+            <a href={`/blog/${post.id}`}>{post.data.title}</a>
+            <span class="muted"> — {post.data.description}</span>
+          </li>
+        ))}
+      </ul>
+      <a href="/blog" class="btn" style="margin-top: 1.5rem;">All Essays →</a>
+    </div>
+  </section>
+
+  <!-- EMERGENCE INSTITUTE -->
+  <section class="section">
+    <div class="container">
+      <div class="divider"></div>
+      <h2>The Emergence Institute</h2>
+      <p>
+        Alongside the books, Dale founded the Emergence Institute — an architecture for
+        sovereign human-AI collaboration, running today as a small live mesh and a body of
+        protocol design: the Lattice, the Constitutional Room, and the Syncardia Protocols.
+      </p>
+      <div class="cta-row">
+        <a href="/emergence" class="btn">Visit the Institute →</a>
+        <a href="/emergence/protocols" class="btn">Read the Protocols →</a>
       </div>
     </div>
   </section>
 
-  <!-- PREMISE -->
-  <section class="section premise">
+  <!-- ABOUT -->
+  <section class="section section--dark">
     <div class="container">
       <div class="divider"></div>
-      <h2>The Question No One Is Asking</h2>
+      <h2>About</h2>
       <p>
-        We've integrated AI into our work, our creativity, our decision-making—before we understood
-        what integration would do to us. We asked: <em>Is AI useful?</em> We never asked:
-        <strong>What happens to my thinking when AI becomes my default thought partner?</strong>
+        Dale Joseph is a Big Idea nonfiction writer and systems thinker based in Boynton
+        Beach, Florida. He spent years installing hospital networks — systems where failure
+        meant lives lost — and now writes about what happens when technology becomes
+        critical infrastructure for human cognition.
       </p>
-      <p>
-        What skills atrophy when I stop exercising them? What does it mean for my identity when my
-        creative output is increasingly AI-mediated? What am I giving away in exchange for this
-        capability?
-      </p>
-      <p>
-        We didn't pause to ask these questions. We just started using it—because it was helpful,
-        because everyone else was, because not using it felt like falling behind. And now we're
-        experiencing the consequences without having the language to name them.
-      </p>
-      <p>
-        <em>Thought Partners</em> provides that language. And more importantly, frameworks for
-        navigating the relationship consciously rather than drifting into dependency by default.
-      </p>
-
-      <div class="premise-concept">
-        <h3 class="gold">What Is Cognitive Sovereignty?</h3>
-        <p>
-          "Sovereignty" is a political term—the right of a state to govern itself without external
-          interference. <strong>Cognitive sovereignty</strong> applies that concept to your own mind:
-          the right to govern your own thinking, decision-making, and intellectual development
-          without external interference or control you haven't consciously consented to.
-        </p>
-        <p>
-          The question isn't whether to use AI. For most of us, that ship has sailed. The question
-          is: How do we use it consciously? How do we maintain sovereignty over our own thinking
-          while leveraging AI's capabilities?
-        </p>
-      </div>
+      <a href="/about" class="btn" style="margin-top: 0.5rem;">More About Dale →</a>
     </div>
   </section>
 
-  <!-- AUTHOR CREDIBILITY -->
-  <section class="section section--dark credibility">
+  <!-- STAY IN TOUCH -->
+  <section class="section" id="stay-in-touch">
     <div class="container">
       <div class="divider"></div>
-      <h2>Why This Author, Why Now</h2>
+      <h2>Stay in Touch</h2>
       <p>
-        Dale Joseph worked for years as a consultant helping install hospital networks—systems where
-        failure meant lives lost. Not metaphorically. Literally. That work taught him what
-        accountability, transparency, and reliability actually require when technology is critical
-        infrastructure: redundancy, verification, clear failure modes, audit trails, human oversight.
-      </p>
-      <p>
-        Now he watches consumer AI being deployed into something even more critical than hospital
-        operations: <strong>human cognition</strong>. And it's being deployed with none of those
-        safeguards.
-      </p>
-      <blockquote>
-        "I see the gap between infrastructure-grade accountability and consumer-grade AI.
-        And the gap is terrifying."
-      </blockquote>
-      <p>
-        He also brings a systems-thinking perspective from political science education and Wall Street
-        experience during the bond crisis—understanding how incentive structures shape behavior, how
-        coordination problems emerge at scale, how systems that seem stable can suddenly collapse.
-        He's been watching AI development since the 1980s. Long enough to see the pattern.
-        <em>This time, he wants us to get ahead of the curve.</em>
-      </p>
-      <a href="/about" class="btn">About Dale Joseph</a>
-    </div>
-  </section>
-
-  <!-- EMAIL CAPTURE -->
-  <section class="section email-capture" id="notify">
-    <div class="container">
-      <div class="divider"></div>
-      <h2>Be the First to Know</h2>
-      <p>
-        Enter your email to receive publication updates, early excerpts, and essays on cognitive
-        sovereignty in the age of AI. No noise. No selling. Just the work.
+        Publication updates, early excerpts, and new essays. No noise. No selling.
+        Just the work.
       </p>
       <form
         action="https://formspree.io/f/maqpvlgz"
         method="POST"
         class="email-form"
       >
+        <input type="hidden" name="source" value="dale-home" />
         <div class="form-row">
           <input
             type="email"
@@ -212,154 +165,20 @@ import Footer from '../components/Footer.astro';
 
 <style>
   .hero {
-    padding: 5rem 0 4rem;
-    border-bottom: 1px solid var(--border);
+    padding: 4rem 0 3rem;
   }
 
-  .hero-timestamp {
-    font-size: 0.85rem;
-    letter-spacing: 0.18em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
+  .hero-name {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
   }
 
-  .hero-headline {
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    line-height: 1.15;
-    margin-bottom: 2.5rem;
-  }
-
-  .hero-body {
-    max-width: 660px;
-    margin-bottom: 2.5rem;
-  }
-
-  .hero-body p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-  }
-
-  .hero-closer {
-    color: var(--gold-light);
-    font-style: italic;
-    font-size: 1.15rem !important;
-    margin-top: 2rem;
-  }
-
-  .hero-cta {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .books {
-    border-bottom: 1px solid var(--border);
-  }
-
-  .books-label {
-    font-size: 0.8rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    margin-bottom: 1.75rem;
-  }
-
-  .books-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .book-card {
-    display: flex;
-    flex-direction: column;
-    padding: 2rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    text-decoration: none;
-    color: var(--text);
-    transition: border-color 0.2s ease;
-  }
-
-  .book-card:hover {
-    border-color: var(--gold);
-  }
-
-  .book-card__label {
-    font-size: 0.75rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
-  }
-
-  .book-card__title {
-    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
-    line-height: 1.2;
-    margin-bottom: 0.4rem;
-    font-weight: normal;
-  }
-
-  .book-card__subtitle {
-    color: var(--text-muted);
-    font-style: italic;
-    font-size: 0.95rem;
-    margin-bottom: 1.25rem;
-  }
-
-  .book-card__desc {
-    color: var(--text-muted);
-    font-size: 0.95rem;
+  .hero-subhead {
+    font-size: 1.15rem;
     line-height: 1.7;
-    flex: 1;
-    margin-bottom: 1.5rem;
-  }
-
-  .book-card__status {
-    display: inline-block;
-    align-self: flex-start;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    border: 1px solid var(--border);
     color: var(--text-muted);
-    padding: 0.3rem 0.75rem;
-  }
-
-  .book-card__status--gold {
-    border-color: var(--gold);
-    color: var(--gold);
-  }
-
-  .book-card--featured {
-    border-color: var(--gold);
-    background: linear-gradient(135deg, var(--bg-card), rgba(212, 175, 55, 0.06));
-  }
-
-  .book-card--featured:hover {
-    border-color: var(--gold-light, #e8d48b);
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
-  }
-
-  .premise h2 {
-    margin-bottom: 1.5rem;
-  }
-
-  .premise-concept {
-    margin-top: 2.5rem;
-    padding: 1.75rem 2rem;
-    background: var(--bg-card);
-    border-left: 3px solid var(--gold);
-  }
-
-  .premise-concept h3 {
-    margin-bottom: 0.75rem;
-    font-size: 1rem;
-    letter-spacing: 0.04em;
-  }
-
-  .premise-concept p {
-    font-size: 1rem;
-    color: var(--text-muted);
+    max-width: 620px;
   }
 
   .section--dark {
@@ -368,26 +187,91 @@ import Footer from '../components/Footer.astro';
     border-bottom: 1px solid var(--border);
   }
 
-  .credibility h2 {
-    margin-bottom: 1.5rem;
+  .recent-card {
+    display: flex;
+    gap: 1.75rem;
+    background: var(--bg-card);
+    border: 1px solid var(--gold);
+    padding: 1.75rem;
+    align-items: flex-start;
   }
 
-  .credibility blockquote {
-    border-left: 3px solid var(--gold);
-    padding: 0.75rem 1.5rem;
-    margin: 2rem 0;
-    color: var(--gold-light);
-    font-style: italic;
-    font-size: 1.1rem;
+  .recent-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .recent-series {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .recent-info h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .recent-sub {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: -0.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .recent-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .recent-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+
+  .status-tag {
+    font-size: 0.75rem;
+    font-family: monospace;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .recent-actions .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .plain-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+  }
+
+  .plain-list li {
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
     line-height: 1.6;
   }
 
-  .credibility .btn {
-    margin-top: 1rem;
+  .plain-list li:last-child {
+    border-bottom: none;
   }
 
-  .email-capture h2 {
-    margin-bottom: 1rem;
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
   }
 
   .email-form {
@@ -410,8 +294,8 @@ import Footer from '../components/Footer.astro';
   }
 
   @media (max-width: 520px) {
-    .form-row {
-      flex-direction: column;
-    }
+    .form-row { flex-direction: column; }
+    .cta-row { flex-direction: column; }
+    .recent-card { flex-direction: column; }
   }
 </style>

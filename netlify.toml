@@ -6,12 +6,6 @@
   NODE_VERSION = "22"
 
 [[redirects]]
-  from = "/"
-  to = "/emergence"
-  status = 302
-  force = true
-
-[[redirects]]
   from = "/emergence/manifesto"
   to = "/emergence/charter"
   status = 301
