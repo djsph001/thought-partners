@@ -7,6 +7,15 @@ import Footer from '../../components/Footer.astro';
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
+
+const featuredIds = [
+  'when-ai-can-answer-everything',
+  'a-label-is-not-a-witness',
+  'the-last-rung-of-the-ladder',
+  'who-gets-blamed-when-the-model-is-wrong'
+];
+
+const featuredPosts = featuredIds.map(id => posts.find(p => p.id === id)).filter(Boolean);
 ---
 
 <Base
@@ -28,6 +37,27 @@ const posts = (await getCollection('blog')).sort(
         ongoing inquiry into language, intelligence, and human meaning.
       </p>
       <div class="divider"></div>
+
+      <div class="featured-section">
+        <p class="featured-label">Featured · New Series</p>
+        <p class="featured-blurb muted">
+          Four essays on judgment, trust, expertise, and accountability as AI moves from answering questions to shaping real decisions.
+        </p>
+        <ul class="featured-list">
+          {featuredPosts.map((post) => (
+            <li class="featured-item">
+              <a href={`/blog/${post.id}`} class="featured-link">
+                <span class="featured-title">{post.data.title}</span>
+                <span class="featured-read">Read →</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="divider"></div>
+
+      <p class="section-label">Latest Essays</p>
 
       {posts.length === 0 ? (
         <p class="muted">No essays yet. Check back soon.</p>
@@ -80,6 +110,86 @@ const posts = (await getCollection('blog')).sort(
     font-size: 0.95rem;
     max-width: 580px;
     margin-top: 0.75rem;
+  }
+
+  .featured-section {
+    margin: 2rem 0;
+  }
+
+  .featured-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    color: var(--gold);
+  }
+
+  .featured-blurb {
+    font-size: 0.97rem;
+    color: var(--text-muted);
+    max-width: 580px;
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+  }
+
+  .featured-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .featured-item {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem;
+  }
+
+  .featured-item:last-child {
+    border-bottom: none;
+  }
+
+  .featured-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .featured-link:hover {
+    text-decoration: none;
+  }
+
+  .featured-link:hover .featured-title {
+    color: var(--gold);
+  }
+
+  .featured-link:hover .featured-read {
+    color: var(--gold-light);
+  }
+
+  .featured-title {
+    font-size: 1.05rem;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .featured-read {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .section-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    margin-top: 2rem;
+    color: var(--text-muted);
   }
 
   .post-list {
