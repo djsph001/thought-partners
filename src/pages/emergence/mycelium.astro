@@ -24,7 +24,7 @@ import AntifragileForkingDiagram from '../../components/AntifragileForkingDiagra
         how consensus emerges without a center, and how the network survives fracture.
       </p>
       <div class="version-tag">
-        <span class="gold">Protocol Version:</span> <span class="muted">0.9 — Active Development</span>
+        <span class="gold">Protocol Version:</span> <span class="muted">0.9 — Proposed · Not Yet Implemented</span>
       </div>
     </div>
   </section>
@@ -197,31 +197,36 @@ import AntifragileForkingDiagram from '../../components/AntifragileForkingDiagra
 
       <section class="myc-section">
         <h2>Implementation Status</h2>
+        <p class="muted">
+          These mechanisms are <strong>proposed designs</strong> — conceptual architecture
+          under exploration. They do not yet correspond to running engine code at the
+          current checkpoint.
+        </p>
         <div class="status-grid">
           <div class="status-item">
             <p class="status-label gold">Thermal Handshake (TH-1)</p>
-            <span class="status-badge status-active">Active</span>
-            <p>Temperature attestation and Constitutional Hash exchange implemented. Keystroke rhythm layer in testing.</p>
+            <span class="status-badge status-spec">Proposed</span>
+            <p>Temperature attestation, keystroke-rhythm proof-of-presence, and Constitutional Hash exchange. Not yet implemented.</p>
           </div>
           <div class="status-item">
             <p class="status-label gold">SovereignPath (SP-1)</p>
-            <span class="status-badge status-active">Active</span>
-            <p>Decay timestamps implemented. Compost archiving operational on reference Altar configuration.</p>
+            <span class="status-badge status-spec">Proposed</span>
+            <p>Decay timestamps and compost archiving. Not yet implemented.</p>
           </div>
           <div class="status-item">
             <p class="status-label gold">Soil Consensus</p>
-            <span class="status-badge status-active">Active</span>
-            <p>80% witness threshold and Deliberation Window implemented. Reputation-weighted fork reconciliation operational.</p>
+            <span class="status-badge status-spec">Proposed</span>
+            <p>80% witness threshold and Deliberation Window. Not yet implemented.</p>
           </div>
           <div class="status-item">
             <p class="status-label gold">Forking Protocol</p>
-            <span class="status-badge status-active">Active</span>
-            <p>Partition detection, CRDT re-entrainment, and reputation-weighted chain selection implemented and tested.</p>
+            <span class="status-badge status-spec">Proposed</span>
+            <p>Partition detection, CRDT re-entrainment, and reputation-weighted chain selection. Not yet implemented.</p>
           </div>
           <div class="status-item">
             <p class="status-label gold">Omega-1 (Ω-1)</p>
-            <span class="status-badge status-active">Active</span>
-            <p>Ed25519-signed binary wire framing implemented. Reference node compiled and containerized.</p>
+            <span class="status-badge status-spec">Proposed</span>
+            <p>Ed25519-signed binary wire framing. The signing primitive exists in the engine; Ω-1 as a named protocol is not yet implemented.</p>
           </div>
         </div>
       </section>
