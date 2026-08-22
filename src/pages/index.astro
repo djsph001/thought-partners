@@ -59,10 +59,6 @@ const posts = (await getCollection('blog')).sort(
       <h2>Books</h2>
       <ul class="plain-list">
         <li>
-          <a href="/mycelium-of-meaning">The Mycelium of Meaning</a> — a living-systems
-          history of machine language. <span class="muted">Coming soon.</span>
-        </li>
-        <li>
           <a href="/book">Thought Partners</a> — preserving cognitive sovereignty in the
           age of AI. <span class="muted">Coming soon.</span>
         </li>
@@ -75,7 +71,7 @@ const posts = (await getCollection('blog')).sort(
           and GPUs. <span class="muted">Available now.</span>
         </li>
       </ul>
-      <a href="/books" class="btn" style="margin-top: 1.5rem;">All Books →</a>
+      <a href="/books" class="btn btn--filled" style="margin-top: 1.5rem;">All Books →</a>
     </div>
   </section>
 
@@ -92,7 +88,7 @@ const posts = (await getCollection('blog')).sort(
           </li>
         ))}
       </ul>
-      <a href="/blog" class="btn" style="margin-top: 1.5rem;">All Essays →</a>
+      <a href="/blog" style="color: var(--gold); margin-top: 1.5rem; display: inline-block;">All Essays →</a>
     </div>
   </section>
 
@@ -106,10 +102,7 @@ const posts = (await getCollection('blog')).sort(
         sovereign human-AI collaboration, running today as a small live mesh and a body of
         protocol design: the Lattice, the Constitutional Room, and the Syncardia Protocols.
       </p>
-      <div class="cta-row">
-        <a href="/emergence" class="btn">Visit the Institute →</a>
-        <a href="/emergence/protocols" class="btn">Read the Protocols →</a>
-      </div>
+      <a href="/emergence" class="btn btn--filled" style="margin-top: 0.5rem;">Visit the Institute →</a>
     </div>
   </section>
 
@@ -124,7 +117,7 @@ const posts = (await getCollection('blog')).sort(
         meant lives lost — and now writes about what happens when technology becomes
         critical infrastructure for human cognition.
       </p>
-      <a href="/about" class="btn" style="margin-top: 0.5rem;">More About Dale →</a>
+      <a href="/about" style="color: var(--gold); margin-top: 0.5rem; display: inline-block;">More About Dale →</a>
     </div>
   </section>
 

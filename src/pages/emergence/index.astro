@@ -43,25 +43,9 @@ const posts = (await getCollection('blog')).sort(
   <!-- NETWORK STATUS -->
   <section class="network-status">
     <div class="container">
-      <div class="status-strip status-live">
-        <span class="status-live-dot"></span>
-        <span><strong>2</strong> nodes, peered</span>
-        <span class="status-sep">·</span>
-        <span>Florida + Germany</span>
-        <span class="status-sep">·</span>
-        <span><strong>1</strong> operator</span>
-        <span class="status-sep">·</span>
-        <span>Receipt-gated mint active</span>
-        <span class="status-sep">·</span>
-        <span>Correctly producing <strong>0</strong> DUUs</span>
-      </div>
-      <div class="status-strip status-design">
-        <span class="status-design-label">When independent peers join →</span>
-        <span>≥3 nodes form quorum</span>
-        <span class="status-sep">·</span>
-        <span>Certified contributions earn thickness</span>
-        <span class="status-sep">·</span>
-        <span>Governance by sortition</span>
+      <div class="status-strip status-neutral">
+        <span class="status-neutral-dot"></span>
+        <span><strong>Live mesh status temporarily unavailable.</strong></span>
       </div>
     </div>
   </section>
@@ -434,12 +418,11 @@ const posts = (await getCollection('blog')).sort(
     flex-wrap: wrap;
   }
 
-  .status-live-dot {
+  .status-neutral-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #4ade80;
-    box-shadow: 0 0 6px rgba(74, 222, 128, 0.5);
+    background: #95a5a6;
     margin-right: 0.25rem;
     flex-shrink: 0;
   }
