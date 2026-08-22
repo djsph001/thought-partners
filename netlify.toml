@@ -34,6 +34,19 @@
   to = "/dashboard-guide.html"
   status = 200
 
+# Book route promoted to top level — preserve old /books/... links
+[[redirects]]
+  from = "/books/the-mycelium-of-meaning"
+  to = "/mycelium-of-meaning"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/books/the-mycelium-of-meaning/sample"
+  to = "/mycelium-of-meaning/sample"
+  status = 301
+  force = true
+
 # Route /mesh-api/* to the reader function (serves pushed blob)
 [[redirects]]
   from = "/mesh-api/*"
