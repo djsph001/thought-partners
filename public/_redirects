@@ -1,5 +1,2 @@
-# Dashboard subdomain → redirect to live tailnet dashboard
-https://dashboard.emergenceinstitute.live/*  https://dale-joseph-hp-z4-g4-workstation.taild96c2e.ts.net/mesh/static/index.html  302!
-
 # Canonical domain consolidation: emergenceinstitute.live → emergencecollective.live
 https://emergenceinstitute.live/*  https://emergencecollective.live/:splat  301!

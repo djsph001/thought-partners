@@ -200,7 +200,7 @@ import Footer from '../components/Footer.astro';
   document.getElementById('auth-form').addEventListener('submit', async () => {
     const input = document.getElementById('auth-input').value;
     const hash = await sha256(input);
-    if (hash === HASH || input === 'prophet2026') {
+    if (hash === HASH) {
       localStorage.setItem('antichrist-auth', 'true');
       document.getElementById('auth-gate').style.display = 'none';
       document.getElementById('manuscript').style.display = 'block';
