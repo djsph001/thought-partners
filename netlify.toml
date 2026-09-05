@@ -60,3 +60,10 @@
   from = "/api/mesh-push"
   to = "/.netlify/functions/mesh-push"
   status = 200
+
+# Conventional /sitemap.xml alias -> the generated sitemap index
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap-index.xml"
+  status = 200
+  force = true
