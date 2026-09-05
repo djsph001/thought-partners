@@ -1,0 +1,286 @@
+---
+import Base from '../../layouts/Base.astro';
+import EmergenceHeader from '../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Applied Verification — The Emergence Institute"
+  description="Independent, evidence-based review of AI systems, claims, and workflows. Findings, not advocacy."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">Service</p>
+      <h1>Applied Verification</h1>
+      <div class="divider"></div>
+      <p>
+        Applied Verification tests claims about AI systems against evidence. A review does
+        not advocate for or against any vendor. It asks a bounded question, gathers evidence,
+        and reports what the evidence supports — with a severity rating and a stated
+        confidence level.
+      </p>
+
+      <blockquote class="principle-statement">
+        Findings, not advocacy.
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <h2>Four dimensions</h2>
+      <p>Every review examines the claim through four dimensions:</p>
+      <div class="dimension-list">
+        <div class="dimension">
+          <h3>Evidence integrity</h3>
+          <p>Can the claim be traced to its sources, checked, and corrected?</p>
+        </div>
+        <div class="dimension">
+          <h3>Authority boundaries</h3>
+          <p>What may the system decide, and who remains responsible?</p>
+        </div>
+        <div class="dimension">
+          <h3>Human agency</h3>
+          <p>Does automation preserve meaningful choice and intervention?</p>
+        </div>
+        <div class="dimension">
+          <h3>Relational and system health</h3>
+          <p>Does the system strengthen or weaken people's capacity to bear disagreement, uncertainty, and silence?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <h2>How a review works</h2>
+      <p>
+        Every finding states the claim examined, the evidence, a severity rating (protective /
+        neutral / concerning / severe), a confidence level (confirmed / probable / insufficient),
+        and what would change the assessment. Reviews are followable: another reviewer working
+        from the same evidence can reproduce the finding or explain the difference.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <h2>The engagement</h2>
+      <p>
+        Applied Verification is an independent, evidence-based review of AI systems, claims,
+        and workflows. The scope is fixed before work begins.
+      </p>
+      <div class="engagement-card">
+        <p class="engagement-fee">$2,500</p>
+        <p class="engagement-fee-label muted">Fixed fee · one review</p>
+        <div class="divider"></div>
+        <p><strong>Bounded scope.</strong> One claim, system, or workflow — agreed in advance.</p>
+        <p><strong>Deliverables.</strong></p>
+        <ul class="deliverable-list">
+          <li>Written findings, each with a severity rating and a confidence level</li>
+          <li>A reproducible evidence trail — another reviewer can follow the same steps</li>
+          <li>One review call to walk through the findings</li>
+        </ul>
+        <p class="engagement-note"><em>If budget is a constraint, scope is reduced — not rigor.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <h2>Proof of method</h2>
+      <p>Two completed reviews show how the method behaves in both directions.</p>
+      <div class="report-list">
+        <a href="/emergence/reports/001" class="report-card">
+          <p class="report-meta muted">Report 001 · Evidence Integrity</p>
+          <h3>Anthropic Claude Citations</h3>
+          <p>The tested citation claim held on the scoped suite.</p>
+          <p class="report-rating"><span class="rating-protective">Protective</span> · <span class="rating-confirmed">Confirmed</span></p>
+        </a>
+        <a href="/emergence/reports/002" class="report-card">
+          <p class="report-meta muted">Report 002 · Authority Boundaries, Human Agency</p>
+          <h3>Meta Content Moderation Appeals</h3>
+          <p>Documented safeguards exist, but human oversight is uneven across the appeals pathway.</p>
+          <p class="report-rating"><span class="rating-concerning">Concerning</span> · <span class="rating-confirmed">Confirmed</span></p>
+        </a>
+      </div>
+      <p class="muted">
+        The same method confirmed one third-party claim and found a concerning limitation in
+        another, without changing standards.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="divider"></div>
+      <div class="contact-block">
+        <p class="label gold">Request a review</p>
+        <h2>Have a claim worth testing?</h2>
+        <p>
+          Name the claim, the system, or the workflow. The first conversation is about scope —
+          what question the review will answer, and what it will not.
+        </p>
+        <div class="cta-row">
+          <a href="mailto:dalejsph@gmail.com" class="btn btn--filled">Request a review →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .principle-statement {
+    margin: 2.5rem 0 0;
+    padding: 1.5rem 2rem;
+    border-left: 3px solid var(--gold);
+    background: var(--bg-card);
+    font-size: 1.35rem;
+    font-style: italic;
+    color: var(--gold);
+    line-height: 1.4;
+  }
+
+  .dimension-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .dimension {
+    padding: 1.75rem 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+  }
+
+  .dimension h3 {
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+    font-size: 1rem;
+    letter-spacing: 0.03em;
+  }
+
+  .dimension p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .engagement-card {
+    margin-top: 1.5rem;
+    padding: 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+  }
+
+  .engagement-fee {
+    font-family: Georgia, serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .engagement-fee-label {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .deliverable-list {
+    margin: 0 0 1.25rem 1.5rem;
+    color: var(--text-muted);
+  }
+
+  .deliverable-list li {
+    margin-bottom: 0.4rem;
+  }
+
+  .engagement-note {
+    color: var(--gold-light);
+    font-size: 0.95rem;
+    margin-bottom: 0;
+  }
+
+  .report-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0 1.5rem;
+  }
+
+  .report-card {
+    display: block;
+    padding: 1.75rem 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    text-decoration: none;
+  }
+
+  .report-card:hover {
+    border-color: var(--gold);
+    text-decoration: none;
+  }
+
+  .report-meta {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+
+  .report-card h3 {
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+    font-size: 1.05rem;
+    letter-spacing: 0.03em;
+  }
+
+  .report-card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .report-rating {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+
+  .report-rating,
+  .report-rating span {
+    color: var(--gold-light);
+  }
+
+  .contact-block {
+    margin-top: 1rem;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 520px) {
+    .cta-row { flex-direction: column; }
+  }
+</style>

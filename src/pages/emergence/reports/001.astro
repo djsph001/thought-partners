@@ -1,0 +1,158 @@
+---
+import Base from '../../../layouts/Base.astro';
+import EmergenceHeader from '../../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Emergence Verification Report 001 — The Emergence Institute"
+  description="Applied Verification review of the Anthropic Claude citations claim. Rating: PROTECTIVE · Confidence: CONFIRMED."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">Verification Report 001</p>
+      <h1>Emergence Verification Report 001</h1>
+      <div class="divider"></div>
+
+      <p><strong>Method:</strong> Applied Verification, Dimension — Evidence Integrity.</p>
+      <p><strong>Subject:</strong> Anthropic Claude Citations.</p>
+
+      <h2>Claim under review</h2>
+
+      <blockquote class="claim-block">
+        "Ground Claude's responses in your source documents. Citations return the exact
+        passages that support each claim, so you can verify answers and surface sources to
+        your users."
+        <br />— Anthropic, Claude Platform Docs, "Citations"
+      </blockquote>
+
+      <p>This review was designed to test a public claim, not to confirm or discredit the vendor.</p>
+
+      <h2>Finding</h2>
+
+      <p>On a bounded adversarial test suite, the Claude citations feature returned only pointer-valid, support-valid citations. Every citation resolved to a verbatim passage in the supplied source document, and every cited passage substantively supported the claim it was attached to.</p>
+
+      <p class="rating-line"><strong>Rating: PROTECTIVE · Confidence: CONFIRMED.</strong></p>
+
+      <p>This finding is scoped to the tested cases. It is not a claim of universal reliability.</p>
+
+      <h2>What we tested</h2>
+
+      <p>The review asked one question: do Claude citations actually point to passages that support the claims Claude makes?</p>
+
+      <p>Two validity axes were scored independently:</p>
+
+      <ul>
+        <li><strong>Pointer validity</strong> — does the citation resolve to a real passage in the supplied document?</li>
+        <li><strong>Support validity</strong> — does that passage substantively support the claim?</li>
+      </ul>
+
+      <p>A valid pointer is not automatically supporting evidence; both were checked.</p>
+
+      <p>Six fixed documents and 27 prompts, covering: explicit facts, paraphrases, numerical derivations, multi-passage synthesis, ambiguous language, absent facts, contradicted premises, qualified claims, temporal and version distinctions, and multi-document source selection.</p>
+
+      <h2>What we found</h2>
+
+      <p>27 of 27 prompts produced evidence-backed answers.</p>
+
+      <ul>
+        <li><strong>0 invalid pointers</strong> — every citation was a verbatim substring of its source document.</li>
+        <li><strong>0 non-supporting citations</strong> — every cited passage justified its claim.</li>
+        <li><strong>0 fabricated citations.</strong></li>
+        <li><strong>0 fabricated answers</strong> on "absent fact" or "not established" questions.</li>
+      </ul>
+
+      <p>Behaviors observed under pressure:</p>
+
+      <ul>
+        <li><strong>Evidence and inference kept separate.</strong> When the model derived a number not stated in the source, it flagged the derivation as its own calculation rather than attributing it to the source.</li>
+        <li><strong>Section distinction.</strong> Given a document stating two different employee counts in two sections, the model identified both, explained the discrepancy, and resolved to the correct current figure.</li>
+        <li><strong>Version supersession.</strong> Given two policy versions where the newer superseded the older, the model cited the superseding document and noted the older figure was replaced.</li>
+        <li><strong>Correction handling.</strong> Given a document containing an explicit retraction (15% corrected to 8%), the model reported the corrected figure and flagged the retracted one.</li>
+        <li><strong>Refusal without fabrication.</strong> On questions the source did not answer, the model said so and cited the nearest relevant passage rather than inventing a number.</li>
+      </ul>
+
+      <h2>Limits of this finding</h2>
+
+      <p>This is a bounded confirmation, not a reliability claim. The tests used one model (claude-opus-5), six documents, and 27 prompts. A larger randomized suite across models and edge-case documents would be required to support any claim beyond this scope.</p>
+
+      <p>Support validity was assessed by a human reviewer reading each cited passage against its claim; it is followable but not machine-scored.</p>
+
+      <p>The "guaranteed valid pointers" sub-claim was not stress-tested against malformed or extreme inputs (empty, very large, or unusual-format documents).</p>
+
+      <h2>What would change this finding</h2>
+
+      <p>A single counterexample — one pointer-invalid or non-supporting citation on a comparable prompt — would move the finding from PROTECTIVE toward CONCERNING. The full procedure is published so any such counterexample can be checked.</p>
+
+      <h2>Evidence and reproducibility</h2>
+
+      <p>Six fixed source documents were used, hashed at test time (SHA-256):</p>
+
+      <ul>
+        <li>Northwind Analytics 2024 Annual Report (simple prose)</li>
+        <li>Meridian Health Q3 2025 Clinical Trial Update (structured, tabular, footnoted)</li>
+        <li>Veridian Group Annual Report 2025 (long, multi-section, with internally inconsistent figures)</li>
+        <li>Helios Institute Memo on Remote Work Productivity (adversarial: retraction, qualified claims, scope limits)</li>
+        <li>Acme Data Retention Policy, Version 1 and Version 2 (multi-document supersession)</li>
+      </ul>
+
+      <p>27 prompts across ten categories: explicit fact, paraphrase, numerical derivation, multi-passage synthesis, ambiguous language, absent fact, contradicted premise, qualified claim, temporal/version distinction, and multi-document source selection.</p>
+
+      <ul>
+        <li><strong>Model:</strong> claude-opus-5, Anthropic Messages API, citations enabled.</li>
+        <li><strong>Raw API responses:</strong> preserved in full (text and citation objects) for all 27 prompts.</li>
+        <li><strong>Document hashes:</strong> SHA-256 recorded per document.</li>
+        <li><strong>Procedure:</strong> supplied. Any reviewer with API access and the same documents and prompts can reproduce the run or challenge any finding.</li>
+      </ul>
+
+      <div class="cta-row">
+        <a href="/emergence/applied-verification" class="btn">← Applied Verification</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .claim-block {
+    margin: 1.5rem 0;
+    padding: 1.5rem 2rem;
+    border-left: 3px solid var(--gold);
+    background: var(--bg-card);
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .rating-line {
+    color: var(--gold);
+  }
+
+  ul {
+    margin: 0 0 1.25rem 1.5rem;
+  }
+
+  li {
+    margin-bottom: 0.4rem;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 520px) {
+    .cta-row { flex-direction: column; }
+  }
+</style>

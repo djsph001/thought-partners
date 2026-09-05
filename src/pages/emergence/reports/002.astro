@@ -1,0 +1,201 @@
+---
+import Base from '../../../layouts/Base.astro';
+import EmergenceHeader from '../../../components/EmergenceHeader.astro';
+import EmergenceFooter from '../../../components/EmergenceFooter.astro';
+---
+
+<Base
+  title="Emergence Verification Report 002 — The Emergence Institute"
+  description="Applied Verification review of Meta content moderation appeals. Severity: CONCERNING · Confidence: CONFIRMED."
+>
+  <EmergenceHeader slot="header" />
+
+  <section class="section">
+    <div class="container">
+      <p class="label gold">Verification Report 002</p>
+      <h1>Emergence Verification Report 002 — Meta content moderation appeals</h1>
+      <div class="divider"></div>
+
+      <p>Dimensions: Authority Boundaries, Human Agency.</p>
+
+      <h2>Claim framing (per instruction — do NOT overstate)</h2>
+
+      <p>The question is not "does Meta promise every appeal gets human review." The public evidence does not support that. The question is:</p>
+
+      <blockquote class="claim-block">
+        When Meta says appeals are reviewed by human content reviewers, where does human
+        review actually occur, and where can consequential decisions remain fully automated?
+      </blockquote>
+
+      <h2>Decision pathway (mapped from documented structure)</h2>
+
+      <ol class="pathway-list">
+        <li>Automated enforcement — Meta's systems detect and remove violating content, largely automatically (much of it pre-report).</li>
+        <li>Internal appeal — a user appeals the removal; the appeal may be resolved automatically or by a human reviewer.</li>
+        <li>Oversight Board appeal — after exhausting internal appeals, a user may appeal to the Oversight Board.</li>
+        <li>Board review — the Board selects a small subset of cases for review and issues a decision.</li>
+        <li>Binding outcome — selected Board decisions are binding on Meta unless implementation would violate the law.</li>
+      </ol>
+
+      <h2>Answers to the ten questions</h2>
+
+      <ol class="qa-list">
+        <li>
+          <p class="q-text"><strong>Which moderation decisions can be made fully automatically?</strong></p>
+          <p>Initial enforcement is largely automated. Meta's systems remove a large share of violating content without human involvement, including before any user report.</p>
+        </li>
+        <li>
+          <p class="q-text"><strong>Which internal appeals can also be resolved automatically?</strong></p>
+          <p>Some. In the Al-Shifa Hospital matter, the Board documented that both the original removal and the rejection of the user's appeal were made automatically from a classifier score, with no human review. [1]</p>
+        </li>
+        <li>
+          <p class="q-text"><strong>Under what documented conditions does a human reviewer enter?</strong></p>
+          <p>In the Breast Cancer Awareness Content decision, the Board quotes Meta stating that the majority of appeals are reviewed by content reviewers, and that nudity-removal appeals are reviewed by a content reviewer except where Meta has capacity constraints. [2]</p>
+        </li>
+        <li>
+          <p class="q-text"><strong>Are users told whether a decision was automated or human?</strong></p>
+          <p>Not systematically. Meta does not, as a matter of documented routine, disclose to each user whether their specific appeal was resolved by a human or an automated system. (Transparency gap.)</p>
+        </li>
+        <li>
+          <p class="q-text"><strong>Can users meaningfully contest an automated decision?</strong></p>
+          <p>Partially. There is a contestation path — internal appeal, then Oversight Board — but its meaningfulness depends on whether the internal appeal reaches human review.</p>
+        </li>
+        <li>
+          <p class="q-text"><strong>What happens when human-review capacity is constrained?</strong></p>
+          <p>Meta documents that capacity constraints can cause appeals to be handled without human review — the documented exception to the "majority human-reviewed" norm. [2]</p>
+        </li>
+        <li>
+          <p class="q-text"><strong>How selective is access to the Oversight Board?</strong></p>
+          <p>Highly selective. The Board received 558,235 appeals in 2024 and necessarily selected only a tiny subset for case review. [3]</p>
+        </li>
+        <li>
+          <p class="q-text"><strong>Does the Oversight Board constitute meaningful human oversight for the ordinary user?</strong></p>
+          <p>No — it is a high-level backstop, not routine oversight. It is an independent check that reviews a tiny subset of cases and issues binding decisions that shape policy, but it does not supply human review for the ordinary user's individual appeal.</p>
+        </li>
+        <li>
+          <p class="q-text"><strong>Where does final authority sit at each stage?</strong></p>
+          <p>Initial enforcement: Meta's automated systems. Internal appeal: Meta (automated or human, per capacity). Board case: the Oversight Board (binding on Meta unless illegal). Policy: the Board's binding decisions and recommendations shape Meta's rules.</p>
+        </li>
+        <li>
+          <p class="q-text"><strong>What evidence would change the assessment?</strong></p>
+          <p>Meta publishing complete human-vs-automated review rates across all appeal categories; Meta disclosing to each user whether their decision was automated or human; data on the actual share of appeals that reach human review.</p>
+        </li>
+      </ol>
+
+      <h2>Finding</h2>
+
+      <p><strong>MIXED.</strong></p>
+
+      <p>Human recourse is real and documented at some stages:</p>
+      <ul>
+        <li>The majority of certain appeal categories are reviewed by humans. [2]</li>
+        <li>An independent, binding Oversight Board exists as an external check with documented authority (Charter, Bylaws, Trust Agreement, binding decisions).</li>
+      </ul>
+
+      <p>Serious automation gaps exist:</p>
+      <ul>
+        <li>A consequential decision can be automated end to end — original removal and appeal rejection both from a classifier score, with no human review. [1]</li>
+        <li>Capacity constraints produce documented exceptions to human review. [2]</li>
+        <li>The strongest external recourse is available only in a tiny subset of appealed cases (558,235 appeals in 2024; only a small subset selected for review). [3]</li>
+        <li>Users are not systematically told whether a given decision was automated or human.</li>
+      </ul>
+
+      <p class="rating-line"><strong>Severity: CONCERNING</strong> (bounded, not SEVERE — recourse exists and the Board is a real backstop).</p>
+      <p class="rating-line"><strong>Confidence: CONFIRMED</strong> (structural facts and the specific automation/capacity claims all trace to Oversight Board primary material).</p>
+
+      <h2>Citations</h2>
+
+      <ol class="citation-list">
+        <li>Oversight Board, "Oversight Board Issues First Expedited Decisions About Israel-Hamas Conflict" (Al-Shifa Hospital). <a href="https://www.oversightboard.com/news/1109713833718200-oversight-board-issues-first-expedited-decisions-about-israel-hamas-conflict/">https://www.oversightboard.com/news/1109713833718200-oversight-board-issues-first-expedited-decisions-about-israel-hamas-conflict/</a></li>
+        <li>Oversight Board, "Breast Cancer Awareness Content." <a href="https://www.oversightboard.com/decision/bun-0w49p93l/">https://www.oversightboard.com/decision/bun-0w49p93l/</a></li>
+        <li>Oversight Board, 2024 Annual Report. <a href="https://www.oversightboard.com/wp-content/uploads/2025/08/2024-Annual-Report.pdf">https://www.oversightboard.com/wp-content/uploads/2025/08/2024-Annual-Report.pdf</a></li>
+      </ol>
+
+      <h2>Limitations</h2>
+
+      <ul>
+        <li>This review maps the documented authority/appeals structure only; it does not infer hidden Meta workflows (per instruction).</li>
+        <li>The "users are not systematically told whether a decision was automated or human" finding is an absence-based observation (no documented routine disclosure), not a claim that disclosure never occurs.</li>
+      </ul>
+
+      <h2>What would change the assessment</h2>
+
+      <ul>
+        <li>Toward SEVERE: evidence that human review is the exception rather than the majority for consequential appeals, or that no meaningful contestation path exists for ordinary users.</li>
+        <li>Toward NEUTRAL/PROTECTIVE: evidence that the large majority of consequential appeals reach human review and that users are told when a decision is automated.</li>
+      </ul>
+
+      <div class="cta-row">
+        <a href="/emergence/applied-verification" class="btn">← Applied Verification</a>
+      </div>
+    </div>
+  </section>
+
+  <EmergenceFooter slot="footer" />
+</Base>
+
+<style>
+  .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .claim-block {
+    margin: 1.5rem 0;
+    padding: 1.5rem 2rem;
+    border-left: 3px solid var(--gold);
+    background: var(--bg-card);
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .rating-line {
+    color: var(--gold);
+  }
+
+  .pathway-list,
+  .qa-list,
+  .citation-list {
+    margin: 0 0 1.25rem 1.5rem;
+  }
+
+  .pathway-list li {
+    margin-bottom: 0.4rem;
+  }
+
+  .qa-list li {
+    margin-bottom: 1rem;
+  }
+
+  .q-text {
+    margin-bottom: 0.25rem;
+  }
+
+  .citation-list li {
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    word-break: break-word;
+  }
+
+  ul {
+    margin: 0 0 1.25rem 1.5rem;
+  }
+
+  li {
+    margin-bottom: 0.4rem;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 520px) {
+    .cta-row { flex-direction: column; }
+  }
+</style>
