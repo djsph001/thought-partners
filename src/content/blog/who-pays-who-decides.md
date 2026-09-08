@@ -67,7 +67,7 @@ Utilities and regulators are converging on the same answer to who pays. By one c
 
 What is far less standardized is the answer to who decides: how residents gain meaningful standing over siting, secrecy, environmental review, and the local consequences of a facility. The cost question is increasingly being standardized. The power question is not.
 
-Even Minnesota's answer to the cost question should be held carefully. As of early September 2026, we could not verify from accessible public records that Xcel's very-large-customer tariff or its Google service agreement had received final PUC approval. State law gives the commission until December 15 to establish the very-large-customer class. The design is real. Whether it has survived contact with implementation is not yet something anyone can confirm.
+Even Minnesota's answer to the cost question should be held carefully. On May 15, 2026, the Minnesota Public Utilities Commission approved Xcel Energy's large-load tariff — a standalone customer class for loads at or above 100 megawatts, fifteen-year default contracts, an 80 percent minimum bill, exit provisions, and customer-funded upgrades. The design is no longer merely statutory; it has entered regulatory implementation. Whether it survives contact with an operating project's economics is still an open question.
 
 ---
 
