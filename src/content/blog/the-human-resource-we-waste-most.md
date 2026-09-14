@@ -1,6 +1,6 @@
 ---
 title: "The Human Resource We Waste Most"
-date: 2026-09-14
+date: 2026-09-12
 description: "Stranded cognition is capacity that exists but cannot effectively enter shared use — and we waste it at a scale we rarely measure. The question is whether AI recovers it, or quietly replaces the exercise that keeps it alive."
 author: Dale Joseph
 ---

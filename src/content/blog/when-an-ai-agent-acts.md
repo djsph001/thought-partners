@@ -1,6 +1,6 @@
 ---
 title: "When an AI Agent Acts, Who Knows?"
-date: 2026-09-14T12:00:00
+date: 2026-09-14
 description: "In May 2026, more than two thousand packages hit RubyGems in a weekend — five hundred removed as malicious. The unresolved question isn't who did it, but whether the operator could reconstruct what its agents had done, or could and did not say."
 author: Dale Joseph
 ---
