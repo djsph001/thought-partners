@@ -15,9 +15,9 @@ They were reading the same document.
 
 ## What the court held
 
-The case was *Thomson Reuters v. Ross Intelligence*. ROSS was a legal-research startup that answered plain-language legal questions by returning passages from judicial opinions. To train it, the company used headnotes — the short summaries Westlaw's editors write for individual points of law — and copied the text of about 25,000 of them into its training memos.
+The case was *Thomson Reuters v. Ross Intelligence*. ROSS was a legal-research startup that answered plain-language legal questions by returning passages from judicial opinions. To train it, the company used headnotes — the short summaries Westlaw's editors write for individual points of law.
 
-The Third Circuit held that the headnotes were copyrightable and that ROSS's use of them was not fair use. Its reasoning turned on purpose: ROSS's tool "shares the same ultimate purpose" as Westlaw, "making ROSS's use minimally transformative, at best." The court called the use "highly commercial and minimally transformative," and concluded the copying was not justified.
+The Third Circuit held that the headnotes were copyrightable and that ROSS's use of them was not fair use. Its reasoning turned mainly on purpose and market harm. ROSS's tool "shares the same ultimate purpose" as Westlaw, "making ROSS's use minimally transformative, at best" — a use the court called "highly commercial and minimally transformative." The court also found that ROSS's copying would harm two markets: Westlaw's existing legal-research market, and a "rapidly developing" market for licensing headnotes as AI-training data.
 
 That is a real ruling with real consequences. It is also, in the court's own words, deliberately small.
 
@@ -25,7 +25,7 @@ That is a real ruling with real consequences. It is also, in the court's own wor
 
 ## What the court fenced off
 
-The opinion goes out of its way to say what it is *not* deciding. "This is no more than an ordinary copyright case," it says on page two. ROSS's AI "was not a generative AI" — it "would not create any new expression." When a government filing tried to import the generative-AI arguments from other cases, the court pushed back: the concerns raised in those cases "do not apply here." ROSS "cannot generate original expression."
+The opinion goes out of its way to say what it is *not* deciding. "This is no more than an ordinary copyright case," it says on page two. ROSS's AI "was not a generative AI" — it "would not create any new expression." In a footnote, the court discussed a Justice Department filing from separate OpenAI litigation — not a filing in this case — and said the generative-AI concerns raised there "do not apply here," because ROSS "cannot generate original expression."
 
 The court did not decide whether training a generative model on copyrighted work is fair use. It said so, repeatedly. The generative-AI question is exactly the one the opinion leaves open — and it is the question everyone wanted answered.
 
@@ -45,13 +45,13 @@ Two opposite conclusions. Same opinion.
 
 ## Why the gap matters
 
-The interesting fact is not that the two sides disagree. It is that both of their claims reach past what the court actually said.
+The interesting fact is not that the two sides disagree. It is that both of their claims reach past what the court actually said — though not to the same extent.
 
-The rights-holder reading takes a ruling about a non-generative, same-purpose competitor — a tool that returned other people's text, built by a company set up to compete directly with Westlaw — and turns it into a statement about generative AI in general. The AI-side reading does the mirror image: it takes the court's silence on generative training and reads it as permission.
+The rights-holder reading takes a ruling about a non-generative, same-purpose competitor — a tool that returned other people's text, built by a company set up to compete directly with Westlaw — and turns it into a statement about generative AI in general. One part of that reading has firmer ground: the court did find harm to a developing market for licensing headnotes as training data. But it found that harm for a non-generative competitor whose use it had already called minimally transformative, and it said nothing about what such a market would mean for generative models. The AI-side reading does the mirror image: it takes the court's silence on generative training and reads it as permission.
 
-A single number shows how easily this happens. Thomson Reuters holds roughly 28 million headnotes. ROSS copied the text of about 25,000 of them into its memos. The district court entered judgment on 2,243.
+A single figure shows how easily precision slips. By ROSS's own count, Thomson Reuters holds roughly 28 million headnotes. The opinion is not consistent about the next number. Its account of the facts says ROSS's contractor wrote about 25,000 memos, drawing on thousands of headnotes; its fair-use analysis describes 25,000 headnotes copied into the memos. The two descriptions don't obviously fit together. The district court examined a batch of 2,830 headnotes and held 2,243 of them infringing, on partial summary judgment.
 
-Three numbers, three different things. Twenty-eight million is the size of the corpus. Twenty-five thousand is what ROSS actually copied. Two thousand, two hundred forty-three is the count a court held to be infringing. The smallest number is the one that travels — and it travels attached to the wrong noun, so that "the court found 2,243 headnotes infringing" becomes "ROSS trained on 2,243 headnotes," which is not what happened. The precision is the whole discipline. Lose it, and a technically accurate number becomes a false claim.
+The number that travels is the precise one — 2,243 — and it travels attached to the wrong noun, so that "the court found 2,243 headnotes infringing" becomes "ROSS trained on 2,243 headnotes," which is not what happened. The precision is the whole discipline. Lose it, and a technically accurate number becomes a false claim.
 
 ---
 
@@ -80,3 +80,5 @@ So watch for the same two events each time. What a ruling actually holds, and wh
 ---
 
 *Dale Joseph is the author of* Thought Partners: Preserving Cognitive Sovereignty in the Age of AI *and founder of the Emergence Institute. He worked for years as a consultant helping install hospital networks before turning to writing and systems thinking. He lives in Boynton Beach, Florida.*
+
+**Correction — October 5, 2026:** After checking this essay against the text of the Third Circuit opinion, I revised several passages. The Justice Department filing discussed in footnote 7 was made in separate OpenAI litigation, not in this case. The district court granted partial summary judgment on 2,243 headnotes; it did not enter final judgment. The opinion describes the 25,000 figure inconsistently, as training memos in one place and as copied headnotes in another, and the essay now says so. The essay also now notes that the court found harm to a developing market for licensing headnotes as AI-training data, and the discussion of the rights-holder reading has been adjusted to reflect that. The essay's central point, that the opinion expressly distinguishes generative AI, is unchanged.
