@@ -1,7 +1,7 @@
 ---
 title: "When Does a Layoff Become an AI Layoff?"
 date: 2026-10-19
-description: "When a company cuts thousands of jobs while expanding its use of AI, the headline writes itself. But what evidence would establish that one caused the other — and why is that evidence so often out of public reach?"
+description: "When a company cuts thousands of jobs while expanding its use of AI, the headline writes itself. But what evidence would establish that one caused the other — and why is that evidence so hard to reach?"
 author: Dale Joseph
 ---
 
@@ -77,7 +77,7 @@ Fifth, we considered peer-company restructuring explanations. Walmart publicly d
 
 Those limitations are not evidence that AI was uninvolved. They identify information we would need to make a stronger causal claim.
 
-Our tests were specified and dated before the evidence stage began, although some relevant material was already known when they were formulated. My expectation that the story would contain correlations worth dissecting was recorded retrospectively, not as a pre-registered hypothesis.
+Our tests were specified and dated before the evidence stage began, although some relevant material was already known when they were formulated. One definition was refined after the evidence was reviewed: for the peer-comparison test, "without an AI frame" became "without naming AI as the reason roles were eliminated," after Walmart's rationale named AI without attributing cuts to it. The change is logged. My expectation that the story would contain correlations worth dissecting was recorded retrospectively, not as a pre-registered hypothesis.
 
 Agent-assisted verification supported the source review; human-directed research design, interpretation, and corrections determined the final evidentiary boundaries.
 
@@ -123,5 +123,7 @@ Companies can announce investments, describe efficiencies, and report workforce 
 
 The answer cannot be to assume that every layoff is an AI layoff—or that none is. It must begin with better evidence, independently examinable claims, and the willingness to leave a question unresolved when the available record does not support an answer.
 
+
+**Updated October 19, 2026:** clarified the peer-comparison test's definition of "without an AI frame" after the evidence was reviewed; the change is recorded in the research log.
 
 *Dale Joseph is the author of* Thought Partners: Preserving Cognitive Sovereignty in the Age of AI *and founder of the Emergence Institute. He worked for years as a consultant helping install hospital networks before turning to writing and systems thinking. He lives in Boynton Beach, Florida.*
