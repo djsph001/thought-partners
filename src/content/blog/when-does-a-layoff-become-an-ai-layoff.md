@@ -124,6 +124,6 @@ Companies can announce investments, describe efficiencies, and report workforce 
 The answer cannot be to assume that every layoff is an AI layoff—or that none is. It must begin with better evidence, independently examinable claims, and the willingness to leave a question unresolved when the available record does not support an answer.
 
 
-**Updated October 19, 2026:** clarified the peer-comparison test's definition of "without an AI frame" after the evidence was reviewed; the change is recorded in the research log.
+**Updated October 19, 2026:** clarified the peer-comparison test's definition of "without an AI frame" after the evidence was reviewed; the change is recorded in the internal research log. I read the published page before and after this correction.
 
 *Dale Joseph is the author of* Thought Partners: Preserving Cognitive Sovereignty in the Age of AI *and founder of the Emergence Institute. He worked for years as a consultant helping install hospital networks before turning to writing and systems thinking. He lives in Boynton Beach, Florida.*
