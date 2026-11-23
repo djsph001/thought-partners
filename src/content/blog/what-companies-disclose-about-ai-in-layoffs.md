@@ -141,7 +141,7 @@ The distinction between these stages is part of the research design, not a limit
 
 ## Why the distinction matters
 
-Lawmakers are beginning to ask for more information about technology-related workforce reductions. Connecticut now requires employers filing federal WARN notices whether layoffs are related to AI or another technological change. California's SB 951, signed September 30, 2026, will require additional detail when a reduction is substantially caused by AI or automation, beginning January 1, 2027.
+Lawmakers are beginning to ask for more information about technology-related workforce reductions. Connecticut now requires employers filing federal WARN notices to disclose whether layoffs are related to AI or another technological change. California's SB 951, signed September 30, 2026, will require additional detail when a reduction is substantially caused by AI or automation, beginning January 1, 2027.
 
 Yet additional disclosure does not automatically produce reliable causal evidence. In both approaches, the employer makes the first assessment.
 
