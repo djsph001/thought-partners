@@ -17,6 +17,8 @@ The Emergence Institute is beginning a limited examination of corporate disclosu
 
 **This article publishes our method and predictions, not our findings.**
 
+**Research update — November 24, 2026:** All eleven prospective filing identities have now been resolved and their extracted Item 2.05 sections have undergone technical verification. The evidence package has been frozen. Independent substantive coding and human verification remain pending. No research findings are reported at this stage. [A public hash anchor records the frozen evidence package.](https://emergencecollective.live/8k-item-205-hash-anchor.html)
+
 ## From accountability to measurement
 
 Our October essay, [*The Verification Gap*](/blog/the-verification-gap), examined a governance problem: employers may possess much of the evidence needed to assess their own explanations for workforce reductions. Our earlier investigation, [*When Does a Layoff Become an AI Layoff?*](/blog/when-does-a-layoff-become-an-ai-layoff), traced that difficulty in a single case.
